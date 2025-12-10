@@ -1,0 +1,1538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mentoring Schedule - Mentor | MMS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #f5f7fa;
+            min-height: 100vh;
+            display: flex;
+            color: #333;
+        }
+
+        /* Sidebar Styles - Consistent Blue Theme */
+        .sidebar {
+            width: 260px;
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
+            color: white;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            overflow-y: auto;
+            box-shadow: 2px 0 20px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-section {
+            padding: 24px 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .logo i {
+            font-size: 32px;
+        }
+
+        .logo-text {
+            font-size: 22px;
+        }
+
+        .user-info {
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .user-avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 0 auto 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .user-avatar img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .user-avatar i {
+            color: rgba(255, 255, 255, 0.8);
+            position: relative;
+            z-index: 1;
+        }
+
+        .user-name {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .user-role {
+            font-size: 13px;
+            opacity: 0.8;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 3px 10px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        .nav-menu {
+            list-style: none;
+            padding: 20px 0;
+            flex: 1;
+        }
+
+        .nav-item {
+            margin-bottom: 6px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-left-color: rgba(255, 255, 255, 0.5);
+            padding-left: 24px;
+        }
+
+        .nav-link.active {
+            background: rgba(255, 255, 255, 0.15);
+            border-left-color: white;
+        }
+
+        .nav-link i {
+            margin-right: 12px;
+            font-size: 16px;
+            width: 18px;
+            text-align: center;
+        }
+
+        .nav-text {
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        /* Logout section at bottom of sidebar */
+        .sidebar-footer {
+            margin-top: auto;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logout-item {
+            margin-bottom: 0;
+        }
+
+        .logout-link {
+            display: flex;
+            align-items: center;
+            padding: 16px 20px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .logout-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-left-color: rgba(255, 255, 255, 0.5);
+            padding-left: 24px;
+        }
+
+        .logout-link i {
+            margin-right: 12px;
+            font-size: 16px;
+            width: 18px;
+            text-align: center;
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            flex: 1;
+            margin-left: 260px;
+            min-height: 100vh;
+            background: #f5f7fa;
+            padding: 24px;
+        }
+
+        /* Updated Content Header with Profile Button */
+        .content-header {
+            background: white;
+            padding: 20px 24px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .content-header h1 {
+            font-size: 24px;
+            color: #2d3748;
+            margin-bottom: 4px;
+        }
+
+        .content-header p {
+            color: #718096;
+            font-size: 14px;
+        }
+
+        /* Profile Button Styles */
+        .profile-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .profile-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 16px;
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .profile-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
+        }
+
+        .profile-avatar {
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+        }
+
+        /* Controls Section */
+        .controls {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            border: 2px solid #1a3a8f;
+            background: white;
+            color: #1a3a8f;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 13px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .filter-btn:hover {
+            background: #f8f9ff;
+            transform: translateY(-2px);
+        }
+
+        .filter-btn.active {
+            background: #1a3a8f;
+            color: white;
+        }
+
+        .create-btn {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
+            color: white;
+            padding: 10px 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .create-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
+        }
+
+        /* Table Styles */
+        .sessions-table-container {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            margin-bottom: 24px;
+            overflow-x: auto;
+        }
+
+        .sessions-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            min-width: 800px;
+        }
+
+        .sessions-table th {
+            background: #f8f9ff;
+            padding: 16px 20px;
+            text-align: left;
+            font-weight: 600;
+            color: #2d3748;
+            border-bottom: 2px solid #e2e8f0;
+            position: sticky;
+            top: 0;
+            font-size: 14px;
+            white-space: nowrap;
+        }
+
+        .sessions-table td {
+            padding: 16px 20px;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 14px;
+            line-height: 1.4;
+            vertical-align: middle;
+        }
+
+        .sessions-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Status and Badge Styles */
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            display: inline-block;
+        }
+        
+        .status-upcoming { background: #4CAF50; color: white; }
+        .status-completed { background: #2196F3; color: white; }
+
+        .session-type-badge {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .type-individual { 
+            background: #e3f2fd; 
+            color: #1976d2; 
+            border: 1px solid #bbdefb;
+        }
+        
+        .type-group { 
+            background: #e8f5e8; 
+            color: #388e3c; 
+            border: 1px solid #c8e6c9;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        
+        .action-btn {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 11px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-upload {
+            background: #dcfce7;
+            color: #166534;
+            border: 1px solid #bbf7d0;
+        }
+        .btn-upload:hover {
+            background: #166534;
+            color: white;
+            transform: translateY(-1px);
+        }
+        
+        .btn-delete {
+            background: #fef2f2;
+            color: #dc2626;
+            border: 1px solid #fecaca;
+        }
+        .btn-delete:hover {
+            background: #dc2626;
+            color: white;
+            transform: translateY(-1px);
+        }
+        
+        .btn-view {
+            background: #dbeafe;
+            color: #1e40af;
+            border: 1px solid #bfdbfe;
+        }
+        .btn-view:hover {
+            background: #1e40af;
+            color: white;
+            transform: translateY(-1px);
+        }
+        
+        .btn-materials {
+            background: #f3e8ff;
+            color: #7c3aed;
+            border: 1px solid #e9d5ff;
+        }
+        .btn-materials:hover {
+            background: #7c3aed;
+            color: white;
+            transform: translateY(-1px);
+        }
+
+        /* No Sessions State */
+        .no-sessions {
+            text-align: center;
+            color: #718096;
+            padding: 50px 30px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        
+        .no-sessions h2 {
+            font-size: 20px;
+            margin-bottom: 12px;
+            color: #4a5568;
+        }
+        
+        .no-sessions p {
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        /* Zebra striping for better readability */
+        .sessions-table tbody tr:nth-child(even) {
+            background-color: #fafbfc;
+        }
+
+        /* Hover effects */
+        .sessions-table tbody tr {
+            transition: all 0.3s ease;
+        }
+
+        .sessions-table tbody tr:hover {
+            background-color: #f1f5f9;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Popup Notification Styles */
+        .notification-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 400px;
+        }
+
+        .notification {
+            background: white;
+            border-radius: 8px;
+            padding: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            border-left: 4px solid #4CAF50;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transform: translateX(400px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            max-width: 350px;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .notification.hide {
+            transform: translateX(400px);
+            opacity: 0;
+        }
+
+        .notification.success {
+            border-left-color: #4CAF50;
+            background: linear-gradient(135deg, #f8fff8 0%, #e8f5e8 100%);
+        }
+
+        .notification.error {
+            border-left-color: #f44336;
+            background: linear-gradient(135deg, #fff8f8 0%, #ffebee 100%);
+        }
+
+        .notification.warning {
+            border-left-color: #FF9800;
+            background: linear-gradient(135deg, #fffbf0 0%, #fff3e0 100%);
+        }
+
+        .notification.info {
+            border-left-color: #2196F3;
+            background: linear-gradient(135deg, #f8fdff 0%, #e3f2fd 100%);
+        }
+
+        .notification-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            flex-shrink: 0;
+        }
+
+        .notification.success .notification-icon {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .notification.error .notification-icon {
+            background: #f44336;
+            color: white;
+        }
+
+        .notification.warning .notification-icon {
+            background: #FF9800;
+            color: white;
+        }
+
+        .notification.info .notification-icon {
+            background: #2196F3;
+            color: white;
+        }
+
+        .notification-content {
+            flex: 1;
+        }
+
+        .notification-title {
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 4px;
+            color: #2d3748;
+        }
+
+        .notification-message {
+            font-size: 13px;
+            color: #4a5568;
+            line-height: 1.4;
+        }
+
+        .notification-close {
+            background: none;
+            border: none;
+            color: #718096;
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .notification-close:hover {
+            background: rgba(0, 0, 0, 0.1);
+            color: #2d3748;
+        }
+
+        /* Progress bar for auto-dismiss */
+        .notification-progress {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            background: rgba(0, 0, 0, 0.1);
+            width: 100%;
+            border-radius: 0 0 8px 8px;
+            overflow: hidden;
+        }
+
+        .notification-progress-bar {
+            height: 100%;
+            background: currentColor;
+            opacity: 0.3;
+            width: 100%;
+            transform-origin: left;
+            animation: progressBar 5s linear forwards;
+        }
+
+        @keyframes progressBar {
+            from {
+                transform: scaleX(1);
+            }
+            to {
+                transform: scaleX(0);
+            }
+        }
+
+        /* Popup Window Styles */
+        .popup-window {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 500px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            z-index: 10000;
+            display: none;
+            animation: popupSlideIn 0.3s ease;
+        }
+
+        @keyframes popupSlideIn {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -60%);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%);
+            }
+        }
+
+        .popup-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
+            color: white;
+            border-radius: 12px 12px 0 0;
+        }
+
+        .popup-header h3 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .popup-close {
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            color: white;
+            transition: color 0.3s ease;
+        }
+
+        .popup-close:hover {
+            color: #e2e8f0;
+        }
+
+        .popup-body {
+            padding: 24px;
+        }
+
+        /* Upload Area Styles */
+        .upload-area {
+            border: 2px dashed #cbd5e0;
+            border-radius: 8px;
+            padding: 40px 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            background: #f8fafc;
+            cursor: pointer;
+        }
+
+        .upload-area:hover, .upload-area.drag-over {
+            border-color: #1a3a8f;
+            background: #f0f4ff;
+        }
+
+        .upload-icon {
+            font-size: 48px;
+            color: #cbd5e0;
+            margin-bottom: 16px;
+            transition: color 0.3s ease;
+        }
+
+        .upload-area:hover .upload-icon {
+            color: #1a3a8f;
+        }
+
+        .upload-area h4 {
+            margin: 0 0 8px 0;
+            color: #2d3748;
+            font-size: 16px;
+        }
+
+        .upload-area p {
+            margin: 0 0 16px 0;
+            color: #718096;
+            font-size: 14px;
+        }
+
+        .browse-btn {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .browse-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
+        }
+
+        /* File Info Styles */
+        .file-info {
+            margin-top: 16px;
+            padding: 16px;
+            background: #f7fafc;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .file-preview {
+            width: 60px;
+            height: 60px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+            overflow: hidden;
+        }
+
+        .file-preview img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+        }
+
+        .file-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .file-details span {
+            display: block;
+            font-size: 14px;
+        }
+
+        #fileName {
+            color: #2d3748;
+            font-weight: 600;
+        }
+
+        #fileSize {
+            color: #718096;
+            font-size: 12px;
+        }
+
+        #removeFile {
+            background: #fef2f2;
+            color: #dc2626;
+            border: 1px solid #fecaca;
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.3s ease;
+        }
+
+        #removeFile:hover {
+            background: #dc2626;
+            color: white;
+        }
+
+        /* Popup Actions */
+        .popup-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+            margin-top: 24px;
+            padding-top: 16px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .btn-cancel, .btn-submit {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-cancel {
+            background: #f7fafc;
+            color: #4a5568;
+            border: 1px solid #e2e8f0;
+        }
+
+        .btn-cancel:hover {
+            background: #edf2f7;
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
+            color: white;
+        }
+
+        .btn-submit:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
+        }
+
+        .btn-submit:disabled {
+            background: #cbd5e0;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Overlay for popup */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+            display: none;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 240px;
+            }
+            .main-content {
+                margin-left: 240px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+            .main-content {
+                margin-left: 0;
+                padding: 16px;
+            }
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .filter-buttons {
+                justify-content: center;
+            }
+            .content-header {
+                flex-direction: column;
+                text-align: center;
+                padding: 16px;
+            }
+            
+            /* Responsive design for notifications */
+            .notification-container {
+                bottom: 10px;
+                right: 10px;
+                left: 10px;
+                max-width: none;
+            }
+            
+            .notification {
+                max-width: none;
+            }
+            
+            .sessions-table-container {
+                overflow-x: auto;
+            }
+            
+            .sessions-table th,
+            .sessions-table td {
+                padding: 12px 10px;
+                font-size: 12px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+            
+            .action-btn {
+                text-align: center;
+                justify-content: center;
+            }
+            
+            .popup-window {
+                width: 95%;
+                max-width: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="logo-section">
+            <div class="logo">
+                <i class="fas fa-hands-helping"></i>
+                <span class="logo-text">MMMS</span>
+            </div>
+        </div>
+
+        <div class="user-info">
+            <div class="user-avatar">
+                {% if mentor.profile_picture %}
+                    <img src="{{ mentor.profile_picture.url }}" alt="Profile Picture" id="sidebarProfilePic">
+                    <i class="fas fa-user-tie" id="sidebarProfileIcon" style="display: none;"></i>
+                {% else %}
+                    <i class="fas fa-user-tie" id="sidebarProfileIcon"></i>
+                {% endif %}
+            </div>
+            <div class="user-name">{{ mentor.MentorName }}</div>
+            <div class="user-role">Mentor</div>
+        </div>
+
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="{% url 'mentor_homepage' %}" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    <span class="nav-text">Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'view_assigned_mentees' %}" class="nav-link">
+                    <i class="fas fa-user-graduate"></i>
+                    <span class="nav-text">Mentees</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'mentoring_schedule' %}" class="nav-link active">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span class="nav-text">Schedule</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'activity_report' %}" class="nav-link">
+                    <i class="fas fa-chart-bar"></i>
+                    <span class="nav-text">Reports</span>
+                </a>
+            </li>
+        </ul>
+
+        <!-- Logout section at bottom of sidebar -->
+        <div class="sidebar-footer">
+            <div class="nav-item logout-item">
+                <a href="{% url 'logout' %}" class="logout-link">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span class="nav-text">Logout</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Content Header with Profile Button -->
+        <div class="content-header">
+            <div>
+                <h1>Mentoring Schedule</h1>
+                <p>Manage your mentoring sessions and track progress</p>
+            </div>
+            <div class="profile-section">
+                <a href="{% url 'mentor_update_profile' %}" class="profile-btn">
+                    <div class="profile-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <span>Profile</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Messages (Hidden by default, processed by JavaScript) -->
+        <div class="messages" style="display: none;">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="{% if message.tags == 'error' %}error{% else %}success{% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        <!-- Popup Notifications Container -->
+        <div class="notification-container" id="notificationContainer"></div>
+
+        <!-- Controls Section -->
+        <div class="controls">
+            <div class="filter-buttons">
+                <a href="?time_filter=all" class="filter-btn {% if time_filter == 'all' or not time_filter %}active{% endif %}">All Sessions</a>
+                <a href="?time_filter=upcoming" class="filter-btn {% if time_filter == 'upcoming' %}active{% endif %}">Upcoming</a>
+                <a href="?time_filter=completed" class="filter-btn {% if time_filter == 'completed' %}active{% endif %}">Completed</a>
+            </div>
+            <a href="{% url 'create_mentoring_session' %}" class="create-btn">
+                <i class="fas fa-plus"></i> Create New Session
+            </a>
+        </div>
+
+        {% if sessions_data %}
+        <div class="sessions-table-container">
+            <table class="sessions-table">
+                <thead>
+                    <tr>
+                        <th>Topic</th>
+                        <th>Type</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Location</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for session in sessions_data %}
+                    <tr>
+                        <td>
+                            <strong>{{ session.activity.ActivityName }}</strong>
+                            <!-- REMOVED: Session Completed indicator -->
+                        </td>
+                        <td>
+                            <span class="session-type-badge type-{{ session.mentoring_session.session_type }}">
+                                <i class="fas fa-{% if session.mentoring_session.session_type == 'individual' %}user{% else %}users{% endif %}"></i>
+                                {{ session.mentoring_session.get_session_type_display }}
+                            </span>
+                        </td>
+                        <td>{{ session.activity.Date }}</td>
+                        <td>{{ session.activity.StartTime }} - {{ session.activity.EndTime }}</td>
+                        <td>{{ session.activity.Location }}</td>
+                        <td>
+                            <span class="status-badge 
+                                {% if session.mentoring_session.completed or session.mentoring_session.materials %}status-completed
+                                {% else %}status-upcoming{% endif %}">
+                                {% if session.mentoring_session.completed or session.mentoring_session.materials %}COMPLETED
+                                {% else %}UPCOMING{% endif %}
+                            </span>
+                        </td>
+                        <td>
+                            <div class="action-buttons">
+                                <!-- Upload Materials Button - Show ONLY for upcoming sessions without materials -->
+                                {% if not session.mentoring_session.completed and not session.mentoring_session.materials %}
+                                <button type="button" class="action-btn btn-upload upload-materials-btn" 
+                                        data-activity-id="{{ session.activity.ActivityID }}">
+                                    <i class="fas fa-upload"></i> Upload Materials
+                                </button>
+                                {% endif %}
+                                
+                                <!-- Download Materials Button - Show for completed sessions with materials -->
+                                {% if session.mentoring_session.materials %}
+                                <a href="{{ session.mentoring_session.materials.url }}" target="_blank" class="action-btn btn-materials">
+                                    <i class="fas fa-download"></i> Materials
+                                </a>
+                                {% endif %}
+                                
+                                <!-- REMOVED: View Completed Button - No longer showing this button -->
+                                
+                                <!-- Delete Button - Show for all sessions except completed ones with materials -->
+                                {% if not session.mentoring_session.completed or not session.mentoring_session.materials %}
+                                <form method="POST" action="{% url 'delete_mentoring_session' session.activity.ActivityID %}" style="display: inline;">
+                                    {% csrf_token %}
+                                    <button type="submit" class="action-btn btn-delete" onclick="return confirm('Are you sure you want to delete this session?')">
+                                        <i class="fas fa-trash"></i> Delete
+                                    </button>
+                                </form>
+                                {% endif %}
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="no-sessions">
+            <h2>No Mentoring Sessions Found</h2>
+            <p>You haven't created any mentoring sessions yet.</p>
+            <p>Click "Create New Session" to schedule your first mentoring session.</p>
+            <a href="{% url 'create_mentoring_session' %}" class="create-btn" style="margin-top: 15px; display: inline-block;">
+                <i class="fas fa-plus"></i> Create Your First Session
+            </a>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Upload Materials Popup Window -->
+    <div class="popup-overlay" id="popupOverlay"></div>
+    <div id="uploadMaterialsPopup" class="popup-window">
+        <div class="popup-header">
+            <h3>Upload Session Materials</h3>
+            <span class="popup-close">&times;</span>
+        </div>
+        <div class="popup-body">
+            <form id="uploadMaterialsForm" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="hidden" name="activity_id" id="activityId">
+                
+                <div class="upload-area" id="uploadArea">
+                    <div class="upload-icon">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                    </div>
+                    <h4>Upload File</h4>
+                    <p>Drag and drop files here or click to browse</p>
+                    <input type="file" id="materialsFile" name="session_materials" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.zip,.ppt,.pptx,.xls,.xlsx" style="display: none;">
+                    <button type="button" class="browse-btn" id="browseBtn">Browse Files</button>
+                </div>
+                
+                <div class="file-info" id="fileInfo" style="display: none;">
+                    <div class="file-preview" id="filePreview"></div>
+                    <div class="file-details">
+                        <span id="fileName"></span>
+                        <span id="fileSize"></span>
+                        <button type="button" id="removeFile">Remove</button>
+                    </div>
+                </div>
+                
+                <div class="popup-actions">
+                    <button type="button" class="btn-cancel">CANCEL</button>
+                    <button type="submit" class="btn-submit" disabled>UPLOAD & COMPLETE SESSION</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Auto-refresh for today's sessions
+        {% if time_filter == 'today' %}
+        setTimeout(function() {
+            window.location.reload();
+        }, 300000); // 5 minutes
+        {% endif %}
+        
+        // Add animations to table rows
+        document.addEventListener('DOMContentLoaded', function() {
+            // Update profile picture display in sidebar
+            function updateProfilePictureDisplay() {
+                // Check if profile picture exists in sidebar
+                const sidebarAvatar = document.querySelector('.user-avatar');
+                const sidebarImg = sidebarAvatar.querySelector('img');
+                const sidebarIcon = sidebarAvatar.querySelector('i');
+                
+                // If profile picture exists, show image and hide icon
+                if (sidebarImg && sidebarImg.src) {
+                    sidebarImg.style.display = 'block';
+                    sidebarIcon.style.display = 'none';
+                }
+            }
+            
+            // Initialize profile picture display
+            updateProfilePictureDisplay();
+            
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            // Process Django messages and show as popup notifications
+            processDjangoMessages();
+            
+            // Initialize upload materials functionality
+            initUploadMaterials();
+        });
+
+        // Upload Materials Functionality
+        function initUploadMaterials() {
+            const popup = document.getElementById('uploadMaterialsPopup');
+            const overlay = document.getElementById('popupOverlay');
+            const uploadForm = document.getElementById('uploadMaterialsForm');
+            const uploadArea = document.getElementById('uploadArea');
+            const fileInput = document.getElementById('materialsFile');
+            const browseBtn = document.getElementById('browseBtn');
+            const fileInfo = document.getElementById('fileInfo');
+            const fileName = document.getElementById('fileName');
+            const fileSize = document.getElementById('fileSize');
+            const filePreview = document.getElementById('filePreview');
+            const removeFile = document.getElementById('removeFile');
+            const submitBtn = document.querySelector('.btn-submit');
+            const cancelBtn = document.querySelector('.btn-cancel');
+            const closeBtn = document.querySelector('.popup-close');
+            const activityIdInput = document.getElementById('activityId');
+            
+            let selectedFile = null;
+
+            // Open popup when upload button is clicked
+            document.querySelectorAll('.upload-materials-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const activityId = this.getAttribute('data-activity-id');
+                    activityIdInput.value = activityId;
+                    popup.style.display = 'block';
+                    overlay.style.display = 'block';
+                    resetForm();
+                });
+            });
+
+            // Close popup
+            function closePopup() {
+                popup.style.display = 'none';
+                overlay.style.display = 'none';
+                resetForm();
+            }
+
+            closeBtn.addEventListener('click', closePopup);
+            cancelBtn.addEventListener('click', closePopup);
+            overlay.addEventListener('click', closePopup);
+
+            // Browse files
+            browseBtn.addEventListener('click', () => fileInput.click());
+            uploadArea.addEventListener('click', () => fileInput.click());
+
+            // Drag and drop functionality
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                uploadArea.addEventListener(eventName, preventDefaults, false);
+            });
+
+            function preventDefaults(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+
+            ['dragenter', 'dragover'].forEach(eventName => {
+                uploadArea.addEventListener(eventName, highlight, false);
+            });
+
+            ['dragleave', 'drop'].forEach(eventName => {
+                uploadArea.addEventListener(eventName, unhighlight, false);
+            });
+
+            function highlight() {
+                uploadArea.classList.add('drag-over');
+            }
+
+            function unhighlight() {
+                uploadArea.classList.remove('drag-over');
+            }
+
+            uploadArea.addEventListener('drop', handleDrop, false);
+
+            function handleDrop(e) {
+                const dt = e.dataTransfer;
+                const files = dt.files;
+                handleFiles(files);
+            }
+
+            // File input change
+            fileInput.addEventListener('change', function() {
+                handleFiles(this.files);
+            });
+
+            function handleFiles(files) {
+                if (files.length > 0) {
+                    selectedFile = files[0];
+                    displayFileInfo(selectedFile);
+                    submitBtn.disabled = false;
+                }
+            }
+
+            function displayFileInfo(file) {
+                const fileExtension = file.name.split('.').pop().toLowerCase();
+                const fileSizeMB = (file.size / (1024 * 1024)).toFixed(2);
+                
+                fileName.textContent = file.name;
+                fileSize.textContent = `${fileSizeMB} MB`;
+                
+                // Create preview based on file type
+                filePreview.innerHTML = '';
+                if (['jpg', 'jpeg', 'png', 'gif'].includes(fileExtension)) {
+                    const img = document.createElement('img');
+                    img.src = URL.createObjectURL(file);
+                    filePreview.appendChild(img);
+                } else {
+                    const icon = document.createElement('i');
+                    icon.className = getFileIcon(fileExtension);
+                    icon.style.fontSize = '24px';
+                    icon.style.color = '#718096';
+                    filePreview.appendChild(icon);
+                }
+                
+                fileInfo.style.display = 'block';
+                uploadArea.style.display = 'none';
+            }
+
+            function getFileIcon(extension) {
+                const iconMap = {
+                    'pdf': 'fas fa-file-pdf',
+                    'doc': 'fas fa-file-word',
+                    'docx': 'fas fa-file-word',
+                    'zip': 'fas fa-file-archive',
+                    'jpg': 'fas fa-file-image',
+                    'jpeg': 'fas fa-file-image',
+                    'png': 'fas fa-file-image',
+                    'gif': 'fas fa-file-image',
+                    'ppt': 'fas fa-file-powerpoint',
+                    'pptx': 'fas fa-file-powerpoint',
+                    'xls': 'fas fa-file-excel',
+                    'xlsx': 'fas fa-file-excel'
+                };
+                return iconMap[extension] || 'fas fa-file';
+            }
+
+            // Remove file
+            removeFile.addEventListener('click', function() {
+                resetForm();
+            });
+
+            function resetForm() {
+                selectedFile = null;
+                fileInput.value = '';
+                fileInfo.style.display = 'none';
+                uploadArea.style.display = 'block';
+                submitBtn.disabled = true;
+            }
+
+            // Form submission
+            uploadForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                if (!selectedFile) {
+                    showNotification('Error', 'Please select a file to upload.', 'error');
+                    return;
+                }
+
+                // Create FormData and submit
+                const formData = new FormData();
+                formData.append('csrfmiddlewaretoken', document.querySelector('[name=csrfmiddlewaretoken]').value);
+                formData.append('activity_id', activityIdInput.value);
+                formData.append('session_materials', selectedFile);
+                // Add flag to mark session as completed
+                formData.append('mark_completed', 'true');
+
+                // Show loading state
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Uploading & Completing...';
+                submitBtn.disabled = true;
+
+                fetch('{% url "complete_mentoring_session" "0" %}'.replace('0', activityIdInput.value), {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        showNotification('Success', 'Materials uploaded successfully and session marked as completed!', 'success');
+                        closePopup();
+                        // Reload page to show updated status and materials
+                        setTimeout(() => window.location.reload(), 1500);
+                    } else {
+                        showNotification('Error', data.error || 'Failed to upload materials.', 'error');
+                        submitBtn.innerHTML = 'UPLOAD & COMPLETE SESSION';
+                        submitBtn.disabled = false;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    showNotification('Error', 'An error occurred while uploading materials.', 'error');
+                    submitBtn.innerHTML = 'UPLOAD & COMPLETE SESSION';
+                    submitBtn.disabled = false;
+                });
+            });
+        }
+
+        // Function to show popup notification
+        function showNotification(title, message, type = 'success', duration = 5000) {
+            const container = document.getElementById('notificationContainer');
+            
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            
+            // Map message types to icons
+            const icons = {
+                'success': 'fas fa-check',
+                'error': 'fas fa-exclamation-circle',
+                'warning': 'fas fa-exclamation-triangle',
+                'info': 'fas fa-info-circle'
+            };
+            
+            notification.innerHTML = `
+                <div class="notification-icon">
+                    <i class="${icons[type] || icons.info}"></i>
+                </div>
+                <div class="notification-content">
+                    <div class="notification-title">${title}</div>
+                    <div class="notification-message">${message}</div>
+                </div>
+                <button class="notification-close" onclick="this.parentElement.remove()">
+                    <i class="fas fa-times"></i>
+                </button>
+                <div class="notification-progress">
+                    <div class="notification-progress-bar"></div>
+                </div>
+            `;
+            
+            container.appendChild(notification);
+            
+            // Animate in
+            setTimeout(() => {
+                notification.classList.add('show');
+            }, 100);
+            
+            // Auto remove after duration
+            setTimeout(() => {
+                notification.classList.add('hide');
+                setTimeout(() => {
+                    if (notification.parentElement) {
+                        notification.remove();
+                    }
+                }, 300);
+            }, duration);
+        }
+
+        // Function to process Django messages and convert to popup notifications
+        function processDjangoMessages() {
+            const messagesContainer = document.querySelector('.messages');
+            if (!messagesContainer) return;
+            
+            const messages = messagesContainer.querySelectorAll('.success, .error');
+            
+            messages.forEach(messageEl => {
+                const isError = messageEl.classList.contains('error');
+                const type = isError ? 'error' : 'success';
+                const title = isError ? 'Error' : 'Success';
+                const message = messageEl.textContent.trim();
+                
+                // Show as popup notification
+                showNotification(title, message, type);
+                
+                // Remove the original message after a short delay
+                setTimeout(() => {
+                    messageEl.style.opacity = '0';
+                    messageEl.style.transform = 'translateY(-10px)';
+                    setTimeout(() => {
+                        messageEl.remove();
+                    }, 300);
+                }, 1000);
+            });
+        }
+
+        // Optional: Function to manually show notifications (for other actions)
+        function showSuccess(message, title = 'Success') {
+            showNotification(title, message, 'success');
+        }
+
+        function showError(message, title = 'Error') {
+            showNotification(title, message, 'error');
+        }
+
+        function showWarning(message, title = 'Warning') {
+            showNotification(title, message, 'warning');
+        }
+
+        function showInfo(message, title = 'Information') {
+            showNotification(title, message, 'info');
+        }
+    </script>
+</body>
+</html>

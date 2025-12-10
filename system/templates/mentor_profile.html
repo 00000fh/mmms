@@ -1,0 +1,1692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Profile - Mentor | MMS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #f5f7fa;
+            min-height: 100vh;
+            display: flex;
+            color: #333;
+        }
+
+        /* Sidebar Styles - Consistent Blue Theme */
+        .sidebar {
+            width: 260px;
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
+            color: white;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            overflow-y: auto;
+            box-shadow: 2px 0 20px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-section {
+            padding: 24px 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .logo i {
+            font-size: 32px;
+        }
+
+        .logo-text {
+            font-size: 22px;
+        }
+
+        .user-info {
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .user-avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 0 auto 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .user-avatar img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .user-avatar i {
+            color: rgba(255, 255, 255, 0.8);
+            position: relative;
+            z-index: 1;
+        }
+
+        .user-name {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .user-role {
+            font-size: 13px;
+            opacity: 0.8;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 3px 10px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        .nav-menu {
+            list-style: none;
+            padding: 20px 0;
+            flex: 1;
+        }
+
+        .nav-item {
+            margin-bottom: 6px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-left-color: rgba(255, 255, 255, 0.5);
+            padding-left: 24px;
+        }
+
+        .nav-link.active {
+            background: rgba(255, 255, 255, 0.15);
+            border-left-color: white;
+        }
+
+        .nav-link i {
+            margin-right: 12px;
+            font-size: 16px;
+            width: 18px;
+            text-align: center;
+        }
+
+        .nav-text {
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        /* Logout section at bottom of sidebar */
+        .sidebar-footer {
+            margin-top: auto;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logout-item {
+            margin-bottom: 0;
+        }
+
+        .logout-link {
+            display: flex;
+            align-items: center;
+            padding: 16px 20px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .logout-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-left-color: rgba(255, 255, 255, 0.5);
+            padding-left: 24px;
+        }
+
+        .logout-link i {
+            margin-right: 12px;
+            font-size: 16px;
+            width: 18px;
+            text-align: center;
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            flex: 1;
+            margin-left: 260px;
+            min-height: 100vh;
+            background: #f5f7fa;
+            padding: 24px;
+        }
+
+        /* Updated Content Header with Profile Button */
+        .content-header {
+            background: white;
+            padding: 20px 24px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .content-header h1 {
+            font-size: 24px;
+            color: #2d3748;
+            margin-bottom: 4px;
+        }
+
+        .content-header p {
+            color: #718096;
+            font-size: 14px;
+        }
+
+        /* Profile Button Styles */
+        .profile-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .profile-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 16px;
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .profile-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
+        }
+
+        .profile-avatar {
+            width: 40px;
+            height: 18px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+        }
+
+        /* Form Container */
+        .form-container {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            margin-bottom: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2d3748;
+            font-size: 14px;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #1a3a8f;
+            box-shadow: 0 0 0 3px rgba(26, 58, 143, 0.1);
+        }
+
+        .readonly-field {
+            background: #f8fafc;
+            color: #718096;
+            cursor: not-allowed;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 16px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        /* Updated Profile Picture Section */
+        .profile-picture-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 24px;
+            padding: 24px;
+            background: #f8fafc;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            text-align: center;
+        }
+
+        .profile-picture-header {
+            margin-bottom: 20px;
+        }
+
+        .profile-picture-header h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 4px;
+        }
+
+        .profile-picture-preview {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+        }
+
+        .profile-picture-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .default-profile-preview {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #e2e8f0;
+            color: #718096;
+            font-size: 48px;
+        }
+
+        .add-photo-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(26, 58, 143, 0.2);
+        }
+
+        .add-photo-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(26, 58, 143, 0.3);
+        }
+
+        .add-photo-btn i {
+            font-size: 16px;
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background: white;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active .modal {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .modal-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2d3748;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 18px;
+            color: #718096;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .modal-close:hover {
+            background: #f5f7fa;
+            color: #2d3748;
+        }
+
+        .modal-body {
+            padding: 24px;
+        }
+
+        .modal-footer {
+            padding: 16px 24px;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 3px 6px rgba(26, 58, 143, 0.3);
+        }
+
+        .btn-secondary {
+            background: #e2e8f0;
+            color: #4a5568;
+        }
+
+        .btn-secondary:hover {
+            background: #cbd5e0;
+        }
+
+        .file-upload-area {
+            border: 2px dashed #cbd5e0;
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .file-upload-area:hover {
+            border-color: #1a3a8f;
+            background: #f8fafc;
+        }
+
+        .file-upload-area.dragover {
+            border-color: #1a3a8f;
+            background: #f0f4f8;
+        }
+
+        .file-upload-icon {
+            font-size: 40px;
+            color: #718096;
+            margin-bottom: 12px;
+        }
+
+        .file-upload-text {
+            margin-bottom: 16px;
+        }
+
+        .file-upload-text h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 4px;
+        }
+
+        .file-upload-text p {
+            font-size: 13px;
+            color: #718096;
+        }
+
+        .file-upload-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(26, 58, 143, 0.2);
+        }
+
+        .file-upload-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 3px 6px rgba(26, 58, 143, 0.3);
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .file-upload-info {
+            font-size: 11px;
+            color: #718096;
+            text-align: center;
+            margin-top: 8px;
+        }
+
+        .file-upload-status {
+            font-size: 12px;
+            margin-top: 5px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            display: none;
+        }
+
+        .file-upload-status.success {
+            background: #e8f5e8;
+            color: #2e7d32;
+            display: block;
+        }
+
+        .file-upload-status.error {
+            background: #ffebee;
+            color: #c62828;
+            display: block;
+        }
+
+        /* Section Titles */
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin: 30px 0 16px 0;
+            color: #2d3748;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .section-title i {
+            color: #1a3a8f;
+        }
+
+        /* Info Box */
+        .info-box {
+            background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%);
+            border: 1px solid #4CAF50;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 24px 0;
+            text-align: center;
+        }
+
+        .info-box h3 {
+            margin-top: 0;
+            color: #2e7d32;
+            margin-bottom: 16px;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .stats-container {
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+            gap: 12px;
+        }
+
+        .stat-item {
+            flex: 1;
+            padding: 12px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #1a3a8f;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #718096;
+            font-weight: 500;
+        }
+
+        .note {
+            font-size: 12px;
+            color: #718096;
+            text-align: center;
+            margin-top: 12px;
+            font-style: italic;
+        }
+
+        /* Messages */
+        .messages {
+            margin-bottom: 16px;
+            display: none; /* Hide the message container */
+        }
+
+        .error {
+            background: #ffebee;
+            color: #c62828;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #feb2b2;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .success {
+            background: #e8f5e8;
+            color: #2e7d32;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #c8e6c9;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Form Actions */
+        .form-actions {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+            text-align: center;
+        }
+
+        /* Popup Notification Styles */
+        .notification-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 400px;
+        }
+
+        .notification {
+            background: white;
+            border-radius: 8px;
+            padding: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            border-left: 4px solid #4CAF50;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transform: translateX(400px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            max-width: 350px;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .notification.hide {
+            transform: translateX(400px);
+            opacity: 0;
+        }
+
+        .notification.success {
+            border-left-color: #4CAF50;
+            background: linear-gradient(135deg, #f8fff8 0%, #e8f5e8 100%);
+        }
+
+        .notification.error {
+            border-left-color: #f44336;
+            background: linear-gradient(135deg, #fff8f8 0%, #ffebee 100%);
+        }
+
+        .notification.warning {
+            border-left-color: #FF9800;
+            background: linear-gradient(135deg, #fffbf0 0%, #fff3e0 100%);
+        }
+
+        .notification.info {
+            border-left-color: #2196F3;
+            background: linear-gradient(135deg, #f8fdff 0%, #e3f2fd 100%);
+        }
+
+        .notification-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            flex-shrink: 0;
+        }
+
+        .notification.success .notification-icon {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .notification.error .notification-icon {
+            background: #f44336;
+            color: white;
+        }
+
+        .notification.warning .notification-icon {
+            background: #FF9800;
+            color: white;
+        }
+
+        .notification.info .notification-icon {
+            background: #2196F3;
+            color: white;
+        }
+
+        .notification-content {
+            flex: 1;
+        }
+
+        .notification-title {
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 4px;
+            color: #2d3748;
+        }
+
+        .notification-message {
+            font-size: 13px;
+            color: #4a5568;
+            line-height: 1.4;
+        }
+
+        .notification-close {
+            background: none;
+            border: none;
+            color: #718096;
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .notification-close:hover {
+            background: rgba(0, 0, 0, 0.1);
+            color: #2d3748;
+        }
+
+        /* Progress bar for auto-dismiss */
+        .notification-progress {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            background: rgba(0, 0, 0, 0.1);
+            width: 100%;
+            border-radius: 0 0 8px 8px;
+            overflow: hidden;
+        }
+
+        .notification-progress-bar {
+            height: 100%;
+            background: currentColor;
+            opacity: 0.3;
+            width: 100%;
+            transform-origin: left;
+            animation: progressBar 5s linear forwards;
+        }
+
+        @keyframes progressBar {
+            from {
+                transform: scaleX(1);
+            }
+            to {
+                transform: scaleX(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 240px;
+            }
+            .main-content {
+                margin-left: 240px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+            .main-content {
+                margin-left: 0;
+                padding: 16px;
+            }
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            .stats-container {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .content-header {
+                flex-direction: column;
+                text-align: center;
+                padding: 16px;
+            }
+            
+            .profile-picture-section {
+                padding: 20px;
+            }
+            
+            .profile-picture-preview {
+                width: 120px;
+                height: 120px;
+            }
+            
+            /* Responsive design for notifications */
+            .notification-container {
+                bottom: 10px;
+                right: 10px;
+                left: 10px;
+                max-width: none;
+            }
+            
+            .notification {
+                max-width: none;
+            }
+        }
+
+        /* Loading state */
+        .btn-loading {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        /* Temporary preview state */
+        .temp-preview {
+            border: 2px solid #4CAF50;
+            box-shadow: 0 0 10px rgba(76, 175, 80, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="logo-section">
+            <div class="logo">
+                <i class="fas fa-hands-helping"></i>
+                <span class="logo-text">MMMS</span>
+            </div>
+        </div>
+
+        <div class="user-info">
+            <div class="user-avatar">
+                {% if mentor.profile_picture %}
+                    <img src="{{ mentor.profile_picture.url }}" alt="Profile Picture" id="sidebarProfilePic">
+                    <i class="fas fa-user-tie" id="sidebarProfileIcon" style="display: none;"></i>
+                {% else %}
+                    <i class="fas fa-user-tie" id="sidebarProfileIcon"></i>
+                {% endif %}
+            </div>
+            <div class="user-name">{{ mentor.MentorName }}</div>
+            <div class="user-role">Mentor</div>
+        </div>
+
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="{% url 'mentor_homepage' %}" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    <span class="nav-text">Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'view_assigned_mentees' %}" class="nav-link">
+                    <i class="fas fa-user-graduate"></i>
+                    <span class="nav-text">My Mentees</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'mentoring_schedule' %}" class="nav-link">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span class="nav-text">Schedule</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'activity_report' %}" class="nav-link">
+                    <i class="fas fa-chart-bar"></i>
+                    <span class="nav-text">Reports</span>
+                </a>
+            </li>
+        </ul>
+
+        <!-- Logout section at bottom of sidebar -->
+        <div class="sidebar-footer">
+            <div class="nav-item logout-item">
+                <a href="{% url 'logout' %}" class="logout-link">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span class="nav-text">Logout</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Content Header with Profile Button -->
+        <div class="content-header">
+            <div>
+                <h1>My Profile</h1>
+                <p>Keep your information up to date for better mentorship coordination</p>
+            </div>
+            <div class="profile-section">
+                <a href="{% url 'mentor_update_profile' %}" class="profile-btn">
+                    <div class="profile-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <span>Profile</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Messages - Hidden by default -->
+        <div class="messages" style="display: none;">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="{% if message.tags == 'error' %}error{% else %}success{% endif %}">
+                        <i class="fas fa-{% if message.tags == 'error' %}exclamation-circle{% else %}check-circle{% endif %}"></i>
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        <!-- Popup Notifications Container -->
+        <div class="notification-container" id="notificationContainer"></div>
+
+        <!-- Form Container -->
+        <div class="form-container">
+            <!-- FIXED: Added the hidden file input that will actually be submitted with the form -->
+            <form method="POST" enctype="multipart/form-data" id="profileForm">
+                {% csrf_token %}
+                
+                <!-- Hidden file input that will contain the selected file -->
+                <input type="file" id="profile_picture" name="profile_picture" accept="image/jpeg,image/jpg,image/png,image/gif" style="display: none;">
+                
+                <!-- Updated Profile Picture Section - NOW USING MENTOR MODEL -->
+                <div class="profile-picture-section">
+                    <div class="profile-picture-header">
+                        <h3>Profile Picture</h3>
+                    </div>
+                    
+                    <div class="profile-picture-preview">
+                        {% if mentor.profile_picture %}
+                            <img src="{{ mentor.profile_picture.url }}" alt="Profile Picture" id="profilePreview">
+                        {% else %}
+                            <div class="default-profile-preview" id="profilePreview">
+                                <i class="fas fa-user-tie"></i>
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <button type="button" class="add-photo-btn" id="addPhotoBtn">
+                        <i class="fas fa-plus"></i>
+                        <span>{% if mentor.profile_picture %}Change Photo{% else %}Add Photo{% endif %}</span>
+                    </button>
+                </div>
+
+                <!-- Personal Information Section -->
+                <h2 class="section-title">
+                    <i class="fas fa-user"></i>
+                    Personal Information
+                </h2>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="MentorName">
+                            <i class="fas fa-signature"></i> Full Name
+                        </label>
+                        <input type="text" id="MentorName" name="MentorName" value="{{ mentor.MentorName }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="MentorID">
+                            <i class="fas fa-id-card"></i> Mentor ID
+                        </label>
+                        <input type="text" id="MentorID" name="MentorID" value="{{ mentor.MentorID }}" class="readonly-field" readonly>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="MentorEmail">
+                            <i class="fas fa-envelope"></i> Email
+                        </label>
+                        <input type="email" id="MentorEmail" name="MentorEmail" value="{{ mentor.MentorEmail }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="MentorPhone">
+                            <i class="fas fa-phone"></i> Phone Number
+                        </label>
+                        <input type="text" id="MentorPhone" name="MentorPhone" value="{{ mentor.MentorPhone }}" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="MentorDepartment">
+                            <i class="fas fa-building"></i> Department
+                        </label>
+                        <input type="text" id="MentorDepartment" name="MentorDepartment" value="{{ mentor.MentorDepartment }}" class="readonly-field" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="MentorIC">
+                            <i class="fas fa-fingerprint"></i> IC Number
+                        </label>
+                        <input type="text" id="MentorIC" name="MentorIC" value="{{ mentor.MentorIC }}" class="readonly-field" readonly>
+                    </div>
+                </div>
+
+                <!-- Address Information Section -->
+                <h2 class="section-title">
+                    <i class="fas fa-map-marker-alt"></i>
+                    Address Information
+                </h2>
+
+                <div class="form-group">
+                    <label for="MentorAddress">
+                        <i class="fas fa-home"></i> Address
+                    </label>
+                    <textarea id="MentorAddress" name="MentorAddress" rows="3" required>{{ mentor.MentorAddress }}</textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="MentorCity">
+                            <i class="fas fa-city"></i> City
+                        </label>
+                        <input type="text" id="MentorCity" name="MentorCity" value="{{ mentor.MentorCity }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="MentorState">
+                            <i class="fas fa-map"></i> State
+                        </label>
+                        <input type="text" id="MentorState" name="MentorState" value="{{ mentor.MentorState }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="MentorPostcode">
+                            <i class="fas fa-mail-bulk"></i> Postcode
+                        </label>
+                        <input type="text" id="MentorPostcode" name="MentorPostcode" value="{{ mentor.MentorPostcode }}" required>
+                    </div>
+                </div>
+
+                <!-- Background Information Section -->
+                <h2 class="section-title">
+                    <i class="fas fa-user-friends"></i>
+                    Background Information
+                </h2>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="MentorRace">
+                            <i class="fas fa-globe-asia"></i> Race
+                        </label>
+                        <input type="text" id="MentorRace" name="MentorRace" value="{{ mentor.MentorRace }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="MentorReligion">
+                            <i class="fas fa-pray"></i> Religion
+                        </label>
+                        <input type="text" id="MentorReligion" name="MentorReligion" value="{{ mentor.MentorReligion }}" required>
+                    </div>
+                </div>
+
+                <!-- Mentorship Capacity Section -->
+                <h2 class="section-title">
+                    <i class="fas fa-users"></i>
+                    Mentorship Capacity
+                </h2>
+
+                <div class="info-box">
+                    <h3>
+                        <i class="fas fa-chart-line"></i>
+                        Mentorship Information
+                    </h3>
+                    <div class="stats-container">
+                        <div class="stat-item">
+                            <div class="stat-value">{{ mentor.CurrentMentees }}</div>
+                            <div class="stat-label">Current Mentees</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">{{ mentor.MaxMentees }}</div>
+                            <div class="stat-label">Maximum Capacity</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">{{ mentor.vacancy_count }}</div>
+                            <div class="stat-label">Available Slots</div>
+                        </div>
+                    </div>
+                    <div class="note">
+                        <i class="fas fa-info-circle"></i>
+                        Note: Mentorship capacity is managed by the Head Mentor
+                    </div>
+                </div>
+
+                <!-- Form Actions -->
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary" id="updateProfileBtn">
+                        <i class="fas fa-save"></i> Update Profile
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Profile Picture Upload Modal -->
+    <div class="modal-overlay" id="profilePictureModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>Upload Profile Picture</h2>
+                <button class="modal-close" id="modalClose">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="file-upload-area" id="fileUploadArea">
+                    <div class="file-upload-icon">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                    </div>
+                    <div class="file-upload-text">
+                        <h3>Upload new picture</h3>
+                        <p>Supported formats: JPG, PNG, GIF | Max size: 15MB</p>
+                    </div>
+                    <button class="file-upload-btn" id="fileUploadBtn">
+                        <i class="fas fa-folder-open"></i>
+                        <span>Choose File</span>
+                    </button>
+                    <input type="file" id="modalProfilePicture" accept="image/jpeg,image/jpg,image/png,image/gif" class="file-input">
+                    <div class="file-upload-info">Drag & drop your image here or click to browse</div>
+                </div>
+                <div class="file-upload-status" id="fileUploadStatus"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="modalCancel">Cancel</button>
+                <button class="btn btn-primary" id="modalSave" disabled>Upload Picture</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    // Add animations to form elements
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log("Page loaded - initializing form");
+        
+        // Hide the messages container completely
+        const messagesContainer = document.querySelector('.messages');
+        if (messagesContainer) {
+            messagesContainer.style.display = 'none';
+        }
+        
+        const formGroups = document.querySelectorAll('.form-group');
+        formGroups.forEach((group, index) => {
+            group.style.opacity = '0';
+            group.style.transform = 'translateY(20px)';
+            group.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+            
+            setTimeout(() => {
+                group.style.opacity = '1';
+                group.style.transform = 'translateY(0)';
+            }, 100);
+        });
+
+        // Add animation to profile picture section
+        const profileSection = document.querySelector('.profile-picture-section');
+        profileSection.style.opacity = '0';
+        profileSection.style.transform = 'scale(0.9)';
+        profileSection.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        
+        setTimeout(() => {
+            profileSection.style.opacity = '1';
+            profileSection.style.transform = 'scale(1)';
+        }, 200);
+        
+        // Process Django messages and show as popup notifications
+        processDjangoMessages();
+        
+        // Form submission handler
+        document.getElementById('profileForm').addEventListener('submit', function(e) {
+            console.log("Form submission started");
+            
+            // Validate form before submission
+            if (!validateForm()) {
+                e.preventDefault();
+                showNotification('Validation Error', 'Please fill in all required fields correctly.', 'error', 3000);
+                return;
+            }
+            
+            // Show loading state on button
+            const submitBtn = document.getElementById('updateProfileBtn');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Updating...';
+            submitBtn.disabled = true;
+            submitBtn.classList.add('btn-loading');
+            
+            // Allow the form to submit normally to Django
+            
+            // Optional: Add a timeout to re-enable button if submission takes too long
+            setTimeout(() => {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+                submitBtn.classList.remove('btn-loading');
+            }, 5000);
+        });
+
+        // Profile Picture Modal Functionality
+        const profilePictureModal = document.getElementById('profilePictureModal');
+        const addPhotoBtn = document.getElementById('addPhotoBtn');
+        const modalClose = document.getElementById('modalClose');
+        const modalCancel = document.getElementById('modalCancel');
+        const modalSave = document.getElementById('modalSave');
+        const fileInput = document.getElementById('profile_picture'); // Main form file input
+        const modalFileInput = document.getElementById('modalProfilePicture'); // Modal file input
+        const fileUploadBtn = document.getElementById('fileUploadBtn');
+        const fileUploadArea = document.getElementById('fileUploadArea');
+        const fileUploadStatus = document.getElementById('fileUploadStatus');
+        let profilePreview = document.getElementById('profilePreview');
+        let selectedFile = null;
+        let tempPreviewImage = null; // Store temporary preview image
+
+        // Open modal when "Add Photo" button is clicked
+        addPhotoBtn.addEventListener('click', function() {
+            profilePictureModal.classList.add('active');
+        });
+
+        // Close modal when close button is clicked
+        modalClose.addEventListener('click', function() {
+            profilePictureModal.classList.remove('active');
+            resetModal();
+        });
+
+        // Close modal when cancel button is clicked
+        modalCancel.addEventListener('click', function() {
+            profilePictureModal.classList.remove('active');
+            resetModal();
+        });
+
+        // Close modal when clicking outside the modal
+        profilePictureModal.addEventListener('click', function(e) {
+            if (e.target === profilePictureModal) {
+                profilePictureModal.classList.remove('active');
+                resetModal();
+            }
+        });
+
+        // Open file dialog when upload button is clicked
+        fileUploadBtn.addEventListener('click', function() {
+            modalFileInput.click();
+        });
+
+        // Handle file selection in modal
+        modalFileInput.addEventListener('change', function(e) {
+            if (e.target.files.length > 0) {
+                selectedFile = e.target.files[0];
+                handleFileSelection(selectedFile);
+            }
+        });
+
+        // Drag and drop functionality
+        fileUploadArea.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            fileUploadArea.classList.add('dragover');
+        });
+
+        fileUploadArea.addEventListener('dragleave', function() {
+            fileUploadArea.classList.remove('dragover');
+        });
+
+        fileUploadArea.addEventListener('drop', function(e) {
+            e.preventDefault();
+            fileUploadArea.classList.remove('dragover');
+            
+            if (e.dataTransfer.files.length > 0) {
+                selectedFile = e.dataTransfer.files[0];
+                modalFileInput.files = e.dataTransfer.files;
+                handleFileSelection(selectedFile);
+            }
+        });
+
+        // Save button functionality - FIXED: Now properly sets the file to the main form input
+        modalSave.addEventListener('click', function() {
+            if (selectedFile) {
+                // Create a new FileList and set it to the main form file input
+                const dataTransfer = new DataTransfer();
+                dataTransfer.items.add(selectedFile);
+                fileInput.files = dataTransfer.files;
+                
+                console.log("File set to main form input:", fileInput.files[0].name);
+                
+                // Update the profile preview
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    updateProfilePreview(e.target.result);
+                    
+                    // Store the temporary preview image
+                    tempPreviewImage = e.target.result;
+                };
+                reader.readAsDataURL(selectedFile);
+                
+                // Close the modal
+                profilePictureModal.classList.remove('active');
+                resetModal();
+            }
+        });
+
+        // Function to update main profile preview
+        function updateProfilePreview(imageSrc) {
+            if (profilePreview.classList.contains('default-profile-preview')) {
+                const img = document.createElement('img');
+                img.src = imageSrc;
+                img.alt = 'Profile Picture Preview';
+                img.style.width = '100%';
+                img.style.height = '100%';
+                img.style.objectFit = 'cover';
+                
+                profilePreview.parentNode.replaceChild(img, profilePreview);
+                profilePreview = img;
+            } else {
+                profilePreview.src = imageSrc;
+            }
+            
+            // Add temporary preview styling
+            profilePreview.classList.add('temp-preview');
+            
+            // Update button text
+            addPhotoBtn.innerHTML = '<i class="fas fa-sync-alt"></i><span>Change Photo</span>';
+        }
+
+        // Function to handle file selection
+        function handleFileSelection(file) {
+            fileUploadStatus.className = 'file-upload-status';
+            fileUploadStatus.textContent = '';
+            
+            // Validate file
+            if (!validateFile(file)) {
+                modalSave.disabled = true;
+                return;
+            }
+            
+            // Show file info
+            fileUploadStatus.className = 'file-upload-status success';
+            fileUploadStatus.innerHTML = `<i class="fas fa-check"></i> Selected: ${file.name} (${formatFileSize(file.size)})`;
+            
+            // Enable save button
+            modalSave.disabled = false;
+            
+            // Update the file upload area to show preview
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                fileUploadArea.innerHTML = `
+                    <div class="file-upload-icon">
+                        <i class="fas fa-check-circle" style="color: #4CAF50;"></i>
+                    </div>
+                    <div class="file-upload-text">
+                        <h3>File Selected</h3>
+                        <p>${file.name} (${formatFileSize(file.size)})</p>
+                    </div>
+                    <button class="file-upload-btn" id="changeFileBtn">
+                        <i class="fas fa-sync-alt"></i>
+                        <span>Change File</span>
+                    </button>
+                `;
+                
+                // Add event listener to the new change file button
+                document.getElementById('changeFileBtn').addEventListener('click', function() {
+                    modalFileInput.click();
+                });
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // File validation function
+        function validateFile(file) {
+            // Check file size (15MB limit)
+            if (file.size > 15 * 1024 * 1024) {
+                fileUploadStatus.className = 'file-upload-status error';
+                fileUploadStatus.innerHTML = '<i class="fas fa-exclamation-triangle"></i> File too large (max 15MB)';
+                modalFileInput.value = '';
+                return false;
+            }
+            
+            // Check file type
+            const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
+            if (!allowedTypes.includes(file.type)) {
+                fileUploadStatus.className = 'file-upload-status error';
+                fileUploadStatus.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Invalid file type (use JPG, PNG, GIF)';
+                modalFileInput.value = '';
+                return false;
+            }
+            
+            return true;
+        }
+
+        // Function to reset modal to initial state
+        function resetModal() {
+            selectedFile = null;
+            modalFileInput.value = '';
+            modalSave.disabled = true;
+            fileUploadStatus.className = 'file-upload-status';
+            fileUploadStatus.textContent = '';
+            
+            // Reset file upload area
+            fileUploadArea.innerHTML = `
+                <div class="file-upload-icon">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                </div>
+                <div class="file-upload-text">
+                    <h3>Upload new picture</h3>
+                    <p>Supported formats: JPG, PNG, GIF | Max size: 15MB</p>
+                </div>
+                <button class="file-upload-btn" id="fileUploadBtn">
+                    <i class="fas fa-folder-open"></i>
+                    <span>Choose File</span>
+                </button>
+                <div class="file-upload-info">Drag & drop your image here or click to browse</div>
+            `;
+            
+            // Reattach event listener to the new button
+            document.getElementById('fileUploadBtn').addEventListener('click', function() {
+                modalFileInput.click();
+            });
+        }
+
+        // Helper function to format file size
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        // Add input validation styling
+        const inputs = document.querySelectorAll('input, select, textarea');
+        
+        inputs.forEach(input => {
+            // Add focus effect
+            input.addEventListener('focus', function() {
+                this.style.borderColor = '#1a3a8f';
+                this.style.boxShadow = '0 0 0 3px rgba(26, 58, 143, 0.1)';
+            });
+            
+            // Remove focus effect
+            input.addEventListener('blur', function() {
+                if (this.checkValidity()) {
+                    this.style.borderColor = '#e2e8f0';
+                    this.style.boxShadow = 'none';
+                }
+            });
+            
+            // Real-time validation
+            input.addEventListener('input', function() {
+                if (this.checkValidity()) {
+                    this.style.borderColor = '#4CAF50';
+                    this.style.boxShadow = '0 0 0 3px rgba(76, 175, 80, 0.1)';
+                } else {
+                    this.style.borderColor = '#f44336';
+                    this.style.boxShadow = '0 0 0 3px rgba(244, 67, 54, 0.1)';
+                }
+            });
+        });
+    });
+
+    // Function to show popup notification
+    function showNotification(title, message, type = 'success', duration = 5000) {
+        const container = document.getElementById('notificationContainer');
+        
+        // Create notification element
+        const notification = document.createElement('div');
+        notification.className = `notification ${type}`;
+        
+        // Map message types to icons
+        const icons = {
+            'success': 'fas fa-check',
+            'error': 'fas fa-exclamation-circle',
+            'warning': 'fas fa-exclamation-triangle',
+            'info': 'fas fa-info-circle'
+        };
+        
+        notification.innerHTML = `
+            <div class="notification-icon">
+                <i class="${icons[type] || icons.info}"></i>
+            </div>
+            <div class="notification-content">
+                <div class="notification-title">${title}</div>
+                <div class="notification-message">${message}</div>
+            </div>
+            <button class="notification-close" onclick="this.parentElement.remove()">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="notification-progress">
+                <div class="notification-progress-bar"></div>
+            </div>
+        `;
+        
+        container.appendChild(notification);
+        
+        // Animate in
+        setTimeout(() => {
+            notification.classList.add('show');
+        }, 100);
+        
+        // Auto remove after duration
+        setTimeout(() => {
+            notification.classList.add('hide');
+            setTimeout(() => {
+                if (notification.parentElement) {
+                    notification.remove();
+                }
+            }, 300);
+        }, duration);
+    }
+
+    // Function to process Django messages and convert to popup notifications
+    function processDjangoMessages() {
+        const messagesContainer = document.querySelector('.messages');
+        if (!messagesContainer) return;
+        
+        const messages = messagesContainer.querySelectorAll('.success, .error');
+        
+        messages.forEach(messageEl => {
+            const isError = messageEl.classList.contains('error');
+            const type = isError ? 'error' : 'success';
+            const title = isError ? 'Error' : 'Success';
+            const message = messageEl.textContent.trim();
+            
+            // Skip the "Profile picture updated successfully!" message
+            if (message.includes('Profile picture updated successfully')) {
+                // Remove this message without showing notification
+                setTimeout(() => {
+                    messageEl.style.opacity = '0';
+                    messageEl.style.transform = 'translateY(-10px)';
+                    setTimeout(() => {
+                        messageEl.remove();
+                    }, 300);
+                }, 100);
+                return;
+            }
+            
+            // Show as popup notification for other messages
+            showNotification(title, message, type);
+            
+            // Remove the original message after a short delay
+            setTimeout(() => {
+                messageEl.style.opacity = '0';
+                messageEl.style.transform = 'translateY(-10px)';
+                setTimeout(() => {
+                    messageEl.remove();
+                }, 300);
+            }, 1000);
+        });
+    }
+
+    // Enhanced form validation - Only validates required fields
+    function validateForm() {
+        const form = document.getElementById('profileForm');
+        const requiredFields = form.querySelectorAll('[required]');
+        let isValid = true;
+        let firstErrorField = null;
+        
+        requiredFields.forEach(field => {
+            // Skip readonly fields even if they have required attribute
+            if (field.classList.contains('readonly-field')) {
+                return;
+            }
+            
+            if (!field.value.trim()) {
+                field.style.borderColor = '#f44336';
+                field.style.boxShadow = '0 0 0 3px rgba(244, 67, 54, 0.1)';
+                isValid = false;
+                
+                // Store first error field for scrolling
+                if (!firstErrorField) {
+                    firstErrorField = field;
+                }
+            } else {
+                field.style.borderColor = '#e2e8f0';
+                field.style.boxShadow = 'none';
+            }
+        });
+        
+        // Scroll to first error field
+        if (firstErrorField) {
+            firstErrorField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            firstErrorField.focus();
+        }
+        
+        return isValid;
+    }
+</script>
+</body>
+</html>

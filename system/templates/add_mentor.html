@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if mentor %}Edit Mentor{% else %}Add New Mentor{% endif %} | MMS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #f5f7fa;
+            min-height: 100vh;
+            display: flex;
+            color: #333;
+        }
+
+        /* Sidebar Styles - Consistent with previous pages */
+        .sidebar {
+            width: 260px;
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
+            color: white;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            overflow-y: auto;
+            box-shadow: 2px 0 20px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-section {
+            padding: 24px 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .logo i {
+            font-size: 32px;
+        }
+
+        .logo-text {
+            font-size: 22px;
+        }
+
+        .user-info {
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .user-avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 0 auto 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .user-name {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .user-role {
+            font-size: 13px;
+            opacity: 0.8;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 3px 10px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        .nav-menu {
+            list-style: none;
+            padding: 20px 0;
+            flex: 1;
+        }
+
+        .nav-item {
+            margin-bottom: 6px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-left-color: rgba(255, 255, 255, 0.5);
+            padding-left: 24px;
+        }
+
+        .nav-link.active {
+            background: rgba(255, 255, 255, 0.15);
+            border-left-color: white;
+        }
+
+        .nav-link i {
+            margin-right: 12px;
+            font-size: 16px;
+            width: 18px;
+            text-align: center;
+        }
+
+        .nav-text {
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        /* Logout section at bottom of sidebar */
+        .sidebar-footer {
+            margin-top: auto;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logout-item {
+            margin-bottom: 0;
+        }
+
+        .logout-link {
+            display: flex;
+            align-items: center;
+            padding: 16px 20px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .logout-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-left-color: rgba(255, 255, 255, 0.5);
+            padding-left: 24px;
+        }
+
+        .logout-link i {
+            margin-right: 12px;
+            font-size: 16px;
+            width: 18px;
+            text-align: center;
+        }
+
+        /* Main Content Styles - Consistent spacing */
+        .main-content {
+            flex: 1;
+            margin-left: 260px;
+            min-height: 100vh;
+            background: #f5f7fa;
+            padding: 24px;
+        }
+
+        /* Updated Content Header with Profile Button */
+        .content-header {
+            background: white;
+            padding: 20px 24px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .header-left {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .header-right {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .content-header h1 {
+            font-size: 24px;
+            color: #2d3748;
+            margin-bottom: 4px;
+        }
+
+        .content-header p {
+            color: #718096;
+            font-size: 14px;
+        }
+
+        /* Profile Button Styles */
+        .profile-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .profile-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 16px;
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .profile-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
+        }
+
+        .profile-avatar {
+            width: 40px;
+            height: 18px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+        }
+
+        /* Form Container - Consistent spacing */
+        .form-container {
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #1a3a8f;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-title i {
+            color: #1a3a8f;
+        }
+
+        /* Form Styles - Consistent spacing */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2d3748;
+            font-size: 13px;
+        }
+
+        .form-group label .required {
+            color: #d32f2f;
+            margin-left: 2px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 13px;
+            transition: all 0.3s ease;
+            background: #f8f9ff;
+        }
+
+        .form-control:focus {
+            border-color: #1a3a8f;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(26, 58, 143, 0.1);
+            background: white;
+        }
+
+        .form-select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23718096' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            background-size: 12px;
+        }
+
+        .help-text {
+            font-size: 12px;
+            color: #718096;
+            margin-top: 6px;
+            line-height: 1.4;
+        }
+
+        /* Info Card - Consistent spacing */
+        .info-card {
+            background: linear-gradient(135deg, #e8f0ff 0%, #f0f4ff 100%);
+            border: 1px solid #1a3a8f;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .info-card-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .info-card-icon {
+            width: 36px;
+            height: 36px;
+            background: #1a3a8f;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 16px;
+        }
+
+        .info-card-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #2d3748;
+        }
+
+        .info-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .info-list li {
+            padding: 6px 0;
+            border-bottom: 1px solid rgba(26, 58, 143, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+        }
+
+        .info-list li:last-child {
+            border-bottom: none;
+        }
+
+        .info-list i {
+            color: #1a3a8f;
+            font-size: 13px;
+            width: 14px;
+        }
+
+        /* Buttons - Consistent with previous pages */
+        .btn {
+            padding: 10px 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
+        }
+
+        .btn-secondary {
+            background: #718096;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #4a5568;
+            transform: translateY(-2px);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%);
+            color: white;
+        }
+
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(46, 125, 50, 0.3);
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 2px solid #e2e8f0;
+        }
+
+        /* Validation States */
+        .form-control.error {
+            border-color: #d32f2f;
+            background: #fff5f5;
+        }
+
+        .form-control.success {
+            border-color: #2e7d32;
+            background: #f0fff4;
+        }
+
+        /* Toast Notification Styles */
+        .toast-container {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            max-width: 400px;
+        }
+
+        .toast {
+            background: white;
+            border-radius: 8px;
+            padding: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            transform: translateX(100%);
+            opacity: 0;
+            transition: all 0.3s ease;
+            border-left: 4px solid;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .toast-success {
+            border-left-color: #38a169;
+        }
+
+        .toast-error {
+            border-left-color: #e53e3e;
+        }
+
+        .toast-icon {
+            font-size: 18px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .toast-success .toast-icon {
+            color: #38a169;
+        }
+
+        .toast-error .toast-icon {
+            color: #e53e3e;
+        }
+
+        .toast-content {
+            flex: 1;
+        }
+
+        .toast-title {
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 4px;
+            color: #2d3748;
+        }
+
+        .toast-message {
+            font-size: 13px;
+            color: #4a5568;
+            line-height: 1.4;
+        }
+
+        .toast-close {
+            background: none;
+            border: none;
+            font-size: 14px;
+            color: #718096;
+            cursor: pointer;
+            padding: 0;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .toast-close:hover {
+            background: #f7fafc;
+            color: #2d3748;
+        }
+
+        /* Responsive Design - Consistent with previous pages */
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 240px;
+            }
+            .main-content {
+                margin-left: 240px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+            .main-content {
+                margin-left: 0;
+                padding: 16px;
+            }
+            .content-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            .header-right {
+                justify-content: center;
+                width: 100%;
+            }
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+            .form-actions {
+                flex-direction: column;
+            }
+            .form-actions .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            /* Toast adjustments for mobile */
+            .toast-container {
+                bottom: 16px;
+                right: 16px;
+                left: 16px;
+                max-width: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-right {
+                flex-direction: column;
+                width: 100%;
+            }
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="logo-section">
+            <div class="logo">
+                <i class="fas fa-hands-helping"></i>
+                <span class="logo-text">MMS</span>
+            </div>
+        </div>
+
+        <div class="user-info">
+            <div class="user-avatar">
+                <i class="fas fa-user-shield"></i>
+            </div>
+            <div class="user-name">Head of Mentor Mentee</div>
+            <div class="user-role">Administrator</div>
+        </div>
+
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="{% url 'head_homepage' %}" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    <span class="nav-text">Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'manage_mentees' %}" class="nav-link">
+                    <i class="fas fa-user-graduate"></i>
+                    <span class="nav-text">Mentee Records</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'manage_mentors' %}" class="nav-link active">
+                    <i class="fas fa-user-tie"></i>
+                    <span class="nav-text">Mentor Records</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'mentor_assignments' %}" class="nav-link">
+                    <i class="fas fa-users"></i>
+                    <span class="nav-text">Mentor Assignments</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'mentor_mentee_activities' %}" class="nav-link">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span class="nav-text">Activities</span>
+                </a>
+            </li>
+        </ul>
+
+        <!-- Logout section at bottom of sidebar -->
+        <div class="sidebar-footer">
+            <div class="nav-item logout-item">
+                <a href="{% url 'logout' %}" class="logout-link">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span class="nav-text">Logout</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Content Header with Profile Button -->
+        <div class="content-header">
+            <div class="header-left">
+                <h1>
+                    <i class="fas {% if mentor %}fa-edit{% else %}fa-user-plus{% endif %}"></i>
+                    {% if mentor %}Edit Mentor{% else %}Add New Mentor{% endif %}
+                </h1>
+                <p>
+                    {% if mentor %}
+                        Update mentor information and account details
+                    {% else %}
+                        Create a new mentor account with automatic user profile generation
+                    {% endif %}
+                </p>
+            </div>
+            <div class="header-right">
+                <a href="{% url 'manage_mentors' %}" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i>
+                    Back to Mentors
+                </a>
+                <div class="profile-section">
+                    <button class="profile-btn">
+                        <div class="profile-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <span>Profile</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form Container -->
+        <div class="form-container">
+            <form method="POST" id="mentorForm">
+                {% csrf_token %}
+                
+                <h2 class="section-title">
+                    <i class="fas fa-id-card"></i>
+                    Basic Information
+                </h2>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="MentorID">
+                            Mentor ID <span class="required">*</span>
+                        </label>
+                        <input type="text" id="MentorID" name="MentorID" 
+                               value="{% if mentor %}{{ mentor.MentorID }}{% else %}{{ request.POST.MentorID }}{% endif %}" 
+                               class="form-control" required pattern="ST[A-Z]{1,2}\d{3}"
+                               placeholder="e.g., STA001, STB015">
+                        <div class="help-text">
+                            Format: ST + Department Code + 3-digit number<br>
+                            Examples: STA001 (Accounting), STB015 (Business), STGS008 (General Studies)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="MentorName">
+                            Full Name <span class="required">*</span>
+                        </label>
+                        <input type="text" id="MentorName" name="MentorName" 
+                               value="{% if mentor %}{{ mentor.MentorName }}{% else %}{{ request.POST.MentorName }}{% endif %}" 
+                               class="form-control" required
+                               placeholder="Enter full name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="MentorEmail">
+                            Email Address <span class="required">*</span>
+                        </label>
+                        <input type="email" id="MentorEmail" name="MentorEmail" 
+                               value="{% if mentor %}{{ mentor.MentorEmail }}{% else %}{{ request.POST.MentorEmail }}{% endif %}" 
+                               class="form-control" required
+                               placeholder="mentor@college.edu">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="MentorIC">
+                            IC Number <span class="required">*</span>
+                        </label>
+                        <input type="text" id="MentorIC" name="MentorIC" 
+                               value="{% if mentor %}{{ mentor.MentorIC }}{% else %}{{ request.POST.MentorIC }}{% endif %}"
+                               class="form-control" required pattern="[0-9]{12}"
+                               maxlength="12"
+                               placeholder="12-digit IC number">
+                        <div class="help-text">
+                            12-digit IC number (without dashes). This will be used as the initial password.
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="MentorPhone">Phone Number</label>
+                        <input type="text" id="MentorPhone" name="MentorPhone" 
+                               value="{% if mentor %}{{ mentor.MentorPhone }}{% else %}{{ request.POST.MentorPhone }}{% endif %}"
+                               class="form-control"
+                               placeholder="Phone number (optional)">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="MentorDepartment">
+                            Department <span class="required">*</span>
+                        </label>
+                        <select id="MentorDepartment" name="MentorDepartment" class="form-control form-select" required>
+                            <option value="">Select Department</option>
+                            <option value="Accounting Department" {% if mentor.MentorDepartment == 'Accounting Department' or request.POST.MentorDepartment == 'Accounting Department' %}selected{% endif %}>Accounting Department</option>
+                            <option value="Business Studies Department" {% if mentor.MentorDepartment == 'Business Studies Department' or request.POST.MentorDepartment == 'Business Studies Department' %}selected{% endif %}>Business Studies Department</option>
+                            <option value="Quantitative Science Department" {% if mentor.MentorDepartment == 'Quantitative Science Department' or request.POST.MentorDepartment == 'Quantitative Science Department' %}selected{% endif %}>Quantitative Science Department</option>
+                            <option value="Landscape and Horticulture Department" {% if mentor.MentorDepartment == 'Landscape and Horticulture Department' or request.POST.MentorDepartment == 'Landscape and Horticulture Department' %}selected{% endif %}>Landscape and Horticulture Department</option>
+                            <option value="General Studies" {% if mentor.MentorDepartment == 'General Studies' or request.POST.MentorDepartment == 'General Studies' %}selected{% endif %}>General Studies</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="MaxMentees">
+                            Maximum Mentees <span class="required">*</span>
+                        </label>
+                        <input type="number" id="MaxMentees" name="MaxMentees" 
+                               value="{% if mentor %}{{ mentor.MaxMentees }}{% else %}{{ request.POST.MaxMentees|default:'20' }}{% endif %}" 
+                               class="form-control" min="1" max="50" required>
+                        <div class="help-text">Maximum number of mentees this mentor can handle (recommended: 15-20)</div>
+                    </div>
+                </div>
+
+                <!-- Login Information Card -->
+                <div class="info-card">
+                    <div class="info-card-header">
+                        <div class="info-card-icon">
+                            <i class="fas fa-key"></i>
+                        </div>
+                        <div class="info-card-title">Login Information</div>
+                    </div>
+                    <ul class="info-list">
+                        <li>
+                            <i class="fas fa-user"></i>
+                            <div>
+                                <strong>Username:</strong> Mentor ID (e.g., STA001)
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fas fa-lock"></i>
+                            <div>
+                                <strong>Initial Password:</strong> IC Number (12 digits)
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fas fa-shield-alt"></i>
+                            <div>
+                                <strong>Security:</strong> Password change required on first login
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fas fa-info-circle"></i>
+                            <div>
+                                <strong>Note:</strong> Account will be created automatically upon submission
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-success">
+                        <i class="fas {% if mentor %}fa-save{% else %}fa-user-plus{% endif %}"></i>
+                        {% if mentor %}Update Mentor{% else %}Create Mentor Account{% endif %}
+                    </button>
+                    <a href="{% url 'manage_mentors' %}" class="btn btn-secondary">
+                        <i class="fas fa-times"></i>
+                        Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script>
+        // Toast notification system
+        function showToast(title, message, type = 'success') {
+            const toastContainer = document.getElementById('toastContainer');
+            const toastId = 'toast-' + Date.now();
+            
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            toast.id = toastId;
+            
+            toast.innerHTML = `
+                <div class="toast-icon">
+                    <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
+                </div>
+                <div class="toast-content">
+                    <div class="toast-title">${title}</div>
+                    <div class="toast-message">${message}</div>
+                </div>
+                <button class="toast-close" onclick="closeToast('${toastId}')">
+                    <i class="fas fa-times"></i>
+                </button>
+            `;
+            
+            toastContainer.appendChild(toast);
+            
+            // Show toast with animation
+            setTimeout(() => {
+                toast.classList.add('show');
+            }, 10);
+            
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                closeToast(toastId);
+            }, 5000);
+        }
+        
+        function closeToast(toastId) {
+            const toast = document.getElementById(toastId);
+            if (toast) {
+                toast.classList.remove('show');
+                setTimeout(() => {
+                    if (toast.parentNode) {
+                        toast.parentNode.removeChild(toast);
+                    }
+                }, 300);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('mentorForm');
+            const mentorIdInput = document.getElementById('MentorID');
+            const icInput = document.getElementById('MentorIC');
+            const maxMenteesInput = document.getElementById('MaxMentees');
+
+            // Auto-format Mentor ID to uppercase
+            mentorIdInput.addEventListener('input', function() {
+                this.value = this.value.toUpperCase();
+                
+                // Validate format in real-time
+                const pattern = /^ST[A-Z]{1,2}\d{3}$/;
+                if (pattern.test(this.value)) {
+                    this.classList.remove('error');
+                    this.classList.add('success');
+                } else {
+                    this.classList.remove('success');
+                    this.classList.add('error');
+                }
+            });
+
+            // Format and validate IC number
+            icInput.addEventListener('input', function() {
+                // Remove any non-numeric characters
+                this.value = this.value.replace(/\D/g, '');
+                
+                // Limit to 12 digits
+                if (this.value.length > 12) {
+                    this.value = this.value.slice(0, 12);
+                }
+                
+                // Validate length
+                if (this.value.length === 12) {
+                    this.classList.remove('error');
+                    this.classList.add('success');
+                } else {
+                    this.classList.remove('success');
+                    this.classList.add('error');
+                }
+            });
+
+            // Set reasonable limits for max mentees
+            maxMenteesInput.addEventListener('change', function() {
+                let value = parseInt(this.value);
+                if (value < 1) this.value = 1;
+                if (value > 50) this.value = 50;
+                
+                // Color code based on recommended range
+                if (value >= 15 && value <= 20) {
+                    this.classList.remove('error');
+                    this.classList.add('success');
+                } else {
+                    this.classList.remove('success', 'error');
+                }
+            });
+
+            // Enhanced form validation
+            form.addEventListener('submit', function(e) {
+                let isValid = true;
+                const errors = [];
+
+                // Validate Mentor ID format
+                const mentorIdPattern = /^ST[A-Z]{1,2}\d{3}$/;
+                if (!mentorIdPattern.test(mentorIdInput.value)) {
+                    isValid = false;
+                    errors.push('Mentor ID must be in format: ST + Department Code + 3-digit number (e.g., STA001)');
+                    mentorIdInput.classList.add('error');
+                }
+
+                // Validate IC number length
+                if (icInput.value.length !== 12) {
+                    isValid = false;
+                    errors.push('IC number must be exactly 12 digits');
+                    icInput.classList.add('error');
+                }
+
+                // Validate required fields
+                const requiredFields = form.querySelectorAll('[required]');
+                requiredFields.forEach(field => {
+                    if (!field.value.trim()) {
+                        isValid = false;
+                        field.classList.add('error');
+                    }
+                });
+
+                if (!isValid) {
+                    e.preventDefault();
+                    
+                    let errorMessage = 'Please correct the following errors:';
+                    errors.forEach(error => {
+                        errorMessage += `\n• ${error}`;
+                    });
+                    
+                    if (errors.length === 0) {
+                        errorMessage = 'Please fill in all required fields correctly.';
+                    }
+                    
+                    showToast('Validation Error', errorMessage, 'error');
+                }
+            });
+
+            // Real-time validation for email
+            const emailInput = document.getElementById('MentorEmail');
+            emailInput.addEventListener('blur', function() {
+                const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (this.value && !emailPattern.test(this.value)) {
+                    this.classList.add('error');
+                    showToast('Validation Error', 'Please enter a valid email address.', 'error');
+                } else if (this.value) {
+                    this.classList.remove('error');
+                    this.classList.add('success');
+                }
+            });
+
+            // Profile button functionality
+            document.querySelector('.profile-btn').addEventListener('click', function() {
+                alert('Profile page would open here!');
+                // In a real application, this would navigate to the profile page
+                // window.location.href = '/profile/';
+            });
+
+            // Add active state to current page in navigation
+            const currentPage = window.location.pathname;
+            document.querySelectorAll('.nav-link').forEach(link => {
+                if (link.getAttribute('href') === '{% url "manage_mentors" %}') {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+
+            // Show toast notifications for Django messages
+            {% if messages %}
+                {% for message in messages %}
+                    showToast(
+                        '{{ message.tags|title }}', 
+                        '{{ message }}', 
+                        '{{ message.tags }}' === 'error' ? 'error' : 'success'
+                    );
+                {% endfor %}
+            {% endif %}
+        });
+    </script>
+</body>
+</html>

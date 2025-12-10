@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Mentor - Mentee | MMS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #f5f7fa;
+            min-height: 100vh;
+            display: flex;
+            color: #333;
+        }
+
+        /* Sidebar Styles - Consistent with mentor homepage */
+        .sidebar {
+            width: 260px;
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
+            color: white;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            overflow-y: auto;
+            box-shadow: 2px 0 20px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-section {
+            padding: 24px 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .logo i {
+            font-size: 32px;
+        }
+
+        .logo-text {
+            font-size: 22px;
+        }
+
+        .user-info {
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .user-avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 0 auto 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .user-avatar img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .user-avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 0 auto 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .user-name {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .user-role {
+            font-size: 13px;
+            opacity: 0.8;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 3px 10px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        .nav-menu {
+            list-style: none;
+            padding: 20px 0;
+            flex: 1;
+        }
+
+        .nav-item {
+            margin-bottom: 6px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-left-color: rgba(255, 255, 255, 0.5);
+            padding-left: 24px;
+        }
+
+        .nav-link.active {
+            background: rgba(255, 255, 255, 0.15);
+            border-left-color: white;
+        }
+
+        .nav-link i {
+            margin-right: 12px;
+            font-size: 16px;
+            width: 18px;
+            text-align: center;
+        }
+
+        .nav-text {
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .notification-badge {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #ff4757;
+            color: white;
+            border-radius: 10px;
+            padding: 2px 8px;
+            font-size: 11px;
+            font-weight: bold;
+            min-width: 20px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(255, 71, 87, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 6px rgba(255, 71, 87, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(255, 71, 87, 0);
+            }
+        }
+
+        /* Logout section at bottom of sidebar */
+        .sidebar-footer {
+            margin-top: auto;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logout-item {
+            margin-bottom: 0;
+        }
+
+        .logout-link {
+            display: flex;
+            align-items: center;
+            padding: 16px 20px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .logout-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-left-color: rgba(255, 255, 255, 0.5);
+            padding-left: 24px;
+        }
+
+        .logout-link i {
+            margin-right: 12px;
+            font-size: 16px;
+            width: 18px;
+            text-align: center;
+        }
+
+        /* Main Content Styles - Updated to fill page */
+        .main-content {
+            flex: 1;
+            margin-left: 260px;
+            min-height: 100vh;
+            background: #f5f7fa;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Updated Content Header with Profile Button */
+        .content-header {
+            background: white;
+            padding: 20px 24px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .welcome-section h1 {
+            font-size: 24px;
+            color: #2d3748;
+            margin-bottom: 4px;
+        }
+
+        .welcome-section p {
+            color: #718096;
+            font-size: 14px;
+        }
+
+        /* Profile Button Styles - Positioned like mentor homepage */
+        .profile-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .profile-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 16px;
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .profile-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
+        }
+
+        .profile-avatar {
+            width: 40px;
+            height: 18px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+        }
+
+        /* Content Area - Updated to fill available space */
+        .content-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* New Layout - Mentor Profile */
+        .mentor-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 24px;
+            flex: 1;
+        }
+
+        .mentor-profile-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 400px;
+        }
+
+        /* Increased Mentor Avatar Size */
+        .mentor-avatar {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 20px;
+            border: 4px solid #1a3a8f;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .mentor-avatar-placeholder {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            background: #e3f2fd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            border: 4px solid #1a3a8f;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .mentor-avatar-placeholder i {
+            font-size: 64px;
+            color: #1a3a8f;
+        }
+
+        .mentor-name {
+            font-size: 24px;
+            color: #2d3748;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .mentor-department {
+            color: #718096;
+            font-size: 16px;
+            margin-bottom: 16px;
+            font-weight: 500;
+        }
+
+        /* Contact Info Styles */
+        .contact-info-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 400px;
+        }
+
+        .contact-info h3 {
+            font-size: 18px;
+            color: #2d3748;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .contact-details {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: #f8f9ff;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            background: white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 16px;
+        }
+
+        .contact-text {
+            flex: 1;
+        }
+
+        .contact-label {
+            font-size: 12px;
+            color: #718096;
+            margin-bottom: 4px;
+        }
+
+        .contact-value {
+            font-size: 14px;
+            color: #2d3748;
+            font-weight: 500;
+        }
+
+        /* No Mentor State - Updated to fill space */
+        .no-mentor {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            margin-bottom: 24px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .no-mentor h2 {
+            font-size: 24px;
+            margin-bottom: 12px;
+            color: #4a5568;
+        }
+
+        .no-mentor p {
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: #718096;
+        }
+
+        .no-mentor-icon {
+            font-size: 64px;
+            color: #e2e8f0;
+            margin-bottom: 20px;
+        }
+
+        .info-box {
+            margin-top: 24px;
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 10px;
+        }
+
+        .info-box h3 {
+            color: #4a5568;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 16px;
+        }
+
+        .info-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            text-align: left;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+        }
+
+        .info-item i {
+            color: #4CAF50;
+        }
+
+        /* Responsive Design - Consistent with mentor homepage */
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 240px;
+            }
+            .main-content {
+                margin-left: 240px;
+            }
+            .mentor-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+            .main-content {
+                margin-left: 0;
+                padding: 16px;
+            }
+            .content-header {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
+            .info-list {
+                grid-template-columns: 1fr;
+            }
+            .mentor-profile-card, .contact-info-card {
+                min-height: 300px;
+            }
+            /* Responsive mentor avatar size */
+            .mentor-avatar {
+                width: 120px;
+                height: 120px;
+            }
+            .mentor-avatar-placeholder {
+                width: 120px;
+                height: 120px;
+            }
+            .mentor-avatar-placeholder i {
+                font-size: 48px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="logo-section">
+            <div class="logo">
+                <i class="fas fa-hands-helping"></i>
+                <span class="logo-text">MMMS</span>
+            </div>
+        </div>
+
+        <div class="user-info">
+            <div class="user-avatar">
+                {% if mentee.profile_picture %}
+                    <img src="{{ mentee.profile_picture.url }}" alt="Profile Picture" id="sidebarProfilePic">
+                {% else %}
+                    <i class="fas fa-user-graduate"></i>
+                {% endif %}
+            </div>
+            <div class="user-name">{{ user.mentee.MenteeName|default:user.username }}</div>
+            <div class="user-role">Mentee</div>
+        </div>
+
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="{% url 'mentee_homepage' %}" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    <span class="nav-text">Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'view_assigned_mentor' %}" class="nav-link active">
+                    <i class="fas fa-user-tie"></i>
+                    <span class="nav-text">My Mentor</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'view_activity_schedules' %}" class="nav-link">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span class="nav-text">Schedule</span>
+                    {% if upcoming_activities|length > 0 %}
+                    <span class="notification-badge">{{ upcoming_activities|length }}</span>
+                    {% endif %}
+                </a>
+            </li>
+        </ul>
+
+        <!-- Logout section at bottom of sidebar -->
+        <div class="sidebar-footer">
+            <div class="nav-item logout-item">
+                <a href="{% url 'logout' %}" class="logout-link">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span class="nav-text">Logout</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Content Header with Profile Button -->
+        <div class="content-header">
+            <div class="welcome-section">
+                <h1>My Mentor</h1>
+                <p>Meet your assigned mentor who will guide you through your academic journey</p>
+            </div>
+            
+            <!-- Profile Button - Only in the header now -->
+            <div class="profile-section">
+                <a href="{% url 'update_personal_info' %}" class="profile-btn">
+                    <div class="profile-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <span>Profile</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Content Area -->
+        <div class="content-area">
+            {% if mentee.assigned_mentor %}
+            <!-- New Layout - Mentor Profile and Contact Info -->
+            <div class="mentor-layout">
+                <!-- Mentor Profile Card -->
+                <div class="mentor-profile-card">
+                    <!-- FIXED: Access mentor's profile picture correctly with increased size -->
+                    {% if mentee.assigned_mentor.profile_picture %}
+                        <img src="{{ mentee.assigned_mentor.profile_picture.url }}" alt="Mentor Profile Picture" class="mentor-avatar">
+                    {% else %}
+                        <div class="mentor-avatar-placeholder">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                    {% endif %}
+                    
+                    <h1 class="mentor-name">{{ mentee.assigned_mentor.MentorName }}</h1>
+                    <p class="mentor-department">{{ mentee.assigned_mentor.MentorDepartment }}</p>
+                </div>
+
+                <!-- Contact Info Card -->
+                <div class="contact-info-card">
+                    <div class="contact-info">
+                        <h3>
+                            <i class="fas fa-address-card"></i>
+                            Contact Information
+                        </h3>
+                        <div class="contact-details">
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div class="contact-text">
+                                    <div class="contact-label">Email Address</div>
+                                    <div class="contact-value">{{ mentee.assigned_mentor.MentorEmail }}</div>
+                                </div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fas fa-phone"></i>
+                                </div>
+                                <div class="contact-text">
+                                    <div class="contact-label">Phone Number</div>
+                                    <div class="contact-value">{{ mentee.assigned_mentor.MentorPhone }}</div>
+                                </div>
+                            </div>
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <i class="fas fa-building"></i>
+                                </div>
+                                <div class="contact-text">
+                                    <div class="contact-label">Department</div>
+                                    <div class="contact-value">{{ mentee.assigned_mentor.MentorDepartment }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {% else %}
+            <!-- No Mentor State -->
+            <div class="no-mentor">
+                <div class="no-mentor-icon">
+                    <i class="fas fa-user-slash"></i>
+                </div>
+                <h2>No Mentor Assigned Yet</h2>
+                <p>You haven't been assigned a mentor yet. Our system is working to match you with the perfect mentor based on your academic needs and preferences.</p>
+                <p>Please check back later or contact the administration if you have any questions.</p>
+                
+                <div class="info-box">
+                    <h3>
+                        <i class="fas fa-info-circle"></i>
+                        What to Expect
+                    </h3>
+                    <div class="info-list">
+                        <div class="info-item">
+                            <i class="fas fa-check"></i>
+                            <span>Personalized academic guidance</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-check"></i>
+                            <span>Career counseling sessions</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-check"></i>
+                            <span>Regular progress monitoring</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <script>
+        // Simple animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards for animation
+        document.querySelectorAll('.mentor-profile-card, .contact-info-card, .no-mentor').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+
+        // Active nav link highlighting
+        const currentPage = window.location.pathname;
+        document.querySelectorAll('.nav-link').forEach(link => {
+            if (link.getAttribute('href') === currentPage || 
+                (currentPage === '/' && link.getAttribute('href').includes('homepage'))) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>

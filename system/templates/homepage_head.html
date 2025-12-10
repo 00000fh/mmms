@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Head | MMS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #f5f7fa;
+            min-height: 100vh;
+            display: flex;
+            color: #333;
+        }
+
+        /* Sidebar Styles - Consistent with previous pages */
+        .sidebar {
+            width: 260px;
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
+            color: white;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            overflow-y: auto;
+            box-shadow: 2px 0 20px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-section {
+            padding: 24px 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .logo i {
+            font-size: 32px;
+        }
+
+        .logo-text {
+            font-size: 22px;
+        }
+
+        .user-info {
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .user-avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 0 auto 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .user-name {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .user-role {
+            font-size: 13px;
+            opacity: 0.8;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 3px 10px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        .nav-menu {
+            list-style: none;
+            padding: 20px 0;
+            flex: 1;
+        }
+
+        .nav-item {
+            margin-bottom: 6px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-left-color: rgba(255, 255, 255, 0.5);
+            padding-left: 24px;
+        }
+
+        .nav-link.active {
+            background: rgba(255, 255, 255, 0.15);
+            border-left-color: white;
+        }
+
+        .nav-link i {
+            margin-right: 12px;
+            font-size: 16px;
+            width: 18px;
+            text-align: center;
+        }
+
+        .nav-text {
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        /* Logout section at bottom of sidebar */
+        .sidebar-footer {
+            margin-top: auto;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logout-item {
+            margin-bottom: 0;
+        }
+
+        .logout-link {
+            display: flex;
+            align-items: center;
+            padding: 16px 20px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .logout-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-left-color: rgba(255, 255, 255, 0.5);
+            padding-left: 24px;
+        }
+
+        .logout-link i {
+            margin-right: 12px;
+            font-size: 16px;
+            width: 18px;
+            text-align: center;
+        }
+
+        /* Main Content Styles - Consistent spacing */
+        .main-content {
+            flex: 1;
+            margin-left: 260px;
+            min-height: 100vh;
+            background: #f5f7fa;
+            padding: 24px;
+        }
+
+        /* Updated Content Header with Profile Button */
+        .content-header {
+            background: white;
+            padding: 20px 24px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .welcome-section h1 {
+            font-size: 24px;
+            color: #2d3748;
+            margin-bottom: 4px;
+        }
+
+        .welcome-section p {
+            color: #718096;
+            font-size: 14px;
+        }
+
+        /* Profile Button Styles */
+        .profile-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .profile-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 16px;
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .profile-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
+        }
+
+        .profile-avatar {
+            width: 40px;
+            height: 18px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+        }
+
+        /* Stats Grid - Consistent with previous pages */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 10px;
+            padding: 16px;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border-left: 3px solid #1a3a8f;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
+        }
+
+        .stat-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            color: white;
+            font-size: 16px;
+        }
+
+        .stat-number {
+            font-size: 22px;
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            color: #718096;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        /* Quick Actions - Consistent spacing */
+        .quick-actions {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #2d3748;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            color: #1a3a8f;
+        }
+
+        .action-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px;
+        }
+
+        .action-item {
+            display: flex;
+            align-items: center;
+            padding: 16px;
+            background: #f8f9ff;
+            border-radius: 10px;
+            text-decoration: none;
+            color: #4a5568;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .action-item:hover {
+            background: white;
+            border-color: #1a3a8f;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(26, 58, 143, 0.15);
+        }
+
+        .action-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            margin-right: 16px;
+        }
+
+        .action-content {
+            flex: 1;
+        }
+
+        .action-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: #2d3748;
+        }
+
+        .action-description {
+            font-size: 13px;
+            color: #718096;
+            line-height: 1.4;
+        }
+
+        /* System Status - Consistent spacing */
+        .system-status {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            margin-bottom: 24px;
+        }
+
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+        }
+
+        .status-item {
+            display: flex;
+            align-items: center;
+            padding: 16px;
+            background: #f8f9ff;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .status-item:hover {
+            background: white;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .status-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            font-size: 16px;
+        }
+
+        .status-icon.good {
+            background: #e8f5e8;
+            color: #2e7d32;
+        }
+
+        .status-icon.warning {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-icon.info {
+            background: #e3f2fd;
+            color: #1565c0;
+        }
+
+        .status-content {
+            flex: 1;
+        }
+
+        .status-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: #2d3748;
+        }
+
+        .status-value {
+            font-size: 13px;
+            color: #718096;
+        }
+
+        /* Recent Activity - Consistent spacing */
+        .recent-activity {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .activity-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: center;
+            padding: 14px 16px;
+            background: #f8f9ff;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .activity-item:hover {
+            background: white;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            font-size: 16px;
+            background: #e3f2fd;
+            color: #1565c0;
+        }
+
+        .activity-content {
+            flex: 1;
+        }
+
+        .activity-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: #2d3748;
+        }
+
+        .activity-time {
+            font-size: 13px;
+            color: #718096;
+        }
+
+        /* Responsive Design - Consistent with previous pages */
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 240px;
+            }
+            .main-content {
+                margin-left: 240px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+            .main-content {
+                margin-left: 0;
+                padding: 16px;
+            }
+            .content-header {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            .action-grid {
+                grid-template-columns: 1fr;
+            }
+            .status-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="logo-section">
+            <div class="logo">
+                <i class="fas fa-hands-helping"></i>
+                <span class="logo-text">MMMS</span>
+            </div>
+        </div>
+
+        <div class="user-info">
+            <div class="user-avatar">
+                <i class="fas fa-user-shield"></i>
+            </div>
+            <div class="user-name">Head of Mentor Mentee</div>
+            <div class="user-role">Administrator</div>
+        </div>
+
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="{% url 'head_homepage' %}" class="nav-link active">
+                    <i class="fas fa-home"></i>
+                    <span class="nav-text">Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'manage_mentees' %}" class="nav-link">
+                    <i class="fas fa-user-graduate"></i>
+                    <span class="nav-text">Mentee Records</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'manage_mentors' %}" class="nav-link">
+                    <i class="fas fa-user-tie"></i>
+                    <span class="nav-text">Mentor Records</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'mentor_assignments' %}" class="nav-link">
+                    <i class="fas fa-users"></i>
+                    <span class="nav-text">Mentor Assignments</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'mentor_mentee_activities' %}" class="nav-link">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span class="nav-text">Activities</span>
+                </a>
+            </li>
+        </ul>
+
+        <!-- Logout section at bottom of sidebar -->
+        <div class="sidebar-footer">
+            <div class="nav-item logout-item">
+                <a href="{% url 'logout' %}" class="logout-link">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span class="nav-text">Logout</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Content Header with Profile Button -->
+        <div class="content-header">
+            <div class="welcome-section">
+                <h1>Administrative Dashboard</h1>
+                <p>Comprehensive management of the mentor-mentee program</p>
+            </div>
+            
+            <!-- Profile Button -->
+            <div class="profile-section">
+                <button class="profile-btn">
+                    <div class="profile-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <span>Profile</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-user-tie"></i>
+                </div>
+                <div class="stat-number" id="total-mentors">{{ total_mentors }}</div>
+                <div class="stat-label">Total Mentors</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-user-graduate"></i>
+                </div>
+                <div class="stat-number" id="total-mentees">{{ total_mentees }}</div>
+                <div class="stat-label">Total Mentees</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-calendar-check"></i>
+                </div>
+                <div class="stat-number" id="active-sessions">{{ active_sessions }}</div>
+                <div class="stat-label">Active Sessions</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="stat-number" id="system-usage">{{ system_usage }}%</div>
+                <div class="stat-label">System Usage</div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="quick-actions">
+            <h2 class="section-title">
+                <i class="fas fa-bolt"></i>
+                Quick Access
+            </h2>
+            <div class="action-grid">
+                <a href="{% url 'manage_mentees' %}" class="action-item">
+                    <div class="action-icon">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <div class="action-content">
+                        <div class="action-title">Manage Mentees</div>
+                        <div class="action-description">View, add, edit, and manage all mentee records and their study status</div>
+                    </div>
+                </a>
+                <a href="{% url 'manage_mentors' %}" class="action-item">
+                    <div class="action-icon">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <div class="action-content">
+                        <div class="action-title">Manage Mentors</div>
+                        <div class="action-description">Manage mentor records, departments, and capacity settings</div>
+                    </div>
+                </a>
+                <a href="{% url 'mentor_assignments' %}" class="action-item">
+                    <div class="action-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="action-content">
+                        <div class="action-title">Mentor Assignments</div>
+                        <div class="action-description">Assign mentees to mentors with balanced gender distribution</div>
+                    </div>
+                </a>
+                <a href="{% url 'mentor_mentee_activities' %}" class="action-item">
+                    <div class="action-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <div class="action-content">
+                        <div class="action-title">Manage Activities</div>
+                        <div class="action-description">Create and manage mentoring activities and sessions</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- System Status -->
+        <div class="system-status">
+            <h2 class="section-title">
+                <i class="fas fa-chart-bar"></i>
+                System Status
+            </h2>
+            <div class="status-grid">
+                <div class="status-item">
+                    <div class="status-icon good">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="status-content">
+                        <div class="status-title">System Health</div>
+                        <div class="status-value">All systems operational</div>
+                    </div>
+                </div>
+                <div class="status-item">
+                    <div class="status-icon warning">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <div class="status-content">
+                        <div class="status-title">Pending Assignments</div>
+                        <div class="status-value" id="pending-assignments">{{ pending_assignments }} mentees awaiting mentor assignment</div>
+                    </div>
+                </div>
+                <div class="status-item">
+                    <div class="status-icon info">
+                        <i class="fas fa-info-circle"></i>
+                    </div>
+                    <div class="status-content">
+                        <div class="status-title">Upcoming Sessions</div>
+                        <div class="status-value" id="upcoming-sessions">{{ upcoming_sessions }} sessions scheduled this week</div>
+                    </div>
+                </div>
+                <div class="status-item">
+                    <div class="status-icon good">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <div class="status-content">
+                        <div class="status-title">Database</div>
+                        <div class="status-value">Storage at 65% capacity</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="recent-activity">
+            <h2 class="section-title">
+                <i class="fas fa-history"></i>
+                Recent Activity
+            </h2>
+            <div class="activity-list" id="recent-activities">
+                <!-- Activities will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Dashboard data - In a real application, this would come from an API
+        const dashboardData = {
+            total_mentors: 25,
+            total_mentees: 200,
+            active_sessions: 15,
+            system_usage: 78,
+            pending_assignments: 5,
+            upcoming_sessions: 12,
+            recent_activities: [
+                {
+                    title: "New mentee registered",
+                    time: "Today, 10:30 AM",
+                    icon: "user-plus"
+                },
+                {
+                    title: "Mentor assignment completed",
+                    time: "Yesterday, 3:45 PM",
+                    icon: "tasks"
+                },
+                {
+                    title: "New activity scheduled",
+                    time: "October 20, 2023",
+                    icon: "calendar-plus"
+                },
+                {
+                    title: "Monthly report generated",
+                    time: "October 18, 2023",
+                    icon: "file-export"
+                }
+            ]
+        };
+
+        // Function to update dashboard with real data
+        function updateDashboard() {
+            // Update stats
+            document.getElementById('total-mentors').textContent = dashboardData.total_mentors;
+            document.getElementById('total-mentees').textContent = dashboardData.total_mentees;
+            document.getElementById('active-sessions').textContent = dashboardData.active_sessions;
+            document.getElementById('system-usage').textContent = dashboardData.system_usage + '%';
+            document.getElementById('pending-assignments').textContent = 
+                dashboardData.pending_assignments + ' mentees awaiting mentor assignment';
+            document.getElementById('upcoming-sessions').textContent = 
+                dashboardData.upcoming_sessions + ' sessions scheduled this week';
+
+            // Update recent activities
+            const activitiesContainer = document.getElementById('recent-activities');
+            activitiesContainer.innerHTML = '';
+            
+            dashboardData.recent_activities.forEach(activity => {
+                const activityItem = document.createElement('div');
+                activityItem.className = 'activity-item';
+                activityItem.innerHTML = `
+                    <div class="activity-icon">
+                        <i class="fas fa-${activity.icon}"></i>
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-title">${activity.title}</div>
+                        <div class="activity-time">${activity.time}</div>
+                    </div>
+                `;
+                activitiesContainer.appendChild(activityItem);
+            });
+        }
+
+        // Function to fetch real data from server (simulated)
+        function fetchDashboardData() {
+            // In a real application, this would be an API call
+            // For demonstration, we'll simulate data updates
+            setTimeout(() => {
+                // Simulate data changes
+                dashboardData.total_mentors = Math.floor(Math.random() * 10) + 20; // 20-30
+                dashboardData.total_mentees = Math.floor(Math.random() * 50) + 180; // 180-230
+                dashboardData.active_sessions = Math.floor(Math.random() * 5) + 12; // 12-17
+                dashboardData.pending_assignments = Math.floor(Math.random() * 10); // 0-9
+                dashboardData.upcoming_sessions = Math.floor(Math.random() * 8) + 8; // 8-16
+                
+                updateDashboard();
+            }, 2000);
+        }
+
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            // Update dashboard with initial data
+            updateDashboard();
+            
+            // Fetch updated data after a delay (simulating real-time updates)
+            setTimeout(fetchDashboardData, 5000);
+
+            // Simple animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all cards for animation
+            document.querySelectorAll('.stat-card, .action-item, .status-item, .activity-item').forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(card);
+            });
+
+            // Active nav link highlighting
+            const currentPage = window.location.pathname;
+            document.querySelectorAll('.nav-link').forEach(link => {
+                if (link.getAttribute('href') === currentPage || 
+                    (currentPage === '/' && link.getAttribute('href').includes('homepage'))) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+
+            // Add loading animation for action items
+            document.querySelectorAll('.action-item').forEach(item => {
+                item.addEventListener('click', function(e) {
+                    // Add loading animation
+                    const icon = this.querySelector('.action-icon i');
+                    const originalClass = icon.className;
+                    icon.className = 'fas fa-spinner fa-spin';
+                    
+                    // Reset after 1 second (simulate loading)
+                    setTimeout(() => {
+                        icon.className = originalClass;
+                    }, 1000);
+                });
+            });
+
+            // Profile button functionality
+            document.querySelector('.profile-btn').addEventListener('click', function() {
+                alert('Profile page would open here!');
+                // In a real application, this would navigate to the profile page
+                // window.location.href = '/profile/';
+            });
+        });
+    </script>
+</body>
+</html>

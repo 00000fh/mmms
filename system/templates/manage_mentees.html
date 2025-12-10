@@ -1,0 +1,2079 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Mentees | MMMS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #f5f7fa;
+            min-height: 100vh;
+            display: flex;
+            color: #333;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: 260px;
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
+            color: white;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            overflow-y: auto;
+            box-shadow: 2px 0 20px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-section {
+            padding: 24px 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .logo i {
+            font-size: 32px;
+        }
+
+        .logo-text {
+            font-size: 22px;
+        }
+
+        .user-info {
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .user-avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 0 auto 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .user-name {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .user-role {
+            font-size: 13px;
+            opacity: 0.8;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 3px 10px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        .nav-menu {
+            list-style: none;
+            padding: 20px 0;
+            flex: 1;
+        }
+
+        .nav-item {
+            margin-bottom: 6px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-left-color: rgba(255, 255, 255, 0.5);
+            padding-left: 24px;
+        }
+
+        .nav-link.active {
+            background: rgba(255, 255, 255, 0.15);
+            border-left-color: white;
+        }
+
+        .nav-link i {
+            margin-right: 12px;
+            font-size: 16px;
+            width: 18px;
+            text-align: center;
+        }
+
+        .nav-text {
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        /* Logout section at bottom of sidebar */
+        .sidebar-footer {
+            margin-top: auto;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logout-item {
+            margin-bottom: 0;
+        }
+
+        .logout-link {
+            display: flex;
+            align-items: center;
+            padding: 16px 20px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .logout-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-left-color: rgba(255, 255, 255, 0.5);
+            padding-left: 24px;
+        }
+
+        .logout-link i {
+            margin-right: 12px;
+            font-size: 16px;
+            width: 18px;
+            text-align: center;
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            flex: 1;
+            margin-left: 260px;
+            min-height: 100vh;
+            background: #f5f7fa;
+            padding: 20px;
+        }
+
+        /* Content Header with Profile Button */
+        .content-header {
+            background: white;
+            padding: 18px 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .content-header h1 {
+            font-size: 22px;
+            color: #2d3748;
+            margin-bottom: 4px;
+        }
+
+        .content-header p {
+            color: #718096;
+            font-size: 13px;
+        }
+
+        /* Profile Button Styles */
+        .profile-section {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .profile-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 14px;
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .profile-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
+        }
+
+        .profile-avatar {
+            width: 36px;
+            height: 16px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 9px;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
+            color: white;
+        }
+
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
+        }
+
+        /* UPDATED: Controls Section with Dropdown Status Filter and Sort Dropdown */
+        .controls {
+            background: white;
+            border-radius: 10px;
+            padding: 16px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            margin-bottom: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            align-items: center;
+        }
+
+        /* Search bar styling */
+        .search-container {
+            display: flex;
+            align-items: center;
+            background: #f8f9ff;
+            border-radius: 6px;
+            padding: 0 12px;
+            border: 1px solid #e2e8f0;
+            flex: 1;
+            min-width: 300px;
+            max-width: 400px;
+        }
+
+        .search-container i {
+            color: #718096;
+            font-size: 14px;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 10px 12px;
+            border: none;
+            background: transparent;
+            font-size: 13px;
+            color: #2d3748;
+            outline: none;
+            width: 100%;
+        }
+
+        .search-input::placeholder {
+            color: #a0aec0;
+        }
+
+        .clear-search-btn {
+            background: none;
+            border: none;
+            color: #718096;
+            cursor: pointer;
+            padding: 4px;
+            font-size: 12px;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .clear-search-btn:hover {
+            color: #2d3748;
+            background: #edf2f7;
+        }
+
+        /* Status Dropdown Filter */
+        .status-filter-dropdown {
+            position: relative;
+            min-width: 150px;
+        }
+
+        .status-dropdown-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            padding: 10px 14px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            color: #4a5568;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .status-dropdown-toggle:hover {
+            border-color: #1a3a8f;
+            background: #f8f9ff;
+        }
+
+        .status-dropdown-toggle i {
+            font-size: 12px;
+            transition: transform 0.2s ease;
+            margin-left: 16px;
+        }
+
+        .status-dropdown-toggle.active i {
+            transform: rotate(180deg);
+        }
+
+        .status-dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+            margin-top: 4px;
+            overflow: hidden;
+        }
+
+        .status-dropdown-menu.show {
+            display: block;
+            animation: dropdownFadeIn 0.2s ease;
+        }
+
+        @keyframes dropdownFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .status-dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 10px 14px;
+            color: #4a5568;
+            font-size: 13px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border-bottom: 1px solid #f7fafc;
+        }
+
+        .status-dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .status-dropdown-item:hover {
+            background: #f8f9ff;
+            color: #1a3a8f;
+        }
+
+        .status-dropdown-item.active {
+            background: #1a3a8f;
+            color: white;
+        }
+
+        .status-dropdown-item i {
+            font-size: 10px;
+            width: 14px;
+            text-align: center;
+        }
+
+        .status-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 7px;
+        }
+
+        .status-indicator.all {
+            background: #718096;
+        }
+
+        .status-indicator.active {
+            background: #38a169;
+        }
+
+        .status-indicator.inactive {
+            background: #e53e3e;
+        }
+
+        .status-indicator.graduated {
+            background: #3182ce;
+        }
+
+        .status-indicator.unassigned {
+            background: #d69e2e;
+        }
+
+        /* NEW: Sorting Dropdown Styles */
+        .sort-filter-dropdown {
+            position: relative;
+            min-width: 150px;
+        }
+
+        .sort-dropdown-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            padding: 10px 14px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            color: #4a5568;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .sort-dropdown-toggle:hover {
+            border-color: #1a3a8f;
+            background: #f8f9ff;
+        }
+
+        .sort-dropdown-toggle i {
+            font-size: 12px;
+            transition: transform 0.2s ease;
+            margin-left: 16px;
+        }
+
+        .sort-dropdown-toggle.active i {
+            transform: rotate(180deg);
+        }
+
+        .sort-dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+            margin-top: 4px;
+            overflow: hidden;
+        }
+
+        .sort-dropdown-menu.show {
+            display: block;
+            animation: dropdownFadeIn 0.2s ease;
+        }
+
+        .sort-dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 14px;
+            color: #4a5568;
+            font-size: 13px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border-bottom: 1px solid #f7fafc;
+        }
+
+        .sort-dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .sort-dropdown-item:hover {
+            background: #f8f9ff;
+            color: #1a3a8f;
+        }
+
+        .sort-dropdown-item.active {
+            background: #1a3a8f;
+            color: white;
+        }
+
+        .sort-dropdown-item i {
+            font-size: 11px;
+            width: 16px;
+            text-align: center;
+        }
+
+        /* COMPACT Table Styles */
+        .mentee-table-container {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            margin-bottom: 20px;
+            overflow-x: auto;
+            position: relative;
+        }
+
+        .mentee-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            min-width: 900px;
+            font-size: 12px;
+        }
+
+        .mentee-table th {
+            background: #f8f9ff;
+            padding: 12px 14px;
+            text-align: left;
+            font-weight: 600;
+            color: #2d3748;
+            border-bottom: 1px solid #e2e8f0;
+            position: sticky;
+            top: 0;
+            font-size: 12px;
+            white-space: nowrap;
+        }
+
+        .mentee-table td {
+            padding: 10px 14px;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 12px;
+            line-height: 1.3;
+            vertical-align: middle;
+            height: 52px;
+        }
+
+        .mentee-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Make entire row clickable (except for action cells) */
+        .mentee-row {
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .mentee-row:hover {
+            background: #f8f9ff;
+        }
+
+        /* Exclude action cells from clickable area */
+        .mentee-row td:last-child {
+            cursor: default;
+        }
+
+        /* Profile Picture Styles - SMALLER */
+        .profile-picture {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid #e2e8f0;
+            background: #f8f9fa;
+        }
+
+        .profile-picture-placeholder {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+            border: 1px solid #e2e8f0;
+        }
+
+        /* Status and Badge Styles - SMALLER */
+        .status-active { 
+            color: #2e7d32; 
+            font-weight: 600;
+            background: #e8f5e8;
+            padding: 4px 10px;
+            border-radius: 14px;
+            font-size: 10px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .status-active:before {
+            content: "";
+            width: 5px;
+            height: 5px;
+            background: #38a169;
+            border-radius: 50%;
+        }
+
+        .status-inactive { 
+            color: #c62828; 
+            font-weight: 600;
+            background: #ffebee;
+            padding: 4px 10px;
+            border-radius: 14px;
+            font-size: 10px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .status-inactive:before {
+            content: "";
+            width: 5px;
+            height: 5px;
+            background: #e53e3e;
+            border-radius: 50%;
+        }
+
+        .status-graduated { 
+            color: #1565c0; 
+            font-weight: 600;
+            background: #e3f2fd;
+            padding: 4px 10px;
+            border-radius: 14px;
+            font-size: 10px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .status-graduated:before {
+            content: "";
+            width: 5px;
+            height: 5px;
+            background: #3182ce;
+            border-radius: 50%;
+        }
+
+        .course-badge { 
+            background: #e8f5e8; 
+            color: #2e7d32; 
+            padding: 4px 10px; 
+            border-radius: 8px; 
+            font-size: 10px; 
+            font-weight: 600; 
+            display: inline-block;
+        }
+        
+        .unassigned-badge {
+            background: #ffebee;
+            color: #c62828;
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 10px;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        /* Pagination Styles - COMPACT */
+        .pagination-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+            padding: 12px 16px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            margin-top: 20px;
+            font-size: 12px;
+        }
+
+        .pagination-info {
+            color: #718096;
+            font-weight: 500;
+        }
+
+        .pagination {
+            display: flex;
+            gap: 4px;
+            align-items: center;
+        }
+
+        .page-btn {
+            padding: 6px 10px;
+            border: 1px solid #e2e8f0;
+            background: white;
+            color: #4a5568;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 11px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            min-width: 32px;
+            text-align: center;
+        }
+
+        .page-btn:hover:not(:disabled) {
+            background: #f8f9ff;
+            border-color: #1a3a8f;
+            color: #1a3a8f;
+        }
+
+        .page-btn.active {
+            background: #1a3a8f;
+            color: white;
+            border-color: #1a3a8f;
+        }
+
+        .page-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .page-ellipsis {
+            padding: 6px 4px;
+            color: #718096;
+        }
+
+        /* Records per page selector */
+        .records-per-page {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11px;
+            color: #4a5568;
+        }
+
+        .records-per-page select {
+            padding: 5px 8px;
+            border: 1px solid #e2e8f0;
+            border-radius: 4px;
+            background: white;
+            font-size: 11px;
+            color: #4a5568;
+            cursor: pointer;
+        }
+
+        .records-per-page select:focus {
+            outline: none;
+            border-color: #1a3a8f;
+        }
+
+        /* 3-Dots Dropdown Menu - COMPACT VERSION */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-toggle {
+            background: none;
+            border: none;
+            padding: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            color: #718096;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .dropdown-toggle:hover {
+            background: #f7fafc;
+            color: #2d3748;
+        }
+
+        /* Horizontal 3-dots icon */
+        .dropdown-toggle .fa-ellipsis-h {
+            transform: rotate(0deg);
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            right: 0;
+            background: white;
+            min-width: 140px;
+            border-radius: 6px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+            z-index: 1001;
+            border: 1px solid #e2e8f0;
+            overflow: hidden;
+        }
+
+        /* For bottom rows, open dropdown upwards */
+        .dropdown-menu.open-up {
+            bottom: 100%;
+            top: auto;
+            transform-origin: bottom right;
+            margin-bottom: 6px;
+        }
+
+        /* For normal rows */
+        .dropdown-menu.open-down {
+            top: 100%;
+            bottom: auto;
+            transform-origin: top right;
+            margin-top: 6px;
+        }
+
+        .dropdown-menu.show {
+            display: block;
+            animation: dropdownFadeIn 0.2s ease forwards;
+        }
+
+        @keyframes dropdownFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-8px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Animation for dropdown opening upwards */
+        .dropdown-menu.open-up.show {
+            animation: dropdownFadeInUp 0.2s ease forwards;
+        }
+
+        @keyframes dropdownFadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(8px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 12px;
+            text-decoration: none;
+            color: #2d3748;
+            font-size: 12px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            border-bottom: 1px solid #f7fafc;
+        }
+
+        .dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-item:hover {
+            background: #f8f9ff;
+            color: #1a3a8f;
+        }
+
+        .dropdown-item i {
+            font-size: 11px;
+            width: 14px;
+            text-align: center;
+        }
+
+        .dropdown-item.view {
+            color: #3182ce;
+        }
+
+        .dropdown-item.edit {
+            color: #38a169;
+        }
+
+        .dropdown-item.delete {
+            color: #e53e3e;
+        }
+
+        /* Action Buttons */
+        .action-btn {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 10px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-delete {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-delete:hover {
+            background: #c82333;
+            transform: translateY(-1px);
+        }
+
+        /* Zebra striping for better readability */
+        .mentee-table tbody tr:nth-child(even) {
+            background-color: #fafbfc;
+        }
+
+        .mentee-table tbody tr:nth-child(even):hover {
+            background-color: #f8f9ff;
+        }
+
+        /* No Data State */
+        .no-data {
+            text-align: center;
+            color: #718096;
+            padding: 40px 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        .no-data h2 {
+            color: #2d3748;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .no-data p {
+            margin-bottom: 16px;
+            font-size: 13px;
+        }
+
+        .btn-primary {
+            background: #1a3a8f;
+            color: white;
+            padding: 8px 16px;
+        }
+
+        .btn-primary:hover {
+            background: #0d1b4e;
+            transform: translateY(-2px);
+        }
+
+        /* Toast Notification Styles */
+        .toast-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-width: 320px;
+        }
+
+        .toast {
+            background: white;
+            border-radius: 6px;
+            padding: 14px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            transform: translateX(100%);
+            opacity: 0;
+            transition: all 0.3s ease;
+            border-left: 3px solid;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .toast-success {
+            border-left-color: #38a169;
+        }
+
+        .toast-error {
+            border-left-color: #e53e3e;
+        }
+
+        .toast-icon {
+            font-size: 16px;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .toast-success .toast-icon {
+            color: #38a169;
+        }
+
+        .toast-error .toast-icon {
+            color: #e53e3e;
+        }
+
+        .toast-content {
+            flex: 1;
+        }
+
+        .toast-title {
+            font-weight: 600;
+            font-size: 13px;
+            margin-bottom: 3px;
+            color: #2d3748;
+        }
+
+        .toast-message {
+            font-size: 12px;
+            color: #4a5568;
+            line-height: 1.4;
+        }
+
+        .toast-close {
+            background: none;
+            border: none;
+            font-size: 12px;
+            color: #718096;
+            cursor: pointer;
+            padding: 0;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 3px;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .toast-close:hover {
+            background: #f7fafc;
+            color: #2d3748;
+        }
+
+        /* Close dropdown when clicking outside */
+        .dropdown-backdrop {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 1000;
+        }
+
+        /* Status filter dropdown backdrop */
+        .status-dropdown-backdrop {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 99;
+        }
+
+        /* Sort dropdown backdrop */
+        .sort-dropdown-backdrop {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 99;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 240px;
+            }
+            .main-content {
+                margin-left: 240px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+            .main-content {
+                margin-left: 0;
+                padding: 16px;
+            }
+            .content-header {
+                flex-direction: column;
+                text-align: center;
+                padding: 16px;
+            }
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .search-container {
+                max-width: 100%;
+            }
+            .status-filter-dropdown,
+            .sort-filter-dropdown {
+                width: 100%;
+            }
+            .mentee-table-container {
+                overflow-x: auto;
+                max-height: 65vh;
+                overflow-y: auto;
+            }
+            .mentee-table th,
+            .mentee-table td {
+                padding: 10px 12px;
+                font-size: 11px;
+                height: 48px;
+            }
+            
+            /* Pagination responsive */
+            .pagination-container {
+                flex-direction: column;
+                gap: 12px;
+                padding: 12px;
+            }
+            
+            /* Adjust dropdown for mobile */
+            .dropdown-menu {
+                position: fixed !important;
+                top: 50% !important;
+                left: 50% !important;
+                transform: translate(-50%, -50%) !important;
+                bottom: auto !important;
+                right: auto !important;
+                width: 90%;
+                max-width: 240px;
+            }
+            
+            /* Toast adjustments for mobile */
+            .toast-container {
+                bottom: 16px;
+                right: 16px;
+                left: 16px;
+                max-width: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .pagination {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .pagination-info {
+                text-align: center;
+            }
+            
+            .records-per-page {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="logo-section">
+            <div class="logo">
+                <i class="fas fa-hands-helping"></i>
+                <span class="logo-text">MMMS</span>
+            </div>
+        </div>
+
+        <div class="user-info">
+            <div class="user-avatar">
+                <i class="fas fa-user-shield"></i>
+            </div>
+            <div class="user-name">Head of Mentor Mentee</div>
+            <div class="user-role">Administrator</div>
+        </div>
+
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="{% url 'head_homepage' %}" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    <span class="nav-text">Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'manage_mentees' %}" class="nav-link active">
+                    <i class="fas fa-user-graduate"></i>
+                    <span class="nav-text">Mentee Records</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'manage_mentors' %}" class="nav-link">
+                    <i class="fas fa-user-tie"></i>
+                    <span class="nav-text">Mentor Records</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'mentor_assignments' %}" class="nav-link">
+                    <i class="fas fa-users"></i>
+                    <span class="nav-text">Mentor Assignments</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'mentor_mentee_activities' %}" class="nav-link">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span class="nav-text">Activities</span>
+                </a>
+            </li>
+        </ul>
+
+        <!-- Logout section at bottom of sidebar -->
+        <div class="sidebar-footer">
+            <div class="nav-item logout-item">
+                <a href="{% url 'logout' %}" class="logout-link">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span class="nav-text">Logout</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Content Header with Profile Button -->
+        <div class="content-header">
+            <div>
+                <h1>Manage Mentee Records</h1>
+                <p>View and manage all mentee information and assignments</p>
+            </div>
+            <div class="profile-section">
+                <a href="{% url 'add_mentee' %}" class="btn btn-success">
+                    <i class="fas fa-plus"></i>
+                    Add New Mentee
+                </a>
+                <button class="profile-btn">
+                    <div class="profile-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <span>Profile</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- UPDATED: Controls Section with Search, Status Filter, and Sort Dropdown -->
+        <div class="controls">
+            <!-- Search bar -->
+            <div class="search-container">
+                <i class="fas fa-search"></i>
+                <input type="text" class="search-input" id="searchInput" 
+                       placeholder="Search by ID, Name, Course, or Mentor" 
+                       value="{{ search_query }}" onkeyup="filterMentees()">
+                {% if search_query %}
+                <button class="clear-search-btn" onclick="clearSearch()">
+                    <i class="fas fa-times"></i>
+                </button>
+                {% endif %}
+            </div>
+            
+            <!-- Status Dropdown Filter -->
+            <div class="status-filter-dropdown" id="statusFilterDropdown">
+                <button class="status-dropdown-toggle" id="statusDropdownToggle" onclick="toggleStatusDropdown(event)">
+                    <span id="currentStatusLabel">
+                        <span class="status-indicator all"></span>
+                        All Status
+                    </span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="status-dropdown-menu" id="statusDropdownMenu">
+                    <div class="status-dropdown-item active" data-status="all" onclick="selectStatus('all', 'All Status')">
+                        <span class="status-indicator all"></span>
+                        All Status
+                        <i class="fas fa-check" style="margin-left: auto;"></i>
+                    </div>
+                    <div class="status-dropdown-item" data-status="active" onclick="selectStatus('active', 'Active')">
+                        <span class="status-indicator active"></span>
+                        Active
+                    </div>
+                    <div class="status-dropdown-item" data-status="inactive" onclick="selectStatus('inactive', 'Inactive')">
+                        <span class="status-indicator inactive"></span>
+                        Inactive
+                    </div>
+                    <div class="status-dropdown-item" data-status="graduated" onclick="selectStatus('graduated', 'Graduated')">
+                        <span class="status-indicator graduated"></span>
+                        Graduated
+                    </div>
+                    <div class="status-dropdown-item" data-status="unassigned" onclick="selectStatus('unassigned', 'Unassigned')">
+                        <span class="status-indicator unassigned"></span>
+                        Unassigned
+                    </div>
+                </div>
+            </div>
+            
+            <!-- NEW: Sorting Dropdown -->
+            <div class="sort-filter-dropdown" id="sortFilterDropdown">
+                <button class="sort-dropdown-toggle" id="sortDropdownToggle" onclick="toggleSortDropdown(event)">
+                    <span id="currentSortLabel">
+                        <i class="fas fa-calendar-plus"></i>
+                        Latest Created
+                    </span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="sort-dropdown-menu" id="sortDropdownMenu">
+                    <div class="sort-dropdown-item active" data-sort="latest" onclick="selectSort('latest', 'Latest Created')">
+                        <i class="fas fa-calendar-plus"></i>
+                        Latest Created
+                        <i class="fas fa-check" style="margin-left: auto;"></i>
+                    </div>
+                    <div class="sort-dropdown-item" data-sort="oldest" onclick="selectSort('oldest', 'Oldest Created')">
+                        <i class="fas fa-calendar-minus"></i>
+                        Oldest Created
+                    </div>
+                    <div class="sort-dropdown-item" data-sort="id_asc" onclick="selectSort('id_asc', 'ID (A-Z)')">
+                        <i class="fas fa-sort-alpha-down"></i>
+                        ID (A-Z)
+                    </div>
+                    <div class="sort-dropdown-item" data-sort="id_desc" onclick="selectSort('id_desc', 'ID (Z-A)')">
+                        <i class="fas fa-sort-alpha-up"></i>
+                        ID (Z-A)
+                    </div>
+                    <div class="sort-dropdown-item" data-sort="name_asc" onclick="selectSort('name_asc', 'Name (A-Z)')">
+                        <i class="fas fa-sort-alpha-down"></i>
+                        Name (A-Z)
+                    </div>
+                    <div class="sort-dropdown-item" data-sort="name_desc" onclick="selectSort('name_desc', 'Name (Z-A)')">
+                        <i class="fas fa-sort-alpha-up"></i>
+                        Name (Z-A)
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mentee Table -->
+        {% if mentees %}
+        <div class="mentee-table-container">
+            <table class="mentee-table" id="menteeTable">
+                <thead>
+                    <tr>
+                        <th></th> <!-- Profile Picture Column -->
+                        <th>Mentee ID</th>
+                        <th>Name</th>
+                        <th>Course</th>
+                        <th>Semester</th>
+                        <th>Assigned Mentor</th>
+                        <th>Status</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="menteeTableBody">
+                    {% for mentee in mentees %}
+                    <tr class="mentee-row" 
+                        data-status="{{ mentee.MenteeStatus }}" 
+                        data-gender="{{ mentee.MenteeGender }}"
+                        data-assigned="{% if mentee.assigned_mentor %}assigned{% else %}unassigned{% endif %}"
+                        data-view-url="{% url 'view_mentee' mentee.MenteeID %}"
+                        data-mentee-id="{{ mentee.MenteeID }}"
+                        data-mentee-name="{{ mentee.MenteeName }}"
+                        data-created-date="{{ mentee.MenteeJoinDate|date:'Y-m-d' }}">
+                        
+                        <!-- Profile Picture Column -->
+                        <td>
+                            {% if mentee.profile_picture %}
+                                <img src="{{ mentee.profile_picture.url }}" alt="{{ mentee.MenteeName }}" class="profile-picture">
+                            {% else %}
+                                <div class="profile-picture-placeholder">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                            {% endif %}
+                        </td>
+                        
+                        <td><strong>{{ mentee.MenteeID }}</strong></td>
+                        <td>{{ mentee.MenteeName }}</td>
+                        <td>
+                            <span class="course-badge">{{ mentee.display_course }}</span>
+                        </td>
+                        <td>{{ mentee.MenteeSemester }}</td>
+                        <td>
+                            {% if mentee.assigned_mentor %}
+                                {{ mentee.assigned_mentor.MentorName }}
+                            {% else %}
+                                <span class="unassigned-badge">Not Assigned</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <span class="status-{{ mentee.MenteeStatus }}">
+                                {{ mentee.get_MenteeStatus_display }}
+                            </span>
+                        </td>
+                        <td>
+                            <!-- Horizontal 3-Dots Dropdown -->
+                            <div class="dropdown" id="dropdown-{{ mentee.MenteeID }}">
+                                <button class="dropdown-toggle" type="button" onclick="toggleDropdown('{{ mentee.MenteeID }}', event)">
+                                    <i class="fas fa-ellipsis-h"></i>
+                                </button>
+                                <div class="dropdown-menu" id="menu-{{ mentee.MenteeID }}">
+                                    <a href="{% url 'edit_mentee' mentee.MenteeID %}" class="dropdown-item edit">
+                                        <i class="fas fa-edit"></i>
+                                        Edit
+                                    </a>
+                                    <form method="POST" action="{% url 'delete_mentee' mentee.MenteeID %}" style="display: none;" 
+                                          id="delete-form-{{ mentee.MenteeID }}">
+                                        {% csrf_token %}
+                                    </form>
+                                    <a href="#" class="dropdown-item delete" 
+                                       onclick="confirmDelete('{{ mentee.MenteeID }}', '{{ mentee.MenteeName }}')">
+                                        <i class="fas fa-trash"></i>
+                                        Delete
+                                    </a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination-container">
+            <div class="pagination-info" id="paginationInfo">
+                Showing {{ mentees.start_index }} to {{ mentees.end_index }} of {{ mentees.paginator.count }} records
+            </div>
+            
+            <div class="pagination">
+                {% if mentees.has_previous %}
+                    <button class="page-btn" onclick="goToPage(1)">
+                        <i class="fas fa-angle-double-left"></i>
+                    </button>
+                    <button class="page-btn" onclick="goToPage({{ mentees.previous_page_number }})">
+                        <i class="fas fa-angle-left"></i>
+                    </button>
+                {% else %}
+                    <button class="page-btn" disabled>
+                        <i class="fas fa-angle-double-left"></i>
+                    </button>
+                    <button class="page-btn" disabled>
+                        <i class="fas fa-angle-left"></i>
+                    </button>
+                {% endif %}
+
+                {% for num in mentees.paginator.page_range %}
+                    {% if mentees.number == num %}
+                        <button class="page-btn active">{{ num }}</button>
+                    {% elif num > mentees.number|add:'-3' and num < mentees.number|add:'3' %}
+                        <button class="page-btn" onclick="goToPage({{ num }})">{{ num }}</button>
+                    {% elif num == mentees.number|add:'-3' or num == mentees.number|add:'3' %}
+                        <span class="page-ellipsis">...</span>
+                    {% endif %}
+                {% endfor %}
+
+                {% if mentees.has_next %}
+                    <button class="page-btn" onclick="goToPage({{ mentees.next_page_number }})">
+                        <i class="fas fa-angle-right"></i>
+                    </button>
+                    <button class="page-btn" onclick="goToPage({{ mentees.paginator.num_pages }})">
+                        <i class="fas fa-angle-double-right"></i>
+                    </button>
+                {% else %}
+                    <button class="page-btn" disabled>
+                        <i class="fas fa-angle-right"></i>
+                    </button>
+                    <button class="page-btn" disabled>
+                        <i class="fas fa-angle-double-right"></i>
+                    </button>
+                {% endif %}
+            </div>
+            
+            <div class="records-per-page">
+                <span>Show</span>
+                <select id="recordsPerPage" onchange="changeRecordsPerPage(this.value)">
+                    <option value="10" {% if per_page == 10 %}selected{% endif %}>10</option>
+                    <option value="25" {% if per_page == 25 %}selected{% endif %}>25</option>
+                    <option value="50" {% if per_page == 50 %}selected{% endif %}>50</option>
+                    <option value="100" {% if per_page == 100 %}selected{% endif %}>100</option>
+                </select>
+                <span>records per page</span>
+            </div>
+        </div>
+        {% else %}
+        <div class="no-data">
+            <h2>No Mentees Found</h2>
+            <p>No mentee records match your search criteria.</p>
+            <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+                <a href="{% url 'manage_mentees' %}" class="btn btn-primary">
+                    <i class="fas fa-list"></i>
+                    Show All Mentees
+                </a>
+                <a href="{% url 'add_mentee' %}" class="btn btn-success">
+                    <i class="fas fa-plus"></i>
+                    Add New Mentee
+                </a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Dropdown Backdrops -->
+    <div class="dropdown-backdrop" id="dropdownBackdrop" onclick="closeAllDropdowns()"></div>
+    <div class="status-dropdown-backdrop" id="statusDropdownBackdrop" onclick="closeStatusDropdown()"></div>
+    <div class="sort-dropdown-backdrop" id="sortDropdownBackdrop" onclick="closeSortDropdown()"></div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script>
+        // =================== Sorting Functionality ===================
+        let sortDropdownOpen = false;
+        let currentSort = 'latest'; // Default sort
+        
+        function toggleSortDropdown(event) {
+            const dropdownMenu = document.getElementById('sortDropdownMenu');
+            const dropdownToggle = document.getElementById('sortDropdownToggle');
+            const backdrop = document.getElementById('sortDropdownBackdrop');
+            
+            if (sortDropdownOpen) {
+                closeSortDropdown();
+            } else {
+                dropdownMenu.classList.add('show');
+                dropdownToggle.classList.add('active');
+                backdrop.style.display = 'block';
+                sortDropdownOpen = true;
+            }
+            
+            event.stopPropagation();
+        }
+        
+        function closeSortDropdown() {
+            const dropdownMenu = document.getElementById('sortDropdownMenu');
+            const dropdownToggle = document.getElementById('sortDropdownToggle');
+            const backdrop = document.getElementById('sortDropdownBackdrop');
+            
+            dropdownMenu.classList.remove('show');
+            dropdownToggle.classList.remove('active');
+            backdrop.style.display = 'none';
+            sortDropdownOpen = false;
+        }
+        
+        function selectSort(sortType, label) {
+            // Update button label
+            document.getElementById('currentSortLabel').innerHTML = `
+                <i class="fas ${getSortIcon(sortType)}"></i>
+                ${label}
+            `;
+            
+            // Update active item in dropdown
+            const dropdownItems = document.querySelectorAll('.sort-dropdown-item');
+            dropdownItems.forEach(item => {
+                item.classList.remove('active');
+                const checkIcon = item.querySelector('.fa-check');
+                if (checkIcon) {
+                    checkIcon.remove();
+                }
+                
+                if (item.getAttribute('data-sort') === sortType) {
+                    item.classList.add('active');
+                    const icon = document.createElement('i');
+                    icon.className = 'fas fa-check';
+                    icon.style.marginLeft = 'auto';
+                    item.appendChild(icon);
+                }
+            });
+            
+            // Close dropdown
+            closeSortDropdown();
+            
+            // Apply sort
+            currentSort = sortType;
+            applySorting();
+        }
+        
+        function getSortIcon(sortType) {
+            const iconMap = {
+                'latest': 'fa-calendar-plus',
+                'oldest': 'fa-calendar-minus',
+                'id_asc': 'fa-sort-alpha-down',
+                'id_desc': 'fa-sort-alpha-up',
+                'name_asc': 'fa-sort-alpha-down',
+                'name_desc': 'fa-sort-alpha-up'
+            };
+            return iconMap[sortType] || 'fa-sort';
+        }
+        
+        function parseMenteeId(menteeId) {
+            // Parse mentee ID into components for sorting
+            // Format: BCS2311-001
+            // Where: B[CS] = Program, 23 = Year, 11 = Intake Month, 001 = Running Number
+            
+            const match = menteeId.match(/^([A-Z]+)(\d{2})(\d{2})-(\d+)$/);
+            if (!match) return { program: '', year: 0, month: 0, number: 0 };
+            
+            const [, program, yearStr, monthStr, numberStr] = match;
+            
+            return {
+                program: program,
+                year: parseInt(yearStr),
+                month: parseInt(monthStr),
+                number: parseInt(numberStr)
+            };
+        }
+        
+        function compareMenteeIds(a, b) {
+            // Custom comparison for mentee IDs
+            const aParts = parseMenteeId(a);
+            const bParts = parseMenteeId(b);
+            
+            // Priority 1: Program (CS, DA, DB, LH, IEP, CFAB)
+            const programOrder = { 'CS': 1, 'DA': 2, 'DB': 3, 'LH': 4, 'IEP': 5, 'CFAB': 6 };
+            const aProgramOrder = programOrder[aParts.program] || 999;
+            const bProgramOrder = programOrder[bParts.program] || 999;
+            
+            if (aProgramOrder !== bProgramOrder) {
+                return aProgramOrder - bProgramOrder;
+            }
+            
+            // Priority 2: Year (older years first)
+            if (aParts.year !== bParts.year) {
+                return aParts.year - bParts.year;
+            }
+            
+            // Priority 3: Intake month (11, 7, 3 - November, July, March)
+            // Convert to comparable order: 11=1, 7=2, 3=3 (later months first)
+            const monthOrder = { 11: 1, 7: 2, 3: 3 };
+            const aMonthOrder = monthOrder[aParts.month] || 4;
+            const bMonthOrder = monthOrder[bParts.month] || 4;
+            
+            if (aMonthOrder !== bMonthOrder) {
+                return aMonthOrder - bMonthOrder;
+            }
+            
+            // Priority 4: Running number
+            return aParts.number - bParts.number;
+        }
+        
+        function applySorting() {
+            const tbody = document.getElementById('menteeTableBody');
+            const rows = Array.from(tbody.querySelectorAll('.mentee-row:not([style*="display: none"])'));
+            
+            rows.sort((a, b) => {
+                const aId = a.getAttribute('data-mentee-id');
+                const bId = b.getAttribute('data-mentee-id');
+                const aName = a.getAttribute('data-mentee-name').toLowerCase();
+                const bName = b.getAttribute('data-mentee-name').toLowerCase();
+                const aDate = new Date(a.getAttribute('data-created-date'));
+                const bDate = new Date(b.getAttribute('data-created-date'));
+                
+                switch(currentSort) {
+                    case 'latest':
+                        return bDate - aDate; // Newest first
+                    case 'oldest':
+                        return aDate - bDate; // Oldest first
+                    case 'id_asc':
+                        return compareMenteeIds(aId, bId); // ID A-Z with custom logic
+                    case 'id_desc':
+                        return compareMenteeIds(bId, aId); // ID Z-A with custom logic
+                    case 'name_asc':
+                        return aName.localeCompare(bName); // Name A-Z
+                    case 'name_desc':
+                        return bName.localeCompare(aName); // Name Z-A
+                    default:
+                        return 0;
+                }
+            });
+            
+            // Reorder rows in the table
+            rows.forEach(row => tbody.appendChild(row));
+            
+            // Update pagination info
+            updatePaginationInfo();
+        }
+        
+        function updatePaginationInfo() {
+            const visibleRows = document.querySelectorAll('.mentee-row:not([style*="display: none"])');
+            const startIndex = 1;
+            const endIndex = visibleRows.length;
+            const totalRecords = visibleRows.length;
+            
+            document.getElementById('paginationInfo').textContent = 
+                `Showing ${startIndex} to ${endIndex} of ${totalRecords} records`;
+        }
+        
+        // =================== Status Filter Functionality ===================
+        let statusDropdownOpen = false;
+        
+        function toggleStatusDropdown(event) {
+            const dropdownMenu = document.getElementById('statusDropdownMenu');
+            const dropdownToggle = document.getElementById('statusDropdownToggle');
+            const backdrop = document.getElementById('statusDropdownBackdrop');
+            
+            if (statusDropdownOpen) {
+                closeStatusDropdown();
+            } else {
+                dropdownMenu.classList.add('show');
+                dropdownToggle.classList.add('active');
+                backdrop.style.display = 'block';
+                statusDropdownOpen = true;
+            }
+            
+            event.stopPropagation();
+        }
+        
+        function closeStatusDropdown() {
+            const dropdownMenu = document.getElementById('statusDropdownMenu');
+            const dropdownToggle = document.getElementById('statusDropdownToggle');
+            const backdrop = document.getElementById('statusDropdownBackdrop');
+            
+            dropdownMenu.classList.remove('show');
+            dropdownToggle.classList.remove('active');
+            backdrop.style.display = 'none';
+            statusDropdownOpen = false;
+        }
+        
+        function selectStatus(status, label) {
+            document.getElementById('currentStatusLabel').innerHTML = `
+                <span class="status-indicator ${status}"></span>
+                ${label}
+            `;
+            
+            const dropdownItems = document.querySelectorAll('.status-dropdown-item');
+            dropdownItems.forEach(item => {
+                item.classList.remove('active');
+                const checkIcon = item.querySelector('.fa-check');
+                if (checkIcon) {
+                    checkIcon.remove();
+                }
+                
+                if (item.getAttribute('data-status') === status) {
+                    item.classList.add('active');
+                    const icon = document.createElement('i');
+                    icon.className = 'fas fa-check';
+                    icon.style.marginLeft = 'auto';
+                    item.appendChild(icon);
+                }
+            });
+            
+            closeStatusDropdown();
+            filterByStatus(status);
+        }
+        
+        // =================== Search Functionality ===================
+        function filterMentees() {
+            const input = document.getElementById('searchInput');
+            const filter = input.value.toLowerCase();
+            const rows = document.getElementsByClassName('mentee-row');
+            
+            for (let i = 0; i < rows.length; i++) {
+                const row = rows[i];
+                const text = row.textContent.toLowerCase();
+                if (text.includes(filter)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            }
+            
+            // Re-apply sorting after filtering
+            setTimeout(() => {
+                applySorting();
+            }, 100);
+        }
+        
+        function clearSearch() {
+            document.getElementById('searchInput').value = '';
+            filterMentees();
+            applySorting();
+            document.querySelector('.clear-search-btn')?.remove();
+        }
+        
+        function filterByStatus(status) {
+            const rows = document.getElementsByClassName('mentee-row');
+            
+            for (let i = 0; i < rows.length; i++) {
+                const row = rows[i];
+                if (status === 'all') {
+                    row.style.display = '';
+                } else if (status === 'unassigned') {
+                    if (row.getAttribute('data-assigned') === 'unassigned') {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                } else {
+                    if (row.getAttribute('data-status') === status) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                }
+            }
+            
+            // Re-apply sorting after filtering
+            setTimeout(() => {
+                applySorting();
+            }, 100);
+        }
+        
+        // =================== 3-Dots Dropdown Functionality ===================
+        let activeDropdown = null;
+
+        function toggleDropdown(menteeId, event) {
+            const dropdown = document.getElementById(`dropdown-${menteeId}`);
+            const menu = document.getElementById(`menu-${menteeId}`);
+            const backdrop = document.getElementById('dropdownBackdrop');
+            
+            if (activeDropdown && activeDropdown !== menu) {
+                activeDropdown.classList.remove('show');
+            }
+            
+            if (menu.classList.contains('show')) {
+                menu.classList.remove('show');
+                backdrop.style.display = 'none';
+                activeDropdown = null;
+            } else {
+                const row = event.target.closest('tr');
+                const table = document.querySelector('.mentee-table-container');
+                const tableRect = table.getBoundingClientRect();
+                const dropdownRect = dropdown.getBoundingClientRect();
+                
+                const spaceBelow = tableRect.bottom - dropdownRect.bottom;
+                const spaceAbove = dropdownRect.top - tableRect.top;
+                const menuHeight = 110;
+                
+                menu.classList.remove('open-up', 'open-down');
+                
+                if (spaceBelow < menuHeight && spaceAbove > menuHeight) {
+                    menu.classList.add('open-up');
+                } else {
+                    menu.classList.add('open-down');
+                }
+                
+                const menuWidth = 140;
+                const spaceRight = tableRect.right - dropdownRect.right;
+                const spaceLeft = dropdownRect.left - tableRect.left;
+                
+                if (spaceRight < menuWidth && spaceLeft > menuWidth) {
+                    menu.style.left = 'auto';
+                    menu.style.right = '0';
+                } else {
+                    menu.style.left = 'auto';
+                    menu.style.right = '0';
+                }
+                
+                menu.classList.add('show');
+                backdrop.style.display = 'block';
+                activeDropdown = menu;
+            }
+            
+            event.stopPropagation();
+        }
+        
+        function closeAllDropdowns() {
+            const dropdowns = document.querySelectorAll('.dropdown-menu');
+            dropdowns.forEach(dropdown => {
+                dropdown.classList.remove('show');
+                dropdown.classList.remove('open-up');
+                dropdown.classList.remove('open-down');
+            });
+            document.getElementById('dropdownBackdrop').style.display = 'none';
+            activeDropdown = null;
+        }
+        
+        // =================== Event Listeners ===================
+        document.addEventListener('click', function(event) {
+            // Close status dropdown when clicking outside
+            if (!event.target.closest('.status-filter-dropdown') && statusDropdownOpen) {
+                closeStatusDropdown();
+            }
+            
+            // Close sort dropdown when clicking outside
+            if (!event.target.closest('.sort-filter-dropdown') && sortDropdownOpen) {
+                closeSortDropdown();
+            }
+            
+            // Close 3-dots dropdowns when clicking outside
+            if (!event.target.closest('.dropdown')) {
+                closeAllDropdowns();
+            }
+        });
+        
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                if (statusDropdownOpen) closeStatusDropdown();
+                if (sortDropdownOpen) closeSortDropdown();
+                closeAllDropdowns();
+            }
+        });
+        
+        // Make entire row clickable
+        document.addEventListener('DOMContentLoaded', function() {
+            const rows = document.querySelectorAll('.mentee-row');
+            
+            rows.forEach(row => {
+                row.addEventListener('click', function(event) {
+                    if (event.target.closest('.dropdown') || 
+                        event.target.closest('td:last-child')) {
+                        return;
+                    }
+                    
+                    const viewUrl = row.getAttribute('data-view-url');
+                    if (viewUrl) {
+                        window.location.href = viewUrl;
+                    }
+                });
+                
+                const cells = row.querySelectorAll('td:not(:last-child)');
+                cells.forEach(cell => {
+                    cell.style.cursor = 'pointer';
+                });
+            });
+            
+            // Apply initial sorting
+            applySorting();
+            
+            // Search input event listener
+            const searchInput = document.getElementById('searchInput');
+            if (searchInput) {
+                searchInput.addEventListener('input', function() {
+                    const clearBtn = document.querySelector('.clear-search-btn');
+                    if (this.value && !clearBtn) {
+                        const searchContainer = document.querySelector('.search-container');
+                        const clearBtn = document.createElement('button');
+                        clearBtn.className = 'clear-search-btn';
+                        clearBtn.innerHTML = '<i class="fas fa-times"></i>';
+                        clearBtn.onclick = clearSearch;
+                        searchContainer.appendChild(clearBtn);
+                    } else if (!this.value && clearBtn) {
+                        clearBtn.remove();
+                    }
+                });
+            }
+            
+            // Initialize clear button if search query exists
+            if (searchInput && searchInput.value) {
+                const searchContainer = document.querySelector('.search-container');
+                const clearBtn = document.createElement('button');
+                clearBtn.className = 'clear-search-btn';
+                clearBtn.innerHTML = '<i class="fas fa-times"></i>';
+                clearBtn.onclick = clearSearch;
+                searchContainer.appendChild(clearBtn);
+            }
+            
+            // Show toast notifications for Django messages
+            {% if messages %}
+                {% for message in messages %}
+                    showToast(
+                        '{{ message.tags|title }}', 
+                        '{{ message }}', 
+                        '{{ message.tags }}' === 'error' ? 'error' : 'success'
+                    );
+                {% endfor %}
+            {% endif %}
+        });
+        
+        // =================== Other Functions ===================
+        function confirmDelete(menteeId, menteeName) {
+            if (confirm(`Are you sure you want to delete "${menteeName}"? This action cannot be undone.`)) {
+                document.getElementById(`delete-form-${menteeId}`).submit();
+            }
+            closeAllDropdowns();
+            return false;
+        }
+        
+        function goToPage(page) {
+            const url = new URL(window.location.href);
+            url.searchParams.set('page', page);
+            window.location.href = url.toString();
+        }
+        
+        function changeRecordsPerPage(value) {
+            const url = new URL(window.location.href);
+            url.searchParams.set('per_page', value);
+            url.searchParams.set('page', 1);
+            window.location.href = url.toString();
+        }
+        
+        function showToast(title, message, type = 'success') {
+            const toastContainer = document.getElementById('toastContainer');
+            const toastId = 'toast-' + Date.now();
+            
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            toast.id = toastId;
+            
+            toast.innerHTML = `
+                <div class="toast-icon">
+                    <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
+                </div>
+                <div class="toast-content">
+                    <div class="toast-title">${title}</div>
+                    <div class="toast-message">${message}</div>
+                </div>
+                <button class="toast-close" onclick="closeToast('${toastId}')">
+                    <i class="fas fa-times"></i>
+                </button>
+            `;
+            
+            toastContainer.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.classList.add('show');
+            }, 10);
+            
+            setTimeout(() => {
+                closeToast(toastId);
+            }, 5000);
+        }
+        
+        function closeToast(toastId) {
+            const toast = document.getElementById(toastId);
+            if (toast) {
+                toast.classList.remove('show');
+                setTimeout(() => {
+                    if (toast.parentNode) {
+                        toast.parentNode.removeChild(toast);
+                    }
+                }, 300);
+            }
+        }
+    </script>
+</body>
+</html>

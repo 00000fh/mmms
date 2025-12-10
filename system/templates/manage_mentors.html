@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Mentors | MMS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #f5f7fa;
+            min-height: 100vh;
+            display: flex;
+            color: #333;
+        }
+
+        /* Sidebar Styles - Consistent Blue Theme */
+        .sidebar {
+            width: 260px;
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
+            color: white;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            overflow-y: auto;
+            box-shadow: 2px 0 20px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-section {
+            padding: 24px 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .logo i {
+            font-size: 32px;
+        }
+
+        .logo-text {
+            font-size: 22px;
+        }
+
+        .user-info {
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .user-avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 0 auto 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .user-name {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .user-role {
+            font-size: 13px;
+            opacity: 0.8;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 3px 10px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        .nav-menu {
+            list-style: none;
+            padding: 20px 0;
+            flex: 1;
+        }
+
+        .nav-item {
+            margin-bottom: 6px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-left-color: rgba(255, 255, 255, 0.5);
+            padding-left: 24px;
+        }
+
+        .nav-link.active {
+            background: rgba(255, 255, 255, 0.15);
+            border-left-color: white;
+        }
+
+        .nav-link i {
+            margin-right: 12px;
+            font-size: 16px;
+            width: 18px;
+            text-align: center;
+        }
+
+        .nav-text {
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        /* Logout section at bottom of sidebar */
+        .sidebar-footer {
+            margin-top: auto;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logout-item {
+            margin-bottom: 0;
+        }
+
+        .logout-link {
+            display: flex;
+            align-items: center;
+            padding: 16px 20px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .logout-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-left-color: rgba(255, 255, 255, 0.5);
+            padding-left: 24px;
+        }
+
+        .logout-link i {
+            margin-right: 12px;
+            font-size: 16px;
+            width: 18px;
+            text-align: center;
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            flex: 1;
+            margin-left: 260px;
+            min-height: 100vh;
+            background: #f5f7fa;
+            padding: 24px;
+        }
+
+        /* Updated Content Header with Profile Button */
+        .content-header {
+            background: white;
+            padding: 20px 24px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .content-header h1 {
+            font-size: 24px;
+            color: #2d3748;
+            margin-bottom: 4px;
+        }
+
+        .content-header p {
+            color: #718096;
+            font-size: 14px;
+        }
+
+        /* Profile Button Styles */
+        .profile-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .profile-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 16px;
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .profile-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
+        }
+
+        .profile-avatar {
+            width: 40px;
+            height: 18px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+        }
+
+        .btn {
+            padding: 10px 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
+            color: white;
+        }
+
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
+        }
+
+        /* Stats Grid - SMALLER SIZE */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 10px;
+            padding: 16px;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border-left: 3px solid #1a3a8f;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(26, 58, 143, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .stat-card:hover::before {
+            left: 100%;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
+        }
+
+        .stat-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            color: white;
+            font-size: 16px;
+        }
+
+        .stat-number {
+            font-size: 22px;
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            color: #718096;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        /* Controls Section */
+        .controls {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            margin-bottom: 24px;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .search-box input {
+            flex: 1;
+            padding: 10px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 13px;
+            transition: all 0.3s ease;
+            background: #f8f9ff;
+        }
+
+        .search-box input:focus {
+            border-color: #1a3a8f;
+            box-shadow: 0 0 0 3px rgba(26, 58, 143, 0.1);
+            background: white;
+            outline: none;
+        }
+
+        .btn-secondary {
+            background: #718096;
+            color: white;
+            padding: 10px 16px;
+        }
+
+        .btn-secondary:hover {
+            background: #4a5568;
+            transform: translateY(-2px);
+        }
+
+        .filter-options {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            border: 2px solid #1a3a8f;
+            background: white;
+            color: #1a3a8f;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 13px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .filter-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(26, 58, 143, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .filter-btn:hover::before {
+            left: 100%;
+        }
+
+        .filter-btn:hover {
+            background: #f8f9ff;
+            transform: translateY(-2px);
+        }
+
+        .filter-btn.active {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
+            color: white;
+            border-color: #1a3a8f;
+        }
+
+        /* Table Styles - CLEANER DESIGN */
+        .mentor-table-container {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            margin-bottom: 24px;
+            overflow-x: auto;
+        }
+
+        .mentor-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 1000px; /* Increased min-width to accommodate profile picture column */
+        }
+
+        .mentor-table th {
+            background: #f8f9ff;
+            padding: 16px 20px;
+            text-align: left;
+            font-weight: 600;
+            color: #2d3748;
+            border-bottom: 2px solid #e2e8f0;
+            position: sticky;
+            top: 0;
+            font-size: 14px;
+            white-space: nowrap;
+        }
+
+        .mentor-table td {
+            padding: 16px 20px;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 14px;
+            line-height: 1.5;
+            vertical-align: middle;
+        }
+
+        .mentor-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Profile Picture Styles */
+        .profile-picture {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #e2e8f0;
+            background: #f8f9fa;
+        }
+
+        .profile-picture-placeholder {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+            border: 2px solid #e2e8f0;
+        }
+
+        /* Status and Badge Styles */
+        .department-badge { 
+            background: #e3f2fd; 
+            color: #1565c0; 
+            padding: 6px 12px; 
+            border-radius: 12px; 
+            font-size: 12px; 
+            font-weight: 600; 
+            display: inline-block;
+        }
+
+        /* Action Buttons - ALIGNED TO RIGHT */
+        .actions-cell { 
+            cursor: default; 
+            text-align: right;
+            white-space: nowrap;
+        }
+        .actions-cell:hover { 
+            background: inherit !important; 
+        }
+
+        .action-btn {
+            padding: 8px 14px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin-left: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .action-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .action-btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-assign {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
+            color: white;
+        }
+
+        .btn-assign:hover {
+            background: linear-gradient(135deg, #0d1b4e 0%, #1a3a8f 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(26, 58, 143, 0.3);
+        }
+
+        .btn-delete {
+            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+            color: white;
+        }
+
+        .btn-delete:hover {
+            background: linear-gradient(135deg, #c82333 0%, #dc3545 100%);
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(220, 53, 69, 0.3);
+        }
+
+        /* Progress Bar for Capacity */
+        .capacity-container {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            min-width: 140px;
+        }
+
+        .capacity-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .capacity-numbers {
+            color: #2d3748;
+        }
+
+        .capacity-vacancy {
+            color: #718096;
+            font-size: 12px;
+        }
+
+        .capacity-bar {
+            width: 100%;
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .capacity-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.3s ease;
+            background: linear-gradient(90deg, currentColor, rgba(255, 255, 255, 0.8));
+        }
+
+        .capacity-fill.high { background: linear-gradient(90deg, #2e7d32, #4caf50); }
+        .capacity-fill.medium { background: linear-gradient(90deg, #ed6c02, #ff9800); }
+        .capacity-fill.low { background: linear-gradient(90deg, #d32f2f, #f44336); }
+        .capacity-fill.full { background: linear-gradient(90deg, #6b7280, #9ca3af); }
+
+        /* Zebra striping for better readability */
+        .mentor-table tbody tr:nth-child(even) {
+            background-color: #fafbfc;
+        }
+
+        /* Clean row hover effect with gradient */
+        .clickable-row { 
+            cursor: pointer; 
+            transition: all 0.3s ease;
+            background: white;
+            position: relative;
+        }
+
+        .clickable-row::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #1a3a8f, #4f7df9, #1a3a8f) border-box;
+            -webkit-mask: 
+                linear-gradient(#fff 0 0) padding-box, 
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: destination-out;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .clickable-row:hover::after {
+            opacity: 1;
+        }
+
+        .clickable-row:hover {
+            background: #f8f9ff;
+            box-shadow: 0 2px 8px rgba(26, 58, 143, 0.1);
+            transform: translateY(-1px);
+        }
+
+        /* No Data State */
+        .no-data {
+            text-align: center;
+            color: #718096;
+            padding: 50px 30px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .no-data::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(26, 58, 143, 0.05), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .no-data:hover::before {
+            left: 100%;
+        }
+
+        .no-data h2 {
+            color: #2d3748;
+            margin-bottom: 12px;
+            font-size: 20px;
+        }
+
+        .no-data p {
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
+            color: white;
+            padding: 10px 18px;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #0d1b4e 0%, #1a3a8f 100%);
+            transform: translateY(-2px);
+        }
+
+        /* Toast Notification Styles */
+        .toast-container {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            max-width: 400px;
+        }
+
+        .toast {
+            background: white;
+            border-radius: 8px;
+            padding: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            transform: translateX(100%);
+            opacity: 0;
+            transition: all 0.3s ease;
+            border-left: 4px solid;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .toast-success {
+            border-left-color: #38a169;
+        }
+
+        .toast-error {
+            border-left-color: #e53e3e;
+        }
+
+        .toast-icon {
+            font-size: 18px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .toast-success .toast-icon {
+            color: #38a169;
+        }
+
+        .toast-error .toast-icon {
+            color: #e53e3e;
+        }
+
+        .toast-content {
+            flex: 1;
+        }
+
+        .toast-title {
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 4px;
+            color: #2d3748;
+        }
+
+        .toast-message {
+            font-size: 13px;
+            color: #4a5568;
+            line-height: 1.4;
+        }
+
+        .toast-close {
+            background: none;
+            border: none;
+            font-size: 14px;
+            color: #718096;
+            cursor: pointer;
+            padding: 0;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .toast-close:hover {
+            background: #f7fafc;
+            color: #2d3748;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 240px;
+            }
+            .main-content {
+                margin-left: 240px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+            .main-content {
+                margin-left: 0;
+                padding: 16px;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            .content-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            .filter-options {
+                justify-content: center;
+            }
+            .mentor-table-container {
+                overflow-x: auto;
+            }
+            .mentor-table th,
+            .mentor-table td {
+                padding: 12px 14px;
+                font-size: 13px;
+            }
+            
+            .action-btn {
+                padding: 6px 10px;
+                font-size: 11px;
+            }
+            
+            /* Toast adjustments for mobile */
+            .toast-container {
+                bottom: 16px;
+                right: 16px;
+                left: 16px;
+                max-width: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="logo-section">
+            <div class="logo">
+                <i class="fas fa-hands-helping"></i>
+                <span class="logo-text">MMMS</span>
+            </div>
+        </div>
+
+        <div class="user-info">
+            <div class="user-avatar">
+                <i class="fas fa-user-shield"></i>
+            </div>
+            <div class="user-name">Head of Mentor Mentee</div>
+            <div class="user-role">Administrator</div>
+        </div>
+
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="{% url 'head_homepage' %}" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    <span class="nav-text">Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'manage_mentees' %}" class="nav-link">
+                    <i class="fas fa-user-graduate"></i>
+                    <span class="nav-text">Mentee Records</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'manage_mentors' %}" class="nav-link active">
+                    <i class="fas fa-user-tie"></i>
+                    <span class="nav-text">Mentor Records</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'mentor_assignments' %}" class="nav-link">
+                    <i class="fas fa-users"></i>
+                    <span class="nav-text">Mentor Assignments</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'mentor_mentee_activities' %}" class="nav-link">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span class="nav-text">Activities</span>
+                </a>
+            </li>
+        </ul>
+
+        <!-- Logout section at bottom of sidebar -->
+        <div class="sidebar-footer">
+            <div class="nav-item logout-item">
+                <a href="{% url 'logout' %}" class="logout-link">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span class="nav-text">Logout</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Content Header with Profile Button -->
+        <div class="content-header">
+            <div>
+                <h1>Manage Mentor Records</h1>
+                <p>View and manage all mentor information and capacity</p>
+            </div>
+            <div class="profile-section">
+                <a href="{% url 'add_mentor' %}" class="btn btn-success">
+                    <i class="fas fa-plus"></i>
+                    Add New Mentor
+                </a>
+                <button class="profile-btn">
+                    <div class="profile-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <span>Profile</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-user-tie"></i>
+                </div>
+                <div class="stat-number">{{ mentors.count }}</div>
+                <div class="stat-label">Total Mentors</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-user-check"></i>
+                </div>
+                <div class="stat-number">{{ mentors_with_vacancy|length }}</div>
+                <div class="stat-label">Mentors with Vacancy</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-number">{{ total_vacancy }}</div>
+                <div class="stat-label">Total Available Slots</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-building"></i>
+                </div>
+                <div class="stat-number">{{ departments_count }}</div>
+                <div class="stat-label">Departments</div>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="controls">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Search by Mentor ID, Name, or Department..." 
+                       value="{{ search_query }}" onkeyup="filterMentors()">
+                <button class="btn btn-secondary" onclick="clearSearch()">
+                    <i class="fas fa-times"></i>
+                    Clear
+                </button>
+            </div>
+            
+            <div class="filter-options">
+                <button class="filter-btn active" onclick="filterByVacancy('all')">All</button>
+                <button class="filter-btn" onclick="filterByVacancy('high')">High Vacancy</button>
+                <button class="filter-btn" onclick="filterByVacancy('medium')">Medium Vacancy</button>
+                <button class="filter-btn" onclick="filterByVacancy('low')">Low Vacancy</button>
+                <button class="filter-btn" onclick="filterByVacancy('full')">Full</button>
+                {% for department in departments %}
+                <button class="filter-btn" onclick="filterByDepartment('{{ department }}')">{{ department }}</button>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Mentor Table -->
+        {% if mentors %}
+        <div class="mentor-table-container">
+            <table class="mentor-table" id="mentorTable">
+                <thead>
+                    <tr>
+                        <th></th> <!-- Profile Picture Column -->
+                        <th>Mentor ID</th>
+                        <th>Name</th>
+                        <th>Department</th>
+                        <th>Capacity</th>
+                        <th>Join Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for mentor in mentors %}
+                    {% with vacancy_count=mentor.vacancy_count|default:0 current_mentees=mentor.CurrentMentees max_mentees=mentor.MaxMentees %}
+                    {% widthratio current_mentees max_mentees 100 as capacity_percentage %}
+                    <tr class="mentor-row clickable-row" 
+                        data-department="{{ mentor.MentorDepartment }}"
+                        data-vacancy="{{ vacancy_count }}"
+                        data-vacancy-rate="{% widthratio vacancy_count max_mentees 100 %}"
+                        onclick="window.location.href='{% url 'view_mentor' mentor.MentorID %}'">
+                        
+                        <!-- Profile Picture Column -->
+                        <td>
+                            {% if mentor.profile_picture %}
+                                <img src="{{ mentor.profile_picture.url }}" alt="{{ mentor.MentorName }}" class="profile-picture">
+                            {% else %}
+                                <div class="profile-picture-placeholder">
+                                    <i class="fas fa-user-tie"></i>
+                                </div>
+                            {% endif %}
+                        </td>
+                        
+                        <td><strong>{{ mentor.MentorID }}</strong></td>
+                        <td>{{ mentor.MentorName }}</td>
+                        <td>
+                            <span class="department-badge">{{ mentor.MentorDepartment }}</span>
+                        </td>
+                        <td>
+                            <div class="capacity-container">
+                                <div class="capacity-info">
+                                    <span class="capacity-numbers">{{ mentor.current_assignments_count }} / {{ mentor.MaxMentees }}</span>
+                                    <span class="capacity-vacancy">{{ mentor.available_slots }} available</span>
+                                </div>
+                                <div class="capacity-bar">
+                                    <div class="capacity-fill 
+                                        {% if mentor.available_slots >= 10 %}high
+                                        {% elif mentor.available_slots >= 5 %}medium
+                                        {% elif mentor.available_slots > 0 %}low
+                                        {% else %}full{% endif %}" 
+                                        style="width: {% widthratio mentor.current_assignments_count mentor.MaxMentees 100 %}%">
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>{{ mentor.MentorJoinDate }}</td>
+                        <td class="actions-cell" onclick="event.stopPropagation();">
+                            <a href="{% url 'mentor_assignments' %}?mentor={{ mentor.MentorID }}" class="action-btn btn-assign">
+                                <i class="fas fa-user-plus"></i>
+                                Assign
+                            </a>
+                            <form method="POST" action="{% url 'delete_mentor' mentor.MentorID %}" style="display: inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="action-btn btn-delete" 
+                                        onclick="return confirm('Are you sure you want to delete {{ mentor.MentorName }}? This will affect all assigned mentees.')">
+                                    <i class="fas fa-trash"></i>
+                                    Delete
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endwith %}
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="no-data">
+            <h2>No Mentors Found</h2>
+            <p>No mentor records match your search criteria.</p>
+            <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+                <a href="{% url 'manage_mentors' %}" class="btn btn-primary">
+                    <i class="fas fa-list"></i>
+                    Show All Mentors
+                </a>
+                <a href="{% url 'add_mentor' %}" class="btn btn-success">
+                    <i class="fas fa-plus"></i>
+                    Add New Mentor
+                </a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script>
+        // Toast notification system
+        function showToast(title, message, type = 'success') {
+            const toastContainer = document.getElementById('toastContainer');
+            const toastId = 'toast-' + Date.now();
+            
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            toast.id = toastId;
+            
+            toast.innerHTML = `
+                <div class="toast-icon">
+                    <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
+                </div>
+                <div class="toast-content">
+                    <div class="toast-title">${title}</div>
+                    <div class="toast-message">${message}</div>
+                </div>
+                <button class="toast-close" onclick="closeToast('${toastId}')">
+                    <i class="fas fa-times"></i>
+                </button>
+            `;
+            
+            toastContainer.appendChild(toast);
+            
+            // Show toast with animation
+            setTimeout(() => {
+                toast.classList.add('show');
+            }, 10);
+            
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                closeToast(toastId);
+            }, 5000);
+        }
+        
+        function closeToast(toastId) {
+            const toast = document.getElementById(toastId);
+            if (toast) {
+                toast.classList.remove('show');
+                setTimeout(() => {
+                    if (toast.parentNode) {
+                        toast.parentNode.removeChild(toast);
+                    }
+                }, 300);
+            }
+        }
+        
+        function filterMentors() {
+            const input = document.getElementById('searchInput');
+            const filter = input.value.toLowerCase();
+            const rows = document.getElementsByClassName('mentor-row');
+            
+            for (let i = 0; i < rows.length; i++) {
+                const row = rows[i];
+                const text = row.textContent.toLowerCase();
+                if (text.includes(filter)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            }
+        }
+        
+        function clearSearch() {
+            document.getElementById('searchInput').value = '';
+            filterMentors();
+        }
+        
+        function filterByVacancy(type) {
+            const rows = document.getElementsByClassName('mentor-row');
+            const buttons = document.querySelectorAll('.filter-btn');
+            
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            for (let i = 0; i < rows.length; i++) {
+                const row = rows[i];
+                const vacancyCount = parseInt(row.getAttribute('data-vacancy'));
+                
+                if (type === 'all') {
+                    row.style.display = '';
+                } else if (type === 'high') {
+                    row.style.display = vacancyCount >= 10 ? '' : 'none';
+                } else if (type === 'medium') {
+                    row.style.display = (vacancyCount >= 5 && vacancyCount < 10) ? '' : 'none';
+                } else if (type === 'low') {
+                    row.style.display = (vacancyCount > 0 && vacancyCount < 5) ? '' : 'none';
+                } else if (type === 'full') {
+                    row.style.display = vacancyCount === 0 ? '' : 'none';
+                }
+            }
+        }
+        
+        function filterByDepartment(department) {
+            const rows = document.getElementsByClassName('mentor-row');
+            const buttons = document.querySelectorAll('.filter-btn');
+            
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            for (let i = 0; i < rows.length; i++) {
+                const row = rows[i];
+                if (department === 'all' || row.getAttribute('data-department') === department) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            {% if search_query %}
+            filterMentors();
+            {% endif %}
+            
+            // Add active state to current page in navigation
+            const currentPage = window.location.pathname;
+            document.querySelectorAll('.nav-link').forEach(link => {
+                if (link.getAttribute('href') === currentPage) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+            
+            // Profile button functionality
+            document.querySelector('.profile-btn').addEventListener('click', function() {
+                alert('Profile page would open here!');
+                // In a real application, this would navigate to the profile page
+                // window.location.href = '/profile/';
+            });
+            
+            // Show toast notifications for Django messages
+            {% if messages %}
+                {% for message in messages %}
+                    showToast(
+                        '{{ message.tags|title }}', 
+                        '{{ message }}', 
+                        '{{ message.tags }}' === 'error' ? 'error' : 'success'
+                    );
+                {% endfor %}
+            {% endif %}
+        });
+    </script>
+</body>
+</html>

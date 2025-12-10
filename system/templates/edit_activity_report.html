@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Activity Report - Mentor | MMS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #f5f7fa;
+            min-height: 100vh;
+            display: flex;
+            color: #333;
+        }
+
+        /* Sidebar Styles - Updated to match homepage_mentor */
+        .sidebar {
+            width: 260px;
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
+            color: white;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            overflow-y: auto;
+            box-shadow: 2px 0 20px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-section {
+            padding: 24px 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .logo i {
+            font-size: 32px;
+        }
+
+        .logo-text {
+            font-size: 22px;
+        }
+
+        .user-info {
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .user-avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 0 auto 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .user-avatar img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .user-avatar i {
+            color: rgba(255, 255, 255, 0.8);
+            position: relative;
+            z-index: 1;
+        }
+
+        .user-name {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .user-role {
+            font-size: 13px;
+            opacity: 0.8;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 3px 10px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        .nav-menu {
+            list-style: none;
+            padding: 20px 0;
+            flex: 1;
+        }
+
+        .nav-item {
+            margin-bottom: 6px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-left-color: rgba(255, 255, 255, 0.5);
+            padding-left: 24px;
+        }
+
+        .nav-link.active {
+            background: rgba(255, 255, 255, 0.15);
+            border-left-color: white;
+        }
+
+        .nav-link i {
+            margin-right: 12px;
+            font-size: 16px;
+            width: 18px;
+            text-align: center;
+        }
+
+        .nav-text {
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        /* Logout section at bottom of sidebar */
+        .sidebar-footer {
+            margin-top: auto;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logout-item {
+            margin-bottom: 0;
+        }
+
+        .logout-link {
+            display: flex;
+            align-items: center;
+            padding: 16px 20px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .logout-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-left-color: rgba(255, 255, 255, 0.5);
+            padding-left: 24px;
+        }
+
+        .logout-link i {
+            margin-right: 12px;
+            font-size: 16px;
+            width: 18px;
+            text-align: center;
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            flex: 1;
+            margin-left: 260px;
+            min-height: 100vh;
+            background: #f5f7fa;
+            padding: 24px;
+        }
+
+        /* Content Header with Profile Button */
+        .content-header {
+            background: white;
+            padding: 20px 24px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .content-header h1 {
+            font-size: 24px;
+            color: #2d3748;
+            margin-bottom: 4px;
+        }
+
+        .content-header p {
+            color: #718096;
+            font-size: 14px;
+        }
+
+        /* Profile Button Styles */
+        .profile-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .profile-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 16px;
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .profile-btn:hover {
+            background: #0d1b4e;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
+        }
+
+        .profile-avatar {
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+        }
+
+        /* Modern Card Layout for Form Container */
+        .form-container {
+            background: white;
+            border-radius: 8px;
+            padding: 24px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            margin-bottom: 24px;
+            /* Removed blue left border */
+        }
+
+        /* Activity Info Card - Clean Style */
+        .activity-info-modern {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+            /* Removed blue left border */
+        }
+        
+        .activity-name-modern {
+            font-size: 20px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 12px;
+        }
+        
+        .activity-details-modern {
+            color: #718096;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        .activity-details-modern strong {
+            color: #4a5568;
+        }
+
+        /* Modern Card Sections */
+        .card-section {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            margin-bottom: 24px;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .card-section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .card-section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2d3748;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .card-section-title i {
+            color: #1a3a8f;
+            font-size: 18px;
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2d3748;
+            font-size: 14px;
+        }
+
+        .required::after {
+            content: " *";
+            color: #e53e3e;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #1a3a8f;
+            box-shadow: 0 0 0 2px rgba(26, 58, 143, 0.1);
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        small {
+            color: #718096;
+            font-size: 12px;
+            display: block;
+            margin-top: 5px;
+        }
+
+        /* Enhanced Attendance Section */
+        .attendance-section-modern {
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 24px;
+            background: #f8fafc;
+        }
+        
+        .attendance-required {
+            color: #e53e3e;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .attendance-list-modern {
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            background: white;
+        }
+
+        .attendance-item-modern {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px;
+            border-bottom: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+
+        .attendance-item-modern:hover {
+            background: #f8fafc;
+        }
+
+        .attendance-item-modern:last-child {
+            border-bottom: none;
+        }
+
+        .mentee-info-modern {
+            flex: 1;
+        }
+
+        .mentee-name-modern {
+            font-size: 14px;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 4px;
+        }
+
+        .mentee-details-modern {
+            color: #718096;
+            font-size: 12px;
+        }
+
+        .checkbox-group-modern {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .checkbox-group-modern input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .checkbox-group-modern label {
+            margin-bottom: 0;
+            font-weight: 500;
+            cursor: pointer;
+            color: #4a5568;
+        }
+
+        /* Enhanced File Upload */
+        .file-upload-modern {
+            border: 1px dashed #cbd5e0;
+            border-radius: 6px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            background: #f8fafc;
+        }
+
+        .file-upload-modern:hover {
+            border-color: #1a3a8f;
+            background: #f0f4ff;
+        }
+
+        .file-upload-modern input[type="file"] {
+            padding: 8px;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            background: white;
+        }
+
+        /* Enhanced Current File */
+        .current-file-modern {
+            background: #e8f5e8;
+            padding: 16px;
+            border-radius: 6px;
+            margin-bottom: 12px;
+            border: 1px solid #c8e6c9;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .current-file-modern a {
+            color: #2e7d32;
+            font-weight: 600;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .current-file-modern a:hover {
+            text-decoration: underline;
+        }
+
+        /* Messages */
+        .messages {
+            margin-bottom: 20px;
+        }
+
+        .error {
+            background: #ffebee;
+            color: #c62828;
+            padding: 12px 16px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            border: 1px solid #feb2b2;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .success {
+            background: #e8f5e8;
+            color: #2e7d32;
+            padding: 12px 16px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            border: 1px solid #c8e6c9;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Enhanced Form Actions */
+        .form-actions-modern {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            gap: 12px;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-warning {
+            background: #ff9800;
+            color: white;
+        }
+
+        .btn-warning:hover {
+            background: #f57c00;
+        }
+
+        .btn-secondary {
+            background: #718096;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #4a5568;
+        }
+
+        /* Enhanced Attendance Error */
+        .attendance-error-modern {
+            background: #ffebee;
+            color: #c62828;
+            padding: 12px 16px;
+            border-radius: 6px;
+            margin-top: 12px;
+            border: 1px solid #feb2b2;
+            display: none;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Responsive Design for New Layout */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+            .main-content {
+                margin-left: 0;
+                padding: 16px;
+            }
+            .content-header {
+                flex-direction: column;
+                text-align: center;
+                padding: 16px;
+            }
+            .attendance-item-modern {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+            .checkbox-group-modern {
+                align-self: flex-end;
+            }
+            .form-actions-modern {
+                flex-direction: column;
+            }
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="logo-section">
+            <div class="logo">
+                <i class="fas fa-hands-helping"></i>
+                <span class="logo-text">MMMS</span>
+            </div>
+        </div>
+
+        <div class="user-info">
+            <div class="user-avatar">
+                {% if mentor.profile_picture %}
+                    <img src="{{ mentor.profile_picture.url }}" alt="Profile Picture" id="sidebarProfilePic">
+                    <i class="fas fa-user-tie" id="sidebarProfileIcon" style="display: none;"></i>
+                {% else %}
+                    <i class="fas fa-user-tie" id="sidebarProfileIcon"></i>
+                {% endif %}
+            </div>
+            <div class="user-name">{{ mentor.MentorName }}</div>
+            <div class="user-role">Mentor</div>
+        </div>
+
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="{% url 'mentor_homepage' %}" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    <span class="nav-text">Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'view_assigned_mentees' %}" class="nav-link">
+                    <i class="fas fa-user-graduate"></i>
+                    <span class="nav-text">Mentees</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'mentoring_schedule' %}" class="nav-link">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span class="nav-text">Schedule</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'activity_report' %}" class="nav-link active">
+                    <i class="fas fa-chart-bar"></i>
+                    <span class="nav-text">Reports</span>
+                </a>
+            </li>
+        </ul>
+
+        <!-- Logout section at bottom of sidebar -->
+        <div class="sidebar-footer">
+            <div class="nav-item logout-item">
+                <a href="{% url 'logout' %}" class="logout-link">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span class="nav-text">Logout</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Content Header with Profile Button -->
+        <div class="content-header">
+            <div>
+                <h1>Edit Activity Report</h1>
+                <p>Update the report for your completed mentoring session</p>
+            </div>
+            <div class="profile-section">
+                <a href="{% url 'mentor_update_profile' %}" class="profile-btn">
+                    <div class="profile-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <span>Profile</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Messages -->
+        <div class="messages">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="{% if message.tags == 'error' %}error{% else %}success{% endif %}">
+                        <i class="fas fa-{% if message.tags == 'error' %}exclamation-circle{% else %}check-circle{% endif %}"></i>
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        <!-- Form Container -->
+        <div class="form-container">
+            <!-- Activity Information -->
+            <div class="activity-info-modern">
+                <div class="activity-name-modern">{{ activity.ActivityName }}</div>
+                <div class="activity-details-modern">
+                    <strong><i class="far fa-calendar"></i> Date:</strong> {{ activity.Date }} | 
+                    <strong><i class="far fa-clock"></i> Time:</strong> {{ activity.StartTime }} - {{ activity.EndTime }}<br>
+                    <strong><i class="fas fa-map-marker-alt"></i> Location:</strong> {{ activity.Location }} | 
+                    <strong><i class="fas fa-users"></i> Session Type:</strong> {{ activity.mentoringsession.get_session_type_display }}
+                </div>
+            </div>
+
+            <form method="POST" enctype="multipart/form-data" id="reportForm">
+                {% csrf_token %}
+                
+                <!-- Attendance Section -->
+                <div class="card-section">
+                    <div class="card-section-header">
+                        <h2 class="card-section-title">
+                            <i class="fas fa-user-check"></i>
+                            Mark Attendance
+                        </h2>
+                        <span class="attendance-required">* Required</span>
+                    </div>
+                    
+                    <small>Check the box for mentees who attended the session. At least one mentee must be marked as present.</small>
+                    
+                    <div class="attendance-list-modern" id="attendanceList">
+                        {% for record in attendance %}
+                        <div class="attendance-item-modern">
+                            <div class="mentee-info-modern">
+                                <div class="mentee-name-modern">{{ record.mentee.MenteeName }}</div>
+                                <div class="mentee-details-modern">
+                                    {{ record.mentee.MenteeID }} • {{ record.mentee.MenteeCourse }} Semester {{ record.mentee.MenteeSemester }}
+                                </div>
+                            </div>
+                            <div class="checkbox-group-modern">
+                                <input type="checkbox" id="attended_{{ record.mentee.MenteeID }}" 
+                                       name="attended_{{ record.mentee.MenteeID }}" 
+                                       class="attendance-checkbox"
+                                       {% if record.attended %}checked{% endif %}>
+                                <label for="attended_{{ record.mentee.MenteeID }}">Present</label>
+                            </div>
+                        </div>
+                        {% empty %}
+                        <div class="attendance-item-modern">
+                            <span style="color: #718096; font-style: italic;">No mentees assigned to this session.</span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="attendance-error-modern" id="attendanceError">
+                        <i class="fas fa-exclamation-circle"></i>
+                        Please mark at least one mentee as present to continue.
+                    </div>
+                </div>
+
+                <!-- Report Summary Section -->
+                <div class="card-section">
+                    <div class="card-section-header">
+                        <h2 class="card-section-title">
+                            <i class="fas fa-align-left"></i>
+                            Report Summary
+                        </h2>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="report_summary" class="required">Summary Details</label>
+                        <textarea id="report_summary" name="report_summary" required 
+                                  placeholder="Provide a detailed summary of the session, including key discussion points, outcomes, and any follow-up actions...">{{ activity_report.summary }}</textarea>
+                        <small>Describe what was covered, mentee progress, challenges faced, and recommendations.</small>
+                    </div>
+                </div>
+
+                <!-- File Upload Section -->
+                <div class="card-section">
+                    <div class="card-section-header">
+                        <h2 class="card-section-title">
+                            <i class="fas fa-file-upload"></i>
+                            Upload Report File (Optional)
+                        </h2>
+                    </div>
+                    
+                    {% if activity_report.report_file %}
+                    <div class="current-file-modern">
+                        <i class="fas fa-file-pdf" style="color: #2e7d32; font-size: 24px;"></i>
+                        <div>
+                            <strong>Current file:</strong> 
+                            <a href="{{ activity_report.report_file.url }}" target="_blank">
+                                <i class="fas fa-external-link-alt"></i> {{ activity_report.report_file.name|slice:"20:" }}
+                            </a>
+                            <br>
+                            <small>Upload a new file to replace the current one.</small>
+                        </div>
+                    </div>
+                    {% endif %}
+                    
+                    <div class="file-upload-modern">
+                        <input type="file" id="report_file" name="report_file" 
+                               accept=".pdf,.doc,.docx,.txt,.jpg,.jpeg,.png">
+                        <small>Supported formats: PDF, Word documents, text files, images (max 10MB)</small>
+                    </div>
+                </div>
+
+                <!-- Form Actions -->
+                <div class="form-actions-modern">
+                    <button type="submit" class="btn btn-warning">
+                        <i class="fas fa-save"></i> Update Report
+                    </button>
+                    <a href="{% url 'view_activity_report' activity.ActivityID %}" class="btn btn-secondary">
+                        <i class="fas fa-times"></i> Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Update profile picture display in sidebar
+        function updateProfilePictureDisplay() {
+            // Check if profile picture exists in sidebar
+            const sidebarAvatar = document.querySelector('.user-avatar');
+            const sidebarImg = sidebarAvatar.querySelector('img');
+            const sidebarIcon = sidebarAvatar.querySelector('i');
+            
+            // If profile picture exists, show image and hide icon
+            if (sidebarImg && sidebarImg.src) {
+                sidebarImg.style.display = 'block';
+                sidebarIcon.style.display = 'none';
+            }
+        }
+
+        // Form validation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize profile picture display
+            updateProfilePictureDisplay();
+            
+            const form = document.getElementById('reportForm');
+            const attendanceCheckboxes = document.querySelectorAll('.attendance-checkbox');
+            const attendanceError = document.getElementById('attendanceError');
+            
+            function validateAttendance() {
+                let atLeastOneChecked = false;
+                
+                attendanceCheckboxes.forEach(checkbox => {
+                    if (checkbox.checked) {
+                        atLeastOneChecked = true;
+                    }
+                });
+                
+                return atLeastOneChecked;
+            }
+            
+            form.addEventListener('submit', function(e) {
+                const summary = document.getElementById('report_summary').value.trim();
+                
+                // Validate report summary
+                if (!summary) {
+                    e.preventDefault();
+                    alert('Please provide a report summary.');
+                    document.getElementById('report_summary').focus();
+                    return;
+                }
+                
+                // Validate attendance
+                if (!validateAttendance()) {
+                    e.preventDefault();
+                    attendanceError.style.display = 'flex';
+                    
+                    // Scroll to the attendance section
+                    document.querySelector('.attendance-list-modern').scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'center'
+                    });
+                } else {
+                    attendanceError.style.display = 'none';
+                }
+            });
+            
+            // Real-time validation when checkboxes change
+            attendanceCheckboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    if (validateAttendance()) {
+                        attendanceError.style.display = 'none';
+                    }
+                });
+            });
+            
+            // Initial validation check
+            if (!validateAttendance()) {
+                attendanceError.style.display = 'flex';
+            }
+        });
+    </script>
+</body>
+</html>

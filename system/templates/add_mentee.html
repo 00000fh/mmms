@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Mentee | MMS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #f5f7fa;
+            min-height: 100vh;
+            display: flex;
+            color: #333;
+        }
+
+        /* Sidebar Styles - Consistent with previous pages */
+        .sidebar {
+            width: 260px;
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
+            color: white;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            overflow-y: auto;
+            box-shadow: 2px 0 20px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-section {
+            padding: 24px 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .logo i {
+            font-size: 32px;
+        }
+
+        .logo-text {
+            font-size: 22px;
+        }
+
+        .user-info {
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .user-avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 0 auto 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .user-name {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .user-role {
+            font-size: 13px;
+            opacity: 0.8;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 3px 10px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        .nav-menu {
+            list-style: none;
+            padding: 20px 0;
+            flex: 1;
+        }
+
+        .nav-item {
+            margin-bottom: 6px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-left-color: rgba(255, 255, 255, 0.5);
+            padding-left: 24px;
+        }
+
+        .nav-link.active {
+            background: rgba(255, 255, 255, 0.15);
+            border-left-color: white;
+        }
+
+        .nav-link i {
+            margin-right: 12px;
+            font-size: 16px;
+            width: 18px;
+            text-align: center;
+        }
+
+        .nav-text {
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        /* Logout section at bottom of sidebar */
+        .sidebar-footer {
+            margin-top: auto;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logout-item {
+            margin-bottom: 0;
+        }
+
+        .logout-link {
+            display: flex;
+            align-items: center;
+            padding: 16px 20px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .logout-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-left-color: rgba(255, 255, 255, 0.5);
+            padding-left: 24px;
+        }
+
+        .logout-link i {
+            margin-right: 12px;
+            font-size: 16px;
+            width: 18px;
+            text-align: center;
+        }
+
+        /* Main Content Styles - Consistent spacing */
+        .main-content {
+            flex: 1;
+            margin-left: 260px;
+            min-height: 100vh;
+            background: #f5f7fa;
+            padding: 24px;
+        }
+
+        /* Updated Content Header with Profile Button */
+        .content-header {
+            background: white;
+            padding: 20px 24px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .header-left {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .header-right {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .content-header h1 {
+            font-size: 24px;
+            color: #2d3748;
+            margin-bottom: 4px;
+        }
+
+        .content-header p {
+            color: #718096;
+            font-size: 14px;
+        }
+
+        /* Profile Button Styles */
+        .profile-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .profile-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 16px;
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .profile-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
+        }
+
+        .profile-avatar {
+            width: 40px;
+            height: 18px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+        }
+
+        /* Form Container - Consistent spacing */
+        .form-container {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            margin-bottom: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2d3748;
+            font-size: 13px;
+        }
+
+        .required::after {
+            content: " *";
+            color: #d32f2f;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 13px;
+            transition: all 0.3s ease;
+            background: #f8f9ff;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #1a3a8f;
+            box-shadow: 0 0 0 3px rgba(26, 58, 143, 0.1);
+            background: white;
+        }
+
+        /* Buttons - Consistent with previous pages */
+        .btn {
+            padding: 10px 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
+        }
+
+        .btn-secondary {
+            background: #718096;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #4a5568;
+            transform: translateY(-2px);
+        }
+
+        /* Form Actions - Consistent spacing */
+        .form-actions {
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 2px solid #e2e8f0;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .help-text {
+            font-size: 12px;
+            color: #718096;
+            margin-top: 6px;
+            line-height: 1.4;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        /* Info Box */
+        .info-box {
+            background: #e3f2fd;
+            border: 1px solid #2196F3;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 16px 0;
+            font-size: 13px;
+        }
+
+        .info-box strong {
+            color: #1565c0;
+        }
+
+        /* Mentee ID Display */
+        .mentee-id-display {
+            background: #f8f9ff;
+            border: 2px solid #1a3a8f;
+            border-radius: 8px;
+            padding: 12px 16px;
+            font-family: monospace;
+            font-weight: bold;
+            font-size: 14px;
+            text-align: center;
+            color: #1a3a8f;
+            margin: 8px 0;
+        }
+
+        /* Toast Notification Styles */
+        .toast-container {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            max-width: 400px;
+        }
+
+        .toast {
+            background: white;
+            border-radius: 8px;
+            padding: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            transform: translateX(100%);
+            opacity: 0;
+            transition: all 0.3s ease;
+            border-left: 4px solid;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .toast-success {
+            border-left-color: #38a169;
+        }
+
+        .toast-error {
+            border-left-color: #e53e3e;
+        }
+
+        .toast-icon {
+            font-size: 18px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .toast-success .toast-icon {
+            color: #38a169;
+        }
+
+        .toast-error .toast-icon {
+            color: #e53e3e;
+        }
+
+        .toast-content {
+            flex: 1;
+        }
+
+        .toast-title {
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 4px;
+            color: #2d3748;
+        }
+
+        .toast-message {
+            font-size: 13px;
+            color: #4a5568;
+            line-height: 1.4;
+        }
+
+        .toast-close {
+            background: none;
+            border: none;
+            font-size: 14px;
+            color: #718096;
+            cursor: pointer;
+            padding: 0;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .toast-close:hover {
+            background: #f7fafc;
+            color: #2d3748;
+        }
+
+        /* Responsive Design - Consistent with previous pages */
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 240px;
+            }
+            .main-content {
+                margin-left: 240px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+            .main-content {
+                margin-left: 0;
+                padding: 16px;
+            }
+            .content-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            .header-right {
+                justify-content: center;
+                width: 100%;
+            }
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+            .form-actions {
+                flex-direction: column;
+            }
+            .form-actions .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            /* Toast adjustments for mobile */
+            .toast-container {
+                bottom: 16px;
+                right: 16px;
+                left: 16px;
+                max-width: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-right {
+                flex-direction: column;
+                width: 100%;
+            }
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="logo-section">
+            <div class="logo">
+                <i class="fas fa-hands-helping"></i>
+                <span class="logo-text">MMS</span>
+            </div>
+        </div>
+
+        <div class="user-info">
+            <div class="user-avatar">
+                <i class="fas fa-user-shield"></i>
+            </div>
+            <div class="user-name">Head of Mentor Mentee</div>
+            <div class="user-role">Administrator</div>
+        </div>
+
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="{% url 'head_homepage' %}" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    <span class="nav-text">Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'manage_mentees' %}" class="nav-link active">
+                    <i class="fas fa-user-graduate"></i>
+                    <span class="nav-text">Mentee Records</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'manage_mentors' %}" class="nav-link">
+                    <i class="fas fa-user-tie"></i>
+                    <span class="nav-text">Mentor Records</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'mentor_assignments' %}" class="nav-link">
+                    <i class="fas fa-users"></i>
+                    <span class="nav-text">Mentor Assignments</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'mentor_mentee_activities' %}" class="nav-link">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span class="nav-text">Activities</span>
+                </a>
+            </li>
+        </ul>
+
+        <!-- Logout section at bottom of sidebar -->
+        <div class="sidebar-footer">
+            <div class="nav-item logout-item">
+                <a href="{% url 'logout' %}" class="logout-link">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span class="nav-text">Logout</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Content Header with Profile Button -->
+        <div class="content-header">
+            <div class="header-left">
+                <h1>Add New Mentee</h1>
+                <p>Fill in the details below to add a new mentee to the system.</p>
+            </div>
+            <div class="header-right">
+                <a href="{% url 'manage_mentees' %}" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i>
+                    Back to Mentees
+                </a>
+                <div class="profile-section">
+                    <button class="profile-btn">
+                        <div class="profile-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <span>Profile</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form Container -->
+        <div class="form-container">
+            <form method="POST" action="{% url 'add_mentee' %}">
+                {% csrf_token %}
+                
+                <div class="form-group">
+                    <label for="MenteeName">Full Name <span class="required">*</span></label>
+                    <input type="text" id="MenteeName" name="MenteeName" required 
+                           placeholder="e.g., John Smith">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="MenteeIC">IC Number <span class="required">*</span></label>
+                        <input type="text" id="MenteeIC" name="MenteeIC" required 
+                               placeholder="e.g., 010203045678"
+                               pattern="[0-9]{12}"
+                               title="Enter 12-digit IC number without dashes">
+                        <div class="help-text">12-digit IC number (without dashes)</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="MenteeEmail">Email Address <span class="required">*</span></label>
+                        <input type="email" id="MenteeEmail" name="MenteeEmail" required 
+                               placeholder="e.g., john.smith@student.edu">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="MenteeCourse">Course <span class="required">*</span></label>
+                        <select id="MenteeCourse" name="MenteeCourse" required>
+                            <option value="">Select Course</option>
+                            <option value="CS">Diploma in Computer Science</option>
+                            <option value="DA">Diploma in Accounting</option>
+                            <option value="DB">Diploma in Business Studies</option>
+                            <option value="LH">Diploma in Landscape Horticulture</option>
+                            <option value="CFAB">Certification in Finance, Accountancy and Business</option>
+                            <option value="IEP">Intensive English Programme</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="IntakeYear">Intake Year <span class="required">*</span></label>
+                        <select id="IntakeYear" name="IntakeYear" required>
+                            <option value="">Select Year</option>
+                            <option value="23">2023</option>
+                            <option value="24">2024</option>
+                            <option value="25">2025</option>
+                            <option value="26">2026</option>
+                            <option value="27">2027</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="IntakeMonth">Intake Month <span class="required">*</span></label>
+                        <select id="IntakeMonth" name="IntakeMonth" required>
+                            <option value="">Select Month</option>
+                            <option value="03">March (03)</option>
+                            <option value="07">July (07)</option>
+                            <option value="11">November (11)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="RunningNumber">Running Number <span class="required">*</span></label>
+                        <input type="number" id="RunningNumber" name="RunningNumber" required 
+                               min="1" max="999" 
+                               placeholder="e.g., 017"
+                               title="Enter running number (001-999)">
+                        <div class="help-text">3-digit running number (e.g., 017)</div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="MenteeSemester">Current Semester <span class="required">*</span></label>
+                        <select id="MenteeSemester" name="MenteeSemester" required>
+                            <option value="">Select Semester</option>
+                            <option value="1">Semester 1</option>
+                            <option value="2">Semester 2</option>
+                            <option value="3">Semester 3</option>
+                            <option value="4">Semester 4</option>
+                            <option value="5">Semester 5</option>
+                            <option value="6">Semester 6</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="MenteeGender">Gender <span class="required">*</span></label>
+                        <select id="MenteeGender" name="MenteeGender" required>
+                            <option value="">Select Gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Generated Mentee ID</label>
+                    <div id="MenteeIDDisplay" class="mentee-id-display">
+                        Please select course and intake details
+                    </div>
+                    <input type="hidden" id="MenteeID" name="MenteeID">
+                    <div class="help-text">This ID will be automatically generated based on your selections</div>
+                </div>
+
+                <div class="info-box">
+                    <strong>Login Information:</strong><br>
+                    The mentee will be able to login using:<br>
+                    • <strong>Username:</strong> The generated Mentee ID<br>
+                    • <strong>Initial Password:</strong> Their IC Number<br>
+                    They will be prompted to change their password on first login.
+                </div>
+
+                <div class="form-actions">
+                    <a href="{% url 'manage_mentees' %}" class="btn btn-secondary">
+                        <i class="fas fa-times"></i>
+                        Cancel
+                    </a>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-plus"></i>
+                        Add Mentee
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script>
+        // Toast notification system
+        function showToast(title, message, type = 'success') {
+            const toastContainer = document.getElementById('toastContainer');
+            const toastId = 'toast-' + Date.now();
+            
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            toast.id = toastId;
+            
+            toast.innerHTML = `
+                <div class="toast-icon">
+                    <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
+                </div>
+                <div class="toast-content">
+                    <div class="toast-title">${title}</div>
+                    <div class="toast-message">${message}</div>
+                </div>
+                <button class="toast-close" onclick="closeToast('${toastId}')">
+                    <i class="fas fa-times"></i>
+                </button>
+            `;
+            
+            toastContainer.appendChild(toast);
+            
+            // Show toast with animation
+            setTimeout(() => {
+                toast.classList.add('show');
+            }, 10);
+            
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                closeToast(toastId);
+            }, 5000);
+        }
+        
+        function closeToast(toastId) {
+            const toast = document.getElementById(toastId);
+            if (toast) {
+                toast.classList.remove('show');
+                setTimeout(() => {
+                    if (toast.parentNode) {
+                        toast.parentNode.removeChild(toast);
+                    }
+                }, 300);
+            }
+        }
+
+        // Form validation and enhancement
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.querySelector('form');
+            const courseSelect = document.getElementById('MenteeCourse');
+            const intakeYearSelect = document.getElementById('IntakeYear');
+            const intakeMonthSelect = document.getElementById('IntakeMonth');
+            const runningNumberInput = document.getElementById('RunningNumber');
+            const menteeIdDisplay = document.getElementById('MenteeIDDisplay');
+            const menteeIdHidden = document.getElementById('MenteeID');
+            const icInput = document.getElementById('MenteeIC');
+
+            // Function to generate Mentee ID
+            function generateMenteeID() {
+                const course = courseSelect.value;
+                const intakeYear = intakeYearSelect.value;
+                const intakeMonth = intakeMonthSelect.value;
+                let runningNumber = runningNumberInput.value;
+
+                if (!course || !intakeYear || !intakeMonth || !runningNumber) {
+                    menteeIdDisplay.textContent = 'Please select course and intake details';
+                    menteeIdHidden.value = '';
+                    return;
+                }
+
+                // Format running number to 3 digits
+                runningNumber = runningNumber.padStart(3, '0');
+
+                // Generate Mentee ID based on course type
+                let menteeId;
+                if (course === 'CFAB' || course === 'IEP') {
+                    // CFAB and IEP don't have 'B' prefix
+                    menteeId = `${course}${intakeYear}${intakeMonth}-${runningNumber}`;
+                } else {
+                    // Other courses have 'B' prefix
+                    menteeId = `B${course}${intakeYear}${intakeMonth}-${runningNumber}`;
+                }
+
+                menteeIdDisplay.textContent = menteeId;
+                menteeIdHidden.value = menteeId;
+            }
+
+            // Add event listeners for ID generation
+            courseSelect.addEventListener('change', generateMenteeID);
+            intakeYearSelect.addEventListener('change', generateMenteeID);
+            intakeMonthSelect.addEventListener('change', generateMenteeID);
+            runningNumberInput.addEventListener('input', generateMenteeID);
+
+            // Format IC number (remove any non-numeric characters)
+            icInput.addEventListener('input', function() {
+                this.value = this.value.replace(/\D/g, '');
+                if (this.value.length > 12) {
+                    this.value = this.value.slice(0, 12);
+                }
+            });
+
+            // Format running number
+            runningNumberInput.addEventListener('input', function() {
+                this.value = this.value.replace(/\D/g, '');
+                if (this.value.length > 3) {
+                    this.value = this.value.slice(0, 3);
+                }
+            });
+            
+            // Basic form validation
+            form.addEventListener('submit', function(e) {
+                let isValid = true;
+                const requiredFields = form.querySelectorAll('[required]');
+                
+                requiredFields.forEach(field => {
+                    if (!field.value.trim()) {
+                        isValid = false;
+                        field.style.borderColor = '#d32f2f';
+                    } else {
+                        field.style.borderColor = '#e2e8f0';
+                    }
+                });
+                
+                // Validate IC number length
+                if (icInput.value.length !== 12) {
+                    isValid = false;
+                    icInput.style.borderColor = '#d32f2f';
+                    showToast('Validation Error', 'IC number must be exactly 12 digits.', 'error');
+                }
+
+                // Validate running number
+                if (runningNumberInput.value < 1 || runningNumberInput.value > 999) {
+                    isValid = false;
+                    runningNumberInput.style.borderColor = '#d32f2f';
+                    showToast('Validation Error', 'Running number must be between 1 and 999.', 'error');
+                }
+
+                // Validate that Mentee ID is generated
+                if (!menteeIdHidden.value) {
+                    isValid = false;
+                    showToast('Validation Error', 'Please complete all fields to generate Mentee ID.', 'error');
+                }
+                
+                if (!isValid) {
+                    e.preventDefault();
+                    showToast('Validation Error', 'Please fill in all required fields correctly.', 'error');
+                }
+            });
+            
+            // Real-time email validation
+            const emailInput = document.getElementById('MenteeEmail');
+            emailInput.addEventListener('blur', function() {
+                const email = this.value;
+                const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                
+                if (email && !emailPattern.test(email)) {
+                    this.style.borderColor = '#d32f2f';
+                    showToast('Validation Error', 'Please enter a valid email address.', 'error');
+                } else {
+                    this.style.borderColor = '#e2e8f0';
+                }
+            });
+
+            // Profile button functionality
+            document.querySelector('.profile-btn').addEventListener('click', function() {
+                alert('Profile page would open here!');
+                // In a real application, this would navigate to the profile page
+                // window.location.href = '/profile/';
+            });
+
+            // Add active state to current page in navigation
+            const currentPage = window.location.pathname;
+            document.querySelectorAll('.nav-link').forEach(link => {
+                if (link.getAttribute('href') === '{% url 'manage_mentees' %}') {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+
+            // Show toast notifications for Django messages
+            {% if messages %}
+                {% for message in messages %}
+                    showToast(
+                        '{{ message.tags|title }}', 
+                        '{{ message }}', 
+                        '{{ message.tags }}' === 'error' ? 'error' : 'success'
+                    );
+                {% endfor %}
+            {% endif %}
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Mentor - Head | MMS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #f5f7fa;
+            min-height: 100vh;
+            display: flex;
+            color: #333;
+        }
+
+        /* Sidebar Styles - Consistent with previous pages */
+        .sidebar {
+            width: 260px;
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
+            color: white;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            overflow-y: auto;
+            box-shadow: 2px 0 20px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-section {
+            padding: 24px 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .logo i {
+            font-size: 32px;
+        }
+
+        .logo-text {
+            font-size: 22px;
+        }
+
+        .user-info {
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .user-avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 0 auto 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .user-name {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .user-role {
+            font-size: 13px;
+            opacity: 0.8;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 3px 10px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        .nav-menu {
+            list-style: none;
+            padding: 20px 0;
+            flex: 1;
+        }
+
+        .nav-item {
+            margin-bottom: 6px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-left-color: rgba(255, 255, 255, 0.5);
+            padding-left: 24px;
+        }
+
+        .nav-link.active {
+            background: rgba(255, 255, 255, 0.15);
+            border-left-color: white;
+        }
+
+        .nav-link i {
+            margin-right: 12px;
+            font-size: 16px;
+            width: 18px;
+            text-align: center;
+        }
+
+        .nav-text {
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        /* Logout section at bottom of sidebar */
+        .sidebar-footer {
+            margin-top: auto;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logout-item {
+            margin-bottom: 0;
+        }
+
+        .logout-link {
+            display: flex;
+            align-items: center;
+            padding: 16px 20px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .logout-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-left-color: rgba(255, 255, 255, 0.5);
+            padding-left: 24px;
+        }
+
+        .logout-link i {
+            margin-right: 12px;
+            font-size: 16px;
+            width: 18px;
+            text-align: center;
+        }
+
+        /* Main Content Styles - Consistent spacing */
+        .main-content {
+            flex: 1;
+            margin-left: 260px;
+            min-height: 100vh;
+            background: #f5f7fa;
+            padding: 24px;
+        }
+
+        /* Updated Content Header with Profile Button */
+        .content-header {
+            background: white;
+            padding: 20px 24px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .header-left {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .header-right {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .content-header h1 {
+            font-size: 24px;
+            color: #2d3748;
+            margin-bottom: 4px;
+        }
+
+        .content-header p {
+            color: #718096;
+            font-size: 14px;
+        }
+
+        /* Profile Button Styles */
+        .profile-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .profile-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 16px;
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .profile-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
+        }
+
+        .profile-avatar {
+            width: 40px;
+            height: 18px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+        }
+
+        /* Form Container - Consistent spacing */
+        .form-container {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            margin-bottom: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2d3748;
+            font-size: 13px;
+        }
+
+        .required::after {
+            content: " *";
+            color: #e53e3e;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 13px;
+            transition: all 0.3s ease;
+            background: #f8f9ff;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #1a3a8f;
+            box-shadow: 0 0 0 3px rgba(26, 58, 143, 0.1);
+            background: white;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .readonly-field {
+            background: #f8fafc;
+            color: #718096;
+            cursor: not-allowed;
+            border-color: #e2e8f0;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .help-text {
+            font-size: 12px;
+            color: #718096;
+            margin-top: 6px;
+            line-height: 1.4;
+        }
+
+        /* Messages - Consistent spacing */
+        .messages {
+            margin-bottom: 20px;
+        }
+
+        .error {
+            background: #ffebee;
+            color: #c62828;
+            padding: 14px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            border: 1px solid #feb2b2;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+        }
+
+        .success {
+            background: #e8f5e8;
+            color: #2e7d32;
+            padding: 14px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            border: 1px solid #c8e6c9;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+        }
+
+        /* Form Actions - Consistent spacing */
+        .form-actions {
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 2px solid #e2e8f0;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        /* Buttons - Consistent with previous pages */
+        .btn {
+            padding: 10px 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
+        }
+
+        .btn-secondary {
+            background: #718096;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #4a5568;
+            transform: translateY(-2px);
+        }
+
+        /* Section Titles - Consistent spacing */
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin: 24px 0 16px 0;
+            color: #2d3748;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .section-title i {
+            color: #1a3a8f;
+        }
+
+        /* Responsive Design - Consistent with previous pages */
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 240px;
+            }
+            .main-content {
+                margin-left: 240px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+            .main-content {
+                margin-left: 0;
+                padding: 16px;
+            }
+            .content-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            .header-right {
+                justify-content: center;
+                width: 100%;
+            }
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+            .form-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+            .form-actions .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-right {
+                flex-direction: column;
+                width: 100%;
+            }
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="logo-section">
+            <div class="logo">
+                <i class="fas fa-hands-helping"></i>
+                <span class="logo-text">MMS</span>
+            </div>
+        </div>
+
+        <div class="user-info">
+            <div class="user-avatar">
+                <i class="fas fa-user-shield"></i>
+            </div>
+            <div class="user-name">Head of Mentor Mentee</div>
+            <div class="user-role">Administrator</div>
+        </div>
+
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="{% url 'head_homepage' %}" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    <span class="nav-text">Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'manage_mentees' %}" class="nav-link">
+                    <i class="fas fa-user-graduate"></i>
+                    <span class="nav-text">Mentee Records</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'manage_mentors' %}" class="nav-link active">
+                    <i class="fas fa-user-tie"></i>
+                    <span class="nav-text">Mentor Records</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'mentor_assignments' %}" class="nav-link">
+                    <i class="fas fa-users"></i>
+                    <span class="nav-text">Mentor Assignments</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'mentor_mentee_activities' %}" class="nav-link">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span class="nav-text">Activities</span>
+                </a>
+            </li>
+        </ul>
+
+        <!-- Logout section at bottom of sidebar -->
+        <div class="sidebar-footer">
+            <div class="nav-item logout-item">
+                <a href="{% url 'logout' %}" class="logout-link">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span class="nav-text">Logout</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Content Header with Profile Button -->
+        <div class="content-header">
+            <div class="header-left">
+                <h1>Edit Mentor</h1>
+                <p>Update mentor information and manage their profile</p>
+            </div>
+            <div class="header-right">
+                <div class="profile-section">
+                    <button class="profile-btn">
+                        <div class="profile-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <span>Profile</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Messages -->
+        <div class="messages">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="{% if message.tags == 'error' %}error{% else %}success{% endif %}">
+                        <i class="fas {% if message.tags == 'error' %}fa-exclamation-circle{% else %}fa-check-circle{% endif %}"></i>
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        <!-- Form Container -->
+        <div class="form-container">
+            <form method="POST">
+                {% csrf_token %}
+                
+                <h2 class="section-title">
+                    <i class="fas fa-user-tie"></i>
+                    Basic Information
+                </h2>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="MentorID">
+                            <i class="fas fa-id-card"></i> Mentor ID
+                        </label>
+                        <input type="text" id="MentorID" name="MentorID" value="{{ mentor.MentorID }}" class="readonly-field" readonly>
+                        <div class="help-text">Mentor ID cannot be changed</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="MentorName" class="required">
+                            <i class="fas fa-signature"></i> Full Name
+                        </label>
+                        <input type="text" id="MentorName" name="MentorName" value="{{ mentor.MentorName }}" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="MentorEmail" class="required">
+                            <i class="fas fa-envelope"></i> Email Address
+                        </label>
+                        <input type="email" id="MentorEmail" name="MentorEmail" value="{{ mentor.MentorEmail }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="MentorPhone">
+                            <i class="fas fa-phone"></i> Phone Number
+                        </label>
+                        <input type="text" id="MentorPhone" name="MentorPhone" value="{{ mentor.MentorPhone }}">
+                        <div class="help-text">Format: 012-345-6789</div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="MentorIC">
+                            <i class="fas fa-fingerprint"></i> IC Number
+                        </label>
+                        <input type="text" id="MentorIC" name="MentorIC" value="{{ mentor.MentorIC }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="MentorDepartment" class="required">
+                            <i class="fas fa-building"></i> Department
+                        </label>
+                        <select id="MentorDepartment" name="MentorDepartment" required>
+                            <option value="">Select Department</option>
+                            <option value="Accounting Department" {% if mentor.MentorDepartment == 'Accounting Department' %}selected{% endif %}>Accounting Department</option>
+                            <option value="Business Studies Department" {% if mentor.MentorDepartment == 'Business Studies Department' %}selected{% endif %}>Business Studies Department</option>
+                            <option value="Quantitative Science Department" {% if mentor.MentorDepartment == 'Quantitative Science Department' %}selected{% endif %}>Quantitative Science Department</option>
+                            <option value="Landscape and Horticulture Department" {% if mentor.MentorDepartment == 'Landscape and Horticulture Department' %}selected{% endif %}>Landscape and Horticulture Department</option>
+                            <option value="General Studies" {% if mentor.MentorDepartment == 'General Studies' %}selected{% endif %}>General Studies</option>
+                        </select>
+                    </div>
+                </div>
+
+                <h2 class="section-title">
+                    <i class="fas fa-users"></i>
+                    Mentorship Capacity
+                </h2>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="MaxMentees" class="required">
+                            <i class="fas fa-user-plus"></i> Maximum Mentees
+                        </label>
+                        <input type="number" id="MaxMentees" name="MaxMentees" value="{{ mentor.MaxMentees }}" min="1" max="50" required>
+                        <div class="help-text">Maximum number of mentees this mentor can handle</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="CurrentMentees">
+                            <i class="fas fa-user-check"></i> Current Mentees
+                        </label>
+                        <input type="number" id="CurrentMentees" value="{{ mentor.CurrentMentees }}" class="readonly-field" readonly>
+                        <div class="help-text">Automatically calculated - cannot be edited manually</div>
+                    </div>
+                </div>
+
+                <h2 class="section-title">
+                    <i class="fas fa-map-marker-alt"></i>
+                    Address Information
+                </h2>
+
+                <div class="form-group">
+                    <label for="MentorAddress">
+                        <i class="fas fa-home"></i> Address
+                    </label>
+                    <textarea id="MentorAddress" name="MentorAddress">{{ mentor.MentorAddress }}</textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="MentorPostcode">
+                            <i class="fas fa-mail-bulk"></i> Postcode
+                        </label>
+                        <input type="text" id="MentorPostcode" name="MentorPostcode" value="{{ mentor.MentorPostcode }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="MentorCity">
+                            <i class="fas fa-city"></i> City
+                        </label>
+                        <input type="text" id="MentorCity" name="MentorCity" value="{{ mentor.MentorCity }}">
+                    </div>
+                </div>
+
+                <h2 class="section-title">
+                    <i class="fas fa-user-friends"></i>
+                    Background Information
+                </h2>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="MentorState">
+                            <i class="fas fa-map"></i> State
+                        </label>
+                        <input type="text" id="MentorState" name="MentorState" value="{{ mentor.MentorState }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="MentorRace">
+                            <i class="fas fa-globe-asia"></i> Race
+                        </label>
+                        <input type="text" id="MentorRace" name="MentorRace" value="{{ mentor.MentorRace }}">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="MentorReligion">
+                        <i class="fas fa-pray"></i> Religion
+                    </label>
+                    <input type="text" id="MentorReligion" name="MentorReligion" value="{{ mentor.MentorReligion }}">
+                </div>
+
+                <div class="form-group">
+                    <label for="MentorJoinDate">
+                        <i class="fas fa-calendar-plus"></i> Join Date
+                    </label>
+                    <input type="date" id="MentorJoinDate" value="{{ mentor.MentorJoinDate|date:'Y-m-d' }}" class="readonly-field" readonly>
+                    <div class="help-text">Join date cannot be changed</div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Update Mentor
+                    </button>
+                    <a href="{% url 'view_mentor' mentor.MentorID %}" class="btn btn-secondary">
+                        <i class="fas fa-eye"></i> View Mentor
+                    </a>
+                    <a href="{% url 'manage_mentors' %}" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left"></i> Back to List
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Form validation
+            const form = document.querySelector('form');
+            form.addEventListener('submit', function(e) {
+                const mentorName = document.getElementById('MentorName').value;
+                const mentorEmail = document.getElementById('MentorEmail').value;
+                const mentorDepartment = document.getElementById('MentorDepartment').value;
+                const maxMentees = document.getElementById('MaxMentees').value;
+
+                if (!mentorName.trim()) {
+                    e.preventDefault();
+                    alert('Please enter mentor name');
+                    return;
+                }
+
+                if (!mentorEmail.trim()) {
+                    e.preventDefault();
+                    alert('Please enter email address');
+                    return;
+                }
+
+                if (!mentorDepartment) {
+                    e.preventDefault();
+                    alert('Please select department');
+                    return;
+                }
+
+                if (!maxMentees || maxMentees < 1) {
+                    e.preventDefault();
+                    alert('Please enter valid maximum mentees number');
+                    return;
+                }
+            });
+
+            // Real-time validation for email format
+            const emailInput = document.getElementById('MentorEmail');
+            emailInput.addEventListener('blur', function() {
+                const email = this.value;
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                
+                if (email && !emailRegex.test(email)) {
+                    this.style.borderColor = '#e53e3e';
+                    this.style.backgroundColor = '#fed7d7';
+                } else {
+                    this.style.borderColor = '#1a3a8f';
+                    this.style.backgroundColor = '';
+                }
+            });
+
+            // Real-time validation for phone number
+            const phoneInput = document.getElementById('MentorPhone');
+            phoneInput.addEventListener('blur', function() {
+                const phone = this.value;
+                const phoneRegex = /^[0-9+\-\s()]{10,}$/;
+                
+                if (phone && !phoneRegex.test(phone)) {
+                    this.style.borderColor = '#e53e3e';
+                    this.style.backgroundColor = '#fed7d7';
+                } else {
+                    this.style.borderColor = '#1a3a8f';
+                    this.style.backgroundColor = '';
+                }
+            });
+
+            // Profile button functionality
+            document.querySelector('.profile-btn').addEventListener('click', function() {
+                alert('Profile page would open here!');
+                // In a real application, this would navigate to the profile page
+                // window.location.href = '/profile/';
+            });
+
+            // Add animations to form elements
+            const formGroups = document.querySelectorAll('.form-group');
+            formGroups.forEach((group, index) => {
+                group.style.opacity = '0';
+                group.style.transform = 'translateY(20px)';
+                group.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+                
+                setTimeout(() => {
+                    group.style.opacity = '1';
+                    group.style.transform = 'translateY(0)';
+                }, 100);
+            });
+
+            // Add active state to current page in navigation
+            const currentPage = window.location.pathname;
+            document.querySelectorAll('.nav-link').forEach(link => {
+                if (link.getAttribute('href') === '{% url "manage_mentors" %}') {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

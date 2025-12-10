@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Mentees - Mentor | MMS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #f5f7fa;
+            min-height: 100vh;
+            display: flex;
+            color: #333;
+        }
+
+        /* Sidebar Styles - Consistent Blue Theme */
+        .sidebar {
+            width: 260px;
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
+            color: white;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            overflow-y: auto;
+            box-shadow: 2px 0 20px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-section {
+            padding: 24px 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .logo i {
+            font-size: 32px;
+        }
+
+        .logo-text {
+            font-size: 22px;
+        }
+
+        .user-info {
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .user-avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 0 auto 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .user-avatar img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .user-avatar i {
+            color: rgba(255, 255, 255, 0.8);
+            position: relative;
+            z-index: 1;
+        }
+
+        .user-name {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .user-role {
+            font-size: 13px;
+            opacity: 0.8;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 3px 10px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        .nav-menu {
+            list-style: none;
+            padding: 20px 0;
+            flex: 1;
+        }
+
+        .nav-item {
+            margin-bottom: 6px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-left-color: rgba(255, 255, 255, 0.5);
+            padding-left: 24px;
+        }
+
+        .nav-link.active {
+            background: rgba(255, 255, 255, 0.15);
+            border-left-color: white;
+        }
+
+        .nav-link i {
+            margin-right: 12px;
+            font-size: 16px;
+            width: 18px;
+            text-align: center;
+        }
+
+        .nav-text {
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        /* Logout section at bottom of sidebar */
+        .sidebar-footer {
+            margin-top: auto;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logout-item {
+            margin-bottom: 0;
+        }
+
+        .logout-link {
+            display: flex;
+            align-items: center;
+            padding: 16px 20px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .logout-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-left-color: rgba(255, 255, 255, 0.5);
+            padding-left: 24px;
+        }
+
+        .logout-link i {
+            margin-right: 12px;
+            font-size: 16px;
+            width: 18px;
+            text-align: center;
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            flex: 1;
+            margin-left: 260px;
+            min-height: 100vh;
+            background: #f5f7fa;
+            padding: 24px;
+        }
+
+        /* Updated Content Header with Profile Button */
+        .content-header {
+            background: white;
+            padding: 20px 24px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .content-header h1 {
+            font-size: 24px;
+            color: #2d3748;
+            margin-bottom: 4px;
+        }
+
+        .content-header p {
+            color: #718096;
+            font-size: 14px;
+        }
+
+        /* Profile Button Styles */
+        .profile-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .profile-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 16px;
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .profile-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
+        }
+
+        .profile-avatar {
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+        }
+
+        /* Stats Grid - SMALLER SIZE */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 10px;
+            padding: 16px;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border-left: 3px solid #1a3a8f;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
+        }
+
+        .stat-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            color: white;
+            font-size: 16px;
+        }
+
+        .stat-number {
+            font-size: 22px;
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            color: #718096;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        /* Controls Section */
+        .controls {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            margin-bottom: 24px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #2d3748;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            color: #1a3a8f;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .search-box input {
+            flex: 1;
+            padding: 10px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 13px;
+            transition: all 0.3s ease;
+            background: #f8f9ff;
+        }
+
+        .search-box input:focus {
+            border-color: #1a3a8f;
+            box-shadow: 0 0 0 3px rgba(26, 58, 143, 0.1);
+            background: white;
+            outline: none;
+        }
+
+        .search-btn {
+            padding: 10px 18px;
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 13px;
+            transition: all 0.3s ease;
+        }
+
+        .search-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
+        }
+
+        .filter-options {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            border: 2px solid #1a3a8f;
+            background: white;
+            color: #1a3a8f;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 13px;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover {
+            background: #f8f9ff;
+            transform: translateY(-2px);
+        }
+
+        .filter-btn.active {
+            background: #1a3a8f;
+            color: white;
+        }
+
+        /* Table Styles - IMPROVED SPACING */
+        .mentee-table-container {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            margin-bottom: 24px;
+            overflow-x: auto;
+        }
+
+        .mentee-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            min-width: 700px; /* Increased min-width to accommodate profile picture column */
+        }
+
+        .mentee-table th {
+            background: #f8f9ff;
+            padding: 14px 16px;
+            text-align: left;
+            font-weight: 600;
+            color: #2d3748;
+            border-bottom: 2px solid #e2e8f0;
+            position: sticky;
+            top: 0;
+            font-size: 13px;
+            white-space: nowrap;
+        }
+
+        .mentee-table td {
+            padding: 14px 16px;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 13px;
+            line-height: 1.4;
+            vertical-align: middle;
+        }
+
+        .mentee-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Profile Picture Styles */
+        .profile-picture {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #e2e8f0;
+            background: #f8f9fa;
+        }
+
+        .profile-picture-placeholder {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+            border: 2px solid #e2e8f0;
+        }
+
+        /* Status Styles */
+        .status-active { 
+            color: #2e7d32; 
+            font-weight: 600;
+            background: #e8f5e8;
+            padding: 5px 10px;
+            border-radius: 16px;
+            font-size: 11px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .status-active:before {
+            content: "";
+            width: 6px;
+            height: 6px;
+            background: #38a169;
+            border-radius: 50%;
+        }
+
+        .status-inactive { 
+            color: #c62828; 
+            font-weight: 600;
+            background: #ffebee;
+            padding: 5px 10px;
+            border-radius: 16px;
+            font-size: 11px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .status-inactive:before {
+            content: "";
+            width: 6px;
+            height: 6px;
+            background: #e53e3e;
+            border-radius: 50%;
+        }
+
+        /* No Mentees Message */
+        .no-mentees {
+            text-align: center;
+            color: #718096;
+            padding: 50px 30px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .no-mentees h2 {
+            font-size: 20px;
+            margin-bottom: 12px;
+            color: #4a5568;
+        }
+
+        .no-mentees p {
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        /* Gradient Border Hover Effect */
+        .clickable-row { 
+            cursor: pointer; 
+            transition: all 0.3s ease;
+            position: relative;
+            background: white;
+        }
+
+        .clickable-row::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border: 2px solid transparent;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #1a3a8f, #4f7df9, #1a3a8f) border-box;
+            -webkit-mask: 
+                linear-gradient(#fff 0 0) padding-box, 
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: destination-out;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .clickable-row:hover::after {
+            opacity: 1;
+        }
+
+        .clickable-row:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(26, 58, 143, 0.15);
+            z-index: 1;
+        }
+
+        /* Zebra striping for better readability */
+        .mentee-table tbody tr:nth-child(even) {
+            background-color: #fafbfc;
+        }
+
+        /* NEW: Search Info Banner */
+        .search-info {
+            background: #e3f2fd;
+            border: 1px solid #bbdefb;
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .search-info i {
+            color: #1976d2;
+            font-size: 16px;
+        }
+
+        .search-info-text {
+            color: #1565c0;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .clear-search {
+            background: #1976d2;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            margin-left: auto;
+            text-decoration: none;
+        }
+
+        .clear-search:hover {
+            background: #1565c0;
+        }
+
+        /* NEW: Filter Pills */
+        .filter-pills {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .filter-pill {
+            padding: 6px 12px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-pill:hover {
+            background: #f8f9ff;
+            border-color: #1a3a8f;
+        }
+
+        .filter-pill.active {
+            background: #1a3a8f;
+            color: white;
+            border-color: #1a3a8f;
+        }
+
+        /* NEW: View Only Notice */
+        .view-only-notice {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin: 16px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #856404;
+        }
+
+        .view-only-notice i {
+            color: #f39c12;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 240px;
+            }
+            .main-content {
+                margin-left: 240px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+            .main-content {
+                margin-left: 0;
+                padding: 16px;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            .content-header {
+                flex-direction: column;
+                text-align: center;
+                padding: 16px;
+            }
+            .filter-options {
+                justify-content: center;
+            }
+            .mentee-table-container {
+                overflow-x: auto;
+            }
+            .mentee-table th,
+            .mentee-table td {
+                padding: 12px 10px;
+                font-size: 12px;
+            }
+            
+            /* Adjust hover effects for mobile */
+            .clickable-row:hover {
+                transform: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="logo-section">
+            <div class="logo">
+                <i class="fas fa-hands-helping"></i>
+                <span class="logo-text">MMMS</span>
+            </div>
+        </div>
+
+        <div class="user-info">
+            <div class="user-avatar">
+                {% if mentor.profile_picture %}
+                    <img src="{{ mentor.profile_picture.url }}" alt="Profile Picture" id="sidebarProfilePic">
+                    <i class="fas fa-user-tie" id="sidebarProfileIcon" style="display: none;"></i>
+                {% else %}
+                    <i class="fas fa-user-tie" id="sidebarProfileIcon"></i>
+                {% endif %}
+            </div>
+            <div class="user-name">{{ mentor.MentorName }}</div>
+            <div class="user-role">Mentor</div>
+        </div>
+
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="{% url 'mentor_homepage' %}" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    <span class="nav-text">Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'view_assigned_mentees' %}" class="nav-link active">
+                    <i class="fas fa-user-graduate"></i>
+                    <span class="nav-text">Mentees</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'mentoring_schedule' %}" class="nav-link">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span class="nav-text">Schedule</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'activity_report' %}" class="nav-link">
+                    <i class="fas fa-chart-bar"></i>
+                    <span class="nav-text">Reports</span>
+                </a>
+            </li>
+        </ul>
+
+        <!-- Logout section at bottom of sidebar -->
+        <div class="sidebar-footer">
+            <div class="nav-item logout-item">
+                <a href="{% url 'logout' %}" class="logout-link">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span class="nav-text">Logout</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Content Header with Profile Button -->
+        <div class="content-header">
+            <div>
+                <h1>Student Directory</h1>
+                <p>Mentor: {{ mentor.MentorName }} | Department: {{ mentor.MentorDepartment }}</p>
+            </div>
+            <div class="profile-section">
+                <a href="{% url 'mentor_update_profile' %}" class="profile-btn">
+                    <div class="profile-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <span>Profile</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-user-graduate"></i>
+                </div>
+                <div class="stat-number">{{ assigned_mentees.count }}</div>
+                <div class="stat-label">My Assigned Mentees</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="stat-number">{{ active_mentees_count }}</div>
+                <div class="stat-label">Active Mentees</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-number">{{ total_mentees_count }}</div>
+                <div class="stat-label">Total Students</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-venus-mars"></i>
+                </div>
+                <div class="stat-number">{{ male_mentees_count }}M / {{ female_mentees_count }}F</div>
+                <div class="stat-label">My Gender Distribution</div>
+            </div>
+        </div>
+
+        <!-- Controls Section -->
+        <div class="controls">
+            <h2 class="section-title">
+                <i class="fas fa-search"></i>
+                Search & Filter Students
+            </h2>
+            
+            <!-- Search Form -->
+            <form method="GET" action="{% url 'view_assigned_mentees' %}" class="search-box">
+                <input type="text" name="search" id="searchInput" 
+                       placeholder="Search by name, ID, course, or mentor..." 
+                       value="{{ search_query }}">
+                <button type="submit" class="search-btn">
+                    <i class="fas fa-search"></i> Search
+                </button>
+                {% if search_query %}
+                    <a href="{% url 'view_assigned_mentees' %}" class="search-btn" style="background: #6c757d;">
+                        <i class="fas fa-times"></i> Clear
+                    </a>
+                {% endif %}
+            </form>
+
+            <!-- Quick Filter Pills -->
+            <div class="filter-pills">
+                <div class="filter-pill active" onclick="filterByAssignment('all')">All Students</div>
+                <div class="filter-pill" onclick="filterByAssignment('assigned')">My Mentees</div>
+                <div class="filter-pill" onclick="filterByAssignment('unassigned')">Unassigned</div>
+                <div class="filter-pill" onclick="filterByAssignment('others')">Other Mentors</div>
+            </div>
+
+            <!-- Advanced Filter Options -->
+            <div class="filter-options">
+                <button class="filter-btn active" onclick="filterByStatus('all')">All Status</button>
+                <button class="filter-btn" onclick="filterByStatus('active')">Active</button>
+                <button class="filter-btn" onclick="filterByStatus('inactive')">Inactive</button>
+                <button class="filter-btn" onclick="filterByGender('male')">Male</button>
+                <button class="filter-btn" onclick="filterByGender('female')">Female</button>
+                <button class="filter-btn" onclick="sortByCourse()">Sort by Course</button>
+                <button class="filter-btn" onclick="sortBySemester()">Sort by Semester</button>
+            </div>
+        </div>
+
+        <!-- Search Results Info -->
+        {% if search_query %}
+        <div class="search-info">
+            <i class="fas fa-info-circle"></i>
+            <div class="search-info-text">
+                Showing search results for "{{ search_query }}"
+            </div>
+            <a href="{% url 'view_assigned_mentees' %}" class="clear-search">
+                <i class="fas fa-times"></i> Clear Search
+            </a>
+        </div>
+        {% endif %}
+
+        {% if all_mentees %}
+        <div class="mentee-table-container">
+            <table class="mentee-table" id="menteeTable">
+                <thead>
+                    <tr>
+                        <th></th> <!-- Profile Picture Column -->
+                        <th>Student ID</th>
+                        <th>Name</th>
+                        <th>Course</th>
+                        <th>Semester</th>
+                        <th>Assigned Mentor</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for mentee in all_mentees %}
+                    <tr class="mentee-row clickable-row 
+                        {% if mentee.assigned_mentor == mentor %}my-mentee{% endif %}"
+                        data-status="{{ mentee.MenteeStatus }}" 
+                        data-gender="{{ mentee.MenteeGender }}" 
+                        data-course="{{ mentee.MenteeCourse }}" 
+                        data-semester="{{ mentee.MenteeSemester }}"
+                        data-assignment="{% if mentee.assigned_mentor == mentor %}assigned{% elif mentee.assigned_mentor %}others{% else %}unassigned{% endif %}"
+                        onclick="viewMenteeDetails('{{ mentee.MenteeID }}')">
+                        
+                        <td>
+                            {% if mentee.profile_picture %}
+                                <img src="{{ mentee.profile_picture.url }}" alt="{{ mentee.MenteeName }}" class="profile-picture">
+                            {% else %}
+                                <div class="profile-picture-placeholder">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                            {% endif %}
+                        </td>
+                        <td>{{ mentee.MenteeID }}</td>
+                        <td><strong>{{ mentee.MenteeName }}</strong></td>
+                        <td>{{ mentee.get_course_full_name }}</td>
+                        <td>{{ mentee.MenteeSemester }}</td>
+                        <td>
+                            {% if mentee.assigned_mentor %}
+                                {{ mentee.assigned_mentor.MentorName }}
+                            {% else %}
+                                <span style="color: #718096; font-style: italic;">Not assigned</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <span class="status-{{ mentee.MenteeStatus }}">{{ mentee.get_MenteeStatus_display }}</span>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="no-mentees">
+            {% if search_query %}
+                <h2>No Students Found</h2>
+                <p>No students match your search criteria "{{ search_query }}".</p>
+                <p>Try adjusting your search terms or <a href="{% url 'view_assigned_mentees' %}">view all students</a>.</p>
+            {% else %}
+                <h2>No Students Available</h2>
+                <p>There are no students registered in the system yet.</p>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+
+    <script>
+        // Filtering functionality
+        function filterByAssignment(type) {
+            const rows = document.getElementsByClassName('mentee-row');
+            const pills = document.querySelectorAll('.filter-pill');
+            
+            // Update active pill
+            pills.forEach(pill => pill.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            for (let i = 0; i < rows.length; i++) {
+                const row = rows[i];
+                const assignmentType = row.getAttribute('data-assignment');
+                
+                if (type === 'all' || assignmentType === type) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            }
+        }
+        
+        function filterByStatus(status) {
+            const rows = document.getElementsByClassName('mentee-row');
+            const buttons = document.querySelectorAll('.filter-btn');
+            
+            // Update active button
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            for (let i = 0; i < rows.length; i++) {
+                const row = rows[i];
+                if (status === 'all' || row.getAttribute('data-status') === status) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            }
+        }
+        
+        function filterByGender(gender) {
+            const rows = document.getElementsByClassName('mentee-row');
+            const buttons = document.querySelectorAll('.filter-btn');
+            
+            // Update active button
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            for (let i = 0; i < rows.length; i++) {
+                const row = rows[i];
+                if (gender === 'all' || row.getAttribute('data-gender') === gender) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            }
+        }
+        
+        function sortByCourse() {
+            // Implementation for sorting by course
+            const table = document.getElementById('menteeTable');
+            const tbody = table.querySelector('tbody');
+            const rows = Array.from(tbody.querySelectorAll('tr'));
+            
+            rows.sort((a, b) => {
+                const courseA = a.cells[3].textContent.toLowerCase(); // Changed index to 3 for course
+                const courseB = b.cells[3].textContent.toLowerCase();
+                return courseA.localeCompare(courseB);
+            });
+            
+            // Remove existing rows and append sorted rows
+            rows.forEach(row => tbody.appendChild(row));
+        }
+        
+        function sortBySemester() {
+            // Implementation for sorting by semester
+            const table = document.getElementById('menteeTable');
+            const tbody = table.querySelector('tbody');
+            const rows = Array.from(tbody.querySelectorAll('tr'));
+            
+            rows.sort((a, b) => {
+                const semesterA = parseInt(a.cells[4].textContent) || 0; // Changed index to 4 for semester
+                const semesterB = parseInt(b.cells[4].textContent) || 0;
+                return semesterA - semesterB;
+            });
+            
+            // Remove existing rows and append sorted rows
+            rows.forEach(row => tbody.appendChild(row));
+        }
+        
+        // Redirect to mentee details page - NOW WORKS FOR ALL MENTEES
+        function viewMenteeDetails(menteeId) {
+            window.location.href = "{% url 'mentor_view_mentee' 'MENTEE_ID_PLACEHOLDER' %}".replace('MENTEE_ID_PLACEHOLDER', menteeId);
+        }
+        
+        // Initialize with all mentees visible
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add enter key functionality to search
+            document.getElementById('searchInput').addEventListener('keyup', function(event) {
+                if (event.key === 'Enter') {
+                    this.form.submit();
+                }
+            });
+            
+            // Highlight assigned mentees
+            const myMenteeRows = document.querySelectorAll('.my-mentee');
+            myMenteeRows.forEach(row => {
+                row.style.backgroundColor = '#f0f8ff';
+            });
+            
+            // Simple animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all cards for animation
+            document.querySelectorAll('.stat-card, .mentee-row').forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(card);
+            });
+        });
+    </script>
+</body>
+</html>

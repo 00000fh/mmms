@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ mentee.MenteeName }} - Mentee Details | MMS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #f5f7fa;
+            min-height: 100vh;
+            display: flex;
+            color: #333;
+        }
+
+        /* Sidebar Styles - Consistent with previous pages */
+        .sidebar {
+            width: 260px;
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
+            color: white;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            overflow-y: auto;
+            box-shadow: 2px 0 20px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-section {
+            padding: 24px 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .logo i {
+            font-size: 32px;
+        }
+
+        .logo-text {
+            font-size: 22px;
+        }
+
+        .user-info {
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .user-avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 0 auto 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .user-name {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .user-role {
+            font-size: 13px;
+            opacity: 0.8;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 3px 10px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        .nav-menu {
+            list-style: none;
+            padding: 20px 0;
+            flex: 1;
+        }
+
+        .nav-item {
+            margin-bottom: 6px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-left-color: rgba(255, 255, 255, 0.5);
+            padding-left: 24px;
+        }
+
+        .nav-link.active {
+            background: rgba(255, 255, 255, 0.15);
+            border-left-color: white;
+        }
+
+        .nav-link i {
+            margin-right: 12px;
+            font-size: 16px;
+            width: 18px;
+            text-align: center;
+        }
+
+        .nav-text {
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        /* Logout section at bottom of sidebar */
+        .sidebar-footer {
+            margin-top: auto;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logout-item {
+            margin-bottom: 0;
+        }
+
+        .logout-link {
+            display: flex;
+            align-items: center;
+            padding: 16px 20px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .logout-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-left-color: rgba(255, 255, 255, 0.5);
+            padding-left: 24px;
+        }
+
+        .logout-link i {
+            margin-right: 12px;
+            font-size: 16px;
+            width: 18px;
+            text-align: center;
+        }
+
+        /* Main Content Styles - Consistent spacing */
+        .main-content {
+            flex: 1;
+            margin-left: 260px;
+            min-height: 100vh;
+            background: #f5f7fa;
+            padding: 24px;
+        }
+
+        /* Updated Content Header */
+        .content-header {
+            background: white;
+            padding: 20px 24px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .header-left {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .header-right {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .content-header h1 {
+            font-size: 24px;
+            color: #2d3748;
+            margin-bottom: 4px;
+        }
+
+        .content-header p {
+            color: #718096;
+            font-size: 14px;
+        }
+
+        /* Profile Button Styles */
+        .profile-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .profile-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 16px;
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .profile-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
+        }
+
+        .profile-avatar {
+            width: 40px;
+            height: 18px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+        }
+
+        /* Buttons - Consistent with previous pages */
+        .btn {
+            padding: 10px 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
+        }
+        
+        .btn-secondary {
+            background: #718096;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #4a5568;
+            transform: translateY(-2px);
+        }
+
+        .btn-warning {
+            background: #ed6c02;
+            color: white;
+        }
+
+        .btn-warning:hover {
+            background: #e65100;
+            transform: translateY(-2px);
+        }
+
+        /* Profile Card - Consistent spacing */
+        .profile-card { 
+            background: white; 
+            padding: 24px; 
+            border-radius: 12px; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08); 
+            margin-bottom: 24px; 
+        }
+        
+        /* Mentee Profile Picture Section - BIGGER and CENTERED */
+        .mentee-profile-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 24px;
+            padding: 40px 50px;
+            background: #f8f9ff;
+            border-radius: 12px;
+            border: 2px solid #e2e8f0;
+            text-align: left;
+        }
+
+        .mentee-avatar {
+            width: 180px; /* Increased from 120px */
+            height: 180px; /* Increased from 120px */
+            border-radius: 50%;
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px; /* Increased from 40px */
+            color: white;
+            border: 5px solid white; /* Slightly thicker border */
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15); /* Enhanced shadow */
+            overflow: hidden;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .mentee-avatar img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .mentee-avatar i {
+            position: relative;
+            z-index: 1;
+        }
+
+        .mentee-basic-info {
+            display: flex;
+            flex-direction: column;
+            gap: 5px; /* Increased gap for better spacing */
+            flex: 1;
+            max-width: 450px; /* Slightly wider */
+        }
+
+        .mentee-basic-info h3 {
+            font-size: 22px; /* Increased from 28px */
+            color: #2d3748;
+            margin-bottom: 0;
+            font-weight: 700;
+        }
+
+        .mentee-basic-info p {
+            color: #718096;
+            margin-bottom: 0;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 14px; /* Slightly larger text */
+            padding: 6px 0; /* More padding for better spacing */
+        }
+
+        .mentee-basic-info p i {
+            color: #1a3a8f;
+            width: 20px; /* Slightly wider for better alignment */
+            text-align: center;
+            font-size: 16px; /* Slightly larger icons */
+        }
+
+        .status-badge { 
+            padding: 6px 12px; 
+            border-radius: 16px; 
+            font-size: 11px; 
+            font-weight: 600; 
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .status-active { 
+            background: #e8f5e8; 
+            color: #2e7d32; 
+        }
+        
+        .status-inactive { 
+            background: #ffebee; 
+            color: #c62828; 
+        }
+        
+        .status-graduated { 
+            background: #e3f2fd; 
+            color: #1565c0; 
+        }
+
+        /* Tab Styles */
+        .tab-container {
+            margin-bottom: 24px;
+        }
+        
+        .tab-navigation {
+            display: flex;
+            background: white;
+            border-radius: 12px;
+            padding: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            margin-bottom: 0;
+            overflow-x: auto;
+        }
+        
+        .tab-button {
+            flex: 1;
+            padding: 12px 16px;
+            text-align: center;
+            background: transparent;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            color: #718096;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+        
+        .tab-button:hover {
+            color: #1a3a8f;
+            background: rgba(26, 58, 143, 0.05);
+        }
+        
+        .tab-button.active {
+            color: white;
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
+            box-shadow: 0 2px 8px rgba(26, 58, 143, 0.3);
+        }
+        
+        .tab-content {
+            display: none;
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            margin-bottom: 24px;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Form Styles for Readonly Fields */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2d3748;
+            font-size: 14px;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .readonly-field {
+            background: #f8fafc;
+            color: #718096;
+            cursor: not-allowed;
+            border: 1px solid #e2e8f0;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 16px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        /* Section Titles */
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin: 30px 0 16px 0;
+            color: #2d3748;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .section-title i {
+            color: #1a3a8f;
+        }
+
+        /* Statistics Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            border-left: 4px solid #1a3a8f;
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1a3a8f;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: #718096;
+            font-weight: 600;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 240px;
+            }
+            .main-content {
+                margin-left: 240px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+            .main-content {
+                margin-left: 0;
+                padding: 16px;
+            }
+            .content-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            .header-right {
+                justify-content: center;
+                width: 100%;
+            }
+            .mentee-profile-section {
+                padding: 30px 20px;
+                flex-direction: column;
+                text-align: center;
+                gap: 25px;
+            }
+            .mentee-avatar {
+                width: 140px; /* Adjusted for mobile */
+                height: 140px; /* Adjusted for mobile */
+                font-size: 42px; /* Adjusted for mobile */
+            }
+            .mentee-basic-info h3 {
+                font-size: 26px; /* Adjusted for mobile */
+            }
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            .tab-navigation {
+                flex-direction: column;
+                gap: 8px;
+            }
+            
+            .tab-button {
+                justify-content: flex-start;
+                padding: 12px 16px;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-right {
+                flex-direction: column;
+                width: 100%;
+            }
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            .mentee-avatar {
+                width: 120px; /* Smaller for very small screens */
+                height: 120px; /* Smaller for very small screens */
+                font-size: 36px; /* Smaller for very small screens */
+            }
+            .mentee-basic-info h3 {
+                font-size: 22px; /* Smaller for very small screens */
+            }
+            .mentee-basic-info p {
+                font-size: 14px; /* Smaller for very small screens */
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="logo-section">
+            <div class="logo">
+                <i class="fas fa-hands-helping"></i>
+                <span class="logo-text">MMMS</span>
+            </div>
+        </div>
+
+        <div class="user-info">
+            <div class="user-avatar">
+                <i class="fas fa-user-shield"></i>
+            </div>
+            <div class="user-name">Head of Mentor Mentee</div>
+            <div class="user-role">Administrator</div>
+        </div>
+
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="{% url 'head_homepage' %}" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    <span class="nav-text">Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'manage_mentees' %}" class="nav-link active">
+                    <i class="fas fa-user-graduate"></i>
+                    <span class="nav-text">Mentee Records</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'manage_mentors' %}" class="nav-link">
+                    <i class="fas fa-user-tie"></i>
+                    <span class="nav-text">Mentor Records</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'mentor_assignments' %}" class="nav-link">
+                    <i class="fas fa-users"></i>
+                    <span class="nav-text">Mentor Assignments</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'mentor_mentee_activities' %}" class="nav-link">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span class="nav-text">Activities</span>
+                </a>
+            </li>
+        </ul>
+
+        <!-- Logout section at bottom of sidebar -->
+        <div class="sidebar-footer">
+            <div class="nav-item logout-item">
+                <a href="{% url 'logout' %}" class="logout-link">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span class="nav-text">Logout</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Content Header -->
+        <div class="content-header">
+            <div class="header-left">
+                <h1>Mentee Details</h1>
+                <p>Complete information about {{ mentee.MenteeName }}</p>
+            </div>
+            <div class="header-right">
+                <a href="{% url 'manage_mentees' %}" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i>
+                    Back to List
+                </a>
+                <a href="{% url 'edit_mentee' mentee.MenteeID %}" class="btn btn-primary">
+                    <i class="fas fa-edit"></i>
+                    Edit Mentee
+                </a>
+                {% if not mentee.assigned_mentor %}
+                <a href="{% url 'mentor_assignments' %}" class="btn btn-warning">
+                    <i class="fas fa-user-plus"></i>
+                    Assign Mentor
+                </a>
+                {% endif %}
+                <div class="profile-section">
+                    <button class="profile-btn">
+                        <div class="profile-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <span>Profile</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Statistics Cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value">{{ mentee.MenteeSemester }}</div>
+                <div class="stat-label">Current Semester</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">
+                    {% if mentee.assigned_mentor %}
+                        <i class="fas fa-check" style="color: #2e7d32;"></i>
+                    {% else %}
+                        <i class="fas fa-times" style="color: #c62828;"></i>
+                    {% endif %}
+                </div>
+                <div class="stat-label">Mentor Assigned</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">
+                    {% if mentee.MenteeStatus == 'active' %}
+                        <i class="fas fa-user-check" style="color: #2e7d32;"></i>
+                    {% elif mentee.MenteeStatus == 'inactive' %}
+                        <i class="fas fa-user-slash" style="color: #c62828;"></i>
+                    {% else %}
+                        <i class="fas fa-user-graduate" style="color: #1565c0;"></i>
+                    {% endif %}
+                </div>
+                <div class="stat-label">Status</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">
+                    <i class="fas {% if mentee.MenteeGender == 'male' %}fa-mars{% else %}fa-venus{% endif %}" 
+                       style="color: {% if mentee.MenteeGender == 'male' %}#1565c0{% else %}#c2185b{% endif %};"></i>
+                </div>
+                <div class="stat-label">Gender</div>
+            </div>
+        </div>
+
+        <!-- Mentee Profile Picture Section (BIGGER and CENTERED) -->
+        <div class="mentee-profile-section">
+            <div class="mentee-avatar">
+                {% if mentee.profile_picture %}
+                    <img src="{{ mentee.profile_picture.url }}" alt="{{ mentee.MenteeName }}'s Profile Picture" id="menteeProfilePic">
+                    <i class="fas fa-user-graduate" id="menteeProfileIcon" style="display: none;"></i>
+                {% else %}
+                    <i class="fas fa-user-graduate" id="menteeProfileIcon"></i>
+                {% endif %}
+            </div>
+            <div class="mentee-basic-info">
+                <h3>{{ mentee.MenteeName }}</h3>
+                <p><i class="fas fa-id-card"></i> {{ mentee.MenteeID }}</p>
+                <p><i class="fas fa-graduation-cap"></i> {{ mentee.MenteeCourse }}</p>
+                <p><i class="fas fa-calendar-alt"></i> Semester {{ mentee.MenteeSemester }}</p>
+                <p><i class="fas fa-envelope"></i> {{ mentee.MenteeEmail }}</p>
+                <p>
+                    <i class="fas fa-user-tie"></i> 
+                    {% if mentee.assigned_mentor %}
+                        Assigned to: {{ mentee.assigned_mentor.MentorName }}
+                    {% else %}
+                        Not assigned to any mentor
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+
+        <!-- Profile Card -->
+        <div class="profile-card">
+            <!-- Tab Navigation -->
+            <div class="tab-container">
+                <div class="tab-navigation">
+                    <button type="button" class="tab-button active" data-tab="personal">
+                        <i class="fas fa-user"></i>
+                        Personal Information
+                    </button>
+                    <button type="button" class="tab-button" data-tab="parent">
+                        <i class="fas fa-users"></i>
+                        Parent Information
+                    </button>
+                    <button type="button" class="tab-button" data-tab="academic">
+                        <i class="fas fa-graduation-cap"></i>
+                        Academic Information
+                    </button>
+                </div>
+            </div>
+
+            <!-- Personal Information Tab -->
+            <div class="tab-content active" id="personal-tab">
+                <h2 class="section-title">
+                    <i class="fas fa-user"></i>
+                    Personal Information
+                </h2>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="MenteeName">
+                            <i class="fas fa-signature"></i> Full Name
+                        </label>
+                        <input type="text" id="MenteeName" value="{{ mentee.MenteeName }}" class="readonly-field" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="MenteeID">
+                            <i class="fas fa-id-card"></i> Student ID
+                        </label>
+                        <input type="text" id="MenteeID" value="{{ mentee.MenteeID }}" class="readonly-field" readonly>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="MenteeEmail">
+                            <i class="fas fa-envelope"></i> Email
+                        </label>
+                        <input type="email" id="MenteeEmail" value="{{ mentee.MenteeEmail }}" class="readonly-field" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="MenteePhone">
+                            <i class="fas fa-phone"></i> Phone Number
+                        </label>
+                        <input type="text" id="MenteePhone" value="{{ mentee.MenteePhone }}" class="readonly-field" readonly>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="MenteeCourse">
+                            <i class="fas fa-graduation-cap"></i> Course
+                        </label>
+                        <input type="text" id="MenteeCourse" value="{{ mentee.MenteeCourse }}" class="readonly-field" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="MenteeIC">
+                            <i class="fas fa-fingerprint"></i> IC Number
+                        </label>
+                        <input type="text" id="MenteeIC" value="{{ mentee.MenteeIC }}" class="readonly-field" readonly>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="MenteeSemester">
+                            <i class="fas fa-calendar-alt"></i> Semester
+                        </label>
+                        <input type="number" id="MenteeSemester" value="{{ mentee.MenteeSemester }}" class="readonly-field" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="MenteeGender">
+                            <i class="fas fa-venus-mars"></i> Gender
+                        </label>
+                        <input type="text" id="MenteeGender" value="{{ mentee.get_MenteeGender_display }}" class="readonly-field" readonly>
+                    </div>
+                </div>
+
+                <!-- Address Information Section -->
+                <h2 class="section-title">
+                    <i class="fas fa-map-marker-alt"></i>
+                    Address Information
+                </h2>
+
+                <div class="form-group">
+                    <label for="MenteeAddress">
+                        <i class="fas fa-home"></i> Address
+                    </label>
+                    <textarea id="MenteeAddress" class="readonly-field" rows="3" readonly>{{ mentee.MenteeAddress }}</textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="MenteeCity">
+                            <i class="fas fa-city"></i> City
+                        </label>
+                        <input type="text" id="MenteeCity" value="{{ mentee.MenteeCity }}" class="readonly-field" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="MenteeState">
+                            <i class="fas fa-map"></i> State
+                        </label>
+                        <input type="text" id="MenteeState" value="{{ mentee.MenteeState }}" class="readonly-field" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="MenteePostcode">
+                            <i class="fas fa-mail-bulk"></i> Postcode
+                        </label>
+                        <input type="text" id="MenteePostcode" value="{{ mentee.MenteePostcode }}" class="readonly-field" readonly>
+                    </div>
+                </div>
+
+                <!-- Background Information Section -->
+                <h2 class="section-title">
+                    <i class="fas fa-user-friends"></i>
+                    Background Information
+                </h2>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="MenteeRace">
+                            <i class="fas fa-globe-asia"></i> Race
+                        </label>
+                        <input type="text" id="MenteeRace" value="{{ mentee.MenteeRace }}" class="readonly-field" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="MenteeReligion">
+                            <i class="fas fa-pray"></i> Religion
+                        </label>
+                        <input type="text" id="MenteeReligion" value="{{ mentee.MenteeReligion }}" class="readonly-field" readonly>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="MenteePreviousSchool">
+                        <i class="fas fa-school"></i> Previous School
+                    </label>
+                    <input type="text" id="MenteePreviousSchool" value="{{ mentee.MenteePreviousSchool }}" class="readonly-field" readonly>
+                </div>
+
+                <!-- Mentor Assignment Section -->
+                <h2 class="section-title">
+                    <i class="fas fa-user-tie"></i>
+                    Mentor Assignment
+                </h2>
+
+                <div class="form-group">
+                    <label for="AssignedMentor">
+                        <i class="fas fa-user-tie"></i> Assigned Mentor
+                    </label>
+                    {% if mentee.assigned_mentor %}
+                        <input type="text" id="AssignedMentor" value="{{ mentee.assigned_mentor.MentorName }} ({{ mentee.assigned_mentor.MentorID }})" class="readonly-field" readonly>
+                    {% else %}
+                        <input type="text" id="AssignedMentor" value="Not Assigned" class="readonly-field" readonly style="color: #c62828; font-weight: 600;">
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="MenteeStatus">
+                        <i class="fas fa-user-check"></i> Student Status
+                    </label>
+                    <input type="text" id="MenteeStatus" value="{{ mentee.get_MenteeStatus_display }}" class="readonly-field" readonly>
+                </div>
+            </div>
+
+            <!-- Parent Information Tab -->
+            <div class="tab-content" id="parent-tab">
+                <h2 class="section-title">
+                    <i class="fas fa-users"></i>
+                    Parent Information
+                </h2>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="MenteeFatherName">
+                            <i class="fas fa-user"></i> Father's Name
+                        </label>
+                        <input type="text" id="MenteeFatherName" value="{{ mentee.MenteeFatherName }}" class="readonly-field" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="MenteeFatherIC">
+                            <i class="fas fa-id-card"></i> Father's IC Number
+                        </label>
+                        <input type="text" id="MenteeFatherIC" value="{{ mentee.MenteeFatherIC }}" class="readonly-field" readonly>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="MenteeFatherOccupation">
+                            <i class="fas fa-briefcase"></i> Father's Occupation
+                        </label>
+                        <input type="text" id="MenteeFatherOccupation" value="{{ mentee.MenteeFatherOccupation }}" class="readonly-field" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="MenteeFatherPhone">
+                            <i class="fas fa-phone"></i> Father's Phone
+                        </label>
+                        <input type="text" id="MenteeFatherPhone" value="{{ mentee.MenteeFatherPhone }}" class="readonly-field" readonly>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="MenteeMotherName">
+                            <i class="fas fa-user"></i> Mother's Name
+                        </label>
+                        <input type="text" id="MenteeMotherName" value="{{ mentee.MenteeMotherName }}" class="readonly-field" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="MenteeMotherIC">
+                            <i class="fas fa-id-card"></i> Mother's IC Number
+                        </label>
+                        <input type="text" id="MenteeMotherIC" value="{{ mentee.MenteeMotherIC }}" class="readonly-field" readonly>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="MenteeMotherOccupation">
+                            <i class="fas fa-briefcase"></i> Mother's Occupation
+                        </label>
+                        <input type="text" id="MenteeMotherOccupation" value="{{ mentee.MenteeMotherOccupation }}" class="readonly-field" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="MenteeMotherPhone">
+                            <i class="fas fa-phone"></i> Mother's Phone
+                        </label>
+                        <input type="text" id="MenteeMotherPhone" value="{{ mentee.MenteeMotherPhone }}" class="readonly-field" readonly>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Academic Information Tab -->
+            <div class="tab-content" id="academic-tab">
+                <h2 class="section-title">
+                    <i class="fas fa-graduation-cap"></i>
+                    Academic Information
+                </h2>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="MenteeCourse">
+                            <i class="fas fa-book"></i> Course Program
+                        </label>
+                        <input type="text" id="MenteeCourse" value="{{ mentee.MenteeCourse }}" class="readonly-field" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="MenteeSemester">
+                            <i class="fas fa-calendar-alt"></i> Current Semester
+                        </label>
+                        <input type="number" id="MenteeSemester" value="{{ mentee.MenteeSemester }}" class="readonly-field" readonly>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="Year">
+                            <i class="fas fa-calendar"></i> Academic Year
+                        </label>
+                        <input type="text" id="Year" value="{{ mentee.Year }}" class="readonly-field" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="MenteeJoinDate">
+                            <i class="fas fa-calendar-plus"></i> Join Date
+                        </label>
+                        <input type="text" id="MenteeJoinDate" value="{{ mentee.MenteeJoinDate|date:'F d, Y' }}" class="readonly-field" readonly>
+                    </div>
+                </div>
+
+                <!-- Additional Academic Information -->
+                <h2 class="section-title">
+                    <i class="fas fa-info-circle"></i>
+                    Additional Information
+                </h2>
+
+                <div class="form-group">
+                    <label for="MenteeStatus">
+                        <i class="fas fa-user-check"></i> Student Status
+                    </label>
+                    <input type="text" id="MenteeStatus" value="{{ mentee.get_MenteeStatus_display }}" class="readonly-field" readonly>
+                </div>
+
+                <div class="form-group">
+                    <label for="MenteePreviousSchool">
+                        <i class="fas fa-school"></i> Previous School
+                    </label>
+                    <input type="text" id="MenteePreviousSchool" value="{{ mentee.MenteePreviousSchool }}" class="readonly-field" readonly>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Update mentee profile picture display
+            function updateMenteeProfilePictureDisplay() {
+                const menteeAvatar = document.querySelector('.mentee-avatar');
+                const menteeImg = menteeAvatar.querySelector('img');
+                const menteeIcon = menteeAvatar.querySelector('i');
+                
+                // If mentee profile picture exists, show image and hide icon
+                if (menteeImg && menteeImg.src) {
+                    menteeImg.style.display = 'block';
+                    menteeIcon.style.display = 'none';
+                }
+            }
+            
+            // Initialize profile picture displays
+            updateMenteeProfilePictureDisplay();
+            
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const tabId = button.getAttribute('data-tab');
+                    
+                    // Remove active class from all buttons and contents
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    
+                    // Add active class to clicked button and corresponding content
+                    button.classList.add('active');
+                    document.getElementById(`${tabId}-tab`).classList.add('active');
+                });
+            });
+
+            // Add active state to current page in navigation
+            const currentPage = window.location.pathname;
+            document.querySelectorAll('.nav-link').forEach(link => {
+                if (link.getAttribute('href') === '{% url 'manage_mentees' %}') {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+
+            // Profile button functionality
+            document.querySelector('.profile-btn').addEventListener('click', function() {
+                alert('Profile page would open here!');
+                // In a real application, this would navigate to the profile page
+                // window.location.href = '/profile/';
+            });
+        });
+    </script>
+</body>
+</html>

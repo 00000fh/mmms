@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit {{ mentee.MenteeName }} - Mentee | MMS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #f5f7fa;
+            min-height: 100vh;
+            display: flex;
+            color: #333;
+        }
+
+        /* Sidebar Styles - Consistent with previous pages */
+        .sidebar {
+            width: 260px;
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
+            color: white;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            overflow-y: auto;
+            box-shadow: 2px 0 20px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .logo-section {
+            padding: 24px 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .logo i {
+            font-size: 32px;
+        }
+
+        .logo-text {
+            font-size: 22px;
+        }
+
+        .user-info {
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .user-avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 0 auto 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .user-name {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .user-role {
+            font-size: 13px;
+            opacity: 0.8;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 3px 10px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        .nav-menu {
+            list-style: none;
+            padding: 20px 0;
+        }
+
+        .nav-item {
+            margin-bottom: 6px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-left-color: rgba(255, 255, 255, 0.5);
+            padding-left: 24px;
+        }
+
+        .nav-link.active {
+            background: rgba(255, 255, 255, 0.15);
+            border-left-color: white;
+        }
+
+        .nav-link i {
+            margin-right: 12px;
+            font-size: 16px;
+            width: 18px;
+            text-align: center;
+        }
+
+        .nav-text {
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        /* Main Content Styles - Consistent spacing */
+        .main-content {
+            flex: 1;
+            margin-left: 260px;
+            min-height: 100vh;
+            background: #f5f7fa;
+            padding: 24px;
+        }
+
+        .content-header {
+            background: white;
+            padding: 20px 24px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            margin-bottom: 24px;
+        }
+
+        .content-header h1 {
+            font-size: 24px;
+            color: #2d3748;
+            margin-bottom: 4px;
+        }
+
+        .content-header p {
+            color: #718096;
+            font-size: 14px;
+        }
+
+        /* Form Container - Consistent spacing */
+        .form-container { 
+            background: white; 
+            padding: 24px; 
+            border-radius: 12px; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08); 
+        }
+        
+        .form-group { 
+            margin-bottom: 20px; 
+        }
+        
+        .form-group label { 
+            display: block; 
+            margin-bottom: 8px; 
+            font-weight: 600; 
+            color: #2d3748; 
+            font-size: 13px;
+        }
+        
+        .form-group input, .form-group select { 
+            width: 100%; 
+            padding: 12px 16px; 
+            border: 2px solid #e2e8f0; 
+            border-radius: 8px; 
+            font-size: 13px; 
+            transition: all 0.3s ease;
+            background: #f8f9ff;
+        }
+        
+        .form-group input:focus, .form-group select:focus { 
+            outline: none; 
+            border-color: #1a3a8f; 
+            box-shadow: 0 0 0 3px rgba(26, 58, 143, 0.1); 
+            background: white;
+        }
+        
+        .form-group input:read-only {
+            background-color: #f8f9fa;
+            border-color: #e2e8f0;
+            color: #718096;
+            cursor: not-allowed;
+        }
+        
+        /* Buttons - Consistent with previous pages */
+        .btn { 
+            padding: 10px 18px; 
+            border: none; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            text-decoration: none; 
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px; 
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary { 
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%); 
+            color: white; 
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
+        }
+        
+        .btn-secondary { 
+            background: #718096; 
+            color: white; 
+        }
+
+        .btn-secondary:hover {
+            background: #4a5568;
+            transform: translateY(-2px);
+        }
+        
+        .form-actions { 
+            display: flex; 
+            justify-content: space-between; 
+            gap: 12px; 
+            margin-top: 24px; 
+            padding-top: 20px; 
+            border-top: 2px solid #e2e8f0; 
+        }
+        
+        .messages { 
+            margin-bottom: 20px; 
+        }
+        
+        .error { 
+            background: #ffebee; 
+            color: #c62828; 
+            padding: 14px; 
+            border-radius: 8px; 
+            margin-bottom: 12px; 
+            border: 1px solid #feb2b2; 
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+        }
+        
+        .success { 
+            background: #e8f5e8; 
+            color: #2e7d32; 
+            padding: 14px; 
+            border-radius: 8px; 
+            margin-bottom: 12px; 
+            border: 1px solid #c8e6c9; 
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+        }
+        
+        .required { 
+            color: #d32f2f; 
+            font-weight: bold;
+        }
+        
+        .help-text { 
+            font-size: 12px; 
+            color: #718096; 
+            margin-top: 6px; 
+            font-style: normal;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .form-row { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 16px; 
+        }
+
+        .form-section {
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .form-section-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-section-title i {
+            color: #1a3a8f;
+        }
+
+        .vacancy-info {
+            background: #e8f5e8;
+            color: #2e7d32;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-left: 6px;
+        }
+
+        .vacancy-low {
+            background: #fff3e0;
+            color: #ed6c02;
+        }
+
+        .vacancy-none {
+            background: #ffebee;
+            color: #d32f2f;
+        }
+
+        /* Responsive Design - Consistent with previous pages */
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 240px;
+            }
+            .main-content {
+                margin-left: 240px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+            .main-content {
+                margin-left: 0;
+                padding: 16px;
+            }
+            .form-row { 
+                grid-template-columns: 1fr; 
+            }
+            .form-actions {
+                flex-direction: column;
+            }
+            .form-actions > div {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                width: 100%;
+            }
+            .form-actions .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="logo-section">
+            <div class="logo">
+                <i class="fas fa-hands-helping"></i>
+                <span class="logo-text">MMMS</span>
+            </div>
+        </div>
+
+        <div class="user-info">
+            <div class="user-avatar">
+                <i class="fas fa-user-shield"></i>
+            </div>
+            <div class="user-name">Head of Mentor Mentee</div>
+            <div class="user-role">Administrator</div>
+        </div>
+
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="{% url 'head_homepage' %}" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    <span class="nav-text">Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'manage_mentees' %}" class="nav-link active">
+                    <i class="fas fa-user-graduate"></i>
+                    <span class="nav-text">Mentee Records</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'manage_mentors' %}" class="nav-link">
+                    <i class="fas fa-user-tie"></i>
+                    <span class="nav-text">Mentor Records</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'mentor_assignments' %}" class="nav-link">
+                    <i class="fas fa-users"></i>
+                    <span class="nav-text">Mentor Assignments</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'mentor_mentee_activities' %}" class="nav-link">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span class="nav-text">Activities</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'logout' %}" class="nav-link">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span class="nav-text">Logout</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Content Header -->
+        <div class="content-header">
+            <h1>Edit Mentee: {{ mentee.MenteeName }}</h1>
+            <p>Update the mentee information and assignment details below.</p>
+        </div>
+
+        <!-- Messages -->
+        <div class="messages">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="{% if message.tags == 'error' %}error{% else %}success{% endif %}">
+                        <i class="fas {% if message.tags == 'error' %}fa-exclamation-circle{% else %}fa-check-circle{% endif %}"></i>
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        <!-- Form Container -->
+        <div class="form-container">
+            <form method="POST" action="{% url 'edit_mentee' mentee.MenteeID %}">
+                {% csrf_token %}
+                
+                <!-- Basic Information Section -->
+                <div class="form-section">
+                    <h3 class="form-section-title">
+                        <i class="fas fa-user"></i>
+                        Basic Information
+                    </h3>
+                    
+                    <div class="form-group">
+                        <label for="MenteeID">Mentee ID</label>
+                        <input type="text" id="MenteeID" value="{{ mentee.MenteeID }}" readonly>
+                        <div class="help-text">
+                            <i class="fas fa-info-circle"></i>
+                            Mentee ID cannot be changed
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="MenteeName">Full Name <span class="required">*</span></label>
+                        <input type="text" id="MenteeName" name="MenteeName" value="{{ mentee.MenteeName }}" required 
+                               placeholder="Enter full name">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="MenteeCourse">Course Program <span class="required">*</span></label>
+                            <select id="MenteeCourse" name="MenteeCourse" required>
+                                <option value="">Select Course</option>
+                                <option value="Diploma in Computer Science" {% if mentee.MenteeCourse == "Diploma in Computer Science" %}selected{% endif %}>Diploma in Computer Science</option>
+                                <option value="Diploma in Business Studies" {% if mentee.MenteeCourse == "Diploma in Business Studies" %}selected{% endif %}>Diploma in Business Studies</option>
+                                <option value="Diploma in Accounting" {% if mentee.MenteeCourse == "Diploma in Accounting" %}selected{% endif %}>Diploma in Accounting</option>
+                                <option value="Diploma in Landscape and Horticulture" {% if mentee.MenteeCourse == "Diploma in Landscape and Horticulture" %}selected{% endif %}>Diploma in Landscape and Horticulture</option>
+                                <option value="Certificate in Finance, Accountancy and Business" {% if mentee.MenteeCourse == "Certificate in Finance, Accountancy and Business" %}selected{% endif %}>Certificate in Finance, Accountancy and Business</option>
+                                <option value="Intensive English Programme" {% if mentee.MenteeCourse == "Intensive English Programme" %}selected{% endif %}>Intensive English Programme</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="MenteeSemester">Current Semester <span class="required">*</span></label>
+                            <select id="MenteeSemester" name="MenteeSemester" required>
+                                <option value="">Select Semester</option>
+                                {% for i in "12345678" %}
+                                <option value="{{ i }}" {% if mentee.MenteeSemester == i %}selected{% endif %}>Semester {{ i }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact & Status Section -->
+                <div class="form-section">
+                    <h3 class="form-section-title">
+                        <i class="fas fa-address-card"></i>
+                        Contact & Status
+                    </h3>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="MenteeGender">Gender <span class="required">*</span></label>
+                            <select id="MenteeGender" name="MenteeGender" required>
+                                <option value="">Select Gender</option>
+                                <option value="male" {% if mentee.MenteeGender == "male" %}selected{% endif %}>Male</option>
+                                <option value="female" {% if mentee.MenteeGender == "female" %}selected{% endif %}>Female</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="MenteeEmail">Email Address <span class="required">*</span></label>
+                            <input type="email" id="MenteeEmail" name="MenteeEmail" value="{{ mentee.MenteeEmail }}" required 
+                                   placeholder="Enter email address">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="MenteeStatus">Student Status <span class="required">*</span></label>
+                        <select id="MenteeStatus" name="MenteeStatus" required>
+                            <option value="active" {% if mentee.MenteeStatus == "active" %}selected{% endif %}>Active</option>
+                            <option value="inactive" {% if mentee.MenteeStatus == "inactive" %}selected{% endif %}>Inactive</option>
+                            <option value="graduated" {% if mentee.MenteeStatus == "graduated" %}selected{% endif %}>Graduated</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Mentor Assignment Section -->
+                <div class="form-section">
+                    <h3 class="form-section-title">
+                        <i class="fas fa-user-tie"></i>
+                        Mentor Assignment
+                    </h3>
+
+                    <div class="form-group">
+                        <label for="assigned_mentor">Assign to Mentor</label>
+                        <select id="assigned_mentor" name="assigned_mentor">
+                            <option value="">No Mentor Assigned</option>
+                            {% for mentor in available_mentors %}
+                            <option value="{{ mentor.MentorID }}" 
+                                    {% if mentee.assigned_mentor and mentee.assigned_mentor.MentorID == mentor.MentorID %}selected{% endif %}>
+                                {{ mentor.MentorName }} ({{ mentor.MentorID }}) - 
+                                <span class="vacancy-info {% if mentor.vacancy_count >= 5 %}{% elif mentor.vacancy_count > 0 %}vacancy-low{% else %}vacancy-none{% endif %}">
+                                    {{ mentor.vacancy_count }} slots available
+                                </span>
+                            </option>
+                            {% endfor %}
+                        </select>
+                        <div class="help-text">
+                            <i class="fas fa-info-circle"></i>
+                            Assign this mentee to an available mentor. Mentors with more available slots are recommended.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form Actions -->
+                <div class="form-actions">
+                    <div>
+                        <a href="{% url 'view_mentee' mentee.MenteeID %}" class="btn btn-secondary">
+                            <i class="fas fa-times"></i>
+                            Cancel
+                        </a>
+                        <a href="{% url 'manage_mentees' %}" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left"></i>
+                            Back to List
+                        </a>
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i>
+                            Update Mentee
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Add active state to current page in navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentPage = window.location.pathname;
+            document.querySelectorAll('.nav-link').forEach(link => {
+                if (link.getAttribute('href') === '{% url 'manage_mentees' %}') {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+
+            // Add real-time validation or enhancements if needed
+            const emailInput = document.getElementById('MenteeEmail');
+            if (emailInput) {
+                emailInput.addEventListener('blur', function() {
+                    const email = this.value;
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (email && !emailRegex.test(email)) {
+                        this.style.borderColor = '#d32f2f';
+                        this.style.boxShadow = '0 0 0 3px rgba(211, 47, 47, 0.1)';
+                    } else {
+                        this.style.borderColor = '#e2e8f0';
+                        this.style.boxShadow = 'none';
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

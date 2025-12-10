@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Activity | MMS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #f5f7fa;
+            min-height: 100vh;
+            display: flex;
+            color: #333;
+        }
+
+        /* Sidebar Styles - Consistent Blue Theme */
+        .sidebar {
+            width: 260px;
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
+            color: white;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            overflow-y: auto;
+            box-shadow: 2px 0 20px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-section {
+            padding: 24px 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .logo i {
+            font-size: 32px;
+        }
+
+        .logo-text {
+            font-size: 22px;
+        }
+
+        .user-info {
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .user-avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 0 auto 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .user-name {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .user-role {
+            font-size: 13px;
+            opacity: 0.8;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 3px 10px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        .nav-menu {
+            list-style: none;
+            padding: 20px 0;
+            flex: 1;
+        }
+
+        .nav-item {
+            margin-bottom: 6px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-left-color: rgba(255, 255, 255, 0.5);
+            padding-left: 24px;
+        }
+
+        .nav-link.active {
+            background: rgba(255, 255, 255, 0.15);
+            border-left-color: white;
+        }
+
+        .nav-link i {
+            margin-right: 12px;
+            font-size: 16px;
+            width: 18px;
+            text-align: center;
+        }
+
+        .nav-text {
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        /* Logout section at bottom of sidebar */
+        .sidebar-footer {
+            margin-top: auto;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logout-item {
+            margin-bottom: 0;
+        }
+
+        .logout-link {
+            display: flex;
+            align-items: center;
+            padding: 16px 20px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .logout-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-left-color: rgba(255, 255, 255, 0.5);
+            padding-left: 24px;
+        }
+
+        .logout-link i {
+            margin-right: 12px;
+            font-size: 16px;
+            width: 18px;
+            text-align: center;
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            flex: 1;
+            margin-left: 260px;
+            min-height: 100vh;
+            background: #f5f7fa;
+            padding: 24px;
+        }
+
+        /* Updated Content Header with Profile Button */
+        .content-header {
+            background: white;
+            padding: 20px 24px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .content-header h1 {
+            font-size: 24px;
+            color: #2d3748;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .content-header p {
+            color: #718096;
+            font-size: 14px;
+        }
+
+        /* Profile Button Styles */
+        .profile-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .profile-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 16px;
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .profile-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
+        }
+
+        .profile-avatar {
+            width: 40px;
+            height: 18px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+        }
+
+        /* Form Container - Consistent spacing */
+        .form-container {
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            margin-bottom: 24px;
+        }
+
+        /* Activity Info */
+        .activity-info {
+            background: #f8f9ff;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 24px;
+            border-left: 4px solid #1a3a8f;
+        }
+
+        .activity-info p {
+            margin: 8px 0;
+            color: #4a5568;
+            font-size: 14px;
+        }
+
+        .activity-info strong {
+            color: #2d3748;
+        }
+
+        /* Form Styling */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2d3748;
+            font-size: 14px;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            background: #f8f9ff;
+        }
+
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            border-color: #1a3a8f;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(26, 58, 143, 0.1);
+            background: white;
+        }
+
+        .form-group textarea {
+            height: 120px;
+            resize: vertical;
+            line-height: 1.5;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        /* Required Field Indicator */
+        .required::after {
+            content: " *";
+            color: #e53e3e;
+        }
+
+        /* Checkbox Group */
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            background: #f8f9ff;
+            border-radius: 8px;
+            border: 2px solid #e2e8f0;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            accent-color: #1a3a8f;
+        }
+
+        .checkbox-group label {
+            margin: 0;
+            font-weight: 600;
+            color: #2d3748;
+            cursor: pointer;
+        }
+
+        /* Mentor Selection */
+        .mentor-selection {
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 16px;
+            background: #f8f9ff;
+        }
+
+        .select-all {
+            background: #e3f2fd;
+            padding: 10px 12px;
+            border-radius: 6px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border: 1px solid #bbdefb;
+        }
+
+        .select-all input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            accent-color: #1a3a8f;
+        }
+
+        .select-all label {
+            margin: 0;
+            font-weight: 600;
+            color: #1565c0;
+            cursor: pointer;
+        }
+
+        .selected-count {
+            background: #1a3a8f;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: auto;
+        }
+
+        .mentor-checkboxes {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 10px;
+            margin-top: 8px;
+            max-height: 200px;
+            overflow-y: auto;
+            padding: 12px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+        }
+
+        .mentor-checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px;
+            border-radius: 6px;
+            transition: background-color 0.2s ease;
+        }
+
+        .mentor-checkbox-item:hover {
+            background: #f7fafc;
+        }
+
+        .mentor-checkbox-item input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            accent-color: #1a3a8f;
+        }
+
+        .mentor-checkbox-item label {
+            margin: 0;
+            font-weight: 500;
+            cursor: pointer;
+            flex: 1;
+            font-size: 14px;
+        }
+
+        /* Messages */
+        .messages {
+            margin-bottom: 20px;
+        }
+
+        .error {
+            background: #ffebee;
+            color: #c62828;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            border: 1px solid #feb2b2;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .success {
+            background: #e8f5e8;
+            color: #2e7d32;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            border: 1px solid #c8e6c9;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 10px 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+        }
+
+        .btn-danger {
+            background: #e53e3e;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #c53030;
+            transform: translateY(-2px);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        /* Time Inputs */
+        .time-inputs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .time-input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .time-input-group label {
+            font-size: 13px;
+            color: #718096;
+            font-weight: 500;
+        }
+
+        /* Responsive Design - Consistent with homepage */
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 240px;
+            }
+            .main-content {
+                margin-left: 240px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+            .main-content {
+                margin-left: 0;
+                padding: 16px;
+            }
+            .content-header {
+                flex-direction: column;
+                text-align: center;
+                padding: 16px;
+            }
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            .mentor-checkboxes {
+                grid-template-columns: 1fr;
+            }
+            .action-buttons {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .time-inputs {
+                grid-template-columns: 1fr;
+            }
+            .form-container {
+                padding: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="logo-section">
+            <div class="logo">
+                <i class="fas fa-hands-helping"></i>
+                <span class="logo-text">MMS</span>
+            </div>
+        </div>
+
+        <div class="user-info">
+            <div class="user-avatar">
+                <i class="fas fa-user-shield"></i>
+            </div>
+            <div class="user-name">Head of Mentor Mentee</div>
+            <div class="user-role">Administrator</div>
+        </div>
+
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="{% url 'head_homepage' %}" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    <span class="nav-text">Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'manage_mentees' %}" class="nav-link">
+                    <i class="fas fa-user-graduate"></i>
+                    <span class="nav-text">Mentee Records</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'manage_mentors' %}" class="nav-link">
+                    <i class="fas fa-user-tie"></i>
+                    <span class="nav-text">Mentor Records</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'mentor_assignments' %}" class="nav-link">
+                    <i class="fas fa-users"></i>
+                    <span class="nav-text">Mentor Assignments</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'mentor_mentee_activities' %}" class="nav-link active">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span class="nav-text">Activities</span>
+                </a>
+            </li>
+        </ul>
+
+        <!-- Logout section at bottom of sidebar -->
+        <div class="sidebar-footer">
+            <div class="nav-item logout-item">
+                <a href="{% url 'logout' %}" class="logout-link">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span class="nav-text">Logout</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Content Header with Profile Button -->
+        <div class="content-header">
+            <div>
+                <h1><i class="fas fa-edit"></i> Edit Activity</h1>
+                <p>Update activity details and assignments</p>
+            </div>
+            <div class="profile-section">
+                <button class="profile-btn">
+                    <div class="profile-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <span>Profile</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Messages -->
+        <div class="messages">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="{% if message.tags == 'error' %}error{% else %}success{% endif %}">
+                        <i class="fas {% if message.tags == 'error' %}fa-exclamation-circle{% else %}fa-check-circle{% endif %}"></i>
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        <!-- Activity Info -->
+        <div class="activity-info">
+            <p><strong><i class="fas fa-id-card"></i> Activity ID:</strong> {{ activity.ActivityID }}</p>
+            <p><strong><i class="fas fa-tag"></i> Current Name:</strong> {{ activity.ActivityName }}</p>
+            <p><strong><i class="fas fa-calendar-plus"></i> Created On:</strong> {{ activity.CreatedAt|date:"F j, Y" }}</p>
+            <p><strong><i class="fas fa-user"></i> Created By:</strong> {{ activity.CreatedBy.username }}</p>
+        </div>
+
+        <!-- Form Container -->
+        <div class="form-container">
+            <form method="POST">
+                {% csrf_token %}
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="ActivityID" class="required">Activity ID</label>
+                        <input type="text" id="ActivityID" name="ActivityID" required 
+                               value="{{ activity.ActivityID }}" readonly
+                               style="background-color: #f7fafc; cursor: not-allowed;">
+                        <small style="color: #718096; font-size: 13px; margin-top: 5px; display: block;">
+                            <i class="fas fa-info-circle"></i> Activity ID cannot be changed
+                        </small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="ActivityName" class="required">Activity Name</label>
+                        <input type="text" id="ActivityName" name="ActivityName" required 
+                               value="{{ activity.ActivityName }}"
+                               placeholder="Enter activity name">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="ActivityType" class="required">Activity Type</label>
+                        <select id="ActivityType" name="ActivityType" required>
+                            <option value="">Select Activity Type</option>
+                            <option value="mentoring" {% if activity.ActivityType == 'mentoring' %}selected{% endif %}>Mentoring Session</option>
+                            <option value="workshop" {% if activity.ActivityType == 'workshop' %}selected{% endif %}>Workshop</option>
+                            <option value="seminar" {% if activity.ActivityType == 'seminar' %}selected{% endif %}>Seminar</option>
+                            <option value="meeting" {% if activity.ActivityType == 'meeting' %}selected{% endif %}>Meeting</option>
+                            <option value="other" {% if activity.ActivityType == 'other' %}selected{% endif %}>Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="Location" class="required">Location</label>
+                        <input type="text" id="Location" name="Location" required 
+                               value="{{ activity.Location }}"
+                               placeholder="Enter location">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="Date" class="required">Date</label>
+                        <input type="date" id="Date" name="Date" required 
+                               value="{{ activity.Date|date:'Y-m-d' }}">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="required">Time Schedule</label>
+                        <div class="time-inputs">
+                            <div class="time-input-group">
+                                <label for="StartTime">Start Time</label>
+                                <input type="time" id="StartTime" name="StartTime" required 
+                                       value="{{ activity.StartTime|time:'H:i' }}">
+                            </div>
+                            <div class="time-input-group">
+                                <label for="EndTime">End Time</label>
+                                <input type="time" id="EndTime" name="EndTime" required 
+                                       value="{{ activity.EndTime|time:'H:i' }}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="Description">Activity Description</label>
+                    <textarea id="Description" name="Description" 
+                              placeholder="Enter activity description, objectives, and any special instructions">{{ activity.Description }}</textarea>
+                </div>
+                
+                <div class="form-group">
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="IsMentoringSession" name="IsMentoringSession" 
+                               {% if activity.IsMentoringSession %}checked{% endif %}>
+                        <label for="IsMentoringSession">This is a mentoring session</label>
+                    </div>
+                </div>
+                
+                <!-- Multiple Mentor Selection -->
+                <div class="form-group">
+                    <label>Assign to Mentors</label>
+                    <div class="mentor-selection">
+                        <div class="select-all">
+                            <input type="checkbox" id="selectAllMentors">
+                            <label for="selectAllMentors">Select All Mentors</label>
+                            <span id="selectedCount" class="selected-count">0 selected</span>
+                        </div>
+                        <div class="mentor-checkboxes" id="mentorCheckboxes">
+                            {% for mentor in mentors %}
+                            <div class="mentor-checkbox-item">
+                                <input type="checkbox" id="mentor_{{ mentor.MentorID }}" name="mentors" value="{{ mentor.MentorID }}"
+                                       {% if mentor in activity_mentors %}checked{% endif %}>
+                                <label for="mentor_{{ mentor.MentorID }}">
+                                    {{ mentor.MentorName }}
+                                    <div style="color: #718096; font-size: 12px; margin-top: 2px;">{{ mentor.MentorDepartment }}</div>
+                                </label>
+                            </div>
+                            {% empty %}
+                            <div style="color: #718096; text-align: center; padding: 20px; grid-column: 1 / -1;">
+                                <i class="fas fa-user-tie" style="font-size: 24px; margin-bottom: 10px; display: block;"></i>
+                                No mentors available
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <a href="{% url 'mentor_mentee_activities' %}" class="btn btn-secondary">
+                        <i class="fas fa-times"></i> Cancel
+                    </a>
+                    <a href="{% url 'delete_activity' activity.ActivityID %}" class="btn btn-danger" 
+                       onclick="return confirm('Are you sure you want to delete this activity? This action cannot be undone.')">
+                        <i class="fas fa-trash-alt"></i> Delete Activity
+                    </a>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Update Activity
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Mentor selection functionality - IMPROVED VERSION
+        function updateSelectedCount() {
+            const checkboxes = document.querySelectorAll('input[name="mentors"]:checked');
+            const count = checkboxes.length;
+            document.getElementById('selectedCount').textContent = count + ' selected';
+            
+            console.log('Selected mentors count:', count); // Debug log
+        }
+
+        function setupMentorSelection() {
+            const selectAll = document.getElementById('selectAllMentors');
+            const mentorCheckboxes = document.querySelectorAll('input[name="mentors"]');
+            
+            console.log('Total mentor checkboxes found:', mentorCheckboxes.length); // Debug log
+            
+            // Select All functionality
+            selectAll.addEventListener('change', function() {
+                console.log('Select All changed, checked:', this.checked); // Debug log
+                
+                mentorCheckboxes.forEach(checkbox => {
+                    checkbox.checked = this.checked;
+                    console.log('Setting checkbox', checkbox.value, 'to', this.checked); // Debug log
+                });
+                updateSelectedCount();
+            });
+            
+            // Individual checkbox functionality
+            mentorCheckboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    console.log('Individual checkbox changed:', this.value, this.checked); // Debug log
+                    updateSelectedCount();
+                    
+                    // Update Select All checkbox state
+                    const allChecked = document.querySelectorAll('input[name="mentors"]:checked').length === mentorCheckboxes.length;
+                    const someChecked = document.querySelectorAll('input[name="mentors"]:checked').length > 0;
+                    
+                    selectAll.checked = allChecked;
+                    selectAll.indeterminate = someChecked && !allChecked;
+                    
+                    console.log('All checked:', allChecked, 'Some checked:', someChecked); // Debug log
+                });
+            });
+            
+            // Initial count update
+            updateSelectedCount();
+            
+            // Set initial Select All state
+            const checkedCount = document.querySelectorAll('input[name="mentors"]:checked').length;
+            const totalCount = mentorCheckboxes.length;
+            selectAll.checked = checkedCount === totalCount && totalCount > 0;
+            selectAll.indeterminate = checkedCount > 0 && checkedCount < totalCount;
+            
+            console.log('Initial state - Checked:', checkedCount, 'Total:', totalCount); // Debug log
+        }
+
+        // Enhanced DOM ready function
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded, setting up mentor selection...'); // Debug log
+            
+            // Set minimum date to today
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('Date').min = today;
+            
+            // Setup mentor selection with a small delay to ensure DOM is ready
+            setTimeout(() => {
+                setupMentorSelection();
+            }, 100);
+            
+            // Profile button functionality
+            document.querySelector('.profile-btn').addEventListener('click', function() {
+                alert('Profile page would open here!');
+                // In a real application, this would navigate to the profile page
+                // window.location.href = '/profile/';
+            });
+        });
+
+        // Add click handler for mentor checkbox items to improve UX
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.mentor-checkbox-item')) {
+                const checkboxItem = e.target.closest('.mentor-checkbox-item');
+                const checkbox = checkboxItem.querySelector('input[type="checkbox"]');
+                if (checkbox && e.target !== checkbox) {
+                    checkbox.checked = !checkbox.checked;
+                    checkbox.dispatchEvent(new Event('change', { bubbles: true }));
+                }
+            }
+        });
+    </script>
+</body>
+</html>

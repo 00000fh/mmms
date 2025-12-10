@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Mentoring Session - Mentor | MMS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #f5f7fa;
+            min-height: 100vh;
+            display: flex;
+            color: #333;
+        }
+
+        /* Sidebar Styles - Consistent Blue Theme */
+        .sidebar {
+            width: 260px;
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
+            color: white;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            overflow-y: auto;
+            box-shadow: 2px 0 20px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-section {
+            padding: 24px 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .logo i {
+            font-size: 32px;
+        }
+
+        .logo-text {
+            font-size: 22px;
+        }
+
+        .user-info {
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .user-avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 0 auto 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .user-avatar img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .user-avatar i {
+            color: rgba(255, 255, 255, 0.8);
+            position: relative;
+            z-index: 1;
+        }
+
+        .user-name {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .user-role {
+            font-size: 13px;
+            opacity: 0.8;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 3px 10px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        .nav-menu {
+            list-style: none;
+            padding: 20px 0;
+            flex: 1;
+        }
+
+        .nav-item {
+            margin-bottom: 6px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-left-color: rgba(255, 255, 255, 0.5);
+            padding-left: 24px;
+        }
+
+        .nav-link.active {
+            background: rgba(255, 255, 255, 0.15);
+            border-left-color: white;
+        }
+
+        .nav-link i {
+            margin-right: 12px;
+            font-size: 16px;
+            width: 18px;
+            text-align: center;
+        }
+
+        .nav-text {
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        /* Logout section at bottom of sidebar */
+        .sidebar-footer {
+            margin-top: auto;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logout-item {
+            margin-bottom: 0;
+        }
+
+        .logout-link {
+            display: flex;
+            align-items: center;
+            padding: 16px 20px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .logout-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-left-color: rgba(255, 255, 255, 0.5);
+            padding-left: 24px;
+        }
+
+        .logout-link i {
+            margin-right: 12px;
+            font-size: 16px;
+            width: 18px;
+            text-align: center;
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            flex: 1;
+            margin-left: 260px;
+            min-height: 100vh;
+            background: #f5f7fa;
+            padding: 24px;
+        }
+
+        /* Updated Content Header with Profile Button */
+        .content-header {
+            background: white;
+            padding: 20px 24px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .content-header h1 {
+            font-size: 24px;
+            color: #2d3748;
+            margin-bottom: 4px;
+        }
+
+        .content-header p {
+            color: #718096;
+            font-size: 14px;
+        }
+
+        /* Profile Button Styles */
+        .profile-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .profile-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 16px;
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .profile-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
+        }
+
+        .profile-avatar {
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+        }
+
+        /* Form Container */
+        .form-container {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            margin-bottom: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2d3748;
+            font-size: 14px;
+        }
+
+        .required::after {
+            content: " *";
+            color: #e53e3e;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #1a3a8f;
+            box-shadow: 0 0 0 3px rgba(26, 58, 143, 0.1);
+        }
+
+        .form-row {
+            display: flex;
+            gap: 16px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        .attendees-list {
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid #e2e8f0;
+            padding: 16px;
+            border-radius: 8px;
+            background: #f8fafc;
+        }
+
+        .attendee-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .attendee-item:last-child {
+            border-bottom: none;
+        }
+
+        .attendee-item input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+        }
+
+        .attendee-item label {
+            margin-bottom: 0;
+            font-weight: normal;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .auto-included-badge {
+            color: #1a3a8f;
+            font-size: 12px;
+            margin-left: 8px;
+            font-weight: 600;
+        }
+
+        .auto-included-badge i {
+            margin-right: 4px;
+        }
+
+        .messages {
+            margin-bottom: 20px;
+        }
+
+        .error {
+            background: #ffebee;
+            color: #c62828;
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #feb2b2;
+        }
+
+        .success {
+            background: #e8f5e8;
+            color: #2e7d32;
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #c8e6c9;
+        }
+
+        small {
+            color: #718096;
+            font-size: 12px;
+            display: block;
+            margin-top: 5px;
+        }
+
+        .form-actions {
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
+        }
+
+        .btn-secondary {
+            background: #e2e8f0;
+            color: #4a5568;
+        }
+
+        .btn-secondary:hover {
+            background: #cbd5e0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 240px;
+            }
+            .main-content {
+                margin-left: 240px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+            .main-content {
+                margin-left: 0;
+                padding: 16px;
+            }
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            .form-actions {
+                flex-direction: column;
+            }
+            .content-header {
+                flex-direction: column;
+                text-align: center;
+                padding: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="logo-section">
+            <div class="logo">
+                <i class="fas fa-hands-helping"></i>
+                <span class="logo-text">MMMS</span>
+            </div>
+        </div>
+
+        <div class="user-info">
+            <div class="user-avatar">
+                {% if mentor.profile_picture %}
+                    <img src="{{ mentor.profile_picture.url }}" alt="Profile Picture" id="sidebarProfilePic">
+                    <i class="fas fa-user-tie" id="sidebarProfileIcon" style="display: none;"></i>
+                {% else %}
+                    <i class="fas fa-user-tie" id="sidebarProfileIcon"></i>
+                {% endif %}
+            </div>
+            <div class="user-name">{{ mentor.MentorName }}</div>
+            <div class="user-role">Mentor</div>
+        </div>
+
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="{% url 'mentor_homepage' %}" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    <span class="nav-text">Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'view_assigned_mentees' %}" class="nav-link">
+                    <i class="fas fa-user-graduate"></i>
+                    <span class="nav-text">My Mentees</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'mentoring_schedule' %}" class="nav-link active">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span class="nav-text">Schedule</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'activity_report' %}" class="nav-link">
+                    <i class="fas fa-chart-bar"></i>
+                    <span class="nav-text">Reports</span>
+                </a>
+            </li>
+        </ul>
+
+        <!-- Logout section at bottom of sidebar -->
+        <div class="sidebar-footer">
+            <div class="nav-item logout-item">
+                <a href="{% url 'logout' %}" class="logout-link">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span class="nav-text">Logout</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Content Header with Profile Button -->
+        <div class="content-header">
+            <div>
+                <h1>Create New Mentoring Session</h1>
+                <p>Schedule a new mentoring session with your assigned mentees</p>
+            </div>
+            <div class="profile-section">
+                <a href="{% url 'mentor_update_profile' %}" class="profile-btn">
+                    <div class="profile-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <span>Profile</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Messages -->
+        <div class="messages">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="{% if message.tags == 'error' %}error{% else %}success{% endif %}">
+                        <i class="fas fa-{% if message.tags == 'error' %}exclamation-circle{% else %}check-circle{% endif %}"></i>
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        <!-- Form Container -->
+        <div class="form-container">
+            <form method="POST">
+                {% csrf_token %}
+                
+                <div class="form-group">
+                    <label for="session_type" class="required">
+                        <i class="fas fa-users"></i> Session Type
+                    </label>
+                    <select id="session_type" name="session_type" required onchange="toggleAttendees()">
+                        <option value="">Select session type</option>
+                        <option value="individual">Individual Session</option>
+                        <option value="group">Group Session</option>
+                    </select>
+                    <small>Choose between one-on-one or group mentoring session</small>
+                </div>
+
+                <div class="form-group" id="individual_mentee">
+                    <label for="mentee" class="required">
+                        <i class="fas fa-user"></i> Select Mentee (Individual Session)
+                    </label>
+                    <select id="mentee" name="mentee">
+                        <option value="">Select a mentee</option>
+                        {% for mentee in assigned_mentees %}
+                        <option value="{{ mentee.MenteeID }}">
+                            {{ mentee.MenteeName }} ({{ mentee.MenteeID }}) - {{ mentee.MenteeCourse }} Sem {{ mentee.MenteeSemester }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                    <small>Choose one mentee for individual session</small>
+                </div>
+
+                <div class="form-group" id="group_attendees" style="display: none;">
+                    <label class="required">
+                        <i class="fas fa-user-friends"></i> Attendees (Group Session)
+                    </label>
+                    <small>All your assigned mentees will be automatically included in group sessions</small>
+                    <div class="attendees-list">
+                        {% if assigned_mentees %}
+                            {% for mentee in assigned_mentees %}
+                            <div class="attendee-item">
+                                <input type="checkbox" id="mentee_{{ mentee.MenteeID }}" name="attendees" value="{{ mentee.MenteeID }}" checked disabled>
+                                <label for="mentee_{{ mentee.MenteeID }}">
+                                    <strong>{{ mentee.MenteeName }}</strong> 
+                                    ({{ mentee.MenteeID }}) - {{ mentee.MenteeCourse }} Sem {{ mentee.MenteeSemester }}
+                                    <span class="auto-included-badge">
+                                        <i class="fas fa-check-circle"></i> Auto-included
+                                    </span>
+                                </label>
+                            </div>
+                            {% endfor %}
+                            <!-- Hidden inputs to ensure all mentees are submitted -->
+                            {% for mentee in assigned_mentees %}
+                            <input type="hidden" name="attendees" value="{{ mentee.MenteeID }}">
+                            {% endfor %}
+                        {% else %}
+                            <p style="color: #718096; text-align: center; padding: 20px;">
+                                <i class="fas fa-user-slash"></i> No mentees assigned to you yet. Please contact administration.
+                            </p>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="session_topic" class="required">
+                        <i class="fas fa-book"></i> Session Topic
+                    </label>
+                    <input type="text" id="session_topic" name="session_topic" required 
+                           placeholder="e.g., Academic Planning, Career Guidance, Study Skills">
+                    <small>Brief title describing the session content</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="session_description">
+                        <i class="fas fa-align-left"></i> Session Description
+                    </label>
+                    <textarea id="session_description" name="session_description" rows="3" 
+                              placeholder="Brief description of what will be covered in this session"></textarea>
+                    <small>Optional: Provide details about the session agenda</small>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="session_date" class="required">
+                            <i class="far fa-calendar"></i> Date
+                        </label>
+                        <input type="date" id="session_date" name="session_date" required 
+                               min="{{ today|date:'Y-m-d' }}">
+                        <small>Select the session date</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="session_start_time" class="required">
+                            <i class="far fa-clock"></i> Start Time
+                        </label>
+                        <input type="time" id="session_start_time" name="session_start_time" required>
+                        <small>Session start time</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="session_end_time" class="required">
+                            <i class="far fa-clock"></i> End Time
+                        </label>
+                        <input type="time" id="session_end_time" name="session_end_time" required>
+                        <small>Session end time</small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="session_location" class="required">
+                        <i class="fas fa-map-marker-alt"></i> Location
+                    </label>
+                    <input type="text" id="session_location" name="session_location" 
+                           value="Mentor Office" required 
+                           placeholder="e.g., Room 101, Online Meeting, Library Study Room">
+                    <small>Where the session will take place</small>
+                </div>
+
+                <div class="form-group">
+                    <label for="session_notes">
+                        <i class="fas fa-sticky-note"></i> Additional Notes (Optional)
+                    </label>
+                    <textarea id="session_notes" name="session_notes" rows="3" 
+                              placeholder="Any special instructions, preparation needed, or materials required"></textarea>
+                    <small>Optional: Additional information for mentees</small>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-calendar-plus"></i> Create Session
+                    </button>
+                    <a href="{% url 'mentoring_schedule' %}" class="btn btn-secondary">
+                        <i class="fas fa-times"></i> Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Update profile picture display in sidebar
+        function updateProfilePictureDisplay() {
+            // Check if profile picture exists in sidebar
+            const sidebarAvatar = document.querySelector('.user-avatar');
+            const sidebarImg = sidebarAvatar.querySelector('img');
+            const sidebarIcon = sidebarAvatar.querySelector('i');
+            
+            // If profile picture exists, show image and hide icon
+            if (sidebarImg && sidebarImg.src) {
+                sidebarImg.style.display = 'block';
+                sidebarIcon.style.display = 'none';
+            }
+        }
+
+        function toggleAttendees() {
+            const sessionType = document.getElementById('session_type').value;
+            const individualDiv = document.getElementById('individual_mentee');
+            const groupDiv = document.getElementById('group_attendees');
+            
+            if (sessionType === 'individual') {
+                individualDiv.style.display = 'block';
+                groupDiv.style.display = 'none';
+                // Make individual mentee required
+                document.getElementById('mentee').required = true;
+            } else if (sessionType === 'group') {
+                individualDiv.style.display = 'none';
+                groupDiv.style.display = 'block';
+                // Remove required from individual mentee
+                document.getElementById('mentee').required = false;
+                
+                // Auto-select all mentees for group session
+                autoSelectAllMentees();
+            } else {
+                individualDiv.style.display = 'none';
+                groupDiv.style.display = 'none';
+                document.getElementById('mentee').required = false;
+            }
+        }
+
+        function autoSelectAllMentees() {
+            // Get all checkboxes in the group attendees section
+            const checkboxes = document.querySelectorAll('#group_attendees input[type="checkbox"]');
+            
+            // Check all checkboxes and disable them (since they're auto-selected)
+            checkboxes.forEach(checkbox => {
+                checkbox.checked = true;
+                checkbox.disabled = true;
+            });
+        }
+        
+        // Set minimum time to current time for today's dates
+        const today = new Date().toISOString().split('T')[0];
+        const dateInput = document.getElementById('session_date');
+        const startTimeInput = document.getElementById('session_start_time');
+        const endTimeInput = document.getElementById('session_end_time');
+        
+        dateInput.addEventListener('change', function() {
+            if (this.value === today) {
+                const now = new Date();
+                const currentTime = now.getHours().toString().padStart(2, '0') + ':' + 
+                                  now.getMinutes().toString().padStart(2, '0');
+                startTimeInput.min = currentTime;
+                
+                // Set end time to be after start time
+                startTimeInput.addEventListener('change', function() {
+                    endTimeInput.min = this.value;
+                });
+            } else {
+                startTimeInput.removeAttribute('min');
+                endTimeInput.removeAttribute('min');
+            }
+        });
+        
+        // Validate end time is after start time
+        startTimeInput.addEventListener('change', function() {
+            if (endTimeInput.value && endTimeInput.value <= this.value) {
+                endTimeInput.value = '';
+                alert('End time must be after start time');
+            }
+            endTimeInput.min = this.value;
+        });
+        
+        // Form validation
+        document.querySelector('form').addEventListener('submit', function(e) {
+            const sessionType = document.getElementById('session_type').value;
+            const mentee = document.getElementById('mentee').value;
+            
+            if (sessionType === 'individual' && !mentee) {
+                e.preventDefault();
+                alert('Please select a mentee for individual session');
+                return;
+            }
+            
+            if (sessionType === 'group') {
+                // For group sessions, we don't need to validate attendees
+                // since they're automatically selected
+                console.log('Group session - all assigned mentees will be included');
+            }
+            
+            if (sessionType === '') {
+                e.preventDefault();
+                alert('Please select a session type');
+                return;
+            }
+        });
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize profile picture display
+            updateProfilePictureDisplay();
+            
+            toggleAttendees();
+            
+            // Set default time to next hour
+            const now = new Date();
+            const nextHour = new Date(now.getTime() + 60 * 60 * 1000);
+            const defaultTime = nextHour.getHours().toString().padStart(2, '0') + ':00';
+            
+            startTimeInput.value = defaultTime;
+            
+            // Set end time to 1 hour after start time
+            const endTime = new Date(nextHour.getTime() + 60 * 60 * 1000);
+            endTimeInput.value = endTime.getHours().toString().padStart(2, '0') + ':00';
+            
+            // Add subtle animations
+            const formGroups = document.querySelectorAll('.form-group');
+            formGroups.forEach((group, index) => {
+                group.style.opacity = '0';
+                group.style.transform = 'translateY(20px)';
+                group.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+                
+                setTimeout(() => {
+                    group.style.opacity = '1';
+                    group.style.transform = 'translateY(0)';
+                }, 100);
+            });
+        });
+    </script>
+</body>
+</html>

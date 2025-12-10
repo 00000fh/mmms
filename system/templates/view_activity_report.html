@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Activity Report - Mentor | MMS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #f5f7fa;
+            min-height: 100vh;
+            display: flex;
+            color: #333;
+        }
+
+        /* Sidebar Styles - UNCHANGED */
+        .sidebar {
+            width: 260px;
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
+            color: white;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            overflow-y: auto;
+            box-shadow: 2px 0 20px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-section {
+            padding: 24px 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .logo i {
+            font-size: 32px;
+        }
+
+        .logo-text {
+            font-size: 22px;
+        }
+
+        .user-info {
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .user-avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            margin: 0 auto 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .user-avatar img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .user-avatar i {
+            color: rgba(255, 255, 255, 0.8);
+            position: relative;
+            z-index: 1;
+        }
+
+        .user-name {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .user-role {
+            font-size: 13px;
+            opacity: 0.8;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 3px 10px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        .nav-menu {
+            list-style: none;
+            padding: 20px 0;
+            flex: 1;
+        }
+
+        .nav-item {
+            margin-bottom: 6px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-left-color: rgba(255, 255, 255, 0.5);
+            padding-left: 24px;
+        }
+
+        .nav-link.active {
+            background: rgba(255, 255, 255, 0.15);
+            border-left-color: white;
+        }
+
+        .nav-link i {
+            margin-right: 12px;
+            font-size: 16px;
+            width: 18px;
+            text-align: center;
+        }
+
+        .nav-text {
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        /* Logout section at bottom of sidebar */
+        .sidebar-footer {
+            margin-top: auto;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logout-item {
+            margin-bottom: 0;
+        }
+
+        .logout-link {
+            display: flex;
+            align-items: center;
+            padding: 16px 20px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .logout-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-left-color: rgba(255, 255, 255, 0.5);
+            padding-left: 24px;
+        }
+
+        .logout-link i {
+            margin-right: 12px;
+            font-size: 16px;
+            width: 18px;
+            text-align: center;
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            flex: 1;
+            margin-left: 260px;
+            min-height: 100vh;
+            background: #f5f7fa;
+            padding: 24px;
+        }
+
+        /* Content Header with Profile Button */
+        .content-header {
+            background: white;
+            padding: 20px 24px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            margin-bottom: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .content-header h1 {
+            font-size: 24px;
+            color: #2d3748;
+            margin-bottom: 4px;
+        }
+
+        .content-header p {
+            color: #718096;
+            font-size: 14px;
+        }
+
+        /* Profile Button Styles */
+        .profile-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .profile-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 16px;
+            background: #2d3748;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .profile-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            background: #4a5568;
+        }
+
+        .profile-avatar {
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+        }
+
+        /* Modern Report Card Header - REMOVED BLUE BORDER */
+        .report-card-header {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            margin-bottom: 24px;
+            /* Removed blue left border */
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .report-card-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 120px;
+            height: 120px;
+            background: #f8fafc;
+            border-radius: 0 0 0 100%;
+            z-index: 0;
+        }
+        
+        .report-card-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 12px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .report-card-subtitle {
+            color: #718096;
+            font-size: 16px;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .report-card-meta {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 16px;
+            background: #f8fafc;
+            border-radius: 8px;
+            border-left: 3px solid #e2e8f0; /* Changed from blue to neutral */
+        }
+        
+        .meta-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: #e2e8f0; /* Changed from blue gradient to neutral */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #4a5568; /* Changed from white to dark gray */
+            font-size: 14px;
+        }
+        
+        .meta-content {
+            flex: 1;
+        }
+        
+        .meta-label {
+            font-size: 12px;
+            color: #718096;
+            margin-bottom: 4px;
+        }
+        
+        .meta-value {
+            font-size: 14px;
+            font-weight: 600;
+            color: #2d3748;
+        }
+        
+        .report-card-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Modern Card Sections */
+        .card-section {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            margin-bottom: 24px;
+            border: 1px solid #e2e8f0;
+        }
+        
+        .card-section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid #f1f5f9;
+        }
+        
+        .card-section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2d3748;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .card-section-title i {
+            color: #4a5568; /* Changed from blue to dark gray */
+            font-size: 20px;
+        }
+        
+        /* Enhanced Attendance Stats */
+        .attendance-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        
+        .stat-card-modern {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .stat-card-modern::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 100%;
+            background: #e2e8f0; /* Changed from blue gradient to neutral */
+        }
+        
+        .stat-card-modern:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #f8fafc; /* Changed from blue tint to neutral */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 12px;
+            color: #4a5568; /* Changed from blue to dark gray */
+            font-size: 20px;
+        }
+        
+        .stat-number-modern {
+            font-size: 28px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 8px;
+        }
+        
+        .stat-label-modern {
+            font-size: 14px;
+            color: #718096;
+            font-weight: 600;
+        }
+        
+        /* Enhanced Attendance List */
+        .attendance-list-modern {
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            overflow: hidden;
+            background: white;
+        }
+        
+        .attendance-header {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            padding: 16px 20px;
+            background: #f8fafc;
+            border-bottom: 1px solid #e2e8f0;
+            font-weight: 600;
+            color: #4a5568;
+            font-size: 14px;
+        }
+        
+        .attendance-item-modern {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            align-items: center;
+            padding: 16px 20px;
+            border-bottom: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+        
+        .attendance-item-modern:hover {
+            background: #f8fafc;
+        }
+        
+        .attendance-item-modern:last-child {
+            border-bottom: none;
+        }
+        
+        .mentee-info-modern {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .mentee-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #718096;
+            font-size: 14px;
+            overflow: hidden;
+        }
+        
+        .mentee-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .mentee-details-modern {
+            flex: 1;
+        }
+        
+        .mentee-name-modern {
+            font-size: 14px;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 4px;
+        }
+        
+        .mentee-id-modern {
+            color: #718096;
+            font-size: 12px;
+        }
+        
+        .attendance-status-modern {
+            display: flex;
+            justify-content: flex-end;
+        }
+        
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .status-present {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+        
+        .status-absent {
+            background: #ffebee;
+            color: #c62828;
+        }
+        
+        /* Enhanced Summary Section */
+        .summary-card {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 8px;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            border: 1px solid #e2e8f0;
+            font-size: 14px;
+            color: #4a5568;
+            position: relative;
+        }
+        
+        .summary-card::before {
+            content: '"';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 40px;
+            color: #cbd5e0;
+            font-family: Georgia, serif;
+            line-height: 1;
+        }
+        
+        .summary-content {
+            padding-left: 20px;
+        }
+        
+        /* Enhanced File Download */
+        .file-download-card {
+            background: #e8f5e9;
+            padding: 16px;
+            border-radius: 8px;
+            color: #2e7d32;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 1px solid #c8e6c9;
+        }
+        
+        .file-download-card:hover {
+            background: #2e7d32;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(46, 125, 50, 0.3);
+        }
+        
+        .file-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+        
+        /* Buttons */
+        .btn {
+            padding: 10px 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: #2d3748;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            background: #4a5568;
+        }
+
+        .btn-warning {
+            background: #ff9800;
+            color: white;
+        }
+
+        .btn-warning:hover {
+            background: #f57c00;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: #718096;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #4a5568;
+            transform: translateY(-2px);
+        }
+        
+        /* Responsive Design for New Layout */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+            .main-content {
+                margin-left: 0;
+                padding: 16px;
+            }
+            .content-header {
+                flex-direction: column;
+                text-align: center;
+                padding: 16px;
+            }
+            .report-card-meta {
+                grid-template-columns: 1fr;
+            }
+            
+            .attendance-stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .attendance-header {
+                display: none;
+            }
+            
+            .attendance-item-modern {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            
+            .attendance-status-modern {
+                justify-content: flex-start;
+            }
+            
+            .report-card-actions {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar - UNCHANGED -->
+    <div class="sidebar">
+        <div class="logo-section">
+            <div class="logo">
+                <i class="fas fa-hands-helping"></i>
+                <span class="logo-text">MMMS</span>
+            </div>
+        </div>
+
+        <div class="user-info">
+            <div class="user-avatar">
+                {% if mentor.profile_picture %}
+                    <img src="{{ mentor.profile_picture.url }}" alt="Profile Picture" id="sidebarProfilePic">
+                    <i class="fas fa-user-tie" id="sidebarProfileIcon" style="display: none;"></i>
+                {% else %}
+                    <i class="fas fa-user-tie" id="sidebarProfileIcon"></i>
+                {% endif %}
+            </div>
+            <div class="user-name">{{ mentor.MentorName }}</div>
+            <div class="user-role">Mentor</div>
+        </div>
+
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="{% url 'mentor_homepage' %}" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    <span class="nav-text">Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'view_assigned_mentees' %}" class="nav-link">
+                    <i class="fas fa-user-graduate"></i>
+                    <span class="nav-text">Mentees</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'mentoring_schedule' %}" class="nav-link">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span class="nav-text">Schedule</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'activity_report' %}" class="nav-link active">
+                    <i class="fas fa-chart-bar"></i>
+                    <span class="nav-text">Reports</span>
+                </a>
+            </li>
+        </ul>
+
+        <!-- Logout section at bottom of sidebar -->
+        <div class="sidebar-footer">
+            <div class="nav-item logout-item">
+                <a href="{% url 'logout' %}" class="logout-link">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span class="nav-text">Logout</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Content Header with Profile Button -->
+        <div class="content-header">
+            <div>
+                <h1>View Activity Report</h1>
+                <p>Detailed view of your mentoring session report</p>
+            </div>
+            <div class="profile-section">
+                <a href="{% url 'mentor_update_profile' %}" class="profile-btn">
+                    <div class="profile-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <span>Profile</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Modern Report Card Header -->
+        <div class="report-card-header">
+            <div class="report-card-title">{{ activity.ActivityName }} - Activity Report</div>
+            <div class="report-card-subtitle">Complete overview of your mentoring session and attendance</div>
+            
+            <div class="report-card-meta">
+                <div class="meta-item">
+                    <div class="meta-icon">
+                        <i class="far fa-calendar"></i>
+                    </div>
+                    <div class="meta-content">
+                        <div class="meta-label">Session Date</div>
+                        <div class="meta-value">{{ activity.Date }}</div>
+                    </div>
+                </div>
+                
+                <div class="meta-item">
+                    <div class="meta-icon">
+                        <i class="far fa-clock"></i>
+                    </div>
+                    <div class="meta-content">
+                        <div class="meta-label">Time</div>
+                        <div class="meta-value">{{ activity.StartTime }} - {{ activity.EndTime }}</div>
+                    </div>
+                </div>
+                
+                <div class="meta-item">
+                    <div class="meta-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="meta-content">
+                        <div class="meta-label">Location</div>
+                        <div class="meta-value">{{ activity.Location }}</div>
+                    </div>
+                </div>
+                
+                <div class="meta-item">
+                    <div class="meta-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="meta-content">
+                        <div class="meta-label">Session Type</div>
+                        <div class="meta-value">{{ activity.mentoringsession.get_session_type_display }}</div>
+                    </div>
+                </div>
+                
+                <div class="meta-item">
+                    <div class="meta-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <div class="meta-content">
+                        <div class="meta-label">Report Created</div>
+                        <div class="meta-value">{{ activity_report.created_at|date:"F j, Y" }}</div>
+                    </div>
+                </div>
+                
+                <div class="meta-item">
+                    <div class="meta-icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <div class="meta-content">
+                        <div class="meta-label">Last Updated</div>
+                        <div class="meta-value">{{ activity_report.updated_at|date:"F j, Y" }}</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="report-card-actions">
+                <a href="{% url 'edit_activity_report' activity.ActivityID %}" class="btn btn-warning">
+                    <i class="fas fa-edit"></i> Edit Report
+                </a>
+                <a href="{% url 'activity_report' %}" class="btn btn-primary">
+                    <i class="fas fa-arrow-left"></i> Back to Reports
+                </a>
+            </div>
+        </div>
+
+        <!-- Attendance Summary Section -->
+        <div class="card-section">
+            <div class="card-section-header">
+                <h2 class="card-section-title">
+                    <i class="fas fa-user-check"></i>
+                    Attendance Summary
+                </h2>
+            </div>
+            
+            <div class="attendance-stats-grid">
+                <div class="stat-card-modern">
+                    <div class="stat-icon">
+                        <i class="fas fa-user-friends"></i>
+                    </div>
+                    <div class="stat-number-modern">{{ activity_report.present_count }}/{{ activity_report.total_attendees }}</div>
+                    <div class="stat-label-modern">Present/Absent</div>
+                </div>
+                
+                <div class="stat-card-modern">
+                    <div class="stat-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="stat-number-modern">
+                        {% if activity_report.total_attendees > 0 %}
+                            {% widthratio activity_report.present_count activity_report.total_attendees 100 %}%
+                        {% else %}
+                            0%
+                        {% endif %}
+                    </div>
+                    <div class="stat-label-modern">Attendance Rate</div>
+                </div>
+                
+                <div class="stat-card-modern">
+                    <div class="stat-icon">
+                        <i class="fas fa-user-times"></i>
+                    </div>
+                    <div class="stat-number-modern">{{ activity_report.total_attendees|add:"-1"|add:activity_report.present_count }}</div>
+                    <div class="stat-label-modern">Absent Count</div>
+                </div>
+            </div>
+            
+            <div class="attendance-list-modern">
+                <div class="attendance-header">
+                    <div>Mentee</div>
+                    <div>Status</div>
+                </div>
+                
+                {% for record in attendance %}
+                <div class="attendance-item-modern">
+                    <div class="mentee-info-modern">
+                        <div class="mentee-avatar">
+                            <i class="fas fa-user-graduate"></i>
+                        </div>
+                        <div class="mentee-details-modern">
+                            <div class="mentee-name-modern">{{ record.mentee.MenteeName }}</div>
+                            <div class="mentee-id-modern">{{ record.mentee.MenteeID }}</div>
+                        </div>
+                    </div>
+                    <div class="attendance-status-modern">
+                        {% if record.attended %}
+                        <span class="status-badge status-present">
+                            <i class="fas fa-check-circle"></i> Present
+                        </span>
+                        {% else %}
+                        <span class="status-badge status-absent">
+                            <i class="fas fa-times-circle"></i> Absent
+                        </span>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Report Summary Section -->
+        <div class="card-section">
+            <div class="card-section-header">
+                <h2 class="card-section-title">
+                    <i class="fas fa-align-left"></i>
+                    Report Summary
+                </h2>
+            </div>
+            
+            <div class="summary-card">
+                <div class="summary-content">
+                    {% if activity_report.summary %}
+                        {{ activity_report.summary }}
+                    {% else %}
+                        <em style="color: #718096;">No summary provided for this report.</em>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Attached Files Section -->
+        {% if activity_report.report_file %}
+        <div class="card-section">
+            <div class="card-section-header">
+                <h2 class="card-section-title">
+                    <i class="fas fa-paperclip"></i>
+                    Attached Files
+                </h2>
+            </div>
+            
+            <a href="{{ activity_report.report_file.url }}" target="_blank" class="file-download-card">
+                <div class="file-icon">
+                    <i class="fas fa-file-pdf"></i>
+                </div>
+                <div>
+                    <div>Download Report File</div>
+                    <div style="font-size: 12px; font-weight: normal; margin-top: 4px;">Click to view or download the attached report</div>
+                </div>
+            </a>
+        </div>
+        {% endif %}
+    </div>
+
+    <script>
+        // Add animations to elements
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.card-section, .report-card-header');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+                
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 100);
+            });
+            
+            // Add hover effects to stat cards
+            const statCards = document.querySelectorAll('.stat-card-modern');
+            statCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+            
+            // Update profile picture display in sidebar
+            function updateProfilePictureDisplay() {
+                // Check if profile picture exists in sidebar
+                const sidebarAvatar = document.querySelector('.user-avatar');
+                const sidebarImg = sidebarAvatar.querySelector('img');
+                const sidebarIcon = sidebarAvatar.querySelector('i');
+                
+                // If profile picture exists, show image and hide icon
+                if (sidebarImg && sidebarImg.src) {
+                    sidebarImg.style.display = 'block';
+                    sidebarIcon.style.display = 'none';
+                }
+            }
+            
+            updateProfilePictureDisplay();
+        });
+    </script>
+</body>
+</html>

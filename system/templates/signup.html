@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Mentor Mentee System | MMS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #f5f7fa;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow: hidden;
+        }
+
+        .signup-container {
+            display: flex;
+            width: 100%;
+            max-width: 1000px;
+            max-height: 95vh;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Left Side - Brand Section */
+        .brand-section {
+            flex: 1;
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
+            color: white;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .logo {
+            font-size: 36px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .logo i {
+            font-size: 40px;
+        }
+
+        .brand-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .brand-subtitle {
+            font-size: 14px;
+            opacity: 0.9;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            max-width: 280px;
+        }
+
+        .features {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            opacity: 0.9;
+        }
+
+        .feature-item i {
+            color: #4ade80;
+        }
+
+        /* Right Side - Form Section */
+        .form-section {
+            flex: 1;
+            background: white;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        .form-header {
+            margin-bottom: 20px;
+            flex-shrink: 0;
+        }
+
+        .form-header h1 {
+            font-size: 26px;
+            color: #2d3748;
+            margin-bottom: 6px;
+        }
+
+        .form-header p {
+            color: #718096;
+            font-size: 14px;
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: #2d3748;
+            font-size: 13px;
+        }
+
+        .required::after {
+            content: " *";
+            color: #e53e3e;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 13px;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #1a3a8f;
+            box-shadow: 0 0 0 3px rgba(26, 58, 143, 0.1);
+        }
+
+        input::placeholder {
+            color: #a0aec0;
+        }
+
+        .help-text {
+            font-size: 11px;
+            color: #718096;
+            margin-top: 4px;
+            line-height: 1.4;
+        }
+
+        .help-text strong {
+            color: #2d3748;
+        }
+
+        /* Messages */
+        .messages {
+            margin-bottom: 16px;
+            flex-shrink: 0;
+        }
+
+        .error {
+            background: #ffebee;
+            color: #c62828;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            border: 1px solid #feb2b2;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+        }
+
+        .success {
+            background: #e8f5e8;
+            color: #2e7d32;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            border: 1px solid #c8e6c9;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+        }
+
+        /* Buttons */
+        .btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
+            color: white;
+            margin-top: 8px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
+        }
+
+        /* Login Link */
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #e2e8f0;
+            flex-shrink: 0;
+        }
+
+        .login-link a {
+            color: #1a3a8f;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+            font-size: 14px;
+        }
+
+        .login-link a:hover {
+            color: #0d1b4e;
+            text-decoration: underline;
+        }
+
+        /* Message Animation */
+        .message-fade-out {
+            opacity: 1;
+            transition: opacity 0.5s ease-in-out;
+        }
+        
+        .message-hidden {
+            opacity: 0;
+            height: 0;
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+            transition: all 0.5s ease-in-out;
+        }
+
+        /* Custom scrollbar for the form area */
+        .form-section::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .form-section::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 3px;
+        }
+
+        .form-section::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 3px;
+        }
+
+        .form-section::-webkit-scrollbar-thumb:hover {
+            background: #a8a8a8;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .signup-container {
+                flex-direction: column;
+                max-width: 500px;
+                max-height: 98vh;
+            }
+            
+            .brand-section {
+                padding: 25px;
+            }
+            
+            .form-section {
+                padding: 25px;
+            }
+            
+            .logo {
+                font-size: 32px;
+            }
+            
+            .brand-title {
+                font-size: 22px;
+            }
+        }
+
+        @media (max-height: 700px) {
+            .brand-section {
+                padding: 20px;
+            }
+            
+            .form-section {
+                padding: 20px;
+            }
+            
+            .logo {
+                font-size: 30px;
+                margin-bottom: 10px;
+            }
+            
+            .brand-title {
+                font-size: 20px;
+                margin-bottom: 8px;
+            }
+            
+            .brand-subtitle {
+                font-size: 13px;
+                margin-bottom: 15px;
+            }
+            
+            .features {
+                gap: 8px;
+                margin-top: 15px;
+            }
+            
+            .form-header {
+                margin-bottom: 15px;
+            }
+            
+            .form-header h1 {
+                font-size: 22px;
+            }
+            
+            .form-group {
+                margin-bottom: 12px;
+            }
+            
+            input, select {
+                padding: 8px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <!-- Left Side - Brand Section -->
+        <div class="brand-section">
+            <div class="logo">
+                <i class="fas fa-hands-helping"></i>
+                <span>MMMS</span>
+            </div>
+            <h2 class="brand-title">Join Our Community</h2>
+            <p class="brand-subtitle">Start your journey with the Mentor Mentee System and unlock your potential through guided mentorship</p>
+            
+            <div class="features">
+                <div class="feature-item">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Personalized mentorship matching</span>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Progress tracking and reporting</span>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Academic and career guidance</span>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Secure and confidential platform</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Side - Form Section -->
+        <div class="form-section">
+            <div class="form-header">
+                <h1>Create Account</h1>
+                <p>Fill in your details to get started</p>
+            </div>
+            
+            <div class="messages">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="{% if message.tags == 'error' %}error{% else %}success{% endif %} message-fade-out">
+                            <i class="fas fa-{% if message.tags == 'error' %}exclamation-circle{% else %}check-circle{% endif %}"></i>
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+            <form method="POST">
+                {% csrf_token %}
+                
+                <div class="form-group">
+                    <label for="role" class="required">
+                        <i class="fas fa-user-tag"></i> Role
+                    </label>
+                    <select id="role" name="role" required onchange="updateIdField()">
+                        <option value="">Select your role</option>
+                        <option value="mentee" {% if request.POST.role == 'mentee' %}selected{% endif %}>Mentee</option>
+                        <option value="mentor" {% if request.POST.role == 'mentor' %}selected{% endif %}>Mentor</option>
+                        <option value="head" {% if request.POST.role == 'head' %}selected{% endif %}>Head of Mentor Mentee</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="full_name" class="required">
+                        <i class="fas fa-user"></i> Full Name
+                    </label>
+                    <input type="text" id="full_name" name="full_name" placeholder="Enter your full name" required value="{{ request.POST.full_name }}">
+                    <div class="help-text">This will be displayed on your profile</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email" class="required">
+                        <i class="fas fa-envelope"></i> Email Address
+                    </label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email address" required value="{{ request.POST.email }}">
+                    <div class="help-text">This will be used for password recovery and notifications</div>
+                </div>
+
+                <!-- Gender Field - Show for mentee and mentor only -->
+                <div class="form-group" id="gender-field">
+                    <label for="gender" class="required">
+                        <i class="fas fa-venus-mars"></i> Gender
+                    </label>
+                    <select id="gender" name="gender" required>
+                        <option value="">Select your gender</option>
+                        <option value="male" {% if request.POST.gender == 'male' %}selected{% endif %}>Male</option>
+                        <option value="female" {% if request.POST.gender == 'female' %}selected{% endif %}>Female</option>
+                    </select>
+                    <div class="help-text">This helps in proportional mentor assignment</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="identification_id" id="id_label" class="required">
+                        <i class="fas fa-id-card"></i> Student ID
+                    </label>
+                    <input type="text" id="identification_id" name="identification_id" placeholder="Enter ID" required value="{{ request.POST.student_id }}">
+                    <div class="help-text" id="id_help">
+                        Format: ABC2311-123 (e.g., BCS2311-017)
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password" class="required">
+                        <i class="fas fa-lock"></i> Password
+                    </label>
+                    <input type="password" id="password" name="password" placeholder="Enter password" required>
+                    <div class="help-text">Minimum 6 characters</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirmPassword" class="required">
+                        <i class="fas fa-lock"></i> Confirm Password
+                    </label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm password" required>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-user-plus"></i> Create Account
+                </button>
+            </form>
+            
+            <div class="login-link">
+                Already have an account? <a href="{% url 'login' %}">Login</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function updateIdField() {
+            const role = document.getElementById('role').value;
+            const idLabel = document.getElementById('id_label');
+            const idInput = document.getElementById('identification_id');
+            const idHelp = document.getElementById('id_help');
+            const genderField = document.getElementById('gender-field');
+            
+            if (role === 'mentee') {
+                idLabel.innerHTML = '<i class="fas fa-graduation-cap"></i> Student ID';
+                idInput.placeholder = 'Enter your Student ID (e.g., BCS2311-017)';
+                idHelp.innerHTML = '<strong>Format:</strong> BCS2311-017, BDA2307-123, IEP2307-001, CFAB2307-001<br>' +
+                                '<strong>Diploma:</strong> B + Program + Year + Month + Number<br>' +
+                                '<strong>Examples:</strong><br>' +
+                                '• BCS2311-017 (Computer Science)<br>' +
+                                '• BDA2307-123 (Accounting)<br>' +
+                                '• DB2311-001 (Business Studies)<br>' +
+                                '• IEP2307-001 (English Programme)<br>' +
+                                '• CFAB2307-001 (Certificate in Finance, Accountancy and Business)';
+                // Show gender field for mentee
+                genderField.style.display = 'block';
+                document.getElementById('gender').required = true;
+                
+            } else if (role === 'mentor') {
+                idLabel.innerHTML = '<i class="fas fa-user-tie"></i> Staff ID';
+                idInput.placeholder = 'Enter your Staff ID (e.g., STA001)';
+                idHelp.innerHTML = '<strong>Format:</strong> ST + Department Code + 3-digit number<br>' +
+                                '<strong>Examples:</strong> STA001, STB015, STC123, STD045, STGS008<br>' +
+                                '<strong>Departments:</strong><br>' +
+                                'STA = Accounting Department<br>' +
+                                'STB = Business Studies Department<br>' +
+                                'STC = Quantitative Science Department<br>' +
+                                'STD = Landscape and Horticulture Department<br>' +
+                                'STGS = General Studies';
+                // Hide gender field for mentor - NOT NEEDED
+                genderField.style.display = 'none';
+                document.getElementById('gender').required = false;
+                
+            } else {
+                // No role selected or invalid role
+                idLabel.innerHTML = '<i class="fas fa-id-card"></i> ID Number';
+                idInput.placeholder = 'Select role first';
+                idHelp.innerHTML = 'Please select your role first';
+                genderField.style.display = 'block';  // Show by default
+                document.getElementById('gender').required = false;
+            }
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateIdField();
+            
+            // Auto-dismiss messages after 5 seconds
+            const messages = document.querySelectorAll('.message-fade-out');
+            messages.forEach(function(message) {
+                setTimeout(function() {
+                    message.classList.add('message-hidden');
+                    setTimeout(function() {
+                        if (message.parentElement) {
+                            message.remove();
+                        }
+                    }, 500);
+                }, 5000);
+            });
+            
+            // Basic form validation
+            document.querySelector('form').addEventListener('submit', function(e) {
+                const fullName = document.getElementById('full_name').value;
+                const password = document.getElementById('password').value;
+                const confirmPassword = document.getElementById('confirmPassword').value;
+                const role = document.getElementById('role').value;
+                const gender = document.getElementById('gender').value;
+                
+                if (!role) {
+                    e.preventDefault();
+                    alert('Please select your role');
+                    return;
+                }
+                
+                if (!fullName.trim()) {
+                    e.preventDefault();
+                    alert('Please enter your full name');
+                    return;
+                }
+                
+                // Only validate gender for mentees (NOT for mentors)
+                if (role === 'mentee' && !gender) {
+                    e.preventDefault();
+                    alert('Please select your gender');
+                    return;
+                }
+                
+                // Gender is NOT required for mentors
+                
+                if (password !== confirmPassword) {
+                    e.preventDefault();
+                    alert('Passwords do not match');
+                    return;
+                }
+                
+                if (password.length < 6) {
+                    e.preventDefault();
+                    alert('Password must be at least 6 characters long');
+                    return;
+                }
+            });
+
+            // Add subtle animations to form elements
+            const formGroups = document.querySelectorAll('.form-group');
+            formGroups.forEach((group, index) => {
+                group.style.opacity = '0';
+                group.style.transform = 'translateY(20px)';
+                group.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+                
+                setTimeout(() => {
+                    group.style.opacity = '1';
+                    group.style.transform = 'translateY(0)';
+                }, 100);
+            });
+        });
+    </script>
+</body>
+</html>

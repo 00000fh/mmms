@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Session - Mentor</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+        body { background: #f5f5f5; padding: 20px; }
+        .container { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .nav { background: white; padding: 15px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .nav a { margin-right: 15px; text-decoration: none; color: #2196F3; }
+        .logout { float: right; color: #666; }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; color: #555; }
+        input, select, textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px; }
+        .btn { background: #2196F3; color: white; padding: 12px 24px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; margin-right: 10px; }
+        .btn-cancel { background: #f44336; }
+        .session-info { background: #f8f9fa; padding: 20px; border-radius: 6px; margin-bottom: 20px; }
+        .attendance-list { border: 1px solid #ddd; border-radius: 4px; padding: 15px; }
+        .attendance-item { display: flex; justify-content: space-between; align-items: center; padding: 10px; border-bottom: 1px solid #eee; }
+        .attendance-item:last-child { border-bottom: none; }
+        .checkbox-group { display: flex; align-items: center; gap: 10px; }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <a href="{% url 'mentoring_schedule' %}">← Back to Schedule</a>
+        <a href="{% url 'logout' %}" class="logout">Logout</a>
+    </div>
+
+    <div class="container">
+        <h1>Complete Mentoring Session</h1>
+        
+        <div class="messages">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="{% if message.tags == 'error' %}error{% else %}success{% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        <div class="session-info">
+            <h3>Session Details</h3>
+            <p><strong>Topic:</strong> {{ activity.ActivityName }}</p>
+            <p><strong>Date:</strong> {{ activity.Date }}</p>
+            <p><strong>Time:</strong> {{ activity.StartTime }} - {{ activity.EndTime }}</p>
+            <p><strong>Location:</strong> {{ activity.Location }}</p>
+            {% if activity.Description %}
+            <p><strong>Description:</strong> {{ activity.Description }}</p>
+            {% endif %}
+        </div>
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label>Mark Attendance</label>
+                <div class="attendance-list">
+                    {% for record in attendance %}
+                    <div class="attendance-item">
+                        <span>{{ record.mentee.MenteeName }} ({{ record.mentee.MenteeID }})</span>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="attended_{{ record.mentee.MenteeID }}" 
+                                   name="attended_{{ record.mentee.MenteeID }}" 
+                                   {% if record.attended %}checked{% endif %}>
+                            <label for="attended_{{ record.mentee.MenteeID }}">Attended</label>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="session_materials">Upload Session Materials (Optional)</label>
+                <input type="file" id="session_materials" name="session_materials" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
+                <small>Supported formats: PDF, Word documents, images</small>
+            </div>
+
+            <button type="submit" class="btn">Mark Session as Completed</button>
+            <a href="{% url 'mentoring_schedule' %}" class="btn btn-cancel">Cancel</a>
+        </form>
+    </div>
+</body>
+</html>

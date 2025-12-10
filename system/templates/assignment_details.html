@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment Details | MMS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Add your existing CSS styles here */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+        }
+        
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 800px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .detail-section {
+            margin-bottom: 25px;
+            padding: 20px;
+            background: #f8f9ff;
+            border-radius: 10px;
+            border-left: 4px solid #1a3a8f;
+        }
+    </style>
+</head>
+<body>
+    <div class="modal-overlay">
+        <div class="modal-content">
+            <div style="display: flex; justify-content: between; align-items: center; margin-bottom: 25px;">
+                <h2 style="color: #1a3a8f; margin: 0;">
+                    <i class="fas fa-info-circle"></i> Assignment Details
+                </h2>
+                <button onclick="window.history.back()" class="btn btn-secondary" style="margin-left: auto;">
+                    <i class="fas fa-times"></i> Close
+                </button>
+            </div>
+
+            <!-- Assignment Information -->
+            <div class="detail-section">
+                <h3 style="color: #1a3a8f; margin-bottom: 15px;">
+                    <i class="fas fa-link"></i> Assignment Information
+                </h3>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div>
+                        <strong>Assignment ID:</strong> {{ assignment.id }}<br>
+                        <strong>Status:</strong> 
+                        <span class="status-badge 
+                            {% if assignment.assignment_status == 'active' %}status-active
+                            {% elif assignment.assignment_status == 'completed' %}status-completed
+                            {% else %}status-transferred{% endif %}">
+                            {{ assignment.assignment_status|title }}
+                        </span><br>
+                        <strong>Assigned Date:</strong> {{ assignment.assigned_date|date:"M d, Y" }}<br>
+                        {% if assignment.transferred_date %}
+                        <strong>Transferred Date:</strong> {{ assignment.transferred_date|date:"M d, Y" }}
+                        {% endif %}
+                    </div>
+                    <div>
+                        <strong>Assigned By:</strong> {{ assignment.assigned_by.first_name }}<br>
+                        {% if assignment.transferred_by %}
+                        <strong>Transferred By:</strong> {{ assignment.transferred_by.first_name }}<br>
+                        {% endif %}
+                        {% if assignment.notes %}
+                        <strong>Notes:</strong> {{ assignment.notes }}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mentor Information -->
+            <div class="detail-section">
+                <h3 style="color: #1a3a8f; margin-bottom: 15px;">
+                    <i class="fas fa-user-tie"></i> Mentor Information
+                </h3>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div>
+                        <strong>Name:</strong> {{ assignment.mentor.MentorName }}<br>
+                        <strong>ID:</strong> {{ assignment.mentor.MentorID }}<br>
+                        <strong>Department:</strong> {{ assignment.mentor.MentorDepartment }}
+                    </div>
+                    <div>
+                        <strong>Email:</strong> {{ assignment.mentor.MentorEmail }}<br>
+                        <strong>Join Date:</strong> {{ assignment.mentor.MentorJoinDate|date:"M d, Y" }}<br>
+                        <strong>Current Mentees:</strong> {{ assignment.mentor.current_mentees_count }}/{{ assignment.mentor.MaxMentees }}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mentee Information -->
+            <div class="detail-section">
+                <h3 style="color: #1a3a8f; margin-bottom: 15px;">
+                    <i class="fas fa-user-graduate"></i> Mentee Information
+                </h3>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div>
+                        <strong>Name:</strong> {{ assignment.mentee.MenteeName }}<br>
+                        <strong>ID:</strong> {{ assignment.mentee.MenteeID }}<br>
+                        <strong>Course:</strong> {{ assignment.mentee.MenteeCourse }}<br>
+                        <strong>Semester:</strong> {{ assignment.mentee.MenteeSemester }}
+                    </div>
+                    <div>
+                        <strong>Email:</strong> {{ assignment.mentee.MenteeEmail }}<br>
+                        <strong>Gender:</strong> 
+                        <span class="gender-badge {% if assignment.mentee.MenteeGender == 'male' %}gender-male{% else %}gender-female{% endif %}">
+                            {{ assignment.mentee.MenteeGender|title }}
+                        </span><br>
+                        <strong>Join Date:</strong> {{ assignment.mentee.MenteeJoinDate|date:"M d, Y" }}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Activity Statistics -->
+            <div class="detail-section">
+                <h3 style="color: #1a3a8f; margin-bottom: 15px;">
+                    <i class="fas fa-chart-bar"></i> Activity Statistics
+                </h3>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; text-align: center;">
+                    <div>
+                        <div style="font-size: 24px; font-weight: bold; color: #1a3a8f;">{{ activities_count }}</div>
+                        <div style="font-size: 14px; color: #718096;">Total Activities</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 24px; font-weight: bold; color: #2e7d32;">{{ completed_activities }}</div>
+                        <div style="font-size: 14px; color: #718096;">Completed</div>
+                    </div>
+                    <div>
+                        <div style="font-size: 24px; font-weight: bold; color: #1565c0;">{{ attendance_rate }}%</div>
+                        <div style="font-size: 14px; color: #718096;">Attendance Rate</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Assignment History -->
+            {% if assignment_history %}
+            <div class="detail-section">
+                <h3 style="color: #1a3a8f; margin-bottom: 15px;">
+                    <i class="fas fa-history"></i> Assignment History
+                </h3>
+                <div style="max-height: 200px; overflow-y: auto;">
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <thead>
+                            <tr style="background: #f1f3f9;">
+                                <th style="padding: 10px; text-align: left;">Previous Mentor</th>
+                                <th style="padding: 10px; text-align: left;">Status</th>
+                                <th style="padding: 10px; text-align: left;">Duration</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for history in assignment_history %}
+                            <tr style="border-bottom: 1px solid #e2e8f0;">
+                                <td style="padding: 10px;">{{ history.mentor.MentorName }}</td>
+                                <td style="padding: 10px;">
+                                    <span class="status-badge 
+                                        {% if history.assignment_status == 'active' %}status-active
+                                        {% elif history.assignment_status == 'completed' %}status-completed
+                                        {% else %}status-transferred{% endif %}">
+                                        {{ history.assignment_status|title }}
+                                    </span>
+                                </td>
+                                <td style="padding: 10px;">
+                                    {{ history.assigned_date|date:"M d, Y" }}
+                                    {% if history.transferred_date %}
+                                    - {{ history.transferred_date|date:"M d, Y" }}
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            {% endif %}
+
+            <div style="display: flex; gap: 10px; margin-top: 25px;">
+                {% if assignment.assignment_status == 'active' %}
+                <a href="{% url 'transfer_assignment' assignment.id %}" class="btn btn-primary">
+                    <i class="fas fa-exchange-alt"></i> Transfer Assignment
+                </a>
+                {% endif %}
+                <button onclick="window.history.back()" class="btn btn-secondary">
+                    <i class="fas fa-times"></i> Close
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
