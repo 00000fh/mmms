@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -181,16 +182,16 @@
             margin-left: 260px;
             min-height: 100vh;
             background: #f5f7fa;
-            padding: 24px;
+            padding: 20px;
         }
 
         /* Updated Content Header with Profile Button */
         .content-header {
             background: white;
-            padding: 20px 24px;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-            margin-bottom: 24px;
+            padding: 18px 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+            margin-bottom: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -199,7 +200,7 @@
         }
 
         .content-header h1 {
-            font-size: 24px;
+            font-size: 22px;
             color: #2d3748;
             margin-bottom: 4px;
             display: flex;
@@ -209,7 +210,7 @@
 
         .content-header p {
             color: #718096;
-            font-size: 14px;
+            font-size: 13px;
         }
 
         /* Profile Button Styles */
@@ -298,8 +299,15 @@
         }
 
         @keyframes dropdownFade {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .export-option {
@@ -332,10 +340,10 @@
         /* Activity Details Section - Consistent spacing */
         .activity-details {
             background: white;
-            padding: 24px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            margin-bottom: 24px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+            margin-bottom: 20px;
         }
 
         .section-title {
@@ -355,10 +363,10 @@
         }
 
         .detail-section {
-            margin-bottom: 24px;
+            margin-bottom: 20px;
             padding: 16px;
             background: #f8f9ff;
-            border-radius: 8px;
+            border-radius: 10px;
             border-left: 4px solid #1a3a8f;
         }
 
@@ -459,9 +467,9 @@
         .stat-card {
             background: white;
             padding: 16px;
-            border-radius: 8px;
+            border-radius: 10px;
             text-align: center;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
             border-left: 4px solid #1a3a8f;
         }
 
@@ -482,7 +490,7 @@
         /* Attendance Table */
         .table-container {
             overflow-x: auto;
-            border-radius: 8px;
+            border-radius: 10px;
             border: 1px solid #e2e8f0;
             margin-top: 16px;
         }
@@ -521,10 +529,10 @@
         .no-data {
             text-align: center;
             color: #718096;
-            padding: 40px 20px;
+            padding: 30px;
             margin: 20px 0;
             background: #f8f9fa;
-            border-radius: 8px;
+            border-radius: 10px;
             border: 1px dashed #cbd5e0;
         }
 
@@ -645,6 +653,7 @@
                 opacity: 0;
                 transform: translateY(-50px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -741,27 +750,36 @@
         }
 
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
 
         /* Print/Export Styles */
         @media print {
-            .sidebar, .content-header, .action-buttons, .export-dropdown {
+
+            .sidebar,
+            .content-header,
+            .action-buttons,
+            .export-dropdown {
                 display: none !important;
             }
-            
+
             .main-content {
                 margin-left: 0 !important;
                 padding: 0 !important;
             }
-            
+
             .activity-details {
                 box-shadow: none !important;
                 border: 1px solid #ddd !important;
                 margin: 0 !important;
             }
-            
+
             body {
                 background: white !important;
             }
@@ -772,6 +790,7 @@
             .sidebar {
                 width: 240px;
             }
+
             .main-content {
                 margin-left: 240px;
             }
@@ -783,33 +802,41 @@
                 height: auto;
                 position: relative;
             }
+
             .main-content {
                 margin-left: 0;
                 padding: 16px;
             }
+
             .content-header {
                 flex-direction: column;
                 text-align: center;
                 padding: 16px;
             }
+
             .detail-row {
                 grid-template-columns: 1fr;
                 gap: 6px;
             }
+
             .attendance-stats {
                 grid-template-columns: repeat(2, 1fr);
             }
+
             .action-buttons {
                 flex-direction: column;
                 align-items: stretch;
             }
+
             .activity-details {
                 padding: 16px;
             }
+
             .modal-content {
                 width: 95%;
                 margin: 20px;
             }
+
             .export-dropdown-content {
                 right: auto;
                 left: 0;
@@ -820,12 +847,99 @@
             .attendance-stats {
                 grid-template-columns: 1fr;
             }
+
             .section-title {
                 font-size: 16px;
             }
+
             .modal-footer {
                 flex-direction: column;
             }
+        }
+            /* Unified Button System - Enforce Consistency */
+        .btn, .btn-primary, .btn-secondary, .btn-danger, .btn-success, .filter-btn, .action-btn {
+            padding: 0 20px !important;
+            height: 42px !important; /* Fixed height for consistency */
+            line-height: 42px !important; /* Vertical centering */
+            border: none !important;
+            border-radius: 8px !important;
+            cursor: pointer;
+            text-decoration: none !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 8px !important; /* Standard icon spacing */
+            font-size: 14px !important;
+            font-weight: 600 !important;
+            transition: all 0.3s ease !important;
+            box-sizing: border-box !important;
+            white-space: nowrap !important; /* Prevent wrapping */
+        }
+
+        /* Specific Button Variants */
+        .btn-success, .btn-primary {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
+            color: white !important;
+        }
+
+        .btn-secondary {
+            background: #718096 !important;
+            color: white !important;
+        }
+        
+        .btn-danger {
+            background: #e53e3e !important;
+            color: white !important;
+        }
+
+        /* Filter Buttons - adjustment for border if needed, or standardizing */
+        .filter-btn {
+            background: white !important;
+            color: #1a3a8f !important;
+            border: 2px solid #1a3a8f !important;
+            padding: 0 18px !important; /* 20px - 2px border */
+            line-height: 38px !important; /* 42px - 4px border */
+        }
+        
+        .filter-btn.active {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
+            color: white !important;
+            border-color: transparent !important;
+            padding: 0 20px !important;
+            line-height: 42px !important;
+        }
+
+        /* Hover States */
+        .btn:hover, .filter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-success:hover, .btn-primary:hover, .filter-btn.active:hover {
+            box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
+        }
+        
+        .btn-secondary:hover {
+            background: #4a5568 !important;
+        }
+        
+        .btn-danger:hover {
+            background: #c53030 !important;
+            box-shadow: 0 5px 15px rgba(229, 62, 62, 0.3);
+        }
+        
+        /* Disabled State */
+        .btn:disabled, .filter-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        /* Icon Reset */
+        .btn i, .filter-btn i {
+            margin: 0 !important;
+            font-size: 1.1em;
         }
     </style>
 
@@ -845,9 +959,95 @@
         html {
             -ms-overflow-style: none;
         }
+            /* Unified Button System - Enforce Consistency */
+        .btn, .btn-primary, .btn-secondary, .btn-danger, .btn-success, .filter-btn, .action-btn {
+            padding: 0 20px !important;
+            height: 42px !important; /* Fixed height for consistency */
+            line-height: 42px !important; /* Vertical centering */
+            border: none !important;
+            border-radius: 8px !important;
+            cursor: pointer;
+            text-decoration: none !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 8px !important; /* Standard icon spacing */
+            font-size: 14px !important;
+            font-weight: 600 !important;
+            transition: all 0.3s ease !important;
+            box-sizing: border-box !important;
+            white-space: nowrap !important; /* Prevent wrapping */
+        }
+
+        /* Specific Button Variants */
+        .btn-success, .btn-primary {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
+            color: white !important;
+        }
+
+        .btn-secondary {
+            background: #718096 !important;
+            color: white !important;
+        }
+        
+        .btn-danger {
+            background: #e53e3e !important;
+            color: white !important;
+        }
+
+        /* Filter Buttons - adjustment for border if needed, or standardizing */
+        .filter-btn {
+            background: white !important;
+            color: #1a3a8f !important;
+            border: 2px solid #1a3a8f !important;
+            padding: 0 18px !important; /* 20px - 2px border */
+            line-height: 38px !important; /* 42px - 4px border */
+        }
+        
+        .filter-btn.active {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
+            color: white !important;
+            border-color: transparent !important;
+            padding: 0 20px !important;
+            line-height: 42px !important;
+        }
+
+        /* Hover States */
+        .btn:hover, .filter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-success:hover, .btn-primary:hover, .filter-btn.active:hover {
+            box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
+        }
+        
+        .btn-secondary:hover {
+            background: #4a5568 !important;
+        }
+        
+        .btn-danger:hover {
+            background: #c53030 !important;
+            box-shadow: 0 5px 15px rgba(229, 62, 62, 0.3);
+        }
+        
+        /* Disabled State */
+        .btn:disabled, .filter-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        /* Icon Reset */
+        .btn i, .filter-btn i {
+            margin: 0 !important;
+            font-size: 1.1em;
+        }
     </style>
 
 </head>
+
 <body>
     <!-- Sidebar -->
     <div class="sidebar">
@@ -941,22 +1141,19 @@
                         </a>
                     </div>
                 </div>
-                <button class="profile-btn">
-                    <div class="profile-avatar">
-                        <i class="fas fa-user"></i>
-                    </div>
-                    <span>Profile</span>
-                </button>
+                
             </div>
         </div>
 
         <!-- Activity Details - This is the content that will be exported -->
         <div class="activity-details" id="reportContent">
             <!-- Header for PDF/Image Export -->
-            <div style="text-align: center; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 2px solid #1a3a8f; display: none;" id="exportHeader">
+            <div style="text-align: center; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 2px solid #1a3a8f; display: none;"
+                id="exportHeader">
                 <h1 style="color: #1a3a8f; margin-bottom: 8px; font-size: 28px;">Activity Report</h1>
                 <p style="color: #718096; font-size: 16px;">Mentor Mentee Management System</p>
-                <p style="color: #4a5568; font-size: 14px; margin-top: 8px;">Generated on: <span id="currentDate"></span></p>
+                <p style="color: #4a5568; font-size: 14px; margin-top: 8px;">Generated on: <span
+                        id="currentDate"></span></p>
             </div>
 
             <!-- Basic Information Section -->
@@ -965,46 +1162,47 @@
                     <i class="fas fa-info-circle"></i>
                     Basic Information
                 </h2>
-                
+
                 <div class="detail-row">
                     <div class="detail-label">Activity ID:</div>
                     <div class="detail-value">
                         <strong>{{ activity.ActivityID }}</strong>
                         {% now "Y-m-d" as current_date %}
                         {% if activity.Date|date:"Y-m-d" > current_date %}
-                            <span class="status-badge status-upcoming" style="margin-left: 10px;">
-                                <i class="fas fa-clock"></i> Upcoming
-                            </span>
+                        <span class="status-badge status-upcoming" style="margin-left: 10px;">
+                            <i class="fas fa-clock"></i> Upcoming
+                        </span>
                         {% elif activity.Date|date:"Y-m-d" == current_date %}
-                            <span class="status-badge status-ongoing" style="margin-left: 10px;">
-                                <i class="fas fa-play-circle"></i> Today
-                            </span>
+                        <span class="status-badge status-ongoing" style="margin-left: 10px;">
+                            <i class="fas fa-play-circle"></i> Today
+                        </span>
                         {% else %}
-                            <span class="status-badge status-completed" style="margin-left: 10px;">
-                                <i class="fas fa-check-circle"></i> Completed
-                            </span>
+                        <span class="status-badge status-completed" style="margin-left: 10px;">
+                            <i class="fas fa-check-circle"></i> Completed
+                        </span>
                         {% endif %}
                     </div>
                 </div>
-                
+
                 <div class="detail-row">
                     <div class="detail-label">Activity Name:</div>
                     <div class="detail-value">{{ activity.ActivityName }}</div>
                 </div>
-                
+
                 <div class="detail-row">
                     <div class="detail-label">Activity Type:</div>
                     <div class="detail-value">{{ activity.ActivityType|title }}</div>
                 </div>
-                
+
                 <div class="detail-row">
                     <div class="detail-label">Date & Time:</div>
                     <div class="detail-value">
-                        <i class="fas fa-calendar-day"></i> {{ activity.Date }} 
-                        <i class="fas fa-clock" style="margin-left: 15px;"></i> {{ activity.StartTime }} - {{ activity.EndTime }}
+                        <i class="fas fa-calendar-day"></i> {{ activity.Date }}
+                        <i class="fas fa-clock" style="margin-left: 15px;"></i> {{ activity.StartTime }} - {{
+                        activity.EndTime }}
                     </div>
                 </div>
-                
+
                 <div class="detail-row">
                     <div class="detail-label">Location:</div>
                     <div class="detail-value">
@@ -1021,11 +1219,11 @@
                 </h2>
                 <div class="description-box">
                     {% if activity.Description %}
-                        {{ activity.Description|linebreaks }}
+                    {{ activity.Description|linebreaks }}
                     {% else %}
-                        <span style="color: #718096; font-style: italic;">
-                            <i class="fas fa-info-circle"></i> No description provided
-                        </span>
+                    <span style="color: #718096; font-style: italic;">
+                        <i class="fas fa-info-circle"></i> No description provided
+                    </span>
                     {% endif %}
                 </div>
             </div>
@@ -1036,34 +1234,34 @@
                     <i class="fas fa-user-tie"></i>
                     Mentoring Information
                 </h2>
-                
+
                 <div class="detail-row">
                     <div class="detail-label">Mentoring Session:</div>
                     <div class="detail-value">
                         {% if activity.IsMentoringSession %}
-                            <span style="color: #2e7d32; font-weight: 600;">
-                                <i class="fas fa-check-circle"></i> Yes
-                            </span>
+                        <span style="color: #2e7d32; font-weight: 600;">
+                            <i class="fas fa-check-circle"></i> Yes
+                        </span>
                         {% else %}
-                            <span style="color: #718096;">
-                                <i class="fas fa-times-circle"></i> No
-                            </span>
+                        <span style="color: #718096;">
+                            <i class="fas fa-times-circle"></i> No
+                        </span>
                         {% endif %}
                     </div>
                 </div>
-                
+
                 {% if activity.Mentor %}
                 <div class="detail-row">
                     <div class="detail-label">Assigned Mentor:</div>
                     <div class="detail-value">
-                        <i class="fas fa-user-tie"></i> {{ activity.Mentor.MentorName }} 
+                        <i class="fas fa-user-tie"></i> {{ activity.Mentor.MentorName }}
                         <span style="color: #718096; margin-left: 8px;">
                             ({{ activity.Mentor.MentorDeparment }})
                         </span>
                     </div>
                 </div>
                 {% endif %}
-                
+
                 {% if activity_mentors %}
                 <div class="detail-row">
                     <div class="detail-label">Assigned Mentors:</div>
@@ -1087,7 +1285,7 @@
                     <i class="fas fa-users"></i>
                     Attendance & Participants
                 </h2>
-                
+
                 <div class="attendance-stats">
                     <div class="stat-card">
                         <span class="stat-number">{{ total_participants }}</span>
@@ -1106,7 +1304,7 @@
                         <span class="stat-label">Attendance Rate</span>
                     </div>
                 </div>
-                
+
                 {% if attendance_records %}
                 <div style="margin-top: 16px;">
                     <h3 style="margin-bottom: 12px; color: #2d3748; font-size: 16px;">
@@ -1128,13 +1326,13 @@
                                     <td>{{ record.mentee.MenteeID }}</td>
                                     <td>
                                         {% if record.attended %}
-                                            <span style="color: #2e7d32; font-weight: 600;">
-                                                <i class="fas fa-check-circle"></i> Present
-                                            </span>
+                                        <span style="color: #2e7d32; font-weight: 600;">
+                                            <i class="fas fa-check-circle"></i> Present
+                                        </span>
                                         {% else %}
-                                            <span style="color: #e53e3e; font-weight: 600;">
-                                                <i class="fas fa-times-circle"></i> Absent
-                                            </span>
+                                        <span style="color: #e53e3e; font-weight: 600;">
+                                            <i class="fas fa-times-circle"></i> Absent
+                                        </span>
                                         {% endif %}
                                     </td>
                                 </tr>
@@ -1181,12 +1379,14 @@
                 <button class="close-modal">&times;</button>
             </div>
             <div class="modal-body">
-                <p>Are you sure you want to delete the activity "<strong id="activityNameToDelete">{{ activity.ActivityName }}</strong>"?</p>
+                <p>Are you sure you want to delete the activity "<strong id="activityNameToDelete">{{
+                        activity.ActivityName }}</strong>"?</p>
                 <p class="warning-text">This action cannot be undone.</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" id="cancelDelete">Cancel</button>
-                <form id="deleteForm" method="POST" action="{% url 'delete_activity' activity.ActivityID %}" style="display: inline;">
+                <form id="deleteForm" method="POST" action="{% url 'delete_activity' activity.ActivityID %}"
+                    style="display: inline;">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-danger">
                         <i class="fas fa-trash-alt"></i> Delete Activity
@@ -1197,7 +1397,7 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // Set current date for export header
             document.getElementById('currentDate').textContent = new Date().toLocaleDateString('en-US', {
                 year: 'numeric',
@@ -1209,13 +1409,13 @@
             const exportBtn = document.getElementById('exportBtn');
             const exportDropdown = document.getElementById('exportDropdown');
 
-            exportBtn.addEventListener('click', function(e) {
+            exportBtn.addEventListener('click', function (e) {
                 e.stopPropagation();
                 exportDropdown.classList.toggle('show');
             });
 
             // Close dropdown when clicking outside
-            document.addEventListener('click', function() {
+            document.addEventListener('click', function () {
                 exportDropdown.classList.remove('show');
             });
 
@@ -1228,19 +1428,19 @@
             const exportHeader = document.getElementById('exportHeader');
 
             // PDF Export
-            exportPdfBtn.addEventListener('click', async function(e) {
+            exportPdfBtn.addEventListener('click', async function (e) {
                 e.preventDefault();
                 exportDropdown.classList.remove('show');
-                
+
                 showLoading();
-                
+
                 try {
                     // Show export header
                     exportHeader.style.display = 'block';
-                    
+
                     const { jsPDF } = window.jspdf;
                     const pdf = new jsPDF('p', 'mm', 'a4');
-                    
+
                     // Capture the content as image
                     const canvas = await html2canvas(reportContent, {
                         scale: 2,
@@ -1248,18 +1448,18 @@
                         logging: false,
                         backgroundColor: '#ffffff'
                     });
-                    
+
                     const imgData = canvas.toDataURL('image/png');
                     const imgWidth = 190; // A4 width in mm
                     const pageHeight = 280; // A4 height in mm
                     const imgHeight = canvas.height * imgWidth / canvas.width;
-                    
+
                     let heightLeft = imgHeight;
                     let position = 10;
-                    
+
                     pdf.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
                     heightLeft -= pageHeight;
-                    
+
                     // Add new pages if content is too long
                     while (heightLeft >= 0) {
                         position = heightLeft - imgHeight + 10;
@@ -1267,13 +1467,13 @@
                         pdf.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
                         heightLeft -= pageHeight;
                     }
-                    
+
                     // Hide export header
                     exportHeader.style.display = 'none';
-                    
+
                     // Save the PDF
                     pdf.save(`Activity_Report_${getCurrentDateTime()}.pdf`);
-                    
+
                     hideLoading();
                 } catch (error) {
                     console.error('Error generating PDF:', error);
@@ -1283,32 +1483,32 @@
             });
 
             // Image Export
-            exportImageBtn.addEventListener('click', async function(e) {
+            exportImageBtn.addEventListener('click', async function (e) {
                 e.preventDefault();
                 exportDropdown.classList.remove('show');
-                
+
                 showLoading();
-                
+
                 try {
                     // Show export header
                     exportHeader.style.display = 'block';
-                    
+
                     const canvas = await html2canvas(reportContent, {
                         scale: 2,
                         useCORS: true,
                         logging: false,
                         backgroundColor: '#ffffff'
                     });
-                    
+
                     // Hide export header
                     exportHeader.style.display = 'none';
-                    
+
                     // Convert canvas to image and download
                     const link = document.createElement('a');
                     link.download = `Activity_Report_${getCurrentDateTime()}.png`;
                     link.href = canvas.toDataURL('image/png');
                     link.click();
-                    
+
                     hideLoading();
                 } catch (error) {
                     console.error('Error generating image:', error);
@@ -1318,15 +1518,15 @@
             });
 
             // Print Report
-            printReportBtn.addEventListener('click', function(e) {
+            printReportBtn.addEventListener('click', function (e) {
                 e.preventDefault();
                 exportDropdown.classList.remove('show');
-                
+
                 // Show export header for print
                 exportHeader.style.display = 'block';
-                
+
                 window.print();
-                
+
                 // Hide export header after print
                 setTimeout(() => {
                     exportHeader.style.display = 'none';
@@ -1353,39 +1553,40 @@
             const cancelDeleteBtn = document.getElementById('cancelDelete');
             const closeModalBtn = document.querySelector('.close-modal');
             const deleteForm = document.getElementById('deleteForm');
-            
+
             // Show modal when delete button is clicked
-            deleteActivityBtn.addEventListener('click', function() {
+            deleteActivityBtn.addEventListener('click', function () {
                 deleteModal.classList.add('active');
             });
-            
+
             // Close modal functions
             function closeModal() {
                 deleteModal.classList.remove('active');
             }
-            
+
             cancelDeleteBtn.addEventListener('click', closeModal);
             closeModalBtn.addEventListener('click', closeModal);
-            
+
             // Close modal when clicking outside
-            window.addEventListener('click', function(e) {
+            window.addEventListener('click', function (e) {
                 if (e.target === deleteModal) {
                     closeModal();
                 }
             });
-            
+
             // Handle form submission
-            deleteForm.addEventListener('submit', function(e) {
+            deleteForm.addEventListener('submit', function (e) {
                 const submitBtn = this.querySelector('button[type="submit"]');
                 submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Deleting...';
                 submitBtn.disabled = true;
             });
 
             // Profile button functionality
-            document.querySelector('.profile-btn').addEventListener('click', function() {
+            document.querySelector('.profile-btn').addEventListener('click', function () {
                 alert('Profile page would open here!');
             });
         });
     </script>
 </body>
+
 </html>

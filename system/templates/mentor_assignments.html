@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -178,16 +179,16 @@
             margin-left: 260px;
             min-height: 100vh;
             background: #f5f7fa;
-            padding: 24px;
+            padding: 20px;
         }
 
         /* Updated Content Header with Profile Button */
         .content-header {
             background: white;
-            padding: 20px 24px;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-            margin-bottom: 24px;
+            padding: 18px 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+            margin-bottom: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -207,14 +208,14 @@
         }
 
         .header-content h1 {
-            font-size: 24px;
+            font-size: 22px;
             color: #2d3748;
             margin-bottom: 4px;
         }
 
         .header-content p {
             color: #718096;
-            font-size: 14px;
+            font-size: 13px;
         }
 
         /* Profile Button Styles */
@@ -291,7 +292,7 @@
             border-radius: 10px;
             padding: 16px;
             text-align: center;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
             transition: all 0.3s ease;
             border-left: 3px solid #1a3a8f;
         }
@@ -330,10 +331,10 @@
         /* Auto Assignment Section - IMPROVED SPACING */
         .auto-assign-section {
             background: white;
-            padding: 28px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            margin-bottom: 24px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+            margin-bottom: 20px;
         }
 
         .section-title {
@@ -476,9 +477,9 @@
         /* Tabs Navigation - Consistent spacing */
         .tabs-container {
             background: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            margin-bottom: 24px;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+            margin-bottom: 20px;
             overflow: hidden;
         }
 
@@ -517,7 +518,7 @@
 
         .tab-content {
             display: none;
-            padding: 24px;
+            padding: 20px;
         }
 
         .tab-content.active {
@@ -545,9 +546,17 @@
             transform: translateY(-2px);
         }
 
-        .mentor-card.high-vacancy { border-left: 4px solid #2e7d32; }
-        .mentor-card.medium-vacancy { border-left: 4px solid #ed6c02; }
-        .mentor-card.low-vacancy { border-left: 4px solid #d32f2f; }
+        .mentor-card.high-vacancy {
+            border-left: 4px solid #2e7d32;
+        }
+
+        .mentor-card.medium-vacancy {
+            border-left: 4px solid #ed6c02;
+        }
+
+        .mentor-card.low-vacancy {
+            border-left: 4px solid #d32f2f;
+        }
 
         .mentor-name {
             font-size: 16px;
@@ -772,7 +781,7 @@
         .no-data {
             text-align: center;
             color: #718096;
-            padding: 40px 20px;
+            padding: 30px;
         }
 
         .no-data h3 {
@@ -802,15 +811,24 @@
             transition: width 0.3s ease;
         }
 
-        .capacity-fill.high { background: #2e7d32; }
-        .capacity-fill.medium { background: #ed6c02; }
-        .capacity-fill.low { background: #d32f2f; }
+        .capacity-fill.high {
+            background: #2e7d32;
+        }
+
+        .capacity-fill.medium {
+            background: #ed6c02;
+        }
+
+        .capacity-fill.low {
+            background: #d32f2f;
+        }
 
         /* Responsive Design - Consistent with previous page */
         @media (max-width: 1024px) {
             .sidebar {
                 width: 240px;
             }
+
             .main-content {
                 margin-left: 240px;
             }
@@ -822,44 +840,54 @@
                 height: auto;
                 position: relative;
             }
+
             .main-content {
                 margin-left: 0;
                 padding: 16px;
             }
+
             .content-header {
                 flex-direction: column;
                 text-align: center;
             }
+
             .stats-grid {
                 grid-template-columns: 1fr;
             }
+
             .mentor-grid {
                 grid-template-columns: 1fr;
             }
+
             .unassigned-item {
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 10px;
             }
+
             .auto-assign-header {
                 flex-direction: column;
                 text-align: center;
             }
+
             .auto-assign-actions {
                 flex-direction: column;
                 align-items: center;
             }
+
             .tabs-nav {
                 flex-direction: column;
             }
+
             .tab-btn {
                 padding: 12px 16px;
                 justify-content: flex-start;
             }
+
             .assignment-features {
                 grid-template-columns: 1fr;
             }
-            
+
             /* Toast adjustments for mobile */
             .toast-container {
                 bottom: 16px;
@@ -867,6 +895,91 @@
                 left: 16px;
                 max-width: none;
             }
+        }
+            /* Unified Button System - Enforce Consistency */
+        .btn, .btn-primary, .btn-secondary, .btn-danger, .btn-success, .filter-btn, .action-btn {
+            padding: 0 20px !important;
+            height: 42px !important; /* Fixed height for consistency */
+            line-height: 42px !important; /* Vertical centering */
+            border: none !important;
+            border-radius: 8px !important;
+            cursor: pointer;
+            text-decoration: none !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 8px !important; /* Standard icon spacing */
+            font-size: 14px !important;
+            font-weight: 600 !important;
+            transition: all 0.3s ease !important;
+            box-sizing: border-box !important;
+            white-space: nowrap !important; /* Prevent wrapping */
+        }
+
+        /* Specific Button Variants */
+        .btn-success, .btn-primary {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
+            color: white !important;
+        }
+
+        .btn-secondary {
+            background: #718096 !important;
+            color: white !important;
+        }
+        
+        .btn-danger {
+            background: #e53e3e !important;
+            color: white !important;
+        }
+
+        /* Filter Buttons - adjustment for border if needed, or standardizing */
+        .filter-btn {
+            background: white !important;
+            color: #1a3a8f !important;
+            border: 2px solid #1a3a8f !important;
+            padding: 0 18px !important; /* 20px - 2px border */
+            line-height: 38px !important; /* 42px - 4px border */
+        }
+        
+        .filter-btn.active {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
+            color: white !important;
+            border-color: transparent !important;
+            padding: 0 20px !important;
+            line-height: 42px !important;
+        }
+
+        /* Hover States */
+        .btn:hover, .filter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-success:hover, .btn-primary:hover, .filter-btn.active:hover {
+            box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
+        }
+        
+        .btn-secondary:hover {
+            background: #4a5568 !important;
+        }
+        
+        .btn-danger:hover {
+            background: #c53030 !important;
+            box-shadow: 0 5px 15px rgba(229, 62, 62, 0.3);
+        }
+        
+        /* Disabled State */
+        .btn:disabled, .filter-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        /* Icon Reset */
+        .btn i, .filter-btn i {
+            margin: 0 !important;
+            font-size: 1.1em;
         }
     </style>
 
@@ -886,9 +999,95 @@
         html {
             -ms-overflow-style: none;
         }
+            /* Unified Button System - Enforce Consistency */
+        .btn, .btn-primary, .btn-secondary, .btn-danger, .btn-success, .filter-btn, .action-btn {
+            padding: 0 20px !important;
+            height: 42px !important; /* Fixed height for consistency */
+            line-height: 42px !important; /* Vertical centering */
+            border: none !important;
+            border-radius: 8px !important;
+            cursor: pointer;
+            text-decoration: none !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 8px !important; /* Standard icon spacing */
+            font-size: 14px !important;
+            font-weight: 600 !important;
+            transition: all 0.3s ease !important;
+            box-sizing: border-box !important;
+            white-space: nowrap !important; /* Prevent wrapping */
+        }
+
+        /* Specific Button Variants */
+        .btn-success, .btn-primary {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
+            color: white !important;
+        }
+
+        .btn-secondary {
+            background: #718096 !important;
+            color: white !important;
+        }
+        
+        .btn-danger {
+            background: #e53e3e !important;
+            color: white !important;
+        }
+
+        /* Filter Buttons - adjustment for border if needed, or standardizing */
+        .filter-btn {
+            background: white !important;
+            color: #1a3a8f !important;
+            border: 2px solid #1a3a8f !important;
+            padding: 0 18px !important; /* 20px - 2px border */
+            line-height: 38px !important; /* 42px - 4px border */
+        }
+        
+        .filter-btn.active {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
+            color: white !important;
+            border-color: transparent !important;
+            padding: 0 20px !important;
+            line-height: 42px !important;
+        }
+
+        /* Hover States */
+        .btn:hover, .filter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-success:hover, .btn-primary:hover, .filter-btn.active:hover {
+            box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
+        }
+        
+        .btn-secondary:hover {
+            background: #4a5568 !important;
+        }
+        
+        .btn-danger:hover {
+            background: #c53030 !important;
+            box-shadow: 0 5px 15px rgba(229, 62, 62, 0.3);
+        }
+        
+        /* Disabled State */
+        .btn:disabled, .filter-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        /* Icon Reset */
+        .btn i, .filter-btn i {
+            margin: 0 !important;
+            font-size: 1.1em;
+        }
     </style>
 
 </head>
+
 <body>
     <!-- Sidebar -->
     <div class="sidebar">
@@ -965,12 +1164,7 @@
                     View Assignment Records
                 </a>
                 <div class="profile-section">
-                    <button class="profile-btn">
-                        <div class="profile-avatar">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <span>Profile</span>
-                    </button>
+                    
                 </div>
             </div>
         </div>
@@ -1013,15 +1207,16 @@
                 <i class="fas fa-robot"></i>
                 Automatic Assignment
             </h2>
-            
+
             <div class="auto-assign-content">
                 <div class="auto-assign-header">
                     <div class="auto-assign-info">
                         <p class="auto-assign-description">
-                            Automatically assign unassigned mentees to appropriate mentors using our intelligent algorithm 
+                            Automatically assign unassigned mentees to appropriate mentors using our intelligent
+                            algorithm
                             that considers department compatibility, gender balance, and mentor capacity limits.
                         </p>
-                        
+
                         <div class="assignment-features">
                             <div class="feature-item">
                                 <i class="fas fa-building"></i>
@@ -1042,18 +1237,18 @@
                         </div>
                     </div>
                 </div>
-                
+
+
                 <div class="auto-assign-actions">
                     <!-- Smart Auto-Assign Button -->
                     <form method="POST" style="margin: 0;">
                         {% csrf_token %}
-                        <button type="submit" name="auto_assign_smart" class="btn btn-success" 
-                                {% if not unassigned_mentees %}disabled{% endif %}>
+                        <button type="submit" name="auto_assign_smart" class="btn btn-success" {% if not unassigned_mentees %}disabled{% endif %}>
                             <i class="fas fa-brain"></i>
                             Smart Auto-Assign with Gender Balance
                         </button>
                     </form>
-                    
+
                     <!-- Manual Assignment Button -->
                     <a href="#mentors-tab" class="btn btn-secondary" onclick="switchToMentorsTab()">
                         <i class="fas fa-user-plus"></i>
@@ -1082,18 +1277,21 @@
                     <i class="fas fa-user-tie"></i>
                     Mentors with Available Slots
                 </h2>
-                <p style="color: #718096; margin-bottom: 16px; font-size: 13px;">Mentors sorted by department with available capacity</p>
-                
+                <p style="color: #718096; margin-bottom: 16px; font-size: 13px;">Mentors sorted by department with
+                    available capacity</p>
+
                 {% if mentors_with_vacancy %}
                 <div class="mentor-grid">
                     {% for mentor in mentors_with_vacancy %}
-                    <div class="mentor-card {% if mentor.available_slots >= 10 %}high-vacancy{% elif mentor.available_slots >= 5 %}medium-vacancy{% else %}low-vacancy{% endif %}">
+                    <div
+                        class="mentor-card {% if mentor.available_slots >= 10 %}high-vacancy{% elif mentor.available_slots >= 5 %}medium-vacancy{% else %}low-vacancy{% endif %}">
                         <div class="mentor-name">{{ mentor.MentorName }}</div>
                         <div class="mentor-department">{{ mentor.MentorDepartment }}</div>
-                        
+
                         <div class="mentor-stats">
                             <div class="stat">
-                                <div class="stat-value">{{ mentor.current_assignments_count }}/{{ mentor.MaxMentees }}</div>
+                                <div class="stat-value">{{ mentor.current_assignments_count }}/{{ mentor.MaxMentees }}
+                                </div>
                                 <div class="stat-label">Current/Max</div>
                             </div>
                             <div class="stat">
@@ -1104,10 +1302,11 @@
 
                         <!-- Capacity Progress Bar -->
                         <div class="capacity-bar">
-                            <div class="capacity-fill {% if mentor.available_slots >= 10 %}high{% elif mentor.available_slots >= 5 %}medium{% else %}low{% endif %}" 
-                                style="width: {% widthratio mentor.current_assignments_count mentor.MaxMentees 100 %}%"></div>
+                            <div class="capacity-fill {% if mentor.available_slots >= 10 %}high{% elif mentor.available_slots >= 5 %}medium{% else %}low{% endif %}"
+                                style="width: {% widthratio mentor.current_assignments_count mentor.MaxMentees 100 %}%">
+                            </div>
                         </div>
-                        
+
                         <div class="gender-distribution">
                             <span class="gender-count male-count">
                                 <i class="fas fa-mars"></i>
@@ -1118,19 +1317,20 @@
                                 {{ mentor.get_female_mentees_count }}F
                             </span>
                         </div>
-                        
+
                         <div style="margin-top: 12px;">
                             <strong style="color: #2d3748; font-size: 13px;">Current Mentees:</strong>
                             <div class="mentee-list">
                                 {% for assignment in mentor.assignments.all %}
-                                    {% if assignment.assignment_status == 'active' %}
-                                    <div class="mentee-item">
-                                        <span>{{ assignment.mentee.MenteeName }}</span>
-                                        <span style="color: {% if assignment.mentee.MenteeGender == 'male' %}#1565c0{% else %}#c2185b{% endif %}; font-weight: 600;">
-                                            {{ assignment.mentee.MenteeGender|first|upper }}
-                                        </span>
-                                    </div>
-                                    {% endif %}
+                                {% if assignment.assignment_status == 'active' %}
+                                <div class="mentee-item">
+                                    <span>{{ assignment.mentee.MenteeName }}</span>
+                                    <span
+                                        style="color: {% if assignment.mentee.MenteeGender == 'male' %}#1565c0{% else %}#c2185b{% endif %}; font-weight: 600;">
+                                        {{ assignment.mentee.MenteeGender|first|upper }}
+                                    </span>
+                                </div>
+                                {% endif %}
                                 {% empty %}
                                 <div style="color: #718096; text-align: center; padding: 8px; font-size: 12px;">
                                     No mentees assigned yet
@@ -1138,7 +1338,7 @@
                                 {% endfor %}
                             </div>
                         </div>
-                        
+
                         <div style="margin-top: 16px; text-align: center;">
                             <a href="{% url 'assign_mentees_to_mentor' mentor.MentorID %}" class="btn btn-success">
                                 <i class="fas fa-user-plus"></i>
@@ -1162,8 +1362,9 @@
                     <i class="fas fa-user-clock"></i>
                     Unassigned Mentees
                 </h2>
-                <p style="color: #718096; margin-bottom: 16px; font-size: 13px;">Mentees waiting for mentor assignment</p>
-                
+                <p style="color: #718096; margin-bottom: 16px; font-size: 13px;">Mentees waiting for mentor assignment
+                </p>
+
                 {% if unassigned_mentees %}
                 <div class="unassigned-list">
                     {% for mentee in unassigned_mentees %}
@@ -1175,8 +1376,10 @@
                             </div>
                         </div>
                         <div style="display: flex; align-items: center; gap: 10px;">
-                            <span class="gender-count {% if mentee.MenteeGender == 'male' %}male-count{% else %}female-count{% endif %}">
-                                <i class="fas {% if mentee.MenteeGender == 'male' %}fa-mars{% else %}fa-venus{% endif %}"></i>
+                            <span
+                                class="gender-count {% if mentee.MenteeGender == 'male' %}male-count{% else %}female-count{% endif %}">
+                                <i
+                                    class="fas {% if mentee.MenteeGender == 'male' %}fa-mars{% else %}fa-venus{% endif %}"></i>
                                 {{ mentee.MenteeGender|upper }}
                             </span>
                             <a href="{% url 'quick_assign' mentee.MenteeID %}" class="btn btn-primary">
@@ -1205,11 +1408,11 @@
         function showToast(title, message, type = 'success') {
             const toastContainer = document.getElementById('toastContainer');
             const toastId = 'toast-' + Date.now();
-            
+
             const toast = document.createElement('div');
             toast.className = `toast toast-${type}`;
             toast.id = toastId;
-            
+
             toast.innerHTML = `
                 <div class="toast-icon">
                     <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
@@ -1222,20 +1425,20 @@
                     <i class="fas fa-times"></i>
                 </button>
             `;
-            
+
             toastContainer.appendChild(toast);
-            
+
             // Show toast with animation
             setTimeout(() => {
                 toast.classList.add('show');
             }, 10);
-            
+
             // Auto remove after 5 seconds
             setTimeout(() => {
                 closeToast(toastId);
             }, 5000);
         }
-        
+
         function closeToast(toastId) {
             const toast = document.getElementById(toastId);
             if (toast) {
@@ -1247,47 +1450,47 @@
                 }, 300);
             }
         }
-        
+
         // Tab functionality
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const tabBtns = document.querySelectorAll('.tab-btn');
             const tabContents = document.querySelectorAll('.tab-content');
-            
+
             tabBtns.forEach(btn => {
-                btn.addEventListener('click', function() {
+                btn.addEventListener('click', function () {
                     const targetTab = this.getAttribute('data-tab');
-                    
+
                     // Remove active class from all buttons and contents
                     tabBtns.forEach(b => b.classList.remove('active'));
                     tabContents.forEach(c => c.classList.remove('active'));
-                    
+
                     // Add active class to current button and target content
                     this.classList.add('active');
                     document.getElementById(targetTab).classList.add('active');
                 });
             });
-            
+
             // Function to switch to mentors tab (used by manual assignment button)
-            window.switchToMentorsTab = function() {
+            window.switchToMentorsTab = function () {
                 tabBtns.forEach(b => b.classList.remove('active'));
                 tabContents.forEach(c => c.classList.remove('active'));
-                
+
                 document.querySelector('[data-tab="mentors-tab"]').classList.add('active');
                 document.getElementById('mentors-tab').classList.add('active');
             };
-            
+
             // Auto-refresh to check for new unassigned mentees
-            setTimeout(function() {
+            setTimeout(function () {
                 window.location.reload();
             }, 300000); // 5 minutes
-            
+
             // Highlight mentors with good gender balance
             const mentorCards = document.querySelectorAll('.mentor-card');
             mentorCards.forEach(card => {
                 const maleCount = parseInt(card.querySelector('.male-count').textContent) || 0;
                 const femaleCount = parseInt(card.querySelector('.female-count').textContent) || 0;
                 const total = maleCount + femaleCount;
-                
+
                 if (total > 0) {
                     const ratio = Math.min(maleCount, femaleCount) / Math.max(maleCount, femaleCount);
                     if (ratio >= 0.6) {
@@ -1301,7 +1504,7 @@
             });
 
             // Profile button functionality
-            document.querySelector('.profile-btn').addEventListener('click', function() {
+            document.querySelector('.profile-btn').addEventListener('click', function () {
                 alert('Profile page would open here!');
                 // In a real application, this would navigate to the profile page
                 // window.location.href = '/profile/';
@@ -1316,18 +1519,19 @@
                     link.classList.remove('active');
                 }
             });
-            
+
             // Show toast notifications for Django messages
             {% if messages %}
-                {% for message in messages %}
-                    showToast(
-                        '{{ message.tags|title }}', 
-                        '{{ message }}', 
-                        '{{ message.tags }}' === 'error' ? 'error' : 'success'
-                    );
-                {% endfor %}
+            {% for message in messages %}
+            showToast(
+                '{{ message.tags|title }}',
+                '{{ message }}',
+                '{{ message.tags }}' === 'error' ? 'error' : 'success'
+            );
+            {% endfor %}
             {% endif %}
         });
     </script>
 </body>
+
 </html>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -178,16 +179,16 @@
             margin-left: 260px;
             min-height: 100vh;
             background: #f5f7fa;
-            padding: 24px;
+            padding: 20px;
         }
 
         /* Updated Content Header */
         .content-header {
             background: white;
-            padding: 20px 24px;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-            margin-bottom: 24px;
+            padding: 18px 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+            margin-bottom: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -207,14 +208,14 @@
         }
 
         .content-header h1 {
-            font-size: 24px;
+            font-size: 22px;
             color: #2d3748;
             margin-bottom: 4px;
         }
 
         .content-header p {
             color: #718096;
-            font-size: 14px;
+            font-size: 13px;
         }
 
         /* Profile Button Styles */
@@ -281,7 +282,7 @@
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
         }
-        
+
         .btn-secondary {
             background: #718096;
             color: white;
@@ -303,14 +304,14 @@
         }
 
         /* Profile Card - Consistent spacing */
-        .profile-card { 
-            background: white; 
-            padding: 24px; 
-            border-radius: 12px; 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08); 
-            margin-bottom: 24px; 
+        .profile-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            margin-bottom: 20px;
         }
-        
+
         /* Mentee Profile Picture Section - BIGGER and CENTERED */
         .mentee-profile-section {
             display: flex;
@@ -318,25 +319,30 @@
             justify-content: center;
             gap: 40px;
             margin-bottom: 24px;
-            padding: 40px 50px;
+            padding: 20px;
             background: #f8f9ff;
-            border-radius: 12px;
+            border-radius: 10px;
             border: 2px solid #e2e8f0;
             text-align: left;
         }
 
         .mentee-avatar {
-            width: 180px; /* Increased from 120px */
-            height: 180px; /* Increased from 120px */
+            width: 180px;
+            /* Increased from 120px */
+            height: 180px;
+            /* Increased from 120px */
             border-radius: 50%;
             background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 50px; /* Increased from 40px */
+            font-size: 50px;
+            /* Increased from 40px */
             color: white;
-            border: 5px solid white; /* Slightly thicker border */
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15); /* Enhanced shadow */
+            border: 5px solid white;
+            /* Slightly thicker border */
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            /* Enhanced shadow */
             overflow: hidden;
             position: relative;
             flex-shrink: 0;
@@ -360,13 +366,16 @@
         .mentee-basic-info {
             display: flex;
             flex-direction: column;
-            gap: 5px; /* Increased gap for better spacing */
+            gap: 5px;
+            /* Increased gap for better spacing */
             flex: 1;
-            max-width: 450px; /* Slightly wider */
+            max-width: 450px;
+            /* Slightly wider */
         }
 
         .mentee-basic-info h3 {
-            font-size: 22px; /* Increased from 28px */
+            font-size: 22px;
+            /* Increased from 28px */
             color: #2d3748;
             margin-bottom: 0;
             font-weight: 700;
@@ -378,57 +387,61 @@
             display: flex;
             align-items: center;
             gap: 5px;
-            font-size: 14px; /* Slightly larger text */
-            padding: 6px 0; /* More padding for better spacing */
+            font-size: 14px;
+            /* Slightly larger text */
+            padding: 6px 0;
+            /* More padding for better spacing */
         }
 
         .mentee-basic-info p i {
             color: #1a3a8f;
-            width: 20px; /* Slightly wider for better alignment */
+            width: 20px;
+            /* Slightly wider for better alignment */
             text-align: center;
-            font-size: 16px; /* Slightly larger icons */
+            font-size: 16px;
+            /* Slightly larger icons */
         }
 
-        .status-badge { 
-            padding: 6px 12px; 
-            border-radius: 16px; 
-            font-size: 11px; 
-            font-weight: 600; 
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 16px;
+            font-size: 11px;
+            font-weight: 600;
             display: inline-flex;
             align-items: center;
             gap: 4px;
         }
-        
-        .status-active { 
-            background: #e8f5e8; 
-            color: #2e7d32; 
+
+        .status-active {
+            background: #e8f5e8;
+            color: #2e7d32;
         }
-        
-        .status-inactive { 
-            background: #ffebee; 
-            color: #c62828; 
+
+        .status-inactive {
+            background: #ffebee;
+            color: #c62828;
         }
-        
-        .status-graduated { 
-            background: #e3f2fd; 
-            color: #1565c0; 
+
+        .status-graduated {
+            background: #e3f2fd;
+            color: #1565c0;
         }
 
         /* Tab Styles */
         .tab-container {
             margin-bottom: 24px;
         }
-        
+
         .tab-navigation {
             display: flex;
             background: white;
-            border-radius: 12px;
+            border-radius: 10px;
             padding: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
             margin-bottom: 0;
             overflow-x: auto;
         }
-        
+
         .tab-button {
             flex: 1;
             padding: 12px 16px;
@@ -447,35 +460,42 @@
             gap: 8px;
             white-space: nowrap;
         }
-        
+
         .tab-button:hover {
             color: #1a3a8f;
             background: rgba(26, 58, 143, 0.05);
         }
-        
+
         .tab-button.active {
             color: white;
             background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
             box-shadow: 0 2px 8px rgba(26, 58, 143, 0.3);
         }
-        
+
         .tab-content {
             display: none;
             background: white;
-            border-radius: 12px;
-            padding: 24px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            margin-bottom: 24px;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            margin-bottom: 20px;
             animation: fadeIn 0.5s ease;
         }
-        
+
         .tab-content.active {
             display: block;
         }
-        
+
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* Form Styles for Readonly Fields */
@@ -491,7 +511,9 @@
             font-size: 14px;
         }
 
-        input, select, textarea {
+        input,
+        select,
+        textarea {
             width: 100%;
             padding: 12px 15px;
             border: 1px solid #e2e8f0;
@@ -544,9 +566,9 @@
 
         .stat-card {
             background: white;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            padding: 16px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
             text-align: center;
             border-left: 4px solid #1a3a8f;
         }
@@ -569,6 +591,7 @@
             .sidebar {
                 width: 240px;
             }
+
             .main-content {
                 margin-left: 240px;
             }
@@ -580,45 +603,58 @@
                 height: auto;
                 position: relative;
             }
+
             .main-content {
                 margin-left: 0;
                 padding: 16px;
             }
+
             .content-header {
                 flex-direction: column;
                 text-align: center;
             }
+
             .header-right {
                 justify-content: center;
                 width: 100%;
             }
+
             .mentee-profile-section {
                 padding: 30px 20px;
                 flex-direction: column;
                 text-align: center;
                 gap: 25px;
             }
+
             .mentee-avatar {
-                width: 140px; /* Adjusted for mobile */
-                height: 140px; /* Adjusted for mobile */
-                font-size: 42px; /* Adjusted for mobile */
+                width: 140px;
+                /* Adjusted for mobile */
+                height: 140px;
+                /* Adjusted for mobile */
+                font-size: 42px;
+                /* Adjusted for mobile */
             }
+
             .mentee-basic-info h3 {
-                font-size: 26px; /* Adjusted for mobile */
+                font-size: 26px;
+                /* Adjusted for mobile */
             }
+
             .form-row {
                 flex-direction: column;
                 gap: 0;
             }
+
             .tab-navigation {
                 flex-direction: column;
                 gap: 8px;
             }
-            
+
             .tab-button {
                 justify-content: flex-start;
                 padding: 12px 16px;
             }
+
             .stats-grid {
                 grid-template-columns: 1fr;
             }
@@ -629,21 +665,115 @@
                 flex-direction: column;
                 width: 100%;
             }
+
             .btn {
                 width: 100%;
                 justify-content: center;
             }
+
             .mentee-avatar {
-                width: 120px; /* Smaller for very small screens */
-                height: 120px; /* Smaller for very small screens */
-                font-size: 36px; /* Smaller for very small screens */
+                width: 120px;
+                /* Smaller for very small screens */
+                height: 120px;
+                /* Smaller for very small screens */
+                font-size: 36px;
+                /* Smaller for very small screens */
             }
+
             .mentee-basic-info h3 {
-                font-size: 22px; /* Smaller for very small screens */
+                font-size: 22px;
+                /* Smaller for very small screens */
             }
+
             .mentee-basic-info p {
-                font-size: 14px; /* Smaller for very small screens */
+                font-size: 14px;
+                /* Smaller for very small screens */
             }
+        }
+            /* Unified Button System - Enforce Consistency */
+        .btn, .btn-primary, .btn-secondary, .btn-danger, .btn-success, .filter-btn, .action-btn {
+            padding: 0 20px !important;
+            height: 42px !important; /* Fixed height for consistency */
+            line-height: 42px !important; /* Vertical centering */
+            border: none !important;
+            border-radius: 8px !important;
+            cursor: pointer;
+            text-decoration: none !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 8px !important; /* Standard icon spacing */
+            font-size: 14px !important;
+            font-weight: 600 !important;
+            transition: all 0.3s ease !important;
+            box-sizing: border-box !important;
+            white-space: nowrap !important; /* Prevent wrapping */
+        }
+
+        /* Specific Button Variants */
+        .btn-success, .btn-primary {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
+            color: white !important;
+        }
+
+        .btn-secondary {
+            background: #718096 !important;
+            color: white !important;
+        }
+        
+        .btn-danger {
+            background: #e53e3e !important;
+            color: white !important;
+        }
+
+        /* Filter Buttons - adjustment for border if needed, or standardizing */
+        .filter-btn {
+            background: white !important;
+            color: #1a3a8f !important;
+            border: 2px solid #1a3a8f !important;
+            padding: 0 18px !important; /* 20px - 2px border */
+            line-height: 38px !important; /* 42px - 4px border */
+        }
+        
+        .filter-btn.active {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
+            color: white !important;
+            border-color: transparent !important;
+            padding: 0 20px !important;
+            line-height: 42px !important;
+        }
+
+        /* Hover States */
+        .btn:hover, .filter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-success:hover, .btn-primary:hover, .filter-btn.active:hover {
+            box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
+        }
+        
+        .btn-secondary:hover {
+            background: #4a5568 !important;
+        }
+        
+        .btn-danger:hover {
+            background: #c53030 !important;
+            box-shadow: 0 5px 15px rgba(229, 62, 62, 0.3);
+        }
+        
+        /* Disabled State */
+        .btn:disabled, .filter-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        /* Icon Reset */
+        .btn i, .filter-btn i {
+            margin: 0 !important;
+            font-size: 1.1em;
         }
     </style>
 
@@ -663,9 +793,95 @@
         html {
             -ms-overflow-style: none;
         }
+            /* Unified Button System - Enforce Consistency */
+        .btn, .btn-primary, .btn-secondary, .btn-danger, .btn-success, .filter-btn, .action-btn {
+            padding: 0 20px !important;
+            height: 42px !important; /* Fixed height for consistency */
+            line-height: 42px !important; /* Vertical centering */
+            border: none !important;
+            border-radius: 8px !important;
+            cursor: pointer;
+            text-decoration: none !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 8px !important; /* Standard icon spacing */
+            font-size: 14px !important;
+            font-weight: 600 !important;
+            transition: all 0.3s ease !important;
+            box-sizing: border-box !important;
+            white-space: nowrap !important; /* Prevent wrapping */
+        }
+
+        /* Specific Button Variants */
+        .btn-success, .btn-primary {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
+            color: white !important;
+        }
+
+        .btn-secondary {
+            background: #718096 !important;
+            color: white !important;
+        }
+        
+        .btn-danger {
+            background: #e53e3e !important;
+            color: white !important;
+        }
+
+        /* Filter Buttons - adjustment for border if needed, or standardizing */
+        .filter-btn {
+            background: white !important;
+            color: #1a3a8f !important;
+            border: 2px solid #1a3a8f !important;
+            padding: 0 18px !important; /* 20px - 2px border */
+            line-height: 38px !important; /* 42px - 4px border */
+        }
+        
+        .filter-btn.active {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
+            color: white !important;
+            border-color: transparent !important;
+            padding: 0 20px !important;
+            line-height: 42px !important;
+        }
+
+        /* Hover States */
+        .btn:hover, .filter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-success:hover, .btn-primary:hover, .filter-btn.active:hover {
+            box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
+        }
+        
+        .btn-secondary:hover {
+            background: #4a5568 !important;
+        }
+        
+        .btn-danger:hover {
+            background: #c53030 !important;
+            box-shadow: 0 5px 15px rgba(229, 62, 62, 0.3);
+        }
+        
+        /* Disabled State */
+        .btn:disabled, .filter-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        /* Icon Reset */
+        .btn i, .filter-btn i {
+            margin: 0 !important;
+            font-size: 1.1em;
+        }
     </style>
 
 </head>
+
 <body>
     <!-- Sidebar -->
     <div class="sidebar">
@@ -752,12 +968,7 @@
                 </a>
                 {% endif %}
                 <div class="profile-section">
-                    <button class="profile-btn">
-                        <div class="profile-avatar">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <span>Profile</span>
-                    </button>
+                    
                 </div>
             </div>
         </div>
@@ -771,9 +982,9 @@
             <div class="stat-card">
                 <div class="stat-value">
                     {% if mentee.assigned_mentor %}
-                        <i class="fas fa-check" style="color: #2e7d32;"></i>
+                    <i class="fas fa-check" style="color: #2e7d32;"></i>
                     {% else %}
-                        <i class="fas fa-times" style="color: #c62828;"></i>
+                    <i class="fas fa-times" style="color: #c62828;"></i>
                     {% endif %}
                 </div>
                 <div class="stat-label">Mentor Assigned</div>
@@ -781,19 +992,19 @@
             <div class="stat-card">
                 <div class="stat-value">
                     {% if mentee.MenteeStatus == 'active' %}
-                        <i class="fas fa-user-check" style="color: #2e7d32;"></i>
+                    <i class="fas fa-user-check" style="color: #2e7d32;"></i>
                     {% elif mentee.MenteeStatus == 'inactive' %}
-                        <i class="fas fa-user-slash" style="color: #c62828;"></i>
+                    <i class="fas fa-user-slash" style="color: #c62828;"></i>
                     {% else %}
-                        <i class="fas fa-user-graduate" style="color: #1565c0;"></i>
+                    <i class="fas fa-user-graduate" style="color: #1565c0;"></i>
                     {% endif %}
                 </div>
                 <div class="stat-label">Status</div>
             </div>
             <div class="stat-card">
                 <div class="stat-value">
-                    <i class="fas {% if mentee.MenteeGender == 'male' %}fa-mars{% else %}fa-venus{% endif %}" 
-                       style="color: {% if mentee.MenteeGender == 'male' %}#1565c0{% else %}#c2185b{% endif %};"></i>
+                    <i class="fas {% if mentee.MenteeGender == 'male' %}fa-mars{% else %}fa-venus{% endif %}"
+                        style="color: {% if mentee.MenteeGender == 'male' %}#1565c0{% else %}#c2185b{% endif %};"></i>
                 </div>
                 <div class="stat-label">Gender</div>
             </div>
@@ -803,10 +1014,11 @@
         <div class="mentee-profile-section">
             <div class="mentee-avatar">
                 {% if mentee.profile_picture %}
-                    <img src="{{ mentee.profile_picture.url }}" alt="{{ mentee.MenteeName }}'s Profile Picture" id="menteeProfilePic">
-                    <i class="fas fa-user-graduate" id="menteeProfileIcon" style="display: none;"></i>
+                <img src="{{ mentee.profile_picture.url }}" alt="{{ mentee.MenteeName }}'s Profile Picture"
+                    id="menteeProfilePic">
+                <i class="fas fa-user-graduate" id="menteeProfileIcon" style="display: none;"></i>
                 {% else %}
-                    <i class="fas fa-user-graduate" id="menteeProfileIcon"></i>
+                <i class="fas fa-user-graduate" id="menteeProfileIcon"></i>
                 {% endif %}
             </div>
             <div class="mentee-basic-info">
@@ -816,11 +1028,11 @@
                 <p><i class="fas fa-calendar-alt"></i> Semester {{ mentee.MenteeSemester }}</p>
                 <p><i class="fas fa-envelope"></i> {{ mentee.MenteeEmail }}</p>
                 <p>
-                    <i class="fas fa-user-tie"></i> 
+                    <i class="fas fa-user-tie"></i>
                     {% if mentee.assigned_mentor %}
-                        Assigned to: {{ mentee.assigned_mentor.MentorName }}
+                    Assigned to: {{ mentee.assigned_mentor.MentorName }}
                     {% else %}
-                        Not assigned to any mentor
+                    Not assigned to any mentor
                     {% endif %}
                 </p>
             </div>
@@ -858,7 +1070,8 @@
                         <label for="MenteeName">
                             <i class="fas fa-signature"></i> Full Name
                         </label>
-                        <input type="text" id="MenteeName" value="{{ mentee.MenteeName }}" class="readonly-field" readonly>
+                        <input type="text" id="MenteeName" value="{{ mentee.MenteeName }}" class="readonly-field"
+                            readonly>
                     </div>
                     <div class="form-group">
                         <label for="MenteeID">
@@ -873,13 +1086,15 @@
                         <label for="MenteeEmail">
                             <i class="fas fa-envelope"></i> Email
                         </label>
-                        <input type="email" id="MenteeEmail" value="{{ mentee.MenteeEmail }}" class="readonly-field" readonly>
+                        <input type="email" id="MenteeEmail" value="{{ mentee.MenteeEmail }}" class="readonly-field"
+                            readonly>
                     </div>
                     <div class="form-group">
                         <label for="MenteePhone">
                             <i class="fas fa-phone"></i> Phone Number
                         </label>
-                        <input type="text" id="MenteePhone" value="{{ mentee.MenteePhone }}" class="readonly-field" readonly>
+                        <input type="text" id="MenteePhone" value="{{ mentee.MenteePhone }}" class="readonly-field"
+                            readonly>
                     </div>
                 </div>
 
@@ -888,7 +1103,8 @@
                         <label for="MenteeCourse">
                             <i class="fas fa-graduation-cap"></i> Course
                         </label>
-                        <input type="text" id="MenteeCourse" value="{{ mentee.MenteeCourse }}" class="readonly-field" readonly>
+                        <input type="text" id="MenteeCourse" value="{{ mentee.MenteeCourse }}" class="readonly-field"
+                            readonly>
                     </div>
                     <div class="form-group">
                         <label for="MenteeIC">
@@ -903,13 +1119,15 @@
                         <label for="MenteeSemester">
                             <i class="fas fa-calendar-alt"></i> Semester
                         </label>
-                        <input type="number" id="MenteeSemester" value="{{ mentee.MenteeSemester }}" class="readonly-field" readonly>
+                        <input type="number" id="MenteeSemester" value="{{ mentee.MenteeSemester }}"
+                            class="readonly-field" readonly>
                     </div>
                     <div class="form-group">
                         <label for="MenteeGender">
                             <i class="fas fa-venus-mars"></i> Gender
                         </label>
-                        <input type="text" id="MenteeGender" value="{{ mentee.get_MenteeGender_display }}" class="readonly-field" readonly>
+                        <input type="text" id="MenteeGender" value="{{ mentee.get_MenteeGender_display }}"
+                            class="readonly-field" readonly>
                     </div>
                 </div>
 
@@ -923,7 +1141,8 @@
                     <label for="MenteeAddress">
                         <i class="fas fa-home"></i> Address
                     </label>
-                    <textarea id="MenteeAddress" class="readonly-field" rows="3" readonly>{{ mentee.MenteeAddress }}</textarea>
+                    <textarea id="MenteeAddress" class="readonly-field" rows="3"
+                        readonly>{{ mentee.MenteeAddress }}</textarea>
                 </div>
 
                 <div class="form-row">
@@ -931,19 +1150,22 @@
                         <label for="MenteeCity">
                             <i class="fas fa-city"></i> City
                         </label>
-                        <input type="text" id="MenteeCity" value="{{ mentee.MenteeCity }}" class="readonly-field" readonly>
+                        <input type="text" id="MenteeCity" value="{{ mentee.MenteeCity }}" class="readonly-field"
+                            readonly>
                     </div>
                     <div class="form-group">
                         <label for="MenteeState">
                             <i class="fas fa-map"></i> State
                         </label>
-                        <input type="text" id="MenteeState" value="{{ mentee.MenteeState }}" class="readonly-field" readonly>
+                        <input type="text" id="MenteeState" value="{{ mentee.MenteeState }}" class="readonly-field"
+                            readonly>
                     </div>
                     <div class="form-group">
                         <label for="MenteePostcode">
                             <i class="fas fa-mail-bulk"></i> Postcode
                         </label>
-                        <input type="text" id="MenteePostcode" value="{{ mentee.MenteePostcode }}" class="readonly-field" readonly>
+                        <input type="text" id="MenteePostcode" value="{{ mentee.MenteePostcode }}"
+                            class="readonly-field" readonly>
                     </div>
                 </div>
 
@@ -958,13 +1180,15 @@
                         <label for="MenteeRace">
                             <i class="fas fa-globe-asia"></i> Race
                         </label>
-                        <input type="text" id="MenteeRace" value="{{ mentee.MenteeRace }}" class="readonly-field" readonly>
+                        <input type="text" id="MenteeRace" value="{{ mentee.MenteeRace }}" class="readonly-field"
+                            readonly>
                     </div>
                     <div class="form-group">
                         <label for="MenteeReligion">
                             <i class="fas fa-pray"></i> Religion
                         </label>
-                        <input type="text" id="MenteeReligion" value="{{ mentee.MenteeReligion }}" class="readonly-field" readonly>
+                        <input type="text" id="MenteeReligion" value="{{ mentee.MenteeReligion }}"
+                            class="readonly-field" readonly>
                     </div>
                 </div>
 
@@ -972,7 +1196,8 @@
                     <label for="MenteePreviousSchool">
                         <i class="fas fa-school"></i> Previous School
                     </label>
-                    <input type="text" id="MenteePreviousSchool" value="{{ mentee.MenteePreviousSchool }}" class="readonly-field" readonly>
+                    <input type="text" id="MenteePreviousSchool" value="{{ mentee.MenteePreviousSchool }}"
+                        class="readonly-field" readonly>
                 </div>
 
                 <!-- Mentor Assignment Section -->
@@ -986,9 +1211,12 @@
                         <i class="fas fa-user-tie"></i> Assigned Mentor
                     </label>
                     {% if mentee.assigned_mentor %}
-                        <input type="text" id="AssignedMentor" value="{{ mentee.assigned_mentor.MentorName }} ({{ mentee.assigned_mentor.MentorID }})" class="readonly-field" readonly>
+                    <input type="text" id="AssignedMentor"
+                        value="{{ mentee.assigned_mentor.MentorName }} ({{ mentee.assigned_mentor.MentorID }})"
+                        class="readonly-field" readonly>
                     {% else %}
-                        <input type="text" id="AssignedMentor" value="Not Assigned" class="readonly-field" readonly style="color: #c62828; font-weight: 600;">
+                    <input type="text" id="AssignedMentor" value="Not Assigned" class="readonly-field" readonly
+                        style="color: #c62828; font-weight: 600;">
                     {% endif %}
                 </div>
 
@@ -996,7 +1224,8 @@
                     <label for="MenteeStatus">
                         <i class="fas fa-user-check"></i> Student Status
                     </label>
-                    <input type="text" id="MenteeStatus" value="{{ mentee.get_MenteeStatus_display }}" class="readonly-field" readonly>
+                    <input type="text" id="MenteeStatus" value="{{ mentee.get_MenteeStatus_display }}"
+                        class="readonly-field" readonly>
                 </div>
             </div>
 
@@ -1012,13 +1241,15 @@
                         <label for="MenteeFatherName">
                             <i class="fas fa-user"></i> Father's Name
                         </label>
-                        <input type="text" id="MenteeFatherName" value="{{ mentee.MenteeFatherName }}" class="readonly-field" readonly>
+                        <input type="text" id="MenteeFatherName" value="{{ mentee.MenteeFatherName }}"
+                            class="readonly-field" readonly>
                     </div>
                     <div class="form-group">
                         <label for="MenteeFatherIC">
                             <i class="fas fa-id-card"></i> Father's IC Number
                         </label>
-                        <input type="text" id="MenteeFatherIC" value="{{ mentee.MenteeFatherIC }}" class="readonly-field" readonly>
+                        <input type="text" id="MenteeFatherIC" value="{{ mentee.MenteeFatherIC }}"
+                            class="readonly-field" readonly>
                     </div>
                 </div>
 
@@ -1027,13 +1258,15 @@
                         <label for="MenteeFatherOccupation">
                             <i class="fas fa-briefcase"></i> Father's Occupation
                         </label>
-                        <input type="text" id="MenteeFatherOccupation" value="{{ mentee.MenteeFatherOccupation }}" class="readonly-field" readonly>
+                        <input type="text" id="MenteeFatherOccupation" value="{{ mentee.MenteeFatherOccupation }}"
+                            class="readonly-field" readonly>
                     </div>
                     <div class="form-group">
                         <label for="MenteeFatherPhone">
                             <i class="fas fa-phone"></i> Father's Phone
                         </label>
-                        <input type="text" id="MenteeFatherPhone" value="{{ mentee.MenteeFatherPhone }}" class="readonly-field" readonly>
+                        <input type="text" id="MenteeFatherPhone" value="{{ mentee.MenteeFatherPhone }}"
+                            class="readonly-field" readonly>
                     </div>
                 </div>
 
@@ -1042,13 +1275,15 @@
                         <label for="MenteeMotherName">
                             <i class="fas fa-user"></i> Mother's Name
                         </label>
-                        <input type="text" id="MenteeMotherName" value="{{ mentee.MenteeMotherName }}" class="readonly-field" readonly>
+                        <input type="text" id="MenteeMotherName" value="{{ mentee.MenteeMotherName }}"
+                            class="readonly-field" readonly>
                     </div>
                     <div class="form-group">
                         <label for="MenteeMotherIC">
                             <i class="fas fa-id-card"></i> Mother's IC Number
                         </label>
-                        <input type="text" id="MenteeMotherIC" value="{{ mentee.MenteeMotherIC }}" class="readonly-field" readonly>
+                        <input type="text" id="MenteeMotherIC" value="{{ mentee.MenteeMotherIC }}"
+                            class="readonly-field" readonly>
                     </div>
                 </div>
 
@@ -1057,13 +1292,15 @@
                         <label for="MenteeMotherOccupation">
                             <i class="fas fa-briefcase"></i> Mother's Occupation
                         </label>
-                        <input type="text" id="MenteeMotherOccupation" value="{{ mentee.MenteeMotherOccupation }}" class="readonly-field" readonly>
+                        <input type="text" id="MenteeMotherOccupation" value="{{ mentee.MenteeMotherOccupation }}"
+                            class="readonly-field" readonly>
                     </div>
                     <div class="form-group">
                         <label for="MenteeMotherPhone">
                             <i class="fas fa-phone"></i> Mother's Phone
                         </label>
-                        <input type="text" id="MenteeMotherPhone" value="{{ mentee.MenteeMotherPhone }}" class="readonly-field" readonly>
+                        <input type="text" id="MenteeMotherPhone" value="{{ mentee.MenteeMotherPhone }}"
+                            class="readonly-field" readonly>
                     </div>
                 </div>
             </div>
@@ -1074,19 +1311,21 @@
                     <i class="fas fa-graduation-cap"></i>
                     Academic Information
                 </h2>
-                
+
                 <div class="form-row">
                     <div class="form-group">
                         <label for="MenteeCourse">
                             <i class="fas fa-book"></i> Course Program
                         </label>
-                        <input type="text" id="MenteeCourse" value="{{ mentee.MenteeCourse }}" class="readonly-field" readonly>
+                        <input type="text" id="MenteeCourse" value="{{ mentee.MenteeCourse }}" class="readonly-field"
+                            readonly>
                     </div>
                     <div class="form-group">
                         <label for="MenteeSemester">
                             <i class="fas fa-calendar-alt"></i> Current Semester
                         </label>
-                        <input type="number" id="MenteeSemester" value="{{ mentee.MenteeSemester }}" class="readonly-field" readonly>
+                        <input type="number" id="MenteeSemester" value="{{ mentee.MenteeSemester }}"
+                            class="readonly-field" readonly>
                     </div>
                 </div>
 
@@ -1101,7 +1340,8 @@
                         <label for="MenteeJoinDate">
                             <i class="fas fa-calendar-plus"></i> Join Date
                         </label>
-                        <input type="text" id="MenteeJoinDate" value="{{ mentee.MenteeJoinDate|date:'F d, Y' }}" class="readonly-field" readonly>
+                        <input type="text" id="MenteeJoinDate" value="{{ mentee.MenteeJoinDate|date:'F d, Y' }}"
+                            class="readonly-field" readonly>
                     </div>
                 </div>
 
@@ -1115,14 +1355,16 @@
                     <label for="MenteeStatus">
                         <i class="fas fa-user-check"></i> Student Status
                     </label>
-                    <input type="text" id="MenteeStatus" value="{{ mentee.get_MenteeStatus_display }}" class="readonly-field" readonly>
+                    <input type="text" id="MenteeStatus" value="{{ mentee.get_MenteeStatus_display }}"
+                        class="readonly-field" readonly>
                 </div>
 
                 <div class="form-group">
                     <label for="MenteePreviousSchool">
                         <i class="fas fa-school"></i> Previous School
                     </label>
-                    <input type="text" id="MenteePreviousSchool" value="{{ mentee.MenteePreviousSchool }}" class="readonly-field" readonly>
+                    <input type="text" id="MenteePreviousSchool" value="{{ mentee.MenteePreviousSchool }}"
+                        class="readonly-field" readonly>
                 </div>
             </div>
         </div>
@@ -1130,34 +1372,34 @@
 
     <script>
         // Tab functionality
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // Update mentee profile picture display
             function updateMenteeProfilePictureDisplay() {
                 const menteeAvatar = document.querySelector('.mentee-avatar');
                 const menteeImg = menteeAvatar.querySelector('img');
                 const menteeIcon = menteeAvatar.querySelector('i');
-                
+
                 // If mentee profile picture exists, show image and hide icon
                 if (menteeImg && menteeImg.src) {
                     menteeImg.style.display = 'block';
                     menteeIcon.style.display = 'none';
                 }
             }
-            
+
             // Initialize profile picture displays
             updateMenteeProfilePictureDisplay();
-            
+
             const tabButtons = document.querySelectorAll('.tab-button');
             const tabContents = document.querySelectorAll('.tab-content');
-            
+
             tabButtons.forEach(button => {
                 button.addEventListener('click', () => {
                     const tabId = button.getAttribute('data-tab');
-                    
+
                     // Remove active class from all buttons and contents
                     tabButtons.forEach(btn => btn.classList.remove('active'));
                     tabContents.forEach(content => content.classList.remove('active'));
-                    
+
                     // Add active class to clicked button and corresponding content
                     button.classList.add('active');
                     document.getElementById(`${tabId}-tab`).classList.add('active');
@@ -1168,19 +1410,20 @@
             const currentPage = window.location.pathname;
             document.querySelectorAll('.nav-link').forEach(link => {
                 if (link.getAttribute('href') === '{% url 'manage_mentees' %}') {
-                    link.classList.add('active');
-                } else {
-                    link.classList.remove('active');
-                }
-            });
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
 
-            // Profile button functionality
-            document.querySelector('.profile-btn').addEventListener('click', function() {
-                alert('Profile page would open here!');
-                // In a real application, this would navigate to the profile page
-                // window.location.href = '/profile/';
-            });
+        // Profile button functionality
+        document.querySelector('.profile-btn').addEventListener('click', function () {
+            alert('Profile page would open here!');
+            // In a real application, this would navigate to the profile page
+            // window.location.href = '/profile/';
+        });
         });
     </script>
 </body>
+
 </html>

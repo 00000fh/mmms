@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -178,16 +179,16 @@
             margin-left: 260px;
             min-height: 100vh;
             background: #f5f7fa;
-            padding: 24px;
+            padding: 20px;
         }
 
         /* Updated Content Header with Profile Button */
         .content-header {
             background: white;
-            padding: 20px 24px;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-            margin-bottom: 24px;
+            padding: 18px 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+            margin-bottom: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -207,14 +208,14 @@
         }
 
         .content-header h1 {
-            font-size: 24px;
+            font-size: 22px;
             color: #2d3748;
             margin-bottom: 4px;
         }
 
         .content-header p {
             color: #718096;
-            font-size: 14px;
+            font-size: 13px;
         }
 
         /* Profile Button Styles */
@@ -259,10 +260,10 @@
         /* Form Container - Consistent spacing */
         .form-container {
             background: white;
-            border-radius: 12px;
-            padding: 24px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            margin-bottom: 24px;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            margin-bottom: 20px;
         }
 
         .form-group {
@@ -282,7 +283,9 @@
             color: #e53e3e;
         }
 
-        input, select, textarea {
+        input,
+        select,
+        textarea {
             width: 100%;
             padding: 12px 16px;
             border: 2px solid #e2e8f0;
@@ -292,7 +295,9 @@
             background: #f8f9ff;
         }
 
-        input:focus, select:focus, textarea:focus {
+        input:focus,
+        select:focus,
+        textarea:focus {
             outline: none;
             border-color: #1a3a8f;
             box-shadow: 0 0 0 3px rgba(26, 58, 143, 0.1);
@@ -422,6 +427,7 @@
             .sidebar {
                 width: 240px;
             }
+
             .main-content {
                 margin-left: 240px;
             }
@@ -433,26 +439,32 @@
                 height: auto;
                 position: relative;
             }
+
             .main-content {
                 margin-left: 0;
                 padding: 16px;
             }
+
             .content-header {
                 flex-direction: column;
                 text-align: center;
             }
+
             .header-right {
                 justify-content: center;
                 width: 100%;
             }
+
             .form-row {
                 grid-template-columns: 1fr;
                 gap: 0;
             }
+
             .form-actions {
                 flex-direction: column;
                 align-items: center;
             }
+
             .form-actions .btn {
                 width: 100%;
                 justify-content: center;
@@ -464,10 +476,96 @@
                 flex-direction: column;
                 width: 100%;
             }
+
             .btn {
                 width: 100%;
                 justify-content: center;
             }
+        }
+            /* Unified Button System - Enforce Consistency */
+        .btn, .btn-primary, .btn-secondary, .btn-danger, .btn-success, .filter-btn, .action-btn {
+            padding: 0 20px !important;
+            height: 42px !important; /* Fixed height for consistency */
+            line-height: 42px !important; /* Vertical centering */
+            border: none !important;
+            border-radius: 8px !important;
+            cursor: pointer;
+            text-decoration: none !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 8px !important; /* Standard icon spacing */
+            font-size: 14px !important;
+            font-weight: 600 !important;
+            transition: all 0.3s ease !important;
+            box-sizing: border-box !important;
+            white-space: nowrap !important; /* Prevent wrapping */
+        }
+
+        /* Specific Button Variants */
+        .btn-success, .btn-primary {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
+            color: white !important;
+        }
+
+        .btn-secondary {
+            background: #718096 !important;
+            color: white !important;
+        }
+        
+        .btn-danger {
+            background: #e53e3e !important;
+            color: white !important;
+        }
+
+        /* Filter Buttons - adjustment for border if needed, or standardizing */
+        .filter-btn {
+            background: white !important;
+            color: #1a3a8f !important;
+            border: 2px solid #1a3a8f !important;
+            padding: 0 18px !important; /* 20px - 2px border */
+            line-height: 38px !important; /* 42px - 4px border */
+        }
+        
+        .filter-btn.active {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
+            color: white !important;
+            border-color: transparent !important;
+            padding: 0 20px !important;
+            line-height: 42px !important;
+        }
+
+        /* Hover States */
+        .btn:hover, .filter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-success:hover, .btn-primary:hover, .filter-btn.active:hover {
+            box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
+        }
+        
+        .btn-secondary:hover {
+            background: #4a5568 !important;
+        }
+        
+        .btn-danger:hover {
+            background: #c53030 !important;
+            box-shadow: 0 5px 15px rgba(229, 62, 62, 0.3);
+        }
+        
+        /* Disabled State */
+        .btn:disabled, .filter-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        /* Icon Reset */
+        .btn i, .filter-btn i {
+            margin: 0 !important;
+            font-size: 1.1em;
         }
     </style>
 
@@ -487,9 +585,95 @@
         html {
             -ms-overflow-style: none;
         }
+            /* Unified Button System - Enforce Consistency */
+        .btn, .btn-primary, .btn-secondary, .btn-danger, .btn-success, .filter-btn, .action-btn {
+            padding: 0 20px !important;
+            height: 42px !important; /* Fixed height for consistency */
+            line-height: 42px !important; /* Vertical centering */
+            border: none !important;
+            border-radius: 8px !important;
+            cursor: pointer;
+            text-decoration: none !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 8px !important; /* Standard icon spacing */
+            font-size: 14px !important;
+            font-weight: 600 !important;
+            transition: all 0.3s ease !important;
+            box-sizing: border-box !important;
+            white-space: nowrap !important; /* Prevent wrapping */
+        }
+
+        /* Specific Button Variants */
+        .btn-success, .btn-primary {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
+            color: white !important;
+        }
+
+        .btn-secondary {
+            background: #718096 !important;
+            color: white !important;
+        }
+        
+        .btn-danger {
+            background: #e53e3e !important;
+            color: white !important;
+        }
+
+        /* Filter Buttons - adjustment for border if needed, or standardizing */
+        .filter-btn {
+            background: white !important;
+            color: #1a3a8f !important;
+            border: 2px solid #1a3a8f !important;
+            padding: 0 18px !important; /* 20px - 2px border */
+            line-height: 38px !important; /* 42px - 4px border */
+        }
+        
+        .filter-btn.active {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
+            color: white !important;
+            border-color: transparent !important;
+            padding: 0 20px !important;
+            line-height: 42px !important;
+        }
+
+        /* Hover States */
+        .btn:hover, .filter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-success:hover, .btn-primary:hover, .filter-btn.active:hover {
+            box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
+        }
+        
+        .btn-secondary:hover {
+            background: #4a5568 !important;
+        }
+        
+        .btn-danger:hover {
+            background: #c53030 !important;
+            box-shadow: 0 5px 15px rgba(229, 62, 62, 0.3);
+        }
+        
+        /* Disabled State */
+        .btn:disabled, .filter-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        /* Icon Reset */
+        .btn i, .filter-btn i {
+            margin: 0 !important;
+            font-size: 1.1em;
+        }
     </style>
 
 </head>
+
 <body>
     <!-- Sidebar -->
     <div class="sidebar">
@@ -562,12 +746,7 @@
             </div>
             <div class="header-right">
                 <div class="profile-section">
-                    <button class="profile-btn">
-                        <div class="profile-avatar">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <span>Profile</span>
-                    </button>
+                    
                 </div>
             </div>
         </div>
@@ -575,12 +754,13 @@
         <!-- Messages -->
         <div class="messages">
             {% if messages %}
-                {% for message in messages %}
-                    <div class="{% if message.tags == 'error' %}error{% else %}success{% endif %}">
-                        <i class="fas {% if message.tags == 'error' %}fa-exclamation-circle{% else %}fa-check-circle{% endif %}"></i>
-                        {{ message }}
-                    </div>
-                {% endfor %}
+            {% for message in messages %}
+            <div class="{% if message.tags == 'error' %}error{% else %}success{% endif %}">
+                <i
+                    class="fas {% if message.tags == 'error' %}fa-exclamation-circle{% else %}fa-check-circle{% endif %}"></i>
+                {{ message }}
+            </div>
+            {% endfor %}
             {% endif %}
         </div>
 
@@ -588,18 +768,19 @@
         <div class="form-container">
             <form method="POST">
                 {% csrf_token %}
-                
+
                 <h2 class="section-title">
                     <i class="fas fa-user-tie"></i>
                     Basic Information
                 </h2>
-                
+
                 <div class="form-row">
                     <div class="form-group">
                         <label for="MentorID">
                             <i class="fas fa-id-card"></i> Mentor ID
                         </label>
-                        <input type="text" id="MentorID" name="MentorID" value="{{ mentor.MentorID }}" class="readonly-field" readonly>
+                        <input type="text" id="MentorID" name="MentorID" value="{{ mentor.MentorID }}"
+                            class="readonly-field" readonly>
                         <div class="help-text">Mentor ID cannot be changed</div>
                     </div>
 
@@ -616,7 +797,8 @@
                         <label for="MentorEmail" class="required">
                             <i class="fas fa-envelope"></i> Email Address
                         </label>
-                        <input type="email" id="MentorEmail" name="MentorEmail" value="{{ mentor.MentorEmail }}" required>
+                        <input type="email" id="MentorEmail" name="MentorEmail" value="{{ mentor.MentorEmail }}"
+                            required>
                     </div>
 
                     <div class="form-group">
@@ -642,11 +824,19 @@
                         </label>
                         <select id="MentorDepartment" name="MentorDepartment" required>
                             <option value="">Select Department</option>
-                            <option value="Accounting Department" {% if mentor.MentorDepartment == 'Accounting Department' %}selected{% endif %}>Accounting Department</option>
-                            <option value="Business Studies Department" {% if mentor.MentorDepartment == 'Business Studies Department' %}selected{% endif %}>Business Studies Department</option>
-                            <option value="Quantitative Science Department" {% if mentor.MentorDepartment == 'Quantitative Science Department' %}selected{% endif %}>Quantitative Science Department</option>
-                            <option value="Landscape and Horticulture Department" {% if mentor.MentorDepartment == 'Landscape and Horticulture Department' %}selected{% endif %}>Landscape and Horticulture Department</option>
-                            <option value="General Studies" {% if mentor.MentorDepartment == 'General Studies' %}selected{% endif %}>General Studies</option>
+                            <option value="Accounting Department" {% if mentor.MentorDepartment=='Accounting Department'
+                                %}selected{% endif %}>Accounting Department</option>
+                            <option value="Business Studies Department" {% if
+                                mentor.MentorDepartment=='Business Studies Department' %}selected{% endif %}>Business
+                                Studies Department</option>
+                            <option value="Quantitative Science Department" {% if
+                                mentor.MentorDepartment=='Quantitative Science Department' %}selected{% endif %}>
+                                Quantitative Science Department</option>
+                            <option value="Landscape and Horticulture Department" {% if
+                                mentor.MentorDepartment=='Landscape and Horticulture Department' %}selected{% endif %}>
+                                Landscape and Horticulture Department</option>
+                            <option value="General Studies" {% if mentor.MentorDepartment=='General Studies'
+                                %}selected{% endif %}>General Studies</option>
                         </select>
                     </div>
                 </div>
@@ -661,7 +851,8 @@
                         <label for="MaxMentees" class="required">
                             <i class="fas fa-user-plus"></i> Maximum Mentees
                         </label>
-                        <input type="number" id="MaxMentees" name="MaxMentees" value="{{ mentor.MaxMentees }}" min="1" max="50" required>
+                        <input type="number" id="MaxMentees" name="MaxMentees" value="{{ mentor.MaxMentees }}" min="1"
+                            max="50" required>
                         <div class="help-text">Maximum number of mentees this mentor can handle</div>
                     </div>
 
@@ -669,7 +860,8 @@
                         <label for="CurrentMentees">
                             <i class="fas fa-user-check"></i> Current Mentees
                         </label>
-                        <input type="number" id="CurrentMentees" value="{{ mentor.CurrentMentees }}" class="readonly-field" readonly>
+                        <input type="number" id="CurrentMentees" value="{{ mentor.CurrentMentees }}"
+                            class="readonly-field" readonly>
                         <div class="help-text">Automatically calculated - cannot be edited manually</div>
                     </div>
                 </div>
@@ -691,7 +883,8 @@
                         <label for="MentorPostcode">
                             <i class="fas fa-mail-bulk"></i> Postcode
                         </label>
-                        <input type="text" id="MentorPostcode" name="MentorPostcode" value="{{ mentor.MentorPostcode }}">
+                        <input type="text" id="MentorPostcode" name="MentorPostcode"
+                            value="{{ mentor.MentorPostcode }}">
                     </div>
 
                     <div class="form-group">
@@ -734,7 +927,8 @@
                     <label for="MentorJoinDate">
                         <i class="fas fa-calendar-plus"></i> Join Date
                     </label>
-                    <input type="date" id="MentorJoinDate" value="{{ mentor.MentorJoinDate|date:'Y-m-d' }}" class="readonly-field" readonly>
+                    <input type="date" id="MentorJoinDate" value="{{ mentor.MentorJoinDate|date:'Y-m-d' }}"
+                        class="readonly-field" readonly>
                     <div class="help-text">Join date cannot be changed</div>
                 </div>
 
@@ -754,10 +948,10 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // Form validation
             const form = document.querySelector('form');
-            form.addEventListener('submit', function(e) {
+            form.addEventListener('submit', function (e) {
                 const mentorName = document.getElementById('MentorName').value;
                 const mentorEmail = document.getElementById('MentorEmail').value;
                 const mentorDepartment = document.getElementById('MentorDepartment').value;
@@ -790,10 +984,10 @@
 
             // Real-time validation for email format
             const emailInput = document.getElementById('MentorEmail');
-            emailInput.addEventListener('blur', function() {
+            emailInput.addEventListener('blur', function () {
                 const email = this.value;
                 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                
+
                 if (email && !emailRegex.test(email)) {
                     this.style.borderColor = '#e53e3e';
                     this.style.backgroundColor = '#fed7d7';
@@ -805,10 +999,10 @@
 
             // Real-time validation for phone number
             const phoneInput = document.getElementById('MentorPhone');
-            phoneInput.addEventListener('blur', function() {
+            phoneInput.addEventListener('blur', function () {
                 const phone = this.value;
                 const phoneRegex = /^[0-9+\-\s()]{10,}$/;
-                
+
                 if (phone && !phoneRegex.test(phone)) {
                     this.style.borderColor = '#e53e3e';
                     this.style.backgroundColor = '#fed7d7';
@@ -819,7 +1013,7 @@
             });
 
             // Profile button functionality
-            document.querySelector('.profile-btn').addEventListener('click', function() {
+            document.querySelector('.profile-btn').addEventListener('click', function () {
                 alert('Profile page would open here!');
                 // In a real application, this would navigate to the profile page
                 // window.location.href = '/profile/';
@@ -831,7 +1025,7 @@
                 group.style.opacity = '0';
                 group.style.transform = 'translateY(20px)';
                 group.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
-                
+
                 setTimeout(() => {
                     group.style.opacity = '1';
                     group.style.transform = 'translateY(0)';
@@ -850,4 +1044,5 @@
         });
     </script>
 </body>
+
 </html>

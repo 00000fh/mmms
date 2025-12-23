@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,23 +20,109 @@
             align-items: center;
             z-index: 10000;
         }
-        
+
         .modal-content {
             background: white;
             padding: 30px;
-            border-radius: 15px;
+            border-radius: 10px;
             max-width: 800px;
             width: 90%;
             max-height: 90vh;
             overflow-y: auto;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
-        
+
         .detail-section {
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             padding: 20px;
             background: #f8f9ff;
             border-radius: 10px;
             border-left: 4px solid #1a3a8f;
+        }
+            /* Unified Button System - Enforce Consistency */
+        .btn, .btn-primary, .btn-secondary, .btn-danger, .btn-success, .filter-btn, .action-btn {
+            padding: 0 20px !important;
+            height: 42px !important; /* Fixed height for consistency */
+            line-height: 42px !important; /* Vertical centering */
+            border: none !important;
+            border-radius: 8px !important;
+            cursor: pointer;
+            text-decoration: none !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 8px !important; /* Standard icon spacing */
+            font-size: 14px !important;
+            font-weight: 600 !important;
+            transition: all 0.3s ease !important;
+            box-sizing: border-box !important;
+            white-space: nowrap !important; /* Prevent wrapping */
+        }
+
+        /* Specific Button Variants */
+        .btn-success, .btn-primary {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
+            color: white !important;
+        }
+
+        .btn-secondary {
+            background: #718096 !important;
+            color: white !important;
+        }
+        
+        .btn-danger {
+            background: #e53e3e !important;
+            color: white !important;
+        }
+
+        /* Filter Buttons - adjustment for border if needed, or standardizing */
+        .filter-btn {
+            background: white !important;
+            color: #1a3a8f !important;
+            border: 2px solid #1a3a8f !important;
+            padding: 0 18px !important; /* 20px - 2px border */
+            line-height: 38px !important; /* 42px - 4px border */
+        }
+        
+        .filter-btn.active {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
+            color: white !important;
+            border-color: transparent !important;
+            padding: 0 20px !important;
+            line-height: 42px !important;
+        }
+
+        /* Hover States */
+        .btn:hover, .filter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-success:hover, .btn-primary:hover, .filter-btn.active:hover {
+            box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
+        }
+        
+        .btn-secondary:hover {
+            background: #4a5568 !important;
+        }
+        
+        .btn-danger:hover {
+            background: #c53030 !important;
+            box-shadow: 0 5px 15px rgba(229, 62, 62, 0.3);
+        }
+        
+        /* Disabled State */
+        .btn:disabled, .filter-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        /* Icon Reset */
+        .btn i, .filter-btn i {
+            margin: 0 !important;
+            font-size: 1.1em;
         }
     </style>
 
@@ -55,9 +142,95 @@
         html {
             -ms-overflow-style: none;
         }
+            /* Unified Button System - Enforce Consistency */
+        .btn, .btn-primary, .btn-secondary, .btn-danger, .btn-success, .filter-btn, .action-btn {
+            padding: 0 20px !important;
+            height: 42px !important; /* Fixed height for consistency */
+            line-height: 42px !important; /* Vertical centering */
+            border: none !important;
+            border-radius: 8px !important;
+            cursor: pointer;
+            text-decoration: none !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 8px !important; /* Standard icon spacing */
+            font-size: 14px !important;
+            font-weight: 600 !important;
+            transition: all 0.3s ease !important;
+            box-sizing: border-box !important;
+            white-space: nowrap !important; /* Prevent wrapping */
+        }
+
+        /* Specific Button Variants */
+        .btn-success, .btn-primary {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
+            color: white !important;
+        }
+
+        .btn-secondary {
+            background: #718096 !important;
+            color: white !important;
+        }
+        
+        .btn-danger {
+            background: #e53e3e !important;
+            color: white !important;
+        }
+
+        /* Filter Buttons - adjustment for border if needed, or standardizing */
+        .filter-btn {
+            background: white !important;
+            color: #1a3a8f !important;
+            border: 2px solid #1a3a8f !important;
+            padding: 0 18px !important; /* 20px - 2px border */
+            line-height: 38px !important; /* 42px - 4px border */
+        }
+        
+        .filter-btn.active {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
+            color: white !important;
+            border-color: transparent !important;
+            padding: 0 20px !important;
+            line-height: 42px !important;
+        }
+
+        /* Hover States */
+        .btn:hover, .filter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-success:hover, .btn-primary:hover, .filter-btn.active:hover {
+            box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
+        }
+        
+        .btn-secondary:hover {
+            background: #4a5568 !important;
+        }
+        
+        .btn-danger:hover {
+            background: #c53030 !important;
+            box-shadow: 0 5px 15px rgba(229, 62, 62, 0.3);
+        }
+        
+        /* Disabled State */
+        .btn:disabled, .filter-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        /* Icon Reset */
+        .btn i, .filter-btn i {
+            margin: 0 !important;
+            font-size: 1.1em;
+        }
     </style>
 
 </head>
+
 <body>
     <div class="modal-overlay">
         <div class="modal-content">
@@ -78,7 +251,7 @@
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
                     <div>
                         <strong>Assignment ID:</strong> {{ assignment.id }}<br>
-                        <strong>Status:</strong> 
+                        <strong>Status:</strong>
                         <span class="status-badge 
                             {% if assignment.assignment_status == 'active' %}status-active
                             {% elif assignment.assignment_status == 'completed' %}status-completed
@@ -116,7 +289,8 @@
                     <div>
                         <strong>Email:</strong> {{ assignment.mentor.MentorEmail }}<br>
                         <strong>Join Date:</strong> {{ assignment.mentor.MentorJoinDate|date:"M d, Y" }}<br>
-                        <strong>Current Mentees:</strong> {{ assignment.mentor.current_mentees_count }}/{{ assignment.mentor.MaxMentees }}
+                        <strong>Current Mentees:</strong> {{ assignment.mentor.current_mentees_count }}/{{
+                        assignment.mentor.MaxMentees }}
                     </div>
                 </div>
             </div>
@@ -135,8 +309,9 @@
                     </div>
                     <div>
                         <strong>Email:</strong> {{ assignment.mentee.MenteeEmail }}<br>
-                        <strong>Gender:</strong> 
-                        <span class="gender-badge {% if assignment.mentee.MenteeGender == 'male' %}gender-male{% else %}gender-female{% endif %}">
+                        <strong>Gender:</strong>
+                        <span
+                            class="gender-badge {% if assignment.mentee.MenteeGender == 'male' %}gender-male{% else %}gender-female{% endif %}">
                             {{ assignment.mentee.MenteeGender|title }}
                         </span><br>
                         <strong>Join Date:</strong> {{ assignment.mentee.MenteeJoinDate|date:"M d, Y" }}
@@ -155,7 +330,8 @@
                         <div style="font-size: 14px; color: #718096;">Total Activities</div>
                     </div>
                     <div>
-                        <div style="font-size: 24px; font-weight: bold; color: #2e7d32;">{{ completed_activities }}</div>
+                        <div style="font-size: 24px; font-weight: bold; color: #2e7d32;">{{ completed_activities }}
+                        </div>
                         <div style="font-size: 14px; color: #718096;">Completed</div>
                     </div>
                     <div>
@@ -219,4 +395,5 @@
         </div>
     </div>
 </body>
+
 </html>

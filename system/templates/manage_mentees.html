@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -393,6 +394,7 @@
                 opacity: 0;
                 transform: translateY(-8px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -635,8 +637,8 @@
         }
 
         /* Status and Badge Styles - SMALLER */
-        .status-active { 
-            color: #2e7d32; 
+        .status-active {
+            color: #2e7d32;
             font-weight: 600;
             background: #e8f5e8;
             padding: 4px 10px;
@@ -655,8 +657,8 @@
             border-radius: 50%;
         }
 
-        .status-inactive { 
-            color: #c62828; 
+        .status-inactive {
+            color: #c62828;
             font-weight: 600;
             background: #ffebee;
             padding: 4px 10px;
@@ -675,8 +677,8 @@
             border-radius: 50%;
         }
 
-        .status-graduated { 
-            color: #1565c0; 
+        .status-graduated {
+            color: #1565c0;
             font-weight: 600;
             background: #e3f2fd;
             padding: 4px 10px;
@@ -695,16 +697,16 @@
             border-radius: 50%;
         }
 
-        .course-badge { 
-            background: #e8f5e8; 
-            color: #2e7d32; 
-            padding: 4px 10px; 
-            border-radius: 8px; 
-            font-size: 10px; 
-            font-weight: 600; 
+        .course-badge {
+            background: #e8f5e8;
+            color: #2e7d32;
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 10px;
+            font-weight: 600;
             display: inline-block;
         }
-        
+
         .unassigned-badge {
             background: #ffebee;
             color: #c62828;
@@ -731,6 +733,7 @@
         .pagination-info {
             color: #718096;
             font-weight: 500;
+
         }
 
         .pagination {
@@ -872,6 +875,7 @@
                 opacity: 0;
                 transform: translateY(-8px) scale(0.95);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0) scale(1);
@@ -888,6 +892,7 @@
                 opacity: 0;
                 transform: translateY(8px) scale(0.95);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0) scale(1);
@@ -1130,6 +1135,7 @@
             .sidebar {
                 width: 240px;
             }
+
             .main-content {
                 margin-left: 240px;
             }
@@ -1141,45 +1147,52 @@
                 height: auto;
                 position: relative;
             }
+
             .main-content {
                 margin-left: 0;
                 padding: 16px;
             }
+
             .content-header {
                 flex-direction: column;
                 text-align: center;
                 padding: 16px;
             }
+
             .controls {
                 flex-direction: column;
                 align-items: stretch;
             }
+
             .search-container {
                 max-width: 100%;
             }
+
             .status-filter-dropdown,
             .sort-filter-dropdown {
                 width: 100%;
             }
+
             .mentee-table-container {
                 overflow-x: auto;
                 max-height: 65vh;
                 overflow-y: auto;
             }
+
             .mentee-table th,
             .mentee-table td {
                 padding: 10px 12px;
                 font-size: 11px;
                 height: 48px;
             }
-            
+
             /* Pagination responsive */
             .pagination-container {
                 flex-direction: column;
                 gap: 12px;
                 padding: 12px;
             }
-            
+
             /* Adjust dropdown for mobile */
             .dropdown-menu {
                 position: fixed !important;
@@ -1191,7 +1204,7 @@
                 width: 90%;
                 max-width: 240px;
             }
-            
+
             /* Toast adjustments for mobile */
             .toast-container {
                 bottom: 16px;
@@ -1206,14 +1219,99 @@
                 flex-wrap: wrap;
                 justify-content: center;
             }
-            
+
             .pagination-info {
                 text-align: center;
             }
-            
+
             .records-per-page {
                 justify-content: center;
             }
+        }
+            /* Unified Button System - Enforce Consistency */
+        .btn, .btn-primary, .btn-secondary, .btn-danger, .btn-success, .filter-btn, .action-btn {
+            padding: 0 20px !important;
+            height: 42px !important; /* Fixed height for consistency */
+            line-height: 42px !important; /* Vertical centering */
+            border: none !important;
+            border-radius: 8px !important;
+            cursor: pointer;
+            text-decoration: none !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 8px !important; /* Standard icon spacing */
+            font-size: 14px !important;
+            font-weight: 600 !important;
+            transition: all 0.3s ease !important;
+            box-sizing: border-box !important;
+            white-space: nowrap !important; /* Prevent wrapping */
+        }
+
+        /* Specific Button Variants */
+        .btn-success, .btn-primary {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
+            color: white !important;
+        }
+
+        .btn-secondary {
+            background: #718096 !important;
+            color: white !important;
+        }
+        
+        .btn-danger {
+            background: #e53e3e !important;
+            color: white !important;
+        }
+
+        /* Filter Buttons - adjustment for border if needed, or standardizing */
+        .filter-btn {
+            background: white !important;
+            color: #1a3a8f !important;
+            border: 2px solid #1a3a8f !important;
+            padding: 0 18px !important; /* 20px - 2px border */
+            line-height: 38px !important; /* 42px - 4px border */
+        }
+        
+        .filter-btn.active {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
+            color: white !important;
+            border-color: transparent !important;
+            padding: 0 20px !important;
+            line-height: 42px !important;
+        }
+
+        /* Hover States */
+        .btn:hover, .filter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-success:hover, .btn-primary:hover, .filter-btn.active:hover {
+            box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
+        }
+        
+        .btn-secondary:hover {
+            background: #4a5568 !important;
+        }
+        
+        .btn-danger:hover {
+            background: #c53030 !important;
+            box-shadow: 0 5px 15px rgba(229, 62, 62, 0.3);
+        }
+        
+        /* Disabled State */
+        .btn:disabled, .filter-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        /* Icon Reset */
+        .btn i, .filter-btn i {
+            margin: 0 !important;
+            font-size: 1.1em;
         }
     </style>
 
@@ -1233,9 +1331,95 @@
         html {
             -ms-overflow-style: none;
         }
+            /* Unified Button System - Enforce Consistency */
+        .btn, .btn-primary, .btn-secondary, .btn-danger, .btn-success, .filter-btn, .action-btn {
+            padding: 0 20px !important;
+            height: 42px !important; /* Fixed height for consistency */
+            line-height: 42px !important; /* Vertical centering */
+            border: none !important;
+            border-radius: 8px !important;
+            cursor: pointer;
+            text-decoration: none !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 8px !important; /* Standard icon spacing */
+            font-size: 14px !important;
+            font-weight: 600 !important;
+            transition: all 0.3s ease !important;
+            box-sizing: border-box !important;
+            white-space: nowrap !important; /* Prevent wrapping */
+        }
+
+        /* Specific Button Variants */
+        .btn-success, .btn-primary {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
+            color: white !important;
+        }
+
+        .btn-secondary {
+            background: #718096 !important;
+            color: white !important;
+        }
+        
+        .btn-danger {
+            background: #e53e3e !important;
+            color: white !important;
+        }
+
+        /* Filter Buttons - adjustment for border if needed, or standardizing */
+        .filter-btn {
+            background: white !important;
+            color: #1a3a8f !important;
+            border: 2px solid #1a3a8f !important;
+            padding: 0 18px !important; /* 20px - 2px border */
+            line-height: 38px !important; /* 42px - 4px border */
+        }
+        
+        .filter-btn.active {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
+            color: white !important;
+            border-color: transparent !important;
+            padding: 0 20px !important;
+            line-height: 42px !important;
+        }
+
+        /* Hover States */
+        .btn:hover, .filter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-success:hover, .btn-primary:hover, .filter-btn.active:hover {
+            box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
+        }
+        
+        .btn-secondary:hover {
+            background: #4a5568 !important;
+        }
+        
+        .btn-danger:hover {
+            background: #c53030 !important;
+            box-shadow: 0 5px 15px rgba(229, 62, 62, 0.3);
+        }
+        
+        /* Disabled State */
+        .btn:disabled, .filter-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        /* Icon Reset */
+        .btn i, .filter-btn i {
+            margin: 0 !important;
+            font-size: 1.1em;
+        }
     </style>
 
 </head>
+
 <body>
     <!-- Sidebar -->
     <div class="sidebar">
@@ -1311,12 +1495,7 @@
                     <i class="fas fa-plus"></i>
                     Add New Mentee
                 </a>
-                <button class="profile-btn">
-                    <div class="profile-avatar">
-                        <i class="fas fa-user"></i>
-                    </div>
-                    <span>Profile</span>
-                </button>
+                
             </div>
         </div>
 
@@ -1325,16 +1504,16 @@
             <!-- Search bar -->
             <div class="search-container">
                 <i class="fas fa-search"></i>
-                <input type="text" class="search-input" id="searchInput" 
-                       placeholder="Search by ID, Name, Course, or Mentor" 
-                       value="{{ search_query }}" onkeyup="filterMentees()">
+                <input type="text" class="search-input" id="searchInput"
+                    placeholder="Search by ID, Name, Course, or Mentor" value="{{ search_query }}"
+                    onkeyup="filterMentees()">
                 {% if search_query %}
                 <button class="clear-search-btn" onclick="clearSearch()">
                     <i class="fas fa-times"></i>
                 </button>
                 {% endif %}
             </div>
-            
+
             <!-- Status Dropdown Filter -->
             <div class="status-filter-dropdown" id="statusFilterDropdown">
                 <button class="status-dropdown-toggle" id="statusDropdownToggle" onclick="toggleStatusDropdown(event)">
@@ -1345,7 +1524,8 @@
                     <i class="fas fa-chevron-down"></i>
                 </button>
                 <div class="status-dropdown-menu" id="statusDropdownMenu">
-                    <div class="status-dropdown-item active" data-status="all" onclick="selectStatus('all', 'All Status')">
+                    <div class="status-dropdown-item active" data-status="all"
+                        onclick="selectStatus('all', 'All Status')">
                         <span class="status-indicator all"></span>
                         All Status
                         <i class="fas fa-check" style="margin-left: auto;"></i>
@@ -1354,21 +1534,24 @@
                         <span class="status-indicator active"></span>
                         Active
                     </div>
-                    <div class="status-dropdown-item" data-status="inactive" onclick="selectStatus('inactive', 'Inactive')">
+                    <div class="status-dropdown-item" data-status="inactive"
+                        onclick="selectStatus('inactive', 'Inactive')">
                         <span class="status-indicator inactive"></span>
                         Inactive
                     </div>
-                    <div class="status-dropdown-item" data-status="graduated" onclick="selectStatus('graduated', 'Graduated')">
+                    <div class="status-dropdown-item" data-status="graduated"
+                        onclick="selectStatus('graduated', 'Graduated')">
                         <span class="status-indicator graduated"></span>
                         Graduated
                     </div>
-                    <div class="status-dropdown-item" data-status="unassigned" onclick="selectStatus('unassigned', 'Unassigned')">
+                    <div class="status-dropdown-item" data-status="unassigned"
+                        onclick="selectStatus('unassigned', 'Unassigned')">
                         <span class="status-indicator unassigned"></span>
                         Unassigned
                     </div>
                 </div>
             </div>
-            
+
             <!-- NEW: Sorting Dropdown -->
             <div class="sort-filter-dropdown" id="sortFilterDropdown">
                 <button class="sort-dropdown-toggle" id="sortDropdownToggle" onclick="toggleSortDropdown(event)">
@@ -1379,7 +1562,8 @@
                     <i class="fas fa-chevron-down"></i>
                 </button>
                 <div class="sort-dropdown-menu" id="sortDropdownMenu">
-                    <div class="sort-dropdown-item active" data-sort="latest" onclick="selectSort('latest', 'Latest Created')">
+                    <div class="sort-dropdown-item active" data-sort="latest"
+                        onclick="selectSort('latest', 'Latest Created')">
                         <i class="fas fa-calendar-plus"></i>
                         Latest Created
                         <i class="fas fa-check" style="margin-left: auto;"></i>
@@ -1400,7 +1584,8 @@
                         <i class="fas fa-sort-alpha-down"></i>
                         Name (A-Z)
                     </div>
-                    <div class="sort-dropdown-item" data-sort="name_desc" onclick="selectSort('name_desc', 'Name (Z-A)')">
+                    <div class="sort-dropdown-item" data-sort="name_desc"
+                        onclick="selectSort('name_desc', 'Name (Z-A)')">
                         <i class="fas fa-sort-alpha-up"></i>
                         Name (Z-A)
                     </div>
@@ -1426,26 +1611,25 @@
                 </thead>
                 <tbody id="menteeTableBody">
                     {% for mentee in mentees %}
-                    <tr class="mentee-row" 
-                        data-status="{{ mentee.MenteeStatus }}" 
+                    <tr class="mentee-row" data-status="{{ mentee.MenteeStatus }}"
                         data-gender="{{ mentee.MenteeGender }}"
                         data-assigned="{% if mentee.assigned_mentor %}assigned{% else %}unassigned{% endif %}"
-                        data-view-url="{% url 'view_mentee' mentee.MenteeID %}"
-                        data-mentee-id="{{ mentee.MenteeID }}"
+                        data-view-url="{% url 'view_mentee' mentee.MenteeID %}" data-mentee-id="{{ mentee.MenteeID }}"
                         data-mentee-name="{{ mentee.MenteeName }}"
                         data-created-date="{{ mentee.MenteeJoinDate|date:'Y-m-d' }}">
-                        
+
                         <!-- Profile Picture Column -->
                         <td>
                             {% if mentee.profile_picture %}
-                                <img src="{{ mentee.profile_picture.url }}" alt="{{ mentee.MenteeName }}" class="profile-picture">
+                            <img src="{{ mentee.profile_picture.url }}" alt="{{ mentee.MenteeName }}"
+                                class="profile-picture">
                             {% else %}
-                                <div class="profile-picture-placeholder">
-                                    <i class="fas fa-user"></i>
-                                </div>
+                            <div class="profile-picture-placeholder">
+                                <i class="fas fa-user"></i>
+                            </div>
                             {% endif %}
                         </td>
-                        
+
                         <td><strong>{{ mentee.MenteeID }}</strong></td>
                         <td>{{ mentee.MenteeName }}</td>
                         <td>
@@ -1454,9 +1638,9 @@
                         <td>{{ mentee.MenteeSemester }}</td>
                         <td>
                             {% if mentee.assigned_mentor %}
-                                {{ mentee.assigned_mentor.MentorName }}
+                            {{ mentee.assigned_mentor.MentorName }}
                             {% else %}
-                                <span class="unassigned-badge">Not Assigned</span>
+                            <span class="unassigned-badge">Not Assigned</span>
                             {% endif %}
                         </td>
                         <td>
@@ -1467,7 +1651,8 @@
                         <td>
                             <!-- Horizontal 3-Dots Dropdown -->
                             <div class="dropdown" id="dropdown-{{ mentee.MenteeID }}">
-                                <button class="dropdown-toggle" type="button" onclick="toggleDropdown('{{ mentee.MenteeID }}', event)">
+                                <button class="dropdown-toggle" type="button"
+                                    onclick="toggleDropdown('{{ mentee.MenteeID }}', event)">
                                     <i class="fas fa-ellipsis-h"></i>
                                 </button>
                                 <div class="dropdown-menu" id="menu-{{ mentee.MenteeID }}">
@@ -1475,12 +1660,12 @@
                                         <i class="fas fa-edit"></i>
                                         Edit
                                     </a>
-                                    <form method="POST" action="{% url 'delete_mentee' mentee.MenteeID %}" style="display: none;" 
-                                          id="delete-form-{{ mentee.MenteeID }}">
+                                    <form method="POST" action="{% url 'delete_mentee' mentee.MenteeID %}"
+                                        style="display: none;" id="delete-form-{{ mentee.MenteeID }}">
                                         {% csrf_token %}
                                     </form>
-                                    <a href="#" class="dropdown-item delete" 
-                                       onclick="confirmDelete('{{ mentee.MenteeID }}', '{{ mentee.MenteeName }}')">
+                                    <a href="#" class="dropdown-item delete"
+                                        onclick="confirmDelete('{{ mentee.MenteeID }}', '{{ mentee.MenteeName }}')">
                                         <i class="fas fa-trash"></i>
                                         Delete
                                     </a>
@@ -1498,51 +1683,51 @@
             <div class="pagination-info" id="paginationInfo">
                 Showing {{ mentees.start_index }} to {{ mentees.end_index }} of {{ mentees.paginator.count }} records
             </div>
-            
+
             <div class="pagination">
                 {% if mentees.has_previous %}
-                    <button class="page-btn" onclick="goToPage(1)">
-                        <i class="fas fa-angle-double-left"></i>
-                    </button>
-                    <button class="page-btn" onclick="goToPage({{ mentees.previous_page_number }})">
-                        <i class="fas fa-angle-left"></i>
-                    </button>
+                <button class="page-btn" onclick="goToPage(1)">
+                    <i class="fas fa-angle-double-left"></i>
+                </button>
+                <button class="page-btn" onclick="goToPage({{ mentees.previous_page_number }})">
+                    <i class="fas fa-angle-left"></i>
+                </button>
                 {% else %}
-                    <button class="page-btn" disabled>
-                        <i class="fas fa-angle-double-left"></i>
-                    </button>
-                    <button class="page-btn" disabled>
-                        <i class="fas fa-angle-left"></i>
-                    </button>
+                <button class="page-btn" disabled>
+                    <i class="fas fa-angle-double-left"></i>
+                </button>
+                <button class="page-btn" disabled>
+                    <i class="fas fa-angle-left"></i>
+                </button>
                 {% endif %}
 
                 {% for num in mentees.paginator.page_range %}
-                    {% if mentees.number == num %}
-                        <button class="page-btn active">{{ num }}</button>
-                    {% elif num > mentees.number|add:'-3' and num < mentees.number|add:'3' %}
-                        <button class="page-btn" onclick="goToPage({{ num }})">{{ num }}</button>
+                {% if mentees.number == num %}
+                <button class="page-btn active">{{ num }}</button>
+                {% elif num > mentees.number|add:'-3' and num < mentees.number|add:'3' %} <button class="page-btn"
+                    onclick="goToPage({{ num }})">{{ num }}</button>
                     {% elif num == mentees.number|add:'-3' or num == mentees.number|add:'3' %}
-                        <span class="page-ellipsis">...</span>
+                    <span class="page-ellipsis">...</span>
                     {% endif %}
-                {% endfor %}
+                    {% endfor %}
 
-                {% if mentees.has_next %}
+                    {% if mentees.has_next %}
                     <button class="page-btn" onclick="goToPage({{ mentees.next_page_number }})">
                         <i class="fas fa-angle-right"></i>
                     </button>
                     <button class="page-btn" onclick="goToPage({{ mentees.paginator.num_pages }})">
                         <i class="fas fa-angle-double-right"></i>
                     </button>
-                {% else %}
+                    {% else %}
                     <button class="page-btn" disabled>
                         <i class="fas fa-angle-right"></i>
                     </button>
                     <button class="page-btn" disabled>
                         <i class="fas fa-angle-double-right"></i>
                     </button>
-                {% endif %}
+                    {% endif %}
             </div>
-            
+
             <div class="records-per-page">
                 <span>Show</span>
                 <select id="recordsPerPage" onchange="changeRecordsPerPage(this.value)">
@@ -1584,12 +1769,12 @@
         // =================== Sorting Functionality ===================
         let sortDropdownOpen = false;
         let currentSort = 'latest'; // Default sort
-        
+
         function toggleSortDropdown(event) {
             const dropdownMenu = document.getElementById('sortDropdownMenu');
             const dropdownToggle = document.getElementById('sortDropdownToggle');
             const backdrop = document.getElementById('sortDropdownBackdrop');
-            
+
             if (sortDropdownOpen) {
                 closeSortDropdown();
             } else {
@@ -1598,28 +1783,28 @@
                 backdrop.style.display = 'block';
                 sortDropdownOpen = true;
             }
-            
+
             event.stopPropagation();
         }
-        
+
         function closeSortDropdown() {
             const dropdownMenu = document.getElementById('sortDropdownMenu');
             const dropdownToggle = document.getElementById('sortDropdownToggle');
             const backdrop = document.getElementById('sortDropdownBackdrop');
-            
+
             dropdownMenu.classList.remove('show');
             dropdownToggle.classList.remove('active');
             backdrop.style.display = 'none';
             sortDropdownOpen = false;
         }
-        
+
         function selectSort(sortType, label) {
             // Update button label
             document.getElementById('currentSortLabel').innerHTML = `
                 <i class="fas ${getSortIcon(sortType)}"></i>
                 ${label}
             `;
-            
+
             // Update active item in dropdown
             const dropdownItems = document.querySelectorAll('.sort-dropdown-item');
             dropdownItems.forEach(item => {
@@ -1628,7 +1813,7 @@
                 if (checkIcon) {
                     checkIcon.remove();
                 }
-                
+
                 if (item.getAttribute('data-sort') === sortType) {
                     item.classList.add('active');
                     const icon = document.createElement('i');
@@ -1637,15 +1822,15 @@
                     item.appendChild(icon);
                 }
             });
-            
+
             // Close dropdown
             closeSortDropdown();
-            
+
             // Apply sort
             currentSort = sortType;
             applySorting();
         }
-        
+
         function getSortIcon(sortType) {
             const iconMap = {
                 'latest': 'fa-calendar-plus',
@@ -1657,17 +1842,17 @@
             };
             return iconMap[sortType] || 'fa-sort';
         }
-        
+
         function parseMenteeId(menteeId) {
             // Parse mentee ID into components for sorting
             // Format: BCS2311-001
             // Where: B[CS] = Program, 23 = Year, 11 = Intake Month, 001 = Running Number
-            
+
             const match = menteeId.match(/^([A-Z]+)(\d{2})(\d{2})-(\d+)$/);
             if (!match) return { program: '', year: 0, month: 0, number: 0 };
-            
+
             const [, program, yearStr, monthStr, numberStr] = match;
-            
+
             return {
                 program: program,
                 year: parseInt(yearStr),
@@ -1675,44 +1860,44 @@
                 number: parseInt(numberStr)
             };
         }
-        
+
         function compareMenteeIds(a, b) {
             // Custom comparison for mentee IDs
             const aParts = parseMenteeId(a);
             const bParts = parseMenteeId(b);
-            
+
             // Priority 1: Program (CS, DA, DB, LH, IEP, CFAB)
             const programOrder = { 'CS': 1, 'DA': 2, 'DB': 3, 'LH': 4, 'IEP': 5, 'CFAB': 6 };
             const aProgramOrder = programOrder[aParts.program] || 999;
             const bProgramOrder = programOrder[bParts.program] || 999;
-            
+
             if (aProgramOrder !== bProgramOrder) {
                 return aProgramOrder - bProgramOrder;
             }
-            
+
             // Priority 2: Year (older years first)
             if (aParts.year !== bParts.year) {
                 return aParts.year - bParts.year;
             }
-            
+
             // Priority 3: Intake month (11, 7, 3 - November, July, March)
             // Convert to comparable order: 11=1, 7=2, 3=3 (later months first)
             const monthOrder = { 11: 1, 7: 2, 3: 3 };
             const aMonthOrder = monthOrder[aParts.month] || 4;
             const bMonthOrder = monthOrder[bParts.month] || 4;
-            
+
             if (aMonthOrder !== bMonthOrder) {
                 return aMonthOrder - bMonthOrder;
             }
-            
+
             // Priority 4: Running number
             return aParts.number - bParts.number;
         }
-        
+
         function applySorting() {
             const tbody = document.getElementById('menteeTableBody');
             const rows = Array.from(tbody.querySelectorAll('.mentee-row:not([style*="display: none"])'));
-            
+
             rows.sort((a, b) => {
                 const aId = a.getAttribute('data-mentee-id');
                 const bId = b.getAttribute('data-mentee-id');
@@ -1720,8 +1905,8 @@
                 const bName = b.getAttribute('data-mentee-name').toLowerCase();
                 const aDate = new Date(a.getAttribute('data-created-date'));
                 const bDate = new Date(b.getAttribute('data-created-date'));
-                
-                switch(currentSort) {
+
+                switch (currentSort) {
                     case 'latest':
                         return bDate - aDate; // Newest first
                     case 'oldest':
@@ -1738,32 +1923,32 @@
                         return 0;
                 }
             });
-            
+
             // Reorder rows in the table
             rows.forEach(row => tbody.appendChild(row));
-            
+
             // Update pagination info
             updatePaginationInfo();
         }
-        
+
         function updatePaginationInfo() {
             const visibleRows = document.querySelectorAll('.mentee-row:not([style*="display: none"])');
             const startIndex = 1;
             const endIndex = visibleRows.length;
             const totalRecords = visibleRows.length;
-            
-            document.getElementById('paginationInfo').textContent = 
+
+            document.getElementById('paginationInfo').textContent =
                 `Showing ${startIndex} to ${endIndex} of ${totalRecords} records`;
         }
-        
+
         // =================== Status Filter Functionality ===================
         let statusDropdownOpen = false;
-        
+
         function toggleStatusDropdown(event) {
             const dropdownMenu = document.getElementById('statusDropdownMenu');
             const dropdownToggle = document.getElementById('statusDropdownToggle');
             const backdrop = document.getElementById('statusDropdownBackdrop');
-            
+
             if (statusDropdownOpen) {
                 closeStatusDropdown();
             } else {
@@ -1772,27 +1957,27 @@
                 backdrop.style.display = 'block';
                 statusDropdownOpen = true;
             }
-            
+
             event.stopPropagation();
         }
-        
+
         function closeStatusDropdown() {
             const dropdownMenu = document.getElementById('statusDropdownMenu');
             const dropdownToggle = document.getElementById('statusDropdownToggle');
             const backdrop = document.getElementById('statusDropdownBackdrop');
-            
+
             dropdownMenu.classList.remove('show');
             dropdownToggle.classList.remove('active');
             backdrop.style.display = 'none';
             statusDropdownOpen = false;
         }
-        
+
         function selectStatus(status, label) {
             document.getElementById('currentStatusLabel').innerHTML = `
                 <span class="status-indicator ${status}"></span>
                 ${label}
             `;
-            
+
             const dropdownItems = document.querySelectorAll('.status-dropdown-item');
             dropdownItems.forEach(item => {
                 item.classList.remove('active');
@@ -1800,7 +1985,7 @@
                 if (checkIcon) {
                     checkIcon.remove();
                 }
-                
+
                 if (item.getAttribute('data-status') === status) {
                     item.classList.add('active');
                     const icon = document.createElement('i');
@@ -1809,17 +1994,17 @@
                     item.appendChild(icon);
                 }
             });
-            
+
             closeStatusDropdown();
             filterByStatus(status);
         }
-        
+
         // =================== Search Functionality ===================
         function filterMentees() {
             const input = document.getElementById('searchInput');
             const filter = input.value.toLowerCase();
             const rows = document.getElementsByClassName('mentee-row');
-            
+
             for (let i = 0; i < rows.length; i++) {
                 const row = rows[i];
                 const text = row.textContent.toLowerCase();
@@ -1829,23 +2014,23 @@
                     row.style.display = 'none';
                 }
             }
-            
+
             // Re-apply sorting after filtering
             setTimeout(() => {
                 applySorting();
             }, 100);
         }
-        
+
         function clearSearch() {
             document.getElementById('searchInput').value = '';
             filterMentees();
             applySorting();
             document.querySelector('.clear-search-btn')?.remove();
         }
-        
+
         function filterByStatus(status) {
             const rows = document.getElementsByClassName('mentee-row');
-            
+
             for (let i = 0; i < rows.length; i++) {
                 const row = rows[i];
                 if (status === 'all') {
@@ -1864,13 +2049,13 @@
                     }
                 }
             }
-            
+
             // Re-apply sorting after filtering
             setTimeout(() => {
                 applySorting();
             }, 100);
         }
-        
+
         // =================== 3-Dots Dropdown Functionality ===================
         let activeDropdown = null;
 
@@ -1878,11 +2063,11 @@
             const dropdown = document.getElementById(`dropdown-${menteeId}`);
             const menu = document.getElementById(`menu-${menteeId}`);
             const backdrop = document.getElementById('dropdownBackdrop');
-            
+
             if (activeDropdown && activeDropdown !== menu) {
                 activeDropdown.classList.remove('show');
             }
-            
+
             if (menu.classList.contains('show')) {
                 menu.classList.remove('show');
                 backdrop.style.display = 'none';
@@ -1892,23 +2077,23 @@
                 const table = document.querySelector('.mentee-table-container');
                 const tableRect = table.getBoundingClientRect();
                 const dropdownRect = dropdown.getBoundingClientRect();
-                
+
                 const spaceBelow = tableRect.bottom - dropdownRect.bottom;
                 const spaceAbove = dropdownRect.top - tableRect.top;
                 const menuHeight = 110;
-                
+
                 menu.classList.remove('open-up', 'open-down');
-                
+
                 if (spaceBelow < menuHeight && spaceAbove > menuHeight) {
                     menu.classList.add('open-up');
                 } else {
                     menu.classList.add('open-down');
                 }
-                
+
                 const menuWidth = 140;
                 const spaceRight = tableRect.right - dropdownRect.right;
                 const spaceLeft = dropdownRect.left - tableRect.left;
-                
+
                 if (spaceRight < menuWidth && spaceLeft > menuWidth) {
                     menu.style.left = 'auto';
                     menu.style.right = '0';
@@ -1916,15 +2101,15 @@
                     menu.style.left = 'auto';
                     menu.style.right = '0';
                 }
-                
+
                 menu.classList.add('show');
                 backdrop.style.display = 'block';
                 activeDropdown = menu;
             }
-            
+
             event.stopPropagation();
         }
-        
+
         function closeAllDropdowns() {
             const dropdowns = document.querySelectorAll('.dropdown-menu');
             dropdowns.forEach(dropdown => {
@@ -1935,63 +2120,63 @@
             document.getElementById('dropdownBackdrop').style.display = 'none';
             activeDropdown = null;
         }
-        
+
         // =================== Event Listeners ===================
-        document.addEventListener('click', function(event) {
+        document.addEventListener('click', function (event) {
             // Close status dropdown when clicking outside
             if (!event.target.closest('.status-filter-dropdown') && statusDropdownOpen) {
                 closeStatusDropdown();
             }
-            
+
             // Close sort dropdown when clicking outside
             if (!event.target.closest('.sort-filter-dropdown') && sortDropdownOpen) {
                 closeSortDropdown();
             }
-            
+
             // Close 3-dots dropdowns when clicking outside
             if (!event.target.closest('.dropdown')) {
                 closeAllDropdowns();
             }
         });
-        
-        document.addEventListener('keydown', function(event) {
+
+        document.addEventListener('keydown', function (event) {
             if (event.key === 'Escape') {
                 if (statusDropdownOpen) closeStatusDropdown();
                 if (sortDropdownOpen) closeSortDropdown();
                 closeAllDropdowns();
             }
         });
-        
+
         // Make entire row clickable
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const rows = document.querySelectorAll('.mentee-row');
-            
+
             rows.forEach(row => {
-                row.addEventListener('click', function(event) {
-                    if (event.target.closest('.dropdown') || 
+                row.addEventListener('click', function (event) {
+                    if (event.target.closest('.dropdown') ||
                         event.target.closest('td:last-child')) {
                         return;
                     }
-                    
+
                     const viewUrl = row.getAttribute('data-view-url');
                     if (viewUrl) {
                         window.location.href = viewUrl;
                     }
                 });
-                
+
                 const cells = row.querySelectorAll('td:not(:last-child)');
                 cells.forEach(cell => {
                     cell.style.cursor = 'pointer';
                 });
             });
-            
+
             // Apply initial sorting
             applySorting();
-            
+
             // Search input event listener
             const searchInput = document.getElementById('searchInput');
             if (searchInput) {
-                searchInput.addEventListener('input', function() {
+                searchInput.addEventListener('input', function () {
                     const clearBtn = document.querySelector('.clear-search-btn');
                     if (this.value && !clearBtn) {
                         const searchContainer = document.querySelector('.search-container');
@@ -2005,7 +2190,7 @@
                     }
                 });
             }
-            
+
             // Initialize clear button if search query exists
             if (searchInput && searchInput.value) {
                 const searchContainer = document.querySelector('.search-container');
@@ -2015,19 +2200,19 @@
                 clearBtn.onclick = clearSearch;
                 searchContainer.appendChild(clearBtn);
             }
-            
+
             // Show toast notifications for Django messages
             {% if messages %}
-                {% for message in messages %}
-                    showToast(
-                        '{{ message.tags|title }}', 
-                        '{{ message }}', 
-                        '{{ message.tags }}' === 'error' ? 'error' : 'success'
-                    );
-                {% endfor %}
+            {% for message in messages %}
+            showToast(
+                '{{ message.tags|title }}',
+                '{{ message }}',
+                '{{ message.tags }}' === 'error' ? 'error' : 'success'
+            );
+            {% endfor %}
             {% endif %}
         });
-        
+
         // =================== Other Functions ===================
         function confirmDelete(menteeId, menteeName) {
             if (confirm(`Are you sure you want to delete "${menteeName}"? This action cannot be undone.`)) {
@@ -2036,28 +2221,28 @@
             closeAllDropdowns();
             return false;
         }
-        
+
         function goToPage(page) {
             const url = new URL(window.location.href);
             url.searchParams.set('page', page);
             window.location.href = url.toString();
         }
-        
+
         function changeRecordsPerPage(value) {
             const url = new URL(window.location.href);
             url.searchParams.set('per_page', value);
             url.searchParams.set('page', 1);
             window.location.href = url.toString();
         }
-        
+
         function showToast(title, message, type = 'success') {
             const toastContainer = document.getElementById('toastContainer');
             const toastId = 'toast-' + Date.now();
-            
+
             const toast = document.createElement('div');
             toast.className = `toast toast-${type}`;
             toast.id = toastId;
-            
+
             toast.innerHTML = `
                 <div class="toast-icon">
                     <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
@@ -2070,18 +2255,18 @@
                     <i class="fas fa-times"></i>
                 </button>
             `;
-            
+
             toastContainer.appendChild(toast);
-            
+
             setTimeout(() => {
                 toast.classList.add('show');
             }, 10);
-            
+
             setTimeout(() => {
                 closeToast(toastId);
             }, 5000);
         }
-        
+
         function closeToast(toastId) {
             const toast = document.getElementById(toastId);
             if (toast) {
@@ -2095,4 +2280,5 @@
         }
     </script>
 </body>
+
 </html>

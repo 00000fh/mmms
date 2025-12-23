@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -178,16 +179,16 @@
             margin-left: 260px;
             min-height: 100vh;
             background: #f5f7fa;
-            padding: 24px;
+            padding: 20px;
         }
 
         /* Updated Content Header */
         .content-header {
             background: white;
-            padding: 20px 24px;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-            margin-bottom: 24px;
+            padding: 18px 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+            margin-bottom: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -207,14 +208,14 @@
         }
 
         .content-header h1 {
-            font-size: 24px;
+            font-size: 22px;
             color: #2d3748;
             margin-bottom: 4px;
         }
 
         .content-header p {
             color: #718096;
-            font-size: 14px;
+            font-size: 13px;
         }
 
         /* Profile Button Styles */
@@ -281,7 +282,7 @@
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
         }
-        
+
         .btn-secondary {
             background: #718096;
             color: white;
@@ -293,14 +294,14 @@
         }
 
         /* Profile Card - Consistent spacing */
-        .profile-card { 
-            background: white; 
-            padding: 24px; 
-            border-radius: 12px; 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08); 
-            margin-bottom: 24px; 
+        .profile-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            margin-bottom: 20px;
         }
-        
+
         /* Mentor Profile Picture Section - BIGGER and CENTERED */
         .mentor-profile-section {
             display: flex;
@@ -308,25 +309,30 @@
             justify-content: center;
             gap: 40px;
             margin-bottom: 24px;
-            padding: 40px 50px;
+            padding: 20px;
             background: #f8f9ff;
-            border-radius: 12px;
+            border-radius: 10px;
             border: 2px solid #e2e8f0;
             text-align: left;
         }
 
         .mentor-avatar {
-            width: 180px; /* Increased from 120px */
-            height: 180px; /* Increased from 120px */
+            width: 180px;
+            /* Increased from 120px */
+            height: 180px;
+            /* Increased from 120px */
             border-radius: 50%;
             background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 50px; /* Increased from 40px */
+            font-size: 50px;
+            /* Increased from 40px */
             color: white;
-            border: 5px solid white; /* Slightly thicker border */
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15); /* Enhanced shadow */
+            border: 5px solid white;
+            /* Slightly thicker border */
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            /* Enhanced shadow */
             overflow: hidden;
             position: relative;
             flex-shrink: 0;
@@ -350,13 +356,16 @@
         .mentor-basic-info {
             display: flex;
             flex-direction: column;
-            gap: 5px; /* Increased gap for better spacing */
+            gap: 5px;
+            /* Increased gap for better spacing */
             flex: 1;
-            max-width: 450px; /* Slightly wider */
+            max-width: 450px;
+            /* Slightly wider */
         }
 
         .mentor-basic-info h3 {
-            font-size: 22px; /* Increased from 28px */
+            font-size: 22px;
+            /* Increased from 28px */
             color: #2d3748;
             margin-bottom: 0;
             font-weight: 700;
@@ -368,32 +377,36 @@
             display: flex;
             align-items: center;
             gap: 5px;
-            font-size: 14px; /* Slightly larger text */
-            padding: 6px 0; /* More padding for better spacing */
+            font-size: 14px;
+            /* Slightly larger text */
+            padding: 6px 0;
+            /* More padding for better spacing */
         }
 
         .mentor-basic-info p i {
             color: #1a3a8f;
-            width: 20px; /* Slightly wider for better alignment */
+            width: 20px;
+            /* Slightly wider for better alignment */
             text-align: center;
-            font-size: 16px; /* Slightly larger icons */
+            font-size: 16px;
+            /* Slightly larger icons */
         }
 
         /* Tab Styles */
         .tab-container {
             margin-bottom: 24px;
         }
-        
+
         .tab-navigation {
             display: flex;
             background: white;
-            border-radius: 12px;
+            border-radius: 10px;
             padding: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
             margin-bottom: 0;
             overflow-x: auto;
         }
-        
+
         .tab-button {
             flex: 1;
             padding: 12px 16px;
@@ -412,35 +425,42 @@
             gap: 8px;
             white-space: nowrap;
         }
-        
+
         .tab-button:hover {
             color: #1a3a8f;
             background: rgba(26, 58, 143, 0.05);
         }
-        
+
         .tab-button.active {
             color: white;
             background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
             box-shadow: 0 2px 8px rgba(26, 58, 143, 0.3);
         }
-        
+
         .tab-content {
             display: none;
             background: white;
-            border-radius: 12px;
-            padding: 24px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            margin-bottom: 24px;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            margin-bottom: 20px;
             animation: fadeIn 0.5s ease;
         }
-        
+
         .tab-content.active {
             display: block;
         }
-        
+
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* Form Styles for Readonly Fields */
@@ -456,7 +476,9 @@
             font-size: 14px;
         }
 
-        input, select, textarea {
+        input,
+        select,
+        textarea {
             width: 100%;
             padding: 12px 15px;
             border: 1px solid #e2e8f0;
@@ -509,9 +531,9 @@
 
         .stat-card {
             background: white;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            padding: 16px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
             text-align: center;
             border-left: 4px solid #1a3a8f;
         }
@@ -530,13 +552,13 @@
         }
 
         /* Department Badge */
-        .department-badge { 
-            background: #e3f2fd; 
-            color: #1565c0; 
-            padding: 6px 12px; 
-            border-radius: 12px; 
-            font-size: 12px; 
-            font-weight: 600; 
+        .department-badge {
+            background: #e3f2fd;
+            color: #1565c0;
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
             display: inline-block;
         }
 
@@ -545,6 +567,7 @@
             .sidebar {
                 width: 240px;
             }
+
             .main-content {
                 margin-left: 240px;
             }
@@ -556,45 +579,58 @@
                 height: auto;
                 position: relative;
             }
+
             .main-content {
                 margin-left: 0;
                 padding: 16px;
             }
+
             .content-header {
                 flex-direction: column;
                 text-align: center;
             }
+
             .header-right {
                 justify-content: center;
                 width: 100%;
             }
+
             .mentor-profile-section {
                 padding: 30px 20px;
                 flex-direction: column;
                 text-align: center;
                 gap: 25px;
             }
+
             .mentor-avatar {
-                width: 140px; /* Adjusted for mobile */
-                height: 140px; /* Adjusted for mobile */
-                font-size: 42px; /* Adjusted for mobile */
+                width: 140px;
+                /* Adjusted for mobile */
+                height: 140px;
+                /* Adjusted for mobile */
+                font-size: 42px;
+                /* Adjusted for mobile */
             }
+
             .mentor-basic-info h3 {
-                font-size: 26px; /* Adjusted for mobile */
+                font-size: 26px;
+                /* Adjusted for mobile */
             }
+
             .form-row {
                 flex-direction: column;
                 gap: 0;
             }
+
             .tab-navigation {
                 flex-direction: column;
                 gap: 8px;
             }
-            
+
             .tab-button {
                 justify-content: flex-start;
                 padding: 12px 16px;
             }
+
             .stats-grid {
                 grid-template-columns: 1fr;
             }
@@ -605,21 +641,115 @@
                 flex-direction: column;
                 width: 100%;
             }
+
             .btn {
                 width: 100%;
                 justify-content: center;
             }
+
             .mentor-avatar {
-                width: 120px; /* Smaller for very small screens */
-                height: 120px; /* Smaller for very small screens */
-                font-size: 36px; /* Smaller for very small screens */
+                width: 120px;
+                /* Smaller for very small screens */
+                height: 120px;
+                /* Smaller for very small screens */
+                font-size: 36px;
+                /* Smaller for very small screens */
             }
+
             .mentor-basic-info h3 {
-                font-size: 22px; /* Smaller for very small screens */
+                font-size: 22px;
+                /* Smaller for very small screens */
             }
+
             .mentor-basic-info p {
-                font-size: 14px; /* Smaller for very small screens */
+                font-size: 14px;
+                /* Smaller for very small screens */
             }
+        }
+            /* Unified Button System - Enforce Consistency */
+        .btn, .btn-primary, .btn-secondary, .btn-danger, .btn-success, .filter-btn, .action-btn {
+            padding: 0 20px !important;
+            height: 42px !important; /* Fixed height for consistency */
+            line-height: 42px !important; /* Vertical centering */
+            border: none !important;
+            border-radius: 8px !important;
+            cursor: pointer;
+            text-decoration: none !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 8px !important; /* Standard icon spacing */
+            font-size: 14px !important;
+            font-weight: 600 !important;
+            transition: all 0.3s ease !important;
+            box-sizing: border-box !important;
+            white-space: nowrap !important; /* Prevent wrapping */
+        }
+
+        /* Specific Button Variants */
+        .btn-success, .btn-primary {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
+            color: white !important;
+        }
+
+        .btn-secondary {
+            background: #718096 !important;
+            color: white !important;
+        }
+        
+        .btn-danger {
+            background: #e53e3e !important;
+            color: white !important;
+        }
+
+        /* Filter Buttons - adjustment for border if needed, or standardizing */
+        .filter-btn {
+            background: white !important;
+            color: #1a3a8f !important;
+            border: 2px solid #1a3a8f !important;
+            padding: 0 18px !important; /* 20px - 2px border */
+            line-height: 38px !important; /* 42px - 4px border */
+        }
+        
+        .filter-btn.active {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
+            color: white !important;
+            border-color: transparent !important;
+            padding: 0 20px !important;
+            line-height: 42px !important;
+        }
+
+        /* Hover States */
+        .btn:hover, .filter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-success:hover, .btn-primary:hover, .filter-btn.active:hover {
+            box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
+        }
+        
+        .btn-secondary:hover {
+            background: #4a5568 !important;
+        }
+        
+        .btn-danger:hover {
+            background: #c53030 !important;
+            box-shadow: 0 5px 15px rgba(229, 62, 62, 0.3);
+        }
+        
+        /* Disabled State */
+        .btn:disabled, .filter-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        /* Icon Reset */
+        .btn i, .filter-btn i {
+            margin: 0 !important;
+            font-size: 1.1em;
         }
     </style>
 
@@ -639,9 +769,95 @@
         html {
             -ms-overflow-style: none;
         }
+            /* Unified Button System - Enforce Consistency */
+        .btn, .btn-primary, .btn-secondary, .btn-danger, .btn-success, .filter-btn, .action-btn {
+            padding: 0 20px !important;
+            height: 42px !important; /* Fixed height for consistency */
+            line-height: 42px !important; /* Vertical centering */
+            border: none !important;
+            border-radius: 8px !important;
+            cursor: pointer;
+            text-decoration: none !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 8px !important; /* Standard icon spacing */
+            font-size: 14px !important;
+            font-weight: 600 !important;
+            transition: all 0.3s ease !important;
+            box-sizing: border-box !important;
+            white-space: nowrap !important; /* Prevent wrapping */
+        }
+
+        /* Specific Button Variants */
+        .btn-success, .btn-primary {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
+            color: white !important;
+        }
+
+        .btn-secondary {
+            background: #718096 !important;
+            color: white !important;
+        }
+        
+        .btn-danger {
+            background: #e53e3e !important;
+            color: white !important;
+        }
+
+        /* Filter Buttons - adjustment for border if needed, or standardizing */
+        .filter-btn {
+            background: white !important;
+            color: #1a3a8f !important;
+            border: 2px solid #1a3a8f !important;
+            padding: 0 18px !important; /* 20px - 2px border */
+            line-height: 38px !important; /* 42px - 4px border */
+        }
+        
+        .filter-btn.active {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
+            color: white !important;
+            border-color: transparent !important;
+            padding: 0 20px !important;
+            line-height: 42px !important;
+        }
+
+        /* Hover States */
+        .btn:hover, .filter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-success:hover, .btn-primary:hover, .filter-btn.active:hover {
+            box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
+        }
+        
+        .btn-secondary:hover {
+            background: #4a5568 !important;
+        }
+        
+        .btn-danger:hover {
+            background: #c53030 !important;
+            box-shadow: 0 5px 15px rgba(229, 62, 62, 0.3);
+        }
+        
+        /* Disabled State */
+        .btn:disabled, .filter-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        /* Icon Reset */
+        .btn i, .filter-btn i {
+            margin: 0 !important;
+            font-size: 1.1em;
+        }
     </style>
 
 </head>
+
 <body>
     <!-- Sidebar -->
     <div class="sidebar">
@@ -722,12 +938,7 @@
                     Edit Mentor
                 </a>
                 <div class="profile-section">
-                    <button class="profile-btn">
-                        <div class="profile-avatar">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <span>Profile</span>
-                    </button>
+                    
                 </div>
             </div>
         </div>
@@ -749,9 +960,9 @@
             <div class="stat-card">
                 <div class="stat-value">
                     {% if assigned_mentees %}
-                        {{ assigned_mentees.count }}
+                    {{ assigned_mentees.count }}
                     {% else %}
-                        0
+                    0
                     {% endif %}
                 </div>
                 <div class="stat-label">Total Assigned</div>
@@ -762,10 +973,11 @@
         <div class="mentor-profile-section">
             <div class="mentor-avatar">
                 {% if mentor.profile_picture %}
-                    <img src="{{ mentor.profile_picture.url }}" alt="{{ mentor.MentorName }}'s Profile Picture" id="mentorProfilePic">
-                    <i class="fas fa-user-tie" id="mentorProfileIcon" style="display: none;"></i>
+                <img src="{{ mentor.profile_picture.url }}" alt="{{ mentor.MentorName }}'s Profile Picture"
+                    id="mentorProfilePic">
+                <i class="fas fa-user-tie" id="mentorProfileIcon" style="display: none;"></i>
                 {% else %}
-                    <i class="fas fa-user-tie" id="mentorProfileIcon"></i>
+                <i class="fas fa-user-tie" id="mentorProfileIcon"></i>
                 {% endif %}
             </div>
             <div class="mentor-basic-info">
@@ -810,7 +1022,8 @@
                         <label for="MentorName">
                             <i class="fas fa-signature"></i> Full Name
                         </label>
-                        <input type="text" id="MentorName" value="{{ mentor.MentorName }}" class="readonly-field" readonly>
+                        <input type="text" id="MentorName" value="{{ mentor.MentorName }}" class="readonly-field"
+                            readonly>
                     </div>
                     <div class="form-group">
                         <label for="MentorID">
@@ -825,13 +1038,15 @@
                         <label for="MentorEmail">
                             <i class="fas fa-envelope"></i> Email
                         </label>
-                        <input type="email" id="MentorEmail" value="{{ mentor.MentorEmail }}" class="readonly-field" readonly>
+                        <input type="email" id="MentorEmail" value="{{ mentor.MentorEmail }}" class="readonly-field"
+                            readonly>
                     </div>
                     <div class="form-group">
                         <label for="MentorPhone">
                             <i class="fas fa-phone"></i> Phone Number
                         </label>
-                        <input type="text" id="MentorPhone" value="{{ mentor.MentorPhone|default:'Not set' }}" class="readonly-field" readonly>
+                        <input type="text" id="MentorPhone" value="{{ mentor.MentorPhone|default:'Not set' }}"
+                            class="readonly-field" readonly>
                     </div>
                 </div>
 
@@ -840,13 +1055,15 @@
                         <label for="MentorIC">
                             <i class="fas fa-fingerprint"></i> IC Number
                         </label>
-                        <input type="text" id="MentorIC" value="{{ mentor.MentorIC|default:'Not set' }}" class="readonly-field" readonly>
+                        <input type="text" id="MentorIC" value="{{ mentor.MentorIC|default:'Not set' }}"
+                            class="readonly-field" readonly>
                     </div>
                     <div class="form-group">
                         <label for="MentorJoinDate">
                             <i class="fas fa-calendar-plus"></i> Join Date
                         </label>
-                        <input type="text" id="MentorJoinDate" value="{{ mentor.MentorJoinDate|date:'F d, Y' }}" class="readonly-field" readonly>
+                        <input type="text" id="MentorJoinDate" value="{{ mentor.MentorJoinDate|date:'F d, Y' }}"
+                            class="readonly-field" readonly>
                     </div>
                 </div>
 
@@ -860,7 +1077,8 @@
                     <label for="MentorAddress">
                         <i class="fas fa-home"></i> Address
                     </label>
-                    <textarea id="MentorAddress" class="readonly-field" rows="3" readonly>{{ mentor.MentorAddress|default:'Not set' }}</textarea>
+                    <textarea id="MentorAddress" class="readonly-field" rows="3"
+                        readonly>{{ mentor.MentorAddress|default:'Not set' }}</textarea>
                 </div>
 
                 <div class="form-row">
@@ -868,19 +1086,22 @@
                         <label for="MentorCity">
                             <i class="fas fa-city"></i> City
                         </label>
-                        <input type="text" id="MentorCity" value="{{ mentor.MentorCity|default:'Not set' }}" class="readonly-field" readonly>
+                        <input type="text" id="MentorCity" value="{{ mentor.MentorCity|default:'Not set' }}"
+                            class="readonly-field" readonly>
                     </div>
                     <div class="form-group">
                         <label for="MentorState">
                             <i class="fas fa-map"></i> State
                         </label>
-                        <input type="text" id="MentorState" value="{{ mentor.MentorState|default:'Not set' }}" class="readonly-field" readonly>
+                        <input type="text" id="MentorState" value="{{ mentor.MentorState|default:'Not set' }}"
+                            class="readonly-field" readonly>
                     </div>
                     <div class="form-group">
                         <label for="MentorPostcode">
                             <i class="fas fa-mail-bulk"></i> Postcode
                         </label>
-                        <input type="text" id="MentorPostcode" value="{{ mentor.MentorPostcode|default:'Not set' }}" class="readonly-field" readonly>
+                        <input type="text" id="MentorPostcode" value="{{ mentor.MentorPostcode|default:'Not set' }}"
+                            class="readonly-field" readonly>
                     </div>
                 </div>
 
@@ -895,13 +1116,15 @@
                         <label for="MentorRace">
                             <i class="fas fa-globe-asia"></i> Race
                         </label>
-                        <input type="text" id="MentorRace" value="{{ mentor.MentorRace|default:'Not set' }}" class="readonly-field" readonly>
+                        <input type="text" id="MentorRace" value="{{ mentor.MentorRace|default:'Not set' }}"
+                            class="readonly-field" readonly>
                     </div>
                     <div class="form-group">
                         <label for="MentorReligion">
                             <i class="fas fa-pray"></i> Religion
                         </label>
-                        <input type="text" id="MentorReligion" value="{{ mentor.MentorReligion|default:'Not set' }}" class="readonly-field" readonly>
+                        <input type="text" id="MentorReligion" value="{{ mentor.MentorReligion|default:'Not set' }}"
+                            class="readonly-field" readonly>
                     </div>
                 </div>
             </div>
@@ -918,13 +1141,15 @@
                         <label for="MentorDepartment">
                             <i class="fas fa-building"></i> Department
                         </label>
-                        <input type="text" id="MentorDepartment" value="{{ mentor.MentorDepartment }}" class="readonly-field" readonly>
+                        <input type="text" id="MentorDepartment" value="{{ mentor.MentorDepartment }}"
+                            class="readonly-field" readonly>
                     </div>
                     <div class="form-group">
                         <label for="MaxMentees">
                             <i class="fas fa-users"></i> Maximum Mentees
                         </label>
-                        <input type="number" id="MaxMentees" value="{{ mentor.MaxMentees }}" class="readonly-field" readonly>
+                        <input type="number" id="MaxMentees" value="{{ mentor.MaxMentees }}" class="readonly-field"
+                            readonly>
                     </div>
                 </div>
 
@@ -933,13 +1158,15 @@
                         <label for="CurrentMentees">
                             <i class="fas fa-user-check"></i> Current Mentees
                         </label>
-                        <input type="number" id="CurrentMentees" value="{{ mentor.CurrentMentees }}" class="readonly-field" readonly>
+                        <input type="number" id="CurrentMentees" value="{{ mentor.CurrentMentees }}"
+                            class="readonly-field" readonly>
                     </div>
                     <div class="form-group">
                         <label for="vacancy_count">
                             <i class="fas fa-user-plus"></i> Available Slots
                         </label>
-                        <input type="number" id="vacancy_count" value="{{ mentor.vacancy_count }}" class="readonly-field" readonly>
+                        <input type="number" id="vacancy_count" value="{{ mentor.vacancy_count }}"
+                            class="readonly-field" readonly>
                     </div>
                 </div>
 
@@ -958,11 +1185,12 @@
                             {% if mentor.vacancy_count >= 10 %}high
                             {% elif mentor.vacancy_count >= 5 %}medium
                             {% elif mentor.vacancy_count > 0 %}low
-                            {% else %}full{% endif %}" 
+                            {% else %}full{% endif %}"
                             style="width: {% widthratio mentor.CurrentMentees mentor.MaxMentees 100 %}%">
                         </div>
                     </div>
-                    <div style="display: flex; justify-content: space-between; margin-top: 8px; font-size: 12px; color: #718096;">
+                    <div
+                        style="display: flex; justify-content: space-between; margin-top: 8px; font-size: 12px; color: #718096;">
                         <span>{{ mentor.CurrentMentees }} / {{ mentor.MaxMentees }} mentees</span>
                         <span>{{ mentor.vacancy_count }} slots available</span>
                     </div>
@@ -981,11 +1209,15 @@
                     <table style="width: 100%; border-collapse: collapse;">
                         <thead>
                             <tr style="background: #f8f9ff;">
-                                <th style="padding: 12px; text-align: left; border-bottom: 2px solid #e2e8f0;">Mentee ID</th>
+                                <th style="padding: 12px; text-align: left; border-bottom: 2px solid #e2e8f0;">Mentee ID
+                                </th>
                                 <th style="padding: 12px; text-align: left; border-bottom: 2px solid #e2e8f0;">Name</th>
-                                <th style="padding: 12px; text-align: left; border-bottom: 2px solid #e2e8f0;">Course</th>
-                                <th style="padding: 12px; text-align: left; border-bottom: 2px solid #e2e8f0;">Semester</th>
-                                <th style="padding: 12px; text-align: left; border-bottom: 2px solid #e2e8f0;">Status</th>
+                                <th style="padding: 12px; text-align: left; border-bottom: 2px solid #e2e8f0;">Course
+                                </th>
+                                <th style="padding: 12px; text-align: left; border-bottom: 2px solid #e2e8f0;">Semester
+                                </th>
+                                <th style="padding: 12px; text-align: left; border-bottom: 2px solid #e2e8f0;">Status
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -996,7 +1228,8 @@
                                 <td style="padding: 12px;">{{ mentee.MenteeCourse }}</td>
                                 <td style="padding: 12px;">{{ mentee.MenteeSemester }}</td>
                                 <td style="padding: 12px;">
-                                    <span style="background: #e8f5e8; color: #2e7d32; padding: 4px 8px; border-radius: 8px; font-size: 11px; font-weight: 600;">
+                                    <span
+                                        style="background: #e8f5e8; color: #2e7d32; padding: 4px 8px; border-radius: 8px; font-size: 11px; font-weight: 600;">
                                         {{ mentee.get_MenteeStatus_display }}
                                     </span>
                                 </td>
@@ -1018,34 +1251,34 @@
 
     <script>
         // Tab functionality
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // Update mentor profile picture display
             function updateMentorProfilePictureDisplay() {
                 const mentorAvatar = document.querySelector('.mentor-avatar');
                 const mentorImg = mentorAvatar.querySelector('img');
                 const mentorIcon = mentorAvatar.querySelector('i');
-                
+
                 // If mentor profile picture exists, show image and hide icon
                 if (mentorImg && mentorImg.src) {
                     mentorImg.style.display = 'block';
                     mentorIcon.style.display = 'none';
                 }
             }
-            
+
             // Initialize profile picture displays
             updateMentorProfilePictureDisplay();
-            
+
             const tabButtons = document.querySelectorAll('.tab-button');
             const tabContents = document.querySelectorAll('.tab-content');
-            
+
             tabButtons.forEach(button => {
                 button.addEventListener('click', () => {
                     const tabId = button.getAttribute('data-tab');
-                    
+
                     // Remove active class from all buttons and contents
                     tabButtons.forEach(btn => btn.classList.remove('active'));
                     tabContents.forEach(content => content.classList.remove('active'));
-                    
+
                     // Add active class to clicked button and corresponding content
                     button.classList.add('active');
                     document.getElementById(`${tabId}-tab`).classList.add('active');
@@ -1056,19 +1289,20 @@
             const currentPage = window.location.pathname;
             document.querySelectorAll('.nav-link').forEach(link => {
                 if (link.getAttribute('href') === '{% url 'manage_mentors' %}') {
-                    link.classList.add('active');
-                } else {
-                    link.classList.remove('active');
-                }
-            });
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
 
-            // Profile button functionality
-            document.querySelector('.profile-btn').addEventListener('click', function() {
-                alert('Profile page would open here!');
-                // In a real application, this would navigate to the profile page
-                // window.location.href = '/profile/';
-            });
+        // Profile button functionality
+        document.querySelector('.profile-btn').addEventListener('click', function () {
+            alert('Profile page would open here!');
+            // In a real application, this would navigate to the profile page
+            // window.location.href = '/profile/';
+        });
         });
     </script>
 </body>
+
 </html>

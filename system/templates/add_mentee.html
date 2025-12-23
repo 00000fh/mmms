@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -178,16 +179,16 @@
             margin-left: 260px;
             min-height: 100vh;
             background: #f5f7fa;
-            padding: 24px;
+            padding: 20px;
         }
 
         /* Updated Content Header with Profile Button */
         .content-header {
             background: white;
-            padding: 20px 24px;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-            margin-bottom: 24px;
+            padding: 18px 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+            margin-bottom: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -207,14 +208,14 @@
         }
 
         .content-header h1 {
-            font-size: 24px;
+            font-size: 22px;
             color: #2d3748;
             margin-bottom: 4px;
         }
 
         .content-header p {
             color: #718096;
-            font-size: 14px;
+            font-size: 13px;
         }
 
         /* Profile Button Styles */
@@ -259,10 +260,10 @@
         /* Form Container - Consistent spacing */
         .form-container {
             background: white;
-            border-radius: 12px;
-            padding: 24px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            margin-bottom: 24px;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            margin-bottom: 20px;
         }
 
         .form-group {
@@ -282,7 +283,8 @@
             color: #d32f2f;
         }
 
-        input, select {
+        input,
+        select {
             width: 100%;
             padding: 12px 16px;
             border: 2px solid #e2e8f0;
@@ -292,7 +294,8 @@
             background: #f8f9ff;
         }
 
-        input:focus, select:focus {
+        input:focus,
+        select:focus {
             outline: none;
             border-color: #1a3a8f;
             box-shadow: 0 0 0 3px rgba(26, 58, 143, 0.1);
@@ -482,6 +485,7 @@
             .sidebar {
                 width: 240px;
             }
+
             .main-content {
                 margin-left: 240px;
             }
@@ -493,29 +497,36 @@
                 height: auto;
                 position: relative;
             }
+
             .main-content {
                 margin-left: 0;
                 padding: 16px;
             }
+
             .content-header {
                 flex-direction: column;
                 text-align: center;
             }
+
             .header-right {
                 justify-content: center;
                 width: 100%;
             }
+
             .form-row {
                 grid-template-columns: 1fr;
                 gap: 0;
             }
+
             .form-actions {
                 flex-direction: column;
             }
+
             .form-actions .btn {
                 width: 100%;
                 justify-content: center;
             }
+
             /* Toast adjustments for mobile */
             .toast-container {
                 bottom: 16px;
@@ -530,10 +541,96 @@
                 flex-direction: column;
                 width: 100%;
             }
+
             .btn {
                 width: 100%;
                 justify-content: center;
             }
+        }
+            /* Unified Button System - Enforce Consistency */
+        .btn, .btn-primary, .btn-secondary, .btn-danger, .btn-success, .filter-btn, .action-btn {
+            padding: 0 20px !important;
+            height: 42px !important; /* Fixed height for consistency */
+            line-height: 42px !important; /* Vertical centering */
+            border: none !important;
+            border-radius: 8px !important;
+            cursor: pointer;
+            text-decoration: none !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 8px !important; /* Standard icon spacing */
+            font-size: 14px !important;
+            font-weight: 600 !important;
+            transition: all 0.3s ease !important;
+            box-sizing: border-box !important;
+            white-space: nowrap !important; /* Prevent wrapping */
+        }
+
+        /* Specific Button Variants */
+        .btn-success, .btn-primary {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
+            color: white !important;
+        }
+
+        .btn-secondary {
+            background: #718096 !important;
+            color: white !important;
+        }
+        
+        .btn-danger {
+            background: #e53e3e !important;
+            color: white !important;
+        }
+
+        /* Filter Buttons - adjustment for border if needed, or standardizing */
+        .filter-btn {
+            background: white !important;
+            color: #1a3a8f !important;
+            border: 2px solid #1a3a8f !important;
+            padding: 0 18px !important; /* 20px - 2px border */
+            line-height: 38px !important; /* 42px - 4px border */
+        }
+        
+        .filter-btn.active {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
+            color: white !important;
+            border-color: transparent !important;
+            padding: 0 20px !important;
+            line-height: 42px !important;
+        }
+
+        /* Hover States */
+        .btn:hover, .filter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-success:hover, .btn-primary:hover, .filter-btn.active:hover {
+            box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
+        }
+        
+        .btn-secondary:hover {
+            background: #4a5568 !important;
+        }
+        
+        .btn-danger:hover {
+            background: #c53030 !important;
+            box-shadow: 0 5px 15px rgba(229, 62, 62, 0.3);
+        }
+        
+        /* Disabled State */
+        .btn:disabled, .filter-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        /* Icon Reset */
+        .btn i, .filter-btn i {
+            margin: 0 !important;
+            font-size: 1.1em;
         }
     </style>
 
@@ -553,9 +650,95 @@
         html {
             -ms-overflow-style: none;
         }
+            /* Unified Button System - Enforce Consistency */
+        .btn, .btn-primary, .btn-secondary, .btn-danger, .btn-success, .filter-btn, .action-btn {
+            padding: 0 20px !important;
+            height: 42px !important; /* Fixed height for consistency */
+            line-height: 42px !important; /* Vertical centering */
+            border: none !important;
+            border-radius: 8px !important;
+            cursor: pointer;
+            text-decoration: none !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 8px !important; /* Standard icon spacing */
+            font-size: 14px !important;
+            font-weight: 600 !important;
+            transition: all 0.3s ease !important;
+            box-sizing: border-box !important;
+            white-space: nowrap !important; /* Prevent wrapping */
+        }
+
+        /* Specific Button Variants */
+        .btn-success, .btn-primary {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
+            color: white !important;
+        }
+
+        .btn-secondary {
+            background: #718096 !important;
+            color: white !important;
+        }
+        
+        .btn-danger {
+            background: #e53e3e !important;
+            color: white !important;
+        }
+
+        /* Filter Buttons - adjustment for border if needed, or standardizing */
+        .filter-btn {
+            background: white !important;
+            color: #1a3a8f !important;
+            border: 2px solid #1a3a8f !important;
+            padding: 0 18px !important; /* 20px - 2px border */
+            line-height: 38px !important; /* 42px - 4px border */
+        }
+        
+        .filter-btn.active {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
+            color: white !important;
+            border-color: transparent !important;
+            padding: 0 20px !important;
+            line-height: 42px !important;
+        }
+
+        /* Hover States */
+        .btn:hover, .filter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-success:hover, .btn-primary:hover, .filter-btn.active:hover {
+            box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
+        }
+        
+        .btn-secondary:hover {
+            background: #4a5568 !important;
+        }
+        
+        .btn-danger:hover {
+            background: #c53030 !important;
+            box-shadow: 0 5px 15px rgba(229, 62, 62, 0.3);
+        }
+        
+        /* Disabled State */
+        .btn:disabled, .filter-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        /* Icon Reset */
+        .btn i, .filter-btn i {
+            margin: 0 !important;
+            font-size: 1.1em;
+        }
     </style>
 
 </head>
+
 <body>
     <!-- Sidebar -->
     <div class="sidebar">
@@ -632,12 +815,7 @@
                     Back to Mentees
                 </a>
                 <div class="profile-section">
-                    <button class="profile-btn">
-                        <div class="profile-avatar">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <span>Profile</span>
-                    </button>
+                    
                 </div>
             </div>
         </div>
@@ -646,27 +824,24 @@
         <div class="form-container">
             <form method="POST" action="{% url 'add_mentee' %}">
                 {% csrf_token %}
-                
+
                 <div class="form-group">
                     <label for="MenteeName">Full Name <span class="required">*</span></label>
-                    <input type="text" id="MenteeName" name="MenteeName" required 
-                           placeholder="e.g., John Smith">
+                    <input type="text" id="MenteeName" name="MenteeName" required placeholder="e.g., John Smith">
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
                         <label for="MenteeIC">IC Number <span class="required">*</span></label>
-                        <input type="text" id="MenteeIC" name="MenteeIC" required 
-                               placeholder="e.g., 010203045678"
-                               pattern="[0-9]{12}"
-                               title="Enter 12-digit IC number without dashes">
+                        <input type="text" id="MenteeIC" name="MenteeIC" required placeholder="e.g., 010203045678"
+                            pattern="[0-9]{12}" title="Enter 12-digit IC number without dashes">
                         <div class="help-text">12-digit IC number (without dashes)</div>
                     </div>
 
                     <div class="form-group">
                         <label for="MenteeEmail">Email Address <span class="required">*</span></label>
-                        <input type="email" id="MenteeEmail" name="MenteeEmail" required 
-                               placeholder="e.g., john.smith@student.edu">
+                        <input type="email" id="MenteeEmail" name="MenteeEmail" required
+                            placeholder="e.g., john.smith@student.edu">
                     </div>
                 </div>
 
@@ -710,10 +885,8 @@
 
                     <div class="form-group">
                         <label for="RunningNumber">Running Number <span class="required">*</span></label>
-                        <input type="number" id="RunningNumber" name="RunningNumber" required 
-                               min="1" max="999" 
-                               placeholder="e.g., 017"
-                               title="Enter running number (001-999)">
+                        <input type="number" id="RunningNumber" name="RunningNumber" required min="1" max="999"
+                            placeholder="e.g., 017" title="Enter running number (001-999)">
                         <div class="help-text">3-digit running number (e.g., 017)</div>
                     </div>
                 </div>
@@ -781,11 +954,11 @@
         function showToast(title, message, type = 'success') {
             const toastContainer = document.getElementById('toastContainer');
             const toastId = 'toast-' + Date.now();
-            
+
             const toast = document.createElement('div');
             toast.className = `toast toast-${type}`;
             toast.id = toastId;
-            
+
             toast.innerHTML = `
                 <div class="toast-icon">
                     <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
@@ -798,20 +971,20 @@
                     <i class="fas fa-times"></i>
                 </button>
             `;
-            
+
             toastContainer.appendChild(toast);
-            
+
             // Show toast with animation
             setTimeout(() => {
                 toast.classList.add('show');
             }, 10);
-            
+
             // Auto remove after 5 seconds
             setTimeout(() => {
                 closeToast(toastId);
             }, 5000);
         }
-        
+
         function closeToast(toastId) {
             const toast = document.getElementById(toastId);
             if (toast) {
@@ -825,7 +998,7 @@
         }
 
         // Form validation and enhancement
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const form = document.querySelector('form');
             const courseSelect = document.getElementById('MenteeCourse');
             const intakeYearSelect = document.getElementById('IntakeYear');
@@ -872,7 +1045,7 @@
             runningNumberInput.addEventListener('input', generateMenteeID);
 
             // Format IC number (remove any non-numeric characters)
-            icInput.addEventListener('input', function() {
+            icInput.addEventListener('input', function () {
                 this.value = this.value.replace(/\D/g, '');
                 if (this.value.length > 12) {
                     this.value = this.value.slice(0, 12);
@@ -880,18 +1053,18 @@
             });
 
             // Format running number
-            runningNumberInput.addEventListener('input', function() {
+            runningNumberInput.addEventListener('input', function () {
                 this.value = this.value.replace(/\D/g, '');
                 if (this.value.length > 3) {
                     this.value = this.value.slice(0, 3);
                 }
             });
-            
+
             // Basic form validation
-            form.addEventListener('submit', function(e) {
+            form.addEventListener('submit', function (e) {
                 let isValid = true;
                 const requiredFields = form.querySelectorAll('[required]');
-                
+
                 requiredFields.forEach(field => {
                     if (!field.value.trim()) {
                         isValid = false;
@@ -900,7 +1073,7 @@
                         field.style.borderColor = '#e2e8f0';
                     }
                 });
-                
+
                 // Validate IC number length
                 if (icInput.value.length !== 12) {
                     isValid = false;
@@ -920,19 +1093,19 @@
                     isValid = false;
                     showToast('Validation Error', 'Please complete all fields to generate Mentee ID.', 'error');
                 }
-                
+
                 if (!isValid) {
                     e.preventDefault();
                     showToast('Validation Error', 'Please fill in all required fields correctly.', 'error');
                 }
             });
-            
+
             // Real-time email validation
             const emailInput = document.getElementById('MenteeEmail');
-            emailInput.addEventListener('blur', function() {
+            emailInput.addEventListener('blur', function () {
                 const email = this.value;
                 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                
+
                 if (email && !emailPattern.test(email)) {
                     this.style.borderColor = '#d32f2f';
                     showToast('Validation Error', 'Please enter a valid email address.', 'error');
@@ -942,7 +1115,7 @@
             });
 
             // Profile button functionality
-            document.querySelector('.profile-btn').addEventListener('click', function() {
+            document.querySelector('.profile-btn').addEventListener('click', function () {
                 alert('Profile page would open here!');
                 // In a real application, this would navigate to the profile page
                 // window.location.href = '/profile/';
@@ -952,23 +1125,24 @@
             const currentPage = window.location.pathname;
             document.querySelectorAll('.nav-link').forEach(link => {
                 if (link.getAttribute('href') === '{% url 'manage_mentees' %}') {
-                    link.classList.add('active');
-                } else {
-                    link.classList.remove('active');
-                }
-            });
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
 
-            // Show toast notifications for Django messages
-            {% if messages %}
-                {% for message in messages %}
-                    showToast(
-                        '{{ message.tags|title }}', 
-                        '{{ message }}', 
-                        '{{ message.tags }}' === 'error' ? 'error' : 'success'
-                    );
-                {% endfor %}
-            {% endif %}
+        // Show toast notifications for Django messages
+        {% if messages %}
+        {% for message in messages %}
+        showToast(
+            '{{ message.tags|title }}',
+            '{{ message }}',
+            '{{ message.tags }}' === 'error' ? 'error' : 'success'
+        );
+        {% endfor %}
+        {% endif %}
         });
     </script>
 </body>
+
 </html>

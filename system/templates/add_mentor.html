@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -178,16 +179,16 @@
             margin-left: 260px;
             min-height: 100vh;
             background: #f5f7fa;
-            padding: 24px;
+            padding: 20px;
         }
 
         /* Updated Content Header with Profile Button */
         .content-header {
             background: white;
-            padding: 20px 24px;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-            margin-bottom: 24px;
+            padding: 18px 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+            margin-bottom: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -207,14 +208,14 @@
         }
 
         .content-header h1 {
-            font-size: 24px;
+            font-size: 22px;
             color: #2d3748;
             margin-bottom: 4px;
         }
 
         .content-header p {
             color: #718096;
-            font-size: 14px;
+            font-size: 13px;
         }
 
         /* Profile Button Styles */
@@ -259,10 +260,10 @@
         /* Form Container - Consistent spacing */
         .form-container {
             background: white;
-            padding: 24px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            margin-bottom: 24px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            margin-bottom: 20px;
         }
 
         .section-title {
@@ -343,8 +344,8 @@
             background: linear-gradient(135deg, #e8f0ff 0%, #f0f4ff 100%);
             border: 1px solid #1a3a8f;
             border-radius: 10px;
-            padding: 20px;
-            margin: 20px 0;
+            padding: 16px;
+            margin: 16px 0;
         }
 
         .info-card-header {
@@ -557,6 +558,7 @@
             .sidebar {
                 width: 240px;
             }
+
             .main-content {
                 margin-left: 240px;
             }
@@ -568,29 +570,36 @@
                 height: auto;
                 position: relative;
             }
+
             .main-content {
                 margin-left: 0;
                 padding: 16px;
             }
+
             .content-header {
                 flex-direction: column;
                 text-align: center;
             }
+
             .header-right {
                 justify-content: center;
                 width: 100%;
             }
+
             .form-grid {
                 grid-template-columns: 1fr;
                 gap: 0;
             }
+
             .form-actions {
                 flex-direction: column;
             }
+
             .form-actions .btn {
                 width: 100%;
                 justify-content: center;
             }
+
             /* Toast adjustments for mobile */
             .toast-container {
                 bottom: 16px;
@@ -605,10 +614,96 @@
                 flex-direction: column;
                 width: 100%;
             }
+
             .btn {
                 width: 100%;
                 justify-content: center;
             }
+        }
+            /* Unified Button System - Enforce Consistency */
+        .btn, .btn-primary, .btn-secondary, .btn-danger, .btn-success, .filter-btn, .action-btn {
+            padding: 0 20px !important;
+            height: 42px !important; /* Fixed height for consistency */
+            line-height: 42px !important; /* Vertical centering */
+            border: none !important;
+            border-radius: 8px !important;
+            cursor: pointer;
+            text-decoration: none !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 8px !important; /* Standard icon spacing */
+            font-size: 14px !important;
+            font-weight: 600 !important;
+            transition: all 0.3s ease !important;
+            box-sizing: border-box !important;
+            white-space: nowrap !important; /* Prevent wrapping */
+        }
+
+        /* Specific Button Variants */
+        .btn-success, .btn-primary {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
+            color: white !important;
+        }
+
+        .btn-secondary {
+            background: #718096 !important;
+            color: white !important;
+        }
+        
+        .btn-danger {
+            background: #e53e3e !important;
+            color: white !important;
+        }
+
+        /* Filter Buttons - adjustment for border if needed, or standardizing */
+        .filter-btn {
+            background: white !important;
+            color: #1a3a8f !important;
+            border: 2px solid #1a3a8f !important;
+            padding: 0 18px !important; /* 20px - 2px border */
+            line-height: 38px !important; /* 42px - 4px border */
+        }
+        
+        .filter-btn.active {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
+            color: white !important;
+            border-color: transparent !important;
+            padding: 0 20px !important;
+            line-height: 42px !important;
+        }
+
+        /* Hover States */
+        .btn:hover, .filter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-success:hover, .btn-primary:hover, .filter-btn.active:hover {
+            box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
+        }
+        
+        .btn-secondary:hover {
+            background: #4a5568 !important;
+        }
+        
+        .btn-danger:hover {
+            background: #c53030 !important;
+            box-shadow: 0 5px 15px rgba(229, 62, 62, 0.3);
+        }
+        
+        /* Disabled State */
+        .btn:disabled, .filter-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        /* Icon Reset */
+        .btn i, .filter-btn i {
+            margin: 0 !important;
+            font-size: 1.1em;
         }
     </style>
 
@@ -628,9 +723,95 @@
         html {
             -ms-overflow-style: none;
         }
+            /* Unified Button System - Enforce Consistency */
+        .btn, .btn-primary, .btn-secondary, .btn-danger, .btn-success, .filter-btn, .action-btn {
+            padding: 0 20px !important;
+            height: 42px !important; /* Fixed height for consistency */
+            line-height: 42px !important; /* Vertical centering */
+            border: none !important;
+            border-radius: 8px !important;
+            cursor: pointer;
+            text-decoration: none !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 8px !important; /* Standard icon spacing */
+            font-size: 14px !important;
+            font-weight: 600 !important;
+            transition: all 0.3s ease !important;
+            box-sizing: border-box !important;
+            white-space: nowrap !important; /* Prevent wrapping */
+        }
+
+        /* Specific Button Variants */
+        .btn-success, .btn-primary {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
+            color: white !important;
+        }
+
+        .btn-secondary {
+            background: #718096 !important;
+            color: white !important;
+        }
+        
+        .btn-danger {
+            background: #e53e3e !important;
+            color: white !important;
+        }
+
+        /* Filter Buttons - adjustment for border if needed, or standardizing */
+        .filter-btn {
+            background: white !important;
+            color: #1a3a8f !important;
+            border: 2px solid #1a3a8f !important;
+            padding: 0 18px !important; /* 20px - 2px border */
+            line-height: 38px !important; /* 42px - 4px border */
+        }
+        
+        .filter-btn.active {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
+            color: white !important;
+            border-color: transparent !important;
+            padding: 0 20px !important;
+            line-height: 42px !important;
+        }
+
+        /* Hover States */
+        .btn:hover, .filter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-success:hover, .btn-primary:hover, .filter-btn.active:hover {
+            box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
+        }
+        
+        .btn-secondary:hover {
+            background: #4a5568 !important;
+        }
+        
+        .btn-danger:hover {
+            background: #c53030 !important;
+            box-shadow: 0 5px 15px rgba(229, 62, 62, 0.3);
+        }
+        
+        /* Disabled State */
+        .btn:disabled, .filter-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        /* Icon Reset */
+        .btn i, .filter-btn i {
+            margin: 0 !important;
+            font-size: 1.1em;
+        }
     </style>
 
 </head>
+
 <body>
     <!-- Sidebar -->
     <div class="sidebar">
@@ -704,9 +885,9 @@
                 </h1>
                 <p>
                     {% if mentor %}
-                        Update mentor information and account details
+                    Update mentor information and account details
                     {% else %}
-                        Create a new mentor account with automatic user profile generation
+                    Create a new mentor account with automatic user profile generation
                     {% endif %}
                 </p>
             </div>
@@ -716,12 +897,7 @@
                     Back to Mentors
                 </a>
                 <div class="profile-section">
-                    <button class="profile-btn">
-                        <div class="profile-avatar">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <span>Profile</span>
-                    </button>
+                    
                 </div>
             </div>
         </div>
@@ -730,7 +906,7 @@
         <div class="form-container">
             <form method="POST" id="mentorForm">
                 {% csrf_token %}
-                
+
                 <h2 class="section-title">
                     <i class="fas fa-id-card"></i>
                     Basic Information
@@ -741,10 +917,10 @@
                         <label for="MentorID">
                             Mentor ID <span class="required">*</span>
                         </label>
-                        <input type="text" id="MentorID" name="MentorID" 
-                               value="{% if mentor %}{{ mentor.MentorID }}{% else %}{{ request.POST.MentorID }}{% endif %}" 
-                               class="form-control" required pattern="ST[A-Z]{1,2}\d{3}"
-                               placeholder="e.g., STA001, STB015">
+                        <input type="text" id="MentorID" name="MentorID"
+                            value="{% if mentor %}{{ mentor.MentorID }}{% else %}{{ request.POST.MentorID }}{% endif %}"
+                            class="form-control" required pattern="ST[A-Z]{1,2}\d{3}"
+                            placeholder="e.g., STA001, STB015">
                         <div class="help-text">
                             Format: ST + Department Code + 3-digit number<br>
                             Examples: STA001 (Accounting), STB015 (Business), STGS008 (General Studies)
@@ -755,31 +931,28 @@
                         <label for="MentorName">
                             Full Name <span class="required">*</span>
                         </label>
-                        <input type="text" id="MentorName" name="MentorName" 
-                               value="{% if mentor %}{{ mentor.MentorName }}{% else %}{{ request.POST.MentorName }}{% endif %}" 
-                               class="form-control" required
-                               placeholder="Enter full name">
+                        <input type="text" id="MentorName" name="MentorName"
+                            value="{% if mentor %}{{ mentor.MentorName }}{% else %}{{ request.POST.MentorName }}{% endif %}"
+                            class="form-control" required placeholder="Enter full name">
                     </div>
 
                     <div class="form-group">
                         <label for="MentorEmail">
                             Email Address <span class="required">*</span>
                         </label>
-                        <input type="email" id="MentorEmail" name="MentorEmail" 
-                               value="{% if mentor %}{{ mentor.MentorEmail }}{% else %}{{ request.POST.MentorEmail }}{% endif %}" 
-                               class="form-control" required
-                               placeholder="mentor@college.edu">
+                        <input type="email" id="MentorEmail" name="MentorEmail"
+                            value="{% if mentor %}{{ mentor.MentorEmail }}{% else %}{{ request.POST.MentorEmail }}{% endif %}"
+                            class="form-control" required placeholder="mentor@college.edu">
                     </div>
 
                     <div class="form-group">
                         <label for="MentorIC">
                             IC Number <span class="required">*</span>
                         </label>
-                        <input type="text" id="MentorIC" name="MentorIC" 
-                               value="{% if mentor %}{{ mentor.MentorIC }}{% else %}{{ request.POST.MentorIC }}{% endif %}"
-                               class="form-control" required pattern="[0-9]{12}"
-                               maxlength="12"
-                               placeholder="12-digit IC number">
+                        <input type="text" id="MentorIC" name="MentorIC"
+                            value="{% if mentor %}{{ mentor.MentorIC }}{% else %}{{ request.POST.MentorIC }}{% endif %}"
+                            class="form-control" required pattern="[0-9]{12}" maxlength="12"
+                            placeholder="12-digit IC number">
                         <div class="help-text">
                             12-digit IC number (without dashes). This will be used as the initial password.
                         </div>
@@ -787,10 +960,9 @@
 
                     <div class="form-group">
                         <label for="MentorPhone">Phone Number</label>
-                        <input type="text" id="MentorPhone" name="MentorPhone" 
-                               value="{% if mentor %}{{ mentor.MentorPhone }}{% else %}{{ request.POST.MentorPhone }}{% endif %}"
-                               class="form-control"
-                               placeholder="Phone number (optional)">
+                        <input type="text" id="MentorPhone" name="MentorPhone"
+                            value="{% if mentor %}{{ mentor.MentorPhone }}{% else %}{{ request.POST.MentorPhone }}{% endif %}"
+                            class="form-control" placeholder="Phone number (optional)">
                     </div>
 
                     <div class="form-group">
@@ -799,11 +971,15 @@
                         </label>
                         <select id="MentorDepartment" name="MentorDepartment" class="form-control form-select" required>
                             <option value="">Select Department</option>
-                            <option value="Accounting Department" {% if mentor.MentorDepartment == 'Accounting Department' or request.POST.MentorDepartment == 'Accounting Department' %}selected{% endif %}>Accounting Department</option>
-                            <option value="Business Studies Department" {% if mentor.MentorDepartment == 'Business Studies Department' or request.POST.MentorDepartment == 'Business Studies Department' %}selected{% endif %}>Business Studies Department</option>
-                            <option value="Quantitative Science Department" {% if mentor.MentorDepartment == 'Quantitative Science Department' or request.POST.MentorDepartment == 'Quantitative Science Department' %}selected{% endif %}>Quantitative Science Department</option>
+                            <option value="Accounting Department" {% if mentor.MentorDepartment == 'Accounting Department' or request.POST.MentorDepartment == 'Accounting Department' %}selected{% endif %}>
+                                Accounting Department</option>
+                            <option value="Business Studies Department" {% if mentor.MentorDepartment == 'Business Studies Department' or request.POST.MentorDepartment == 'Business Studies Department' %}selected{% endif %}>
+                                Business Studies Department</option>
+                            <option value="Quantitative Science Department" {% if mentor.MentorDepartment == 'Quantitative Science Department' or request.POST.MentorDepartment == 'Quantitative Science Department' %}selected{% endif %}>
+                                Quantitative Science Department</option>
                             <option value="Landscape and Horticulture Department" {% if mentor.MentorDepartment == 'Landscape and Horticulture Department' or request.POST.MentorDepartment == 'Landscape and Horticulture Department' %}selected{% endif %}>Landscape and Horticulture Department</option>
-                            <option value="General Studies" {% if mentor.MentorDepartment == 'General Studies' or request.POST.MentorDepartment == 'General Studies' %}selected{% endif %}>General Studies</option>
+                            <option value="General Studies" {% if mentor.MentorDepartment == 'General Studies' or request.POST.MentorDepartment == 'General Studies' %}selected{% endif %}>General Studies
+                            </option>
                         </select>
                     </div>
 
@@ -811,10 +987,11 @@
                         <label for="MaxMentees">
                             Maximum Mentees <span class="required">*</span>
                         </label>
-                        <input type="number" id="MaxMentees" name="MaxMentees" 
-                               value="{% if mentor %}{{ mentor.MaxMentees }}{% else %}{{ request.POST.MaxMentees|default:'20' }}{% endif %}" 
-                               class="form-control" min="1" max="50" required>
-                        <div class="help-text">Maximum number of mentees this mentor can handle (recommended: 15-20)</div>
+                        <input type="number" id="MaxMentees" name="MaxMentees"
+                            value="{% if mentor %}{{ mentor.MaxMentees }}{% else %}{{ request.POST.MaxMentees|default:'20' }}{% endif %}"
+                            class="form-control" min="1" max="50" required>
+                        <div class="help-text">Maximum number of mentees this mentor can handle (recommended: 15-20)
+                        </div>
                     </div>
                 </div>
 
@@ -876,11 +1053,11 @@
         function showToast(title, message, type = 'success') {
             const toastContainer = document.getElementById('toastContainer');
             const toastId = 'toast-' + Date.now();
-            
+
             const toast = document.createElement('div');
             toast.className = `toast toast-${type}`;
             toast.id = toastId;
-            
+
             toast.innerHTML = `
                 <div class="toast-icon">
                     <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
@@ -893,20 +1070,20 @@
                     <i class="fas fa-times"></i>
                 </button>
             `;
-            
+
             toastContainer.appendChild(toast);
-            
+
             // Show toast with animation
             setTimeout(() => {
                 toast.classList.add('show');
             }, 10);
-            
+
             // Auto remove after 5 seconds
             setTimeout(() => {
                 closeToast(toastId);
             }, 5000);
         }
-        
+
         function closeToast(toastId) {
             const toast = document.getElementById(toastId);
             if (toast) {
@@ -919,16 +1096,16 @@
             }
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const form = document.getElementById('mentorForm');
             const mentorIdInput = document.getElementById('MentorID');
             const icInput = document.getElementById('MentorIC');
             const maxMenteesInput = document.getElementById('MaxMentees');
 
             // Auto-format Mentor ID to uppercase
-            mentorIdInput.addEventListener('input', function() {
+            mentorIdInput.addEventListener('input', function () {
                 this.value = this.value.toUpperCase();
-                
+
                 // Validate format in real-time
                 const pattern = /^ST[A-Z]{1,2}\d{3}$/;
                 if (pattern.test(this.value)) {
@@ -941,15 +1118,15 @@
             });
 
             // Format and validate IC number
-            icInput.addEventListener('input', function() {
+            icInput.addEventListener('input', function () {
                 // Remove any non-numeric characters
                 this.value = this.value.replace(/\D/g, '');
-                
+
                 // Limit to 12 digits
                 if (this.value.length > 12) {
                     this.value = this.value.slice(0, 12);
                 }
-                
+
                 // Validate length
                 if (this.value.length === 12) {
                     this.classList.remove('error');
@@ -961,11 +1138,11 @@
             });
 
             // Set reasonable limits for max mentees
-            maxMenteesInput.addEventListener('change', function() {
+            maxMenteesInput.addEventListener('change', function () {
                 let value = parseInt(this.value);
                 if (value < 1) this.value = 1;
                 if (value > 50) this.value = 50;
-                
+
                 // Color code based on recommended range
                 if (value >= 15 && value <= 20) {
                     this.classList.remove('error');
@@ -976,7 +1153,7 @@
             });
 
             // Enhanced form validation
-            form.addEventListener('submit', function(e) {
+            form.addEventListener('submit', function (e) {
                 let isValid = true;
                 const errors = [];
 
@@ -1006,23 +1183,23 @@
 
                 if (!isValid) {
                     e.preventDefault();
-                    
+
                     let errorMessage = 'Please correct the following errors:';
                     errors.forEach(error => {
                         errorMessage += `\n• ${error}`;
                     });
-                    
+
                     if (errors.length === 0) {
                         errorMessage = 'Please fill in all required fields correctly.';
                     }
-                    
+
                     showToast('Validation Error', errorMessage, 'error');
                 }
             });
 
             // Real-time validation for email
             const emailInput = document.getElementById('MentorEmail');
-            emailInput.addEventListener('blur', function() {
+            emailInput.addEventListener('blur', function () {
                 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                 if (this.value && !emailPattern.test(this.value)) {
                     this.classList.add('error');
@@ -1034,7 +1211,7 @@
             });
 
             // Profile button functionality
-            document.querySelector('.profile-btn').addEventListener('click', function() {
+            document.querySelector('.profile-btn').addEventListener('click', function () {
                 alert('Profile page would open here!');
                 // In a real application, this would navigate to the profile page
                 // window.location.href = '/profile/';
@@ -1052,15 +1229,16 @@
 
             // Show toast notifications for Django messages
             {% if messages %}
-                {% for message in messages %}
-                    showToast(
-                        '{{ message.tags|title }}', 
-                        '{{ message }}', 
-                        '{{ message.tags }}' === 'error' ? 'error' : 'success'
-                    );
-                {% endfor %}
+            {% for message in messages %}
+            showToast(
+                '{{ message.tags|title }}',
+                '{{ message }}',
+                '{{ message.tags }}' === 'error' ? 'error' : 'success'
+            );
+            {% endfor %}
             {% endif %}
         });
     </script>
 </body>
+
 </html>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -179,9 +180,11 @@
             0% {
                 box-shadow: 0 0 0 0 rgba(255, 71, 87, 0.7);
             }
+
             70% {
                 box-shadow: 0 0 0 6px rgba(255, 71, 87, 0);
             }
+
             100% {
                 box-shadow: 0 0 0 0 rgba(255, 71, 87, 0);
             }
@@ -227,7 +230,7 @@
             margin-left: 260px;
             min-height: 100vh;
             background: #f5f7fa;
-            padding: 24px;
+            padding: 20px;
             display: flex;
             flex-direction: column;
         }
@@ -235,24 +238,24 @@
         /* Updated Content Header with Profile Button */
         .content-header {
             background: white;
-            padding: 20px 24px;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-            margin-bottom: 24px;
+            padding: 18px 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+            margin-bottom: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
         .welcome-section h1 {
-            font-size: 24px;
+            font-size: 22px;
             color: #2d3748;
             margin-bottom: 4px;
         }
 
         .welcome-section p {
             color: #718096;
-            font-size: 14px;
+            font-size: 13px;
         }
 
         /* Profile Button Styles - Positioned like mentor homepage */
@@ -312,9 +315,9 @@
 
         .mentor-profile-card {
             background: white;
-            border-radius: 12px;
-            padding: 24px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
             text-align: center;
             display: flex;
             flex-direction: column;
@@ -369,9 +372,9 @@
         /* Contact Info Styles */
         .contact-info-card {
             background: white;
-            border-radius: 12px;
-            padding: 24px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -439,9 +442,9 @@
         /* No Mentor State - Updated to fill space */
         .no-mentor {
             background: white;
-            border-radius: 12px;
-            padding: 40px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
             text-align: center;
             margin-bottom: 24px;
             flex: 1;
@@ -509,9 +512,11 @@
             .sidebar {
                 width: 240px;
             }
+
             .main-content {
                 margin-left: 240px;
             }
+
             .mentor-layout {
                 grid-template-columns: 1fr;
             }
@@ -523,33 +528,126 @@
                 height: auto;
                 position: relative;
             }
+
             .main-content {
                 margin-left: 0;
                 padding: 16px;
             }
+
             .content-header {
                 flex-direction: column;
                 gap: 16px;
                 text-align: center;
             }
+
             .info-list {
                 grid-template-columns: 1fr;
             }
-            .mentor-profile-card, .contact-info-card {
+
+            .mentor-profile-card,
+            .contact-info-card {
                 min-height: 300px;
             }
+
             /* Responsive mentor avatar size */
             .mentor-avatar {
                 width: 120px;
                 height: 120px;
             }
+
             .mentor-avatar-placeholder {
                 width: 120px;
                 height: 120px;
             }
+
             .mentor-avatar-placeholder i {
                 font-size: 48px;
             }
+        }
+            /* Unified Button System - Enforce Consistency */
+        .btn, .btn-primary, .btn-secondary, .btn-danger, .btn-success, .filter-btn, .action-btn {
+            padding: 0 20px !important;
+            height: 42px !important; /* Fixed height for consistency */
+            line-height: 42px !important; /* Vertical centering */
+            border: none !important;
+            border-radius: 8px !important;
+            cursor: pointer;
+            text-decoration: none !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 8px !important; /* Standard icon spacing */
+            font-size: 14px !important;
+            font-weight: 600 !important;
+            transition: all 0.3s ease !important;
+            box-sizing: border-box !important;
+            white-space: nowrap !important; /* Prevent wrapping */
+        }
+
+        /* Specific Button Variants */
+        .btn-success, .btn-primary {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
+            color: white !important;
+        }
+
+        .btn-secondary {
+            background: #718096 !important;
+            color: white !important;
+        }
+        
+        .btn-danger {
+            background: #e53e3e !important;
+            color: white !important;
+        }
+
+        /* Filter Buttons - adjustment for border if needed, or standardizing */
+        .filter-btn {
+            background: white !important;
+            color: #1a3a8f !important;
+            border: 2px solid #1a3a8f !important;
+            padding: 0 18px !important; /* 20px - 2px border */
+            line-height: 38px !important; /* 42px - 4px border */
+        }
+        
+        .filter-btn.active {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
+            color: white !important;
+            border-color: transparent !important;
+            padding: 0 20px !important;
+            line-height: 42px !important;
+        }
+
+        /* Hover States */
+        .btn:hover, .filter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-success:hover, .btn-primary:hover, .filter-btn.active:hover {
+            box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
+        }
+        
+        .btn-secondary:hover {
+            background: #4a5568 !important;
+        }
+        
+        .btn-danger:hover {
+            background: #c53030 !important;
+            box-shadow: 0 5px 15px rgba(229, 62, 62, 0.3);
+        }
+        
+        /* Disabled State */
+        .btn:disabled, .filter-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        /* Icon Reset */
+        .btn i, .filter-btn i {
+            margin: 0 !important;
+            font-size: 1.1em;
         }
     </style>
 
@@ -569,9 +667,95 @@
         html {
             -ms-overflow-style: none;
         }
+            /* Unified Button System - Enforce Consistency */
+        .btn, .btn-primary, .btn-secondary, .btn-danger, .btn-success, .filter-btn, .action-btn {
+            padding: 0 20px !important;
+            height: 42px !important; /* Fixed height for consistency */
+            line-height: 42px !important; /* Vertical centering */
+            border: none !important;
+            border-radius: 8px !important;
+            cursor: pointer;
+            text-decoration: none !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 8px !important; /* Standard icon spacing */
+            font-size: 14px !important;
+            font-weight: 600 !important;
+            transition: all 0.3s ease !important;
+            box-sizing: border-box !important;
+            white-space: nowrap !important; /* Prevent wrapping */
+        }
+
+        /* Specific Button Variants */
+        .btn-success, .btn-primary {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
+            color: white !important;
+        }
+
+        .btn-secondary {
+            background: #718096 !important;
+            color: white !important;
+        }
+        
+        .btn-danger {
+            background: #e53e3e !important;
+            color: white !important;
+        }
+
+        /* Filter Buttons - adjustment for border if needed, or standardizing */
+        .filter-btn {
+            background: white !important;
+            color: #1a3a8f !important;
+            border: 2px solid #1a3a8f !important;
+            padding: 0 18px !important; /* 20px - 2px border */
+            line-height: 38px !important; /* 42px - 4px border */
+        }
+        
+        .filter-btn.active {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
+            color: white !important;
+            border-color: transparent !important;
+            padding: 0 20px !important;
+            line-height: 42px !important;
+        }
+
+        /* Hover States */
+        .btn:hover, .filter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-success:hover, .btn-primary:hover, .filter-btn.active:hover {
+            box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
+        }
+        
+        .btn-secondary:hover {
+            background: #4a5568 !important;
+        }
+        
+        .btn-danger:hover {
+            background: #c53030 !important;
+            box-shadow: 0 5px 15px rgba(229, 62, 62, 0.3);
+        }
+        
+        /* Disabled State */
+        .btn:disabled, .filter-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        /* Icon Reset */
+        .btn i, .filter-btn i {
+            margin: 0 !important;
+            font-size: 1.1em;
+        }
     </style>
 
 </head>
+
 <body>
     <!-- Sidebar -->
     <div class="sidebar">
@@ -585,9 +769,9 @@
         <div class="user-info">
             <div class="user-avatar">
                 {% if mentee.profile_picture %}
-                    <img src="{{ mentee.profile_picture.url }}" alt="Profile Picture" id="sidebarProfilePic">
+                <img src="{{ mentee.profile_picture.url }}" alt="Profile Picture" id="sidebarProfilePic">
                 {% else %}
-                    <i class="fas fa-user-graduate"></i>
+                <i class="fas fa-user-graduate"></i>
                 {% endif %}
             </div>
             <div class="user-name">{{ user.mentee.MenteeName|default:user.username }}</div>
@@ -637,7 +821,7 @@
                 <h1>My Mentor</h1>
                 <p>Meet your assigned mentor who will guide you through your academic journey</p>
             </div>
-            
+
             <!-- Profile Button - Only in the header now -->
             <div class="profile-section">
                 <a href="{% url 'update_personal_info' %}" class="profile-btn">
@@ -658,13 +842,14 @@
                 <div class="mentor-profile-card">
                     <!-- FIXED: Access mentor's profile picture correctly with increased size -->
                     {% if mentee.assigned_mentor.profile_picture %}
-                        <img src="{{ mentee.assigned_mentor.profile_picture.url }}" alt="Mentor Profile Picture" class="mentor-avatar">
+                    <img src="{{ mentee.assigned_mentor.profile_picture.url }}" alt="Mentor Profile Picture"
+                        class="mentor-avatar">
                     {% else %}
-                        <div class="mentor-avatar-placeholder">
-                            <i class="fas fa-user-tie"></i>
-                        </div>
+                    <div class="mentor-avatar-placeholder">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
                     {% endif %}
-                    
+
                     <h1 class="mentor-name">{{ mentee.assigned_mentor.MentorName }}</h1>
                     <p class="mentor-department">{{ mentee.assigned_mentor.MentorDepartment }}</p>
                 </div>
@@ -716,9 +901,10 @@
                     <i class="fas fa-user-slash"></i>
                 </div>
                 <h2>No Mentor Assigned Yet</h2>
-                <p>You haven't been assigned a mentor yet. Our system is working to match you with the perfect mentor based on your academic needs and preferences.</p>
+                <p>You haven't been assigned a mentor yet. Our system is working to match you with the perfect mentor
+                    based on your academic needs and preferences.</p>
                 <p>Please check back later or contact the administration if you have any questions.</p>
-                
+
                 <div class="info-box">
                     <h3>
                         <i class="fas fa-info-circle"></i>
@@ -771,7 +957,7 @@
         // Active nav link highlighting
         const currentPage = window.location.pathname;
         document.querySelectorAll('.nav-link').forEach(link => {
-            if (link.getAttribute('href') === currentPage || 
+            if (link.getAttribute('href') === currentPage ||
                 (currentPage === '/' && link.getAttribute('href').includes('homepage'))) {
                 link.classList.add('active');
             } else {
@@ -780,4 +966,5 @@
         });
     </script>
 </body>
+
 </html>

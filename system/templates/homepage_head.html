@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -178,30 +179,30 @@
             margin-left: 260px;
             min-height: 100vh;
             background: #f5f7fa;
-            padding: 24px;
+            padding: 20px;
         }
 
         /* Updated Content Header with Profile Button */
         .content-header {
             background: white;
-            padding: 20px 24px;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-            margin-bottom: 24px;
+            padding: 18px 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+            margin-bottom: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
         .welcome-section h1 {
-            font-size: 24px;
+            font-size: 22px;
             color: #2d3748;
             margin-bottom: 4px;
         }
 
         .welcome-section p {
             color: #718096;
-            font-size: 14px;
+            font-size: 13px;
         }
 
         /* Profile Button Styles */
@@ -256,7 +257,7 @@
             border-radius: 10px;
             padding: 16px;
             text-align: center;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
             transition: all 0.3s ease;
             border-left: 3px solid #1a3a8f;
         }
@@ -295,10 +296,10 @@
         /* Quick Actions - Consistent spacing */
         .quick-actions {
             background: white;
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            margin-bottom: 24px;
+            border-radius: 10px;
+            padding: 16px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            margin-bottom: 20px;
         }
 
         .section-title {
@@ -373,10 +374,10 @@
         /* System Status - Consistent spacing */
         .system-status {
             background: white;
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            margin-bottom: 24px;
+            border-radius: 10px;
+            padding: 16px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            margin-bottom: 20px;
         }
 
         .status-grid {
@@ -444,9 +445,9 @@
         /* Recent Activity - Consistent spacing */
         .recent-activity {
             background: white;
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border-radius: 10px;
+            padding: 16px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
         }
 
         .activity-list {
@@ -503,6 +504,7 @@
             .sidebar {
                 width: 240px;
             }
+
             .main-content {
                 margin-left: 240px;
             }
@@ -514,24 +516,114 @@
                 height: auto;
                 position: relative;
             }
+
             .main-content {
                 margin-left: 0;
                 padding: 16px;
             }
+
             .content-header {
                 flex-direction: column;
                 gap: 16px;
                 text-align: center;
             }
+
             .stats-grid {
                 grid-template-columns: 1fr;
             }
+
             .action-grid {
                 grid-template-columns: 1fr;
             }
+
             .status-grid {
                 grid-template-columns: 1fr;
             }
+        }
+            /* Unified Button System - Enforce Consistency */
+        .btn, .btn-primary, .btn-secondary, .btn-danger, .btn-success, .filter-btn, .action-btn {
+            padding: 0 20px !important;
+            height: 42px !important; /* Fixed height for consistency */
+            line-height: 42px !important; /* Vertical centering */
+            border: none !important;
+            border-radius: 8px !important;
+            cursor: pointer;
+            text-decoration: none !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 8px !important; /* Standard icon spacing */
+            font-size: 14px !important;
+            font-weight: 600 !important;
+            transition: all 0.3s ease !important;
+            box-sizing: border-box !important;
+            white-space: nowrap !important; /* Prevent wrapping */
+        }
+
+        /* Specific Button Variants */
+        .btn-success, .btn-primary {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
+            color: white !important;
+        }
+
+        .btn-secondary {
+            background: #718096 !important;
+            color: white !important;
+        }
+        
+        .btn-danger {
+            background: #e53e3e !important;
+            color: white !important;
+        }
+
+        /* Filter Buttons - adjustment for border if needed, or standardizing */
+        .filter-btn {
+            background: white !important;
+            color: #1a3a8f !important;
+            border: 2px solid #1a3a8f !important;
+            padding: 0 18px !important; /* 20px - 2px border */
+            line-height: 38px !important; /* 42px - 4px border */
+        }
+        
+        .filter-btn.active {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
+            color: white !important;
+            border-color: transparent !important;
+            padding: 0 20px !important;
+            line-height: 42px !important;
+        }
+
+        /* Hover States */
+        .btn:hover, .filter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-success:hover, .btn-primary:hover, .filter-btn.active:hover {
+            box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
+        }
+        
+        .btn-secondary:hover {
+            background: #4a5568 !important;
+        }
+        
+        .btn-danger:hover {
+            background: #c53030 !important;
+            box-shadow: 0 5px 15px rgba(229, 62, 62, 0.3);
+        }
+        
+        /* Disabled State */
+        .btn:disabled, .filter-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        /* Icon Reset */
+        .btn i, .filter-btn i {
+            margin: 0 !important;
+            font-size: 1.1em;
         }
     </style>
 
@@ -551,9 +643,95 @@
         html {
             -ms-overflow-style: none;
         }
+            /* Unified Button System - Enforce Consistency */
+        .btn, .btn-primary, .btn-secondary, .btn-danger, .btn-success, .filter-btn, .action-btn {
+            padding: 0 20px !important;
+            height: 42px !important; /* Fixed height for consistency */
+            line-height: 42px !important; /* Vertical centering */
+            border: none !important;
+            border-radius: 8px !important;
+            cursor: pointer;
+            text-decoration: none !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 8px !important; /* Standard icon spacing */
+            font-size: 14px !important;
+            font-weight: 600 !important;
+            transition: all 0.3s ease !important;
+            box-sizing: border-box !important;
+            white-space: nowrap !important; /* Prevent wrapping */
+        }
+
+        /* Specific Button Variants */
+        .btn-success, .btn-primary {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
+            color: white !important;
+        }
+
+        .btn-secondary {
+            background: #718096 !important;
+            color: white !important;
+        }
+        
+        .btn-danger {
+            background: #e53e3e !important;
+            color: white !important;
+        }
+
+        /* Filter Buttons - adjustment for border if needed, or standardizing */
+        .filter-btn {
+            background: white !important;
+            color: #1a3a8f !important;
+            border: 2px solid #1a3a8f !important;
+            padding: 0 18px !important; /* 20px - 2px border */
+            line-height: 38px !important; /* 42px - 4px border */
+        }
+        
+        .filter-btn.active {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
+            color: white !important;
+            border-color: transparent !important;
+            padding: 0 20px !important;
+            line-height: 42px !important;
+        }
+
+        /* Hover States */
+        .btn:hover, .filter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-success:hover, .btn-primary:hover, .filter-btn.active:hover {
+            box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
+        }
+        
+        .btn-secondary:hover {
+            background: #4a5568 !important;
+        }
+        
+        .btn-danger:hover {
+            background: #c53030 !important;
+            box-shadow: 0 5px 15px rgba(229, 62, 62, 0.3);
+        }
+        
+        /* Disabled State */
+        .btn:disabled, .filter-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        /* Icon Reset */
+        .btn i, .filter-btn i {
+            margin: 0 !important;
+            font-size: 1.1em;
+        }
     </style>
 
 </head>
+
 <body>
     <!-- Sidebar -->
     <div class="sidebar">
@@ -624,15 +802,10 @@
                 <h1>Administrative Dashboard</h1>
                 <p>Comprehensive management of the mentor-mentee program</p>
             </div>
-            
+
             <!-- Profile Button -->
             <div class="profile-section">
-                <button class="profile-btn">
-                    <div class="profile-avatar">
-                        <i class="fas fa-user"></i>
-                    </div>
-                    <span>Profile</span>
-                </button>
+                
             </div>
         </div>
 
@@ -681,7 +854,8 @@
                     </div>
                     <div class="action-content">
                         <div class="action-title">Manage Mentees</div>
-                        <div class="action-description">View, add, edit, and manage all mentee records and their study status</div>
+                        <div class="action-description">View, add, edit, and manage all mentee records and their study
+                            status</div>
                     </div>
                 </a>
                 <a href="{% url 'manage_mentors' %}" class="action-item">
@@ -699,7 +873,8 @@
                     </div>
                     <div class="action-content">
                         <div class="action-title">Mentor Assignments</div>
-                        <div class="action-description">Assign mentees to mentors with balanced gender distribution</div>
+                        <div class="action-description">Assign mentees to mentors with balanced gender distribution
+                        </div>
                     </div>
                 </a>
                 <a href="{% url 'mentor_mentee_activities' %}" class="action-item">
@@ -736,7 +911,8 @@
                     </div>
                     <div class="status-content">
                         <div class="status-title">Pending Assignments</div>
-                        <div class="status-value" id="pending-assignments">{{ pending_assignments }} mentees awaiting mentor assignment</div>
+                        <div class="status-value" id="pending-assignments">{{ pending_assignments }} mentees awaiting
+                            mentor assignment</div>
                     </div>
                 </div>
                 <div class="status-item">
@@ -745,7 +921,8 @@
                     </div>
                     <div class="status-content">
                         <div class="status-title">Upcoming Sessions</div>
-                        <div class="status-value" id="upcoming-sessions">{{ upcoming_sessions }} sessions scheduled this week</div>
+                        <div class="status-value" id="upcoming-sessions">{{ upcoming_sessions }} sessions scheduled this
+                            week</div>
                     </div>
                 </div>
                 <div class="status-item">
@@ -812,15 +989,15 @@
             document.getElementById('total-mentees').textContent = dashboardData.total_mentees;
             document.getElementById('active-sessions').textContent = dashboardData.active_sessions;
             document.getElementById('system-usage').textContent = dashboardData.system_usage + '%';
-            document.getElementById('pending-assignments').textContent = 
+            document.getElementById('pending-assignments').textContent =
                 dashboardData.pending_assignments + ' mentees awaiting mentor assignment';
-            document.getElementById('upcoming-sessions').textContent = 
+            document.getElementById('upcoming-sessions').textContent =
                 dashboardData.upcoming_sessions + ' sessions scheduled this week';
 
             // Update recent activities
             const activitiesContainer = document.getElementById('recent-activities');
             activitiesContainer.innerHTML = '';
-            
+
             dashboardData.recent_activities.forEach(activity => {
                 const activityItem = document.createElement('div');
                 activityItem.className = 'activity-item';
@@ -848,16 +1025,16 @@
                 dashboardData.active_sessions = Math.floor(Math.random() * 5) + 12; // 12-17
                 dashboardData.pending_assignments = Math.floor(Math.random() * 10); // 0-9
                 dashboardData.upcoming_sessions = Math.floor(Math.random() * 8) + 8; // 8-16
-                
+
                 updateDashboard();
             }, 2000);
         }
 
         // Initialize dashboard
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // Update dashboard with initial data
             updateDashboard();
-            
+
             // Fetch updated data after a delay (simulating real-time updates)
             setTimeout(fetchDashboardData, 5000);
 
@@ -887,7 +1064,7 @@
             // Active nav link highlighting
             const currentPage = window.location.pathname;
             document.querySelectorAll('.nav-link').forEach(link => {
-                if (link.getAttribute('href') === currentPage || 
+                if (link.getAttribute('href') === currentPage ||
                     (currentPage === '/' && link.getAttribute('href').includes('homepage'))) {
                     link.classList.add('active');
                 } else {
@@ -897,12 +1074,12 @@
 
             // Add loading animation for action items
             document.querySelectorAll('.action-item').forEach(item => {
-                item.addEventListener('click', function(e) {
+                item.addEventListener('click', function (e) {
                     // Add loading animation
                     const icon = this.querySelector('.action-icon i');
                     const originalClass = icon.className;
                     icon.className = 'fas fa-spinner fa-spin';
-                    
+
                     // Reset after 1 second (simulate loading)
                     setTimeout(() => {
                         icon.className = originalClass;
@@ -911,7 +1088,7 @@
             });
 
             // Profile button functionality
-            document.querySelector('.profile-btn').addEventListener('click', function() {
+            document.querySelector('.profile-btn').addEventListener('click', function () {
                 alert('Profile page would open here!');
                 // In a real application, this would navigate to the profile page
                 // window.location.href = '/profile/';
@@ -919,4 +1096,5 @@
         });
     </script>
 </body>
+
 </html>

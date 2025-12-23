@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -140,35 +141,35 @@
             margin-left: 280px;
             min-height: 100vh;
             background: #f5f7fa;
-            padding: 30px;
+            padding: 20px;
         }
 
         .content-header {
             background: white;
-            padding: 25px 30px;
-            border-radius: 15px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-            margin-bottom: 30px;
+            padding: 18px 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+            margin-bottom: 20px;
         }
 
         .content-header h1 {
-            font-size: 28px;
+            font-size: 22px;
             color: #2d3748;
             margin-bottom: 8px;
         }
 
         .content-header p {
             color: #718096;
-            font-size: 16px;
+            font-size: 13px;
             line-height: 1.5;
         }
 
         .section {
             background: white;
-            padding: 25px;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-            margin-bottom: 30px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+            margin-bottom: 20px;
         }
 
         .section-title {
@@ -201,7 +202,7 @@
             align-items: center;
             padding: 15px;
             border: 1px solid #e2e8f0;
-            border-radius: 8px;
+            border-radius: 10px;
             margin-bottom: 10px;
             transition: all 0.3s ease;
             background: #f8f9ff;
@@ -294,7 +295,7 @@
         .no-data {
             text-align: center;
             color: #718096;
-            padding: 40px 20px;
+            padding: 30px;
         }
 
         .no-data h3 {
@@ -353,6 +354,7 @@
             .sidebar {
                 width: 250px;
             }
+
             .main-content {
                 margin-left: 250px;
             }
@@ -364,17 +366,105 @@
                 height: auto;
                 position: relative;
             }
+
             .main-content {
                 margin-left: 0;
             }
+
             .mentee-option {
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 10px;
             }
+
             .mentee-option input[type="checkbox"] {
                 align-self: flex-start;
             }
+        }
+            /* Unified Button System - Enforce Consistency */
+        .btn, .btn-primary, .btn-secondary, .btn-danger, .btn-success, .filter-btn, .action-btn {
+            padding: 0 20px !important;
+            height: 42px !important; /* Fixed height for consistency */
+            line-height: 42px !important; /* Vertical centering */
+            border: none !important;
+            border-radius: 8px !important;
+            cursor: pointer;
+            text-decoration: none !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 8px !important; /* Standard icon spacing */
+            font-size: 14px !important;
+            font-weight: 600 !important;
+            transition: all 0.3s ease !important;
+            box-sizing: border-box !important;
+            white-space: nowrap !important; /* Prevent wrapping */
+        }
+
+        /* Specific Button Variants */
+        .btn-success, .btn-primary {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
+            color: white !important;
+        }
+
+        .btn-secondary {
+            background: #718096 !important;
+            color: white !important;
+        }
+        
+        .btn-danger {
+            background: #e53e3e !important;
+            color: white !important;
+        }
+
+        /* Filter Buttons - adjustment for border if needed, or standardizing */
+        .filter-btn {
+            background: white !important;
+            color: #1a3a8f !important;
+            border: 2px solid #1a3a8f !important;
+            padding: 0 18px !important; /* 20px - 2px border */
+            line-height: 38px !important; /* 42px - 4px border */
+        }
+        
+        .filter-btn.active {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
+            color: white !important;
+            border-color: transparent !important;
+            padding: 0 20px !important;
+            line-height: 42px !important;
+        }
+
+        /* Hover States */
+        .btn:hover, .filter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-success:hover, .btn-primary:hover, .filter-btn.active:hover {
+            box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
+        }
+        
+        .btn-secondary:hover {
+            background: #4a5568 !important;
+        }
+        
+        .btn-danger:hover {
+            background: #c53030 !important;
+            box-shadow: 0 5px 15px rgba(229, 62, 62, 0.3);
+        }
+        
+        /* Disabled State */
+        .btn:disabled, .filter-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        /* Icon Reset */
+        .btn i, .filter-btn i {
+            margin: 0 !important;
+            font-size: 1.1em;
         }
     </style>
 
@@ -394,9 +484,95 @@
         html {
             -ms-overflow-style: none;
         }
+            /* Unified Button System - Enforce Consistency */
+        .btn, .btn-primary, .btn-secondary, .btn-danger, .btn-success, .filter-btn, .action-btn {
+            padding: 0 20px !important;
+            height: 42px !important; /* Fixed height for consistency */
+            line-height: 42px !important; /* Vertical centering */
+            border: none !important;
+            border-radius: 8px !important;
+            cursor: pointer;
+            text-decoration: none !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 8px !important; /* Standard icon spacing */
+            font-size: 14px !important;
+            font-weight: 600 !important;
+            transition: all 0.3s ease !important;
+            box-sizing: border-box !important;
+            white-space: nowrap !important; /* Prevent wrapping */
+        }
+
+        /* Specific Button Variants */
+        .btn-success, .btn-primary {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
+            color: white !important;
+        }
+
+        .btn-secondary {
+            background: #718096 !important;
+            color: white !important;
+        }
+        
+        .btn-danger {
+            background: #e53e3e !important;
+            color: white !important;
+        }
+
+        /* Filter Buttons - adjustment for border if needed, or standardizing */
+        .filter-btn {
+            background: white !important;
+            color: #1a3a8f !important;
+            border: 2px solid #1a3a8f !important;
+            padding: 0 18px !important; /* 20px - 2px border */
+            line-height: 38px !important; /* 42px - 4px border */
+        }
+        
+        .filter-btn.active {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
+            color: white !important;
+            border-color: transparent !important;
+            padding: 0 20px !important;
+            line-height: 42px !important;
+        }
+
+        /* Hover States */
+        .btn:hover, .filter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-success:hover, .btn-primary:hover, .filter-btn.active:hover {
+            box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
+        }
+        
+        .btn-secondary:hover {
+            background: #4a5568 !important;
+        }
+        
+        .btn-danger:hover {
+            background: #c53030 !important;
+            box-shadow: 0 5px 15px rgba(229, 62, 62, 0.3);
+        }
+        
+        /* Disabled State */
+        .btn:disabled, .filter-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        /* Icon Reset */
+        .btn i, .filter-btn i {
+            margin: 0 !important;
+            font-size: 1.1em;
+        }
     </style>
 
 </head>
+
 <body>
     <!-- Sidebar -->
     <div class="sidebar">
@@ -466,12 +642,13 @@
         <!-- Messages -->
         <div class="messages">
             {% if messages %}
-                {% for message in messages %}
-                    <div class="{% if message.tags == 'error' %}error{% else %}success{% endif %}">
-                        <i class="fas {% if message.tags == 'error' %}fa-exclamation-circle{% else %}fa-check-circle{% endif %}"></i>
-                        {{ message }}
-                    </div>
-                {% endfor %}
+            {% for message in messages %}
+            <div class="{% if message.tags == 'error' %}error{% else %}success{% endif %}">
+                <i
+                    class="fas {% if message.tags == 'error' %}fa-exclamation-circle{% else %}fa-check-circle{% endif %}"></i>
+                {{ message }}
+            </div>
+            {% endfor %}
             {% endif %}
         </div>
 
@@ -482,37 +659,40 @@
                     <i class="fas fa-user-graduate"></i>
                     Suitable Mentees ({{ suitable_mentees|length }})
                 </h2>
-                
+
                 {% if suitable_mentees %}
                 <div class="selection-info">
                     <h4><i class="fas fa-info-circle"></i> Selection Information</h4>
-                    <p>You can select up to <strong>{{ vacancy_count }}</strong> mentees. Selected mentees will be assigned to {{ mentor.MentorName }}.</p>
-                    <p><strong>Matching Criteria:</strong> Same department ({{ mentor.MentorDepartment }}) and unassigned status</p>
+                    <p>You can select up to <strong>{{ vacancy_count }}</strong> mentees. Selected mentees will be
+                        assigned to {{ mentor.MentorName }}.</p>
+                    <p><strong>Matching Criteria:</strong> Same department ({{ mentor.MentorDepartment }}) and
+                        unassigned status</p>
                 </div>
-                
+
                 <div class="mentee-selection">
                     {% for mentee in suitable_mentees %}
                     <div class="mentee-option">
-                        <input type="checkbox" name="mentee_ids" value="{{ mentee.MenteeID }}" 
-                               id="mentee_{{ mentee.MenteeID }}"
-                               {% if forloop.counter > vacancy_count %}disabled{% endif %}>
-                               data-gender="{{ mentee.MenteeGender }}">
+                        <input type="checkbox" name="mentee_ids" value="{{ mentee.MenteeID }}"
+                            id="mentee_{{ mentee.MenteeID }}" data-gender="{{ mentee.MenteeGender }}" {% if
+                            forloop.counter> vacancy_count %}disabled{% endif %}>
                         <div class="mentee-info">
-                            <strong>{{ mentee.MenteeName }}</strong> 
-                            <span class="gender-badge {% if mentee.MenteeGender == 'male' %}male-badge{% else %}female-badge{% endif %}">
-                                <i class="fas {% if mentee.MenteeGender == 'male' %}fa-mars{% else %}fa-venus{% endif %}"></i>
+                            <strong>{{ mentee.MenteeName }}</strong>
+                            <span
+                                class="gender-badge {% if mentee.MenteeGender == 'male' %}male-badge{% else %}female-badge{% endif %}">
+                                <i
+                                    class="fas {% if mentee.MenteeGender == 'male' %}fa-mars{% else %}fa-venus{% endif %}"></i>
                                 {{ mentee.MenteeGender|title }}
                             </span>
                             <div class="mentee-details">
-                                <strong>ID:</strong> {{ mentee.MenteeID }} • 
-                                <strong>Course:</strong> {{ mentee.MenteeCourse }} • 
+                                <strong>ID:</strong> {{ mentee.MenteeID }} •
+                                <strong>Course:</strong> {{ mentee.MenteeCourse }} •
                                 <strong>Semester:</strong> {{ mentee.MenteeSemester }}
                             </div>
                         </div>
                     </div>
                     {% endfor %}
                 </div>
-                
+
                 <div style="margin-top: 20px; text-align: center;">
                     <button type="submit" class="btn btn-success">
                         <i class="fas fa-user-plus"></i>
@@ -526,63 +706,65 @@
 
                 <script>
                     // Limit selection to available slots and track gender balance
-                    document.addEventListener('DOMContentLoaded', function() {
-                        const maxSelections = {{ vacancy_count }};
-                        const checkboxes = document.querySelectorAll('input[name="mentee_ids"]:not([disabled])');
-                        const submitBtn = document.querySelector('button[type="submit"]');
-                        
-                        let maleSelected = 0;
-                        let femaleSelected = 0;
-                        
-                        function updateSelectionCounts() {
-                            maleSelected = 0;
-                            femaleSelected = 0;
-                            
-                            checkboxes.forEach(checkbox => {
-                                if (checkbox.checked) {
-                                    if (checkbox.dataset.gender === 'male') {
-                                        maleSelected++;
-                                    } else {
-                                        femaleSelected++;
-                                    }
-                                }
-                            });
-                            
-                            const totalSelected = maleSelected + femaleSelected;
-                            
-                            // Update submit button text
-                            if (totalSelected > 0) {
-                                submitBtn.innerHTML = `<i class="fas fa-user-plus"></i> Assign ${totalSelected} Mentee${totalSelected > 1 ? 's' : ''}`;
-                                
-                                // Show gender balance info
-                                submitBtn.title = `Selected: ${maleSelected} male, ${femaleSelected} female`;
-                            } else {
-                                submitBtn.innerHTML = `<i class="fas fa-user-plus"></i> Assign Selected Mentees`;
-                                submitBtn.title = '';
-                            }
-                        }
-                        
+                    document.addEventListener('DOMContentLoaded', function () {
+                        const maxSelections = {{ vacancy_count }
+                    };
+                    const checkboxes = document.querySelectorAll('input[name="mentee_ids"]:not([disabled])');
+                    const submitBtn = document.querySelector('button[type="submit"]');
+
+                    let maleSelected = 0;
+                    let femaleSelected = 0;
+
+                    function updateSelectionCounts() {
+                        maleSelected = 0;
+                        femaleSelected = 0;
+
                         checkboxes.forEach(checkbox => {
-                            checkbox.addEventListener('change', function() {
-                                const checkedCount = document.querySelectorAll('input[name="mentee_ids"]:checked').length;
-                                
-                                if (checkedCount > maxSelections) {
-                                    this.checked = false;
-                                    alert(`You can only select up to ${maxSelections} mentees.`);
+                            if (checkbox.checked) {
+                                if (checkbox.dataset.gender === 'male') {
+                                    maleSelected++;
+                                } else {
+                                    femaleSelected++;
                                 }
-                                
-                                updateSelectionCounts();
-                            });
+                            }
                         });
-                        
-                        // Initialize counts
-                        updateSelectionCounts();
+
+                        const totalSelected = maleSelected + femaleSelected;
+
+                        // Update submit button text
+                        if (totalSelected > 0) {
+                            submitBtn.innerHTML = `<i class="fas fa-user-plus"></i> Assign ${totalSelected} Mentee${totalSelected > 1 ? 's' : ''}`;
+
+                            // Show gender balance info
+                            submitBtn.title = `Selected: ${maleSelected} male, ${femaleSelected} female`;
+                        } else {
+                            submitBtn.innerHTML = `<i class="fas fa-user-plus"></i> Assign Selected Mentees`;
+                            submitBtn.title = '';
+                        }
+                    }
+
+                    checkboxes.forEach(checkbox => {
+                        checkbox.addEventListener('change', function () {
+                            const checkedCount = document.querySelectorAll('input[name="mentee_ids"]:checked').length;
+
+                            if (checkedCount > maxSelections) {
+                                this.checked = false;
+                                alert(`You can only select up to ${maxSelections} mentees.`);
+                            }
+
+                            updateSelectionCounts();
+                        });
+                    });
+
+                    // Initialize counts
+                    updateSelectionCounts();
                     });
                 </script>
                 {% else %}
                 <div class="no-data">
                     <h3>No Suitable Mentees Available</h3>
-                    <p>There are no unassigned mentees that match {{ mentor.MentorName }}'s department ({{ mentor.MentorDepartment }}).</p>
+                    <p>There are no unassigned mentees that match {{ mentor.MentorName }}'s department ({{
+                        mentor.MentorDepartment }}).</p>
                     <p style="margin-top: 15px;">You may need to:</p>
                     <ul style="text-align: left; display: inline-block; margin: 15px 0;">
                         <li>Check if there are unassigned mentees in the {{ mentor.MentorDepartment }} department</li>
@@ -599,4 +781,5 @@
         </form>
     </div>
 </body>
+
 </html>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -178,16 +179,16 @@
             margin-left: 260px;
             min-height: 100vh;
             background: #f5f7fa;
-            padding: 24px;
+            padding: 20px;
         }
 
         /* Updated Content Header with Profile Button */
         .content-header {
             background: white;
-            padding: 20px 24px;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-            margin-bottom: 24px;
+            padding: 18px 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+            margin-bottom: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -196,14 +197,14 @@
         }
 
         .content-header h1 {
-            font-size: 24px;
+            font-size: 22px;
             color: #2d3748;
             margin-bottom: 4px;
         }
 
         .content-header p {
             color: #718096;
-            font-size: 14px;
+            font-size: 13px;
         }
 
         /* Profile Button Styles */
@@ -249,8 +250,8 @@
         .quick-assign-section {
             background: white;
             padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
             margin-bottom: 24px;
         }
 
@@ -387,7 +388,7 @@
 
         .mentor-option {
             border: 2px solid #e2e8f0;
-            border-radius: 8px;
+            border-radius: 10px;
             padding: 16px;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -465,9 +466,17 @@
             transition: width 0.3s ease;
         }
 
-        .capacity-fill.high { background: #2e7d32; }
-        .capacity-fill.medium { background: #ed6c02; }
-        .capacity-fill.low { background: #d32f2f; }
+        .capacity-fill.high {
+            background: #2e7d32;
+        }
+
+        .capacity-fill.medium {
+            background: #ed6c02;
+        }
+
+        .capacity-fill.low {
+            background: #d32f2f;
+        }
 
         /* Buttons - Consistent spacing */
         .btn {
@@ -559,7 +568,7 @@
         /* No Mentors State */
         .no-mentors {
             text-align: center;
-            padding: 40px 20px;
+            padding: 30px;
             color: #718096;
         }
 
@@ -586,6 +595,7 @@
             .sidebar {
                 width: 240px;
             }
+
             .main-content {
                 margin-left: 240px;
             }
@@ -597,49 +607,145 @@
                 height: auto;
                 position: relative;
             }
+
             .main-content {
                 margin-left: 0;
                 padding: 16px;
             }
+
             .content-header {
                 flex-direction: column;
                 text-align: center;
                 padding: 16px;
             }
+
             .mentee-header {
                 flex-direction: column;
                 gap: 12px;
             }
+
             .mentee-stats {
                 grid-template-columns: repeat(2, 1fr);
             }
+
             .mentor-header {
                 flex-direction: column;
                 gap: 8px;
             }
+
             .mentor-stats {
                 flex-direction: column;
                 gap: 8px;
             }
+
             .action-buttons {
                 flex-direction: column;
             }
         }
 
         @media (max-width: 480px) {
+
             .content-header,
             .quick-assign-section {
                 padding: 16px;
             }
+
             .mentee-stats {
                 grid-template-columns: 1fr;
             }
+
             .section-title {
                 font-size: 16px;
             }
+
             .mentee-name {
                 font-size: 18px;
             }
+        }
+            /* Unified Button System - Enforce Consistency */
+        .btn, .btn-primary, .btn-secondary, .btn-danger, .btn-success, .filter-btn, .action-btn {
+            padding: 0 20px !important;
+            height: 42px !important; /* Fixed height for consistency */
+            line-height: 42px !important; /* Vertical centering */
+            border: none !important;
+            border-radius: 8px !important;
+            cursor: pointer;
+            text-decoration: none !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 8px !important; /* Standard icon spacing */
+            font-size: 14px !important;
+            font-weight: 600 !important;
+            transition: all 0.3s ease !important;
+            box-sizing: border-box !important;
+            white-space: nowrap !important; /* Prevent wrapping */
+        }
+
+        /* Specific Button Variants */
+        .btn-success, .btn-primary {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
+            color: white !important;
+        }
+
+        .btn-secondary {
+            background: #718096 !important;
+            color: white !important;
+        }
+        
+        .btn-danger {
+            background: #e53e3e !important;
+            color: white !important;
+        }
+
+        /* Filter Buttons - adjustment for border if needed, or standardizing */
+        .filter-btn {
+            background: white !important;
+            color: #1a3a8f !important;
+            border: 2px solid #1a3a8f !important;
+            padding: 0 18px !important; /* 20px - 2px border */
+            line-height: 38px !important; /* 42px - 4px border */
+        }
+        
+        .filter-btn.active {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
+            color: white !important;
+            border-color: transparent !important;
+            padding: 0 20px !important;
+            line-height: 42px !important;
+        }
+
+        /* Hover States */
+        .btn:hover, .filter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-success:hover, .btn-primary:hover, .filter-btn.active:hover {
+            box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
+        }
+        
+        .btn-secondary:hover {
+            background: #4a5568 !important;
+        }
+        
+        .btn-danger:hover {
+            background: #c53030 !important;
+            box-shadow: 0 5px 15px rgba(229, 62, 62, 0.3);
+        }
+        
+        /* Disabled State */
+        .btn:disabled, .filter-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        /* Icon Reset */
+        .btn i, .filter-btn i {
+            margin: 0 !important;
+            font-size: 1.1em;
         }
     </style>
 
@@ -659,9 +765,95 @@
         html {
             -ms-overflow-style: none;
         }
+            /* Unified Button System - Enforce Consistency */
+        .btn, .btn-primary, .btn-secondary, .btn-danger, .btn-success, .filter-btn, .action-btn {
+            padding: 0 20px !important;
+            height: 42px !important; /* Fixed height for consistency */
+            line-height: 42px !important; /* Vertical centering */
+            border: none !important;
+            border-radius: 8px !important;
+            cursor: pointer;
+            text-decoration: none !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 8px !important; /* Standard icon spacing */
+            font-size: 14px !important;
+            font-weight: 600 !important;
+            transition: all 0.3s ease !important;
+            box-sizing: border-box !important;
+            white-space: nowrap !important; /* Prevent wrapping */
+        }
+
+        /* Specific Button Variants */
+        .btn-success, .btn-primary {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
+            color: white !important;
+        }
+
+        .btn-secondary {
+            background: #718096 !important;
+            color: white !important;
+        }
+        
+        .btn-danger {
+            background: #e53e3e !important;
+            color: white !important;
+        }
+
+        /* Filter Buttons - adjustment for border if needed, or standardizing */
+        .filter-btn {
+            background: white !important;
+            color: #1a3a8f !important;
+            border: 2px solid #1a3a8f !important;
+            padding: 0 18px !important; /* 20px - 2px border */
+            line-height: 38px !important; /* 42px - 4px border */
+        }
+        
+        .filter-btn.active {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
+            color: white !important;
+            border-color: transparent !important;
+            padding: 0 20px !important;
+            line-height: 42px !important;
+        }
+
+        /* Hover States */
+        .btn:hover, .filter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-success:hover, .btn-primary:hover, .filter-btn.active:hover {
+            box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
+        }
+        
+        .btn-secondary:hover {
+            background: #4a5568 !important;
+        }
+        
+        .btn-danger:hover {
+            background: #c53030 !important;
+            box-shadow: 0 5px 15px rgba(229, 62, 62, 0.3);
+        }
+        
+        /* Disabled State */
+        .btn:disabled, .filter-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        /* Icon Reset */
+        .btn i, .filter-btn i {
+            margin: 0 !important;
+            font-size: 1.1em;
+        }
     </style>
 
 </head>
+
 <body>
     <!-- Sidebar -->
     <div class="sidebar">
@@ -733,24 +925,20 @@
                 <p>Quickly assign {{ mentee.MenteeName }} to an available mentor with matching department</p>
             </div>
             <div class="profile-section">
-                <button class="profile-btn">
-                    <div class="profile-avatar">
-                        <i class="fas fa-user"></i>
-                    </div>
-                    <span>Profile</span>
-                </button>
+                
             </div>
         </div>
 
         <!-- Messages -->
         <div class="messages">
             {% if messages %}
-                {% for message in messages %}
-                    <div class="{% if message.tags == 'error' %}error{% else %}success{% endif %}">
-                        <i class="fas {% if message.tags == 'error' %}fa-exclamation-circle{% else %}fa-check-circle{% endif %}"></i>
-                        {{ message }}
-                    </div>
-                {% endfor %}
+            {% for message in messages %}
+            <div class="{% if message.tags == 'error' %}error{% else %}success{% endif %}">
+                <i
+                    class="fas {% if message.tags == 'error' %}fa-exclamation-circle{% else %}fa-check-circle{% endif %}"></i>
+                {{ message }}
+            </div>
+            {% endfor %}
             {% endif %}
         </div>
 
@@ -762,9 +950,9 @@
                     <div>
                         <div class="mentee-name">{{ mentee.MenteeName }}</div>
                         <div class="mentee-details">
-                            <strong>ID:</strong> {{ mentee.MenteeID }} • 
-                            <strong>Course:</strong> {{ mentee.MenteeCourse }} • 
-                            <strong>Semester:</strong> {{ mentee.MenteeSemester }} • 
+                            <strong>ID:</strong> {{ mentee.MenteeID }} •
+                            <strong>Course:</strong> {{ mentee.MenteeCourse }} •
+                            <strong>Semester:</strong> {{ mentee.MenteeSemester }} •
                             <strong>Gender:</strong> {{ mentee.MenteeGender|title }}
                         </div>
                     </div>
@@ -772,27 +960,28 @@
                         <i class="fas fa-id-card"></i> {{ mentee.MenteeID }}
                     </div>
                 </div>
-                
+
                 <!-- Removed the duplicate information that was showing here -->
             </div>
 
             <!-- Assignment Form -->
             <form method="POST" id="assignForm">
                 {% csrf_token %}
-                
+
                 <div class="form-section">
                     <h2 class="section-title">
                         <i class="fas fa-user-tie"></i>
                         Select Mentor
                     </h2>
-                    
+
                     <div class="form-group">
                         <label for="mentor-select"><i class="fas fa-list"></i> Choose from Dropdown</label>
                         <select name="mentor_id" id="mentor-select" class="form-control form-select" required>
                             <option value="">Select a mentor...</option>
                             {% for mentor in available_mentors %}
                             <option value="{{ mentor.MentorID }}">
-                                {{ mentor.MentorName }} ({{ mentor.MentorDepartment }}) - {{ mentor.CurrentMentees }}/{{ mentor.MaxMentees }} mentees
+                                {{ mentor.MentorName }} ({{ mentor.MentorDepartment }}) - {{ mentor.CurrentMentees }}/{{
+                                mentor.MaxMentees }} mentees
                             </option>
                             {% endfor %}
                         </select>
@@ -817,12 +1006,13 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="capacity-bar">
-                                    <div class="capacity-fill {% if mentor.MaxMentees|add:'-mentor.CurrentMentees' >= 10 %}high{% elif mentor.MaxMentees|add:'-mentor.CurrentMentees' >= 5 %}medium{% else %}low{% endif %}" 
-                                         style="width: {% widthratio mentor.CurrentMentees mentor.MaxMentees 100 %}%"></div>
+                                    <div class="capacity-fill {% if mentor.MaxMentees|add:'-mentor.CurrentMentees' >= 10 %}high{% elif mentor.MaxMentees|add:'-mentor.CurrentMentees' >= 5 %}medium{% else %}low{% endif %}"
+                                        style="width: {% widthratio mentor.CurrentMentees mentor.MaxMentees 100 %}%">
+                                    </div>
                                 </div>
-                                
+
                                 <div class="mentor-stats">
                                     <div class="mentor-stat">
                                         <div class="mentor-stat-value">{{ mentor.CurrentMentees }}</div>
@@ -833,7 +1023,8 @@
                                         <div class="mentor-stat-label">Max Capacity</div>
                                     </div>
                                     <div class="mentor-stat">
-                                        <div class="mentor-stat-value" style="color: #2e7d32;">{{ mentor.MaxMentees|add:"-mentor.CurrentMentees" }}</div>
+                                        <div class="mentor-stat-value" style="color: #2e7d32;">{{
+                                            mentor.MaxMentees|add:"-mentor.CurrentMentees" }}</div>
                                         <div class="mentor-stat-label">Available</div>
                                     </div>
                                 </div>
@@ -862,33 +1053,33 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const mentorSelect = document.getElementById('mentor-select');
             const mentorOptions = document.querySelectorAll('.mentor-option');
             const assignForm = document.getElementById('assignForm');
-            
+
             // Handle mentor option clicks
             mentorOptions.forEach(option => {
-                option.addEventListener('click', function() {
+                option.addEventListener('click', function () {
                     // Remove selected class from all options
                     mentorOptions.forEach(opt => opt.classList.remove('selected'));
-                    
+
                     // Add selected class to clicked option
                     this.classList.add('selected');
-                    
+
                     // Update the dropdown
                     const mentorId = this.getAttribute('data-mentor-id');
                     mentorSelect.value = mentorId;
                 });
             });
-            
+
             // Handle dropdown changes
-            mentorSelect.addEventListener('change', function() {
+            mentorSelect.addEventListener('change', function () {
                 const selectedId = this.value;
-                
+
                 // Remove selected class from all options
                 mentorOptions.forEach(opt => opt.classList.remove('selected'));
-                
+
                 // Add selected class to corresponding option
                 if (selectedId) {
                     const correspondingOption = document.querySelector(`.mentor-option[data-mentor-id="${selectedId}"]`);
@@ -897,7 +1088,7 @@
                     }
                 }
             });
-            
+
             // Add active state to current page in navigation
             const currentPage = window.location.pathname;
             document.querySelectorAll('.nav-link').forEach(link => {
@@ -907,34 +1098,35 @@
                     link.classList.remove('active');
                 }
             });
-            
+
             // Form submission confirmation
-            assignForm.addEventListener('submit', function(e) {
+            assignForm.addEventListener('submit', function (e) {
                 const selectedMentor = mentorSelect.value;
                 if (!selectedMentor) {
                     e.preventDefault();
                     alert('Please select a mentor before submitting.');
                     return;
                 }
-                
+
                 const mentorName = mentorSelect.options[mentorSelect.selectedIndex].text;
                 const confirmation = confirm(`Are you sure you want to assign ${menteeName} to ${mentorName}?`);
-                
+
                 if (!confirmation) {
                     e.preventDefault();
                 }
             });
 
             // Profile button functionality
-            document.querySelector('.profile-btn').addEventListener('click', function() {
+            document.querySelector('.profile-btn').addEventListener('click', function () {
                 alert('Profile page would open here!');
                 // In a real application, this would navigate to the profile page
                 // window.location.href = '/profile/';
             });
         });
-        
+
         // Use the actual mentee name from Django context
         const menteeName = "{{ mentee.MenteeName }}";
     </script>
 </body>
+
 </html>

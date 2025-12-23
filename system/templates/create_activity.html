@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -178,16 +179,16 @@
             margin-left: 260px;
             min-height: 100vh;
             background: #f5f7fa;
-            padding: 24px;
+            padding: 20px;
         }
 
         /* Updated Content Header with Profile Button */
         .content-header {
             background: white;
-            padding: 20px 24px;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-            margin-bottom: 24px;
+            padding: 18px 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+            margin-bottom: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -196,14 +197,14 @@
         }
 
         .content-header h1 {
-            font-size: 24px;
+            font-size: 22px;
             color: #2d3748;
             margin-bottom: 4px;
         }
 
         .content-header p {
             color: #718096;
-            font-size: 14px;
+            font-size: 13px;
         }
 
         /* Profile Button Styles */
@@ -246,121 +247,125 @@
         }
 
         /* Form Container - Consistent spacing */
-        .form-container { 
-            background: white; 
-            padding: 24px; 
-            border-radius: 12px; 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08); 
-            margin-bottom: 24px;
+        .form-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+            margin-bottom: 20px;
         }
-        
-        .form-group { 
-            margin-bottom: 20px; 
+
+        .form-group {
+            margin-bottom: 20px;
         }
-        
-        .form-group label { 
-            display: block; 
-            margin-bottom: 8px; 
-            font-weight: 600; 
-            color: #2d3748; 
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2d3748;
             font-size: 14px;
         }
-        
-        .form-group input, .form-group select, .form-group textarea { 
-            width: 100%; 
-            padding: 12px; 
-            border: 2px solid #e2e8f0; 
-            border-radius: 8px; 
-            font-size: 14px; 
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 14px;
             transition: all 0.3s ease;
             background: #f8f9ff;
         }
-        
-        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
             outline: none;
             border-color: #1a3a8f;
             box-shadow: 0 0 0 3px rgba(26, 58, 143, 0.1);
             background: white;
         }
-        
+
         .form-group textarea {
             height: 120px;
             resize: vertical;
         }
-        
-        .btn { 
-            padding: 10px 16px; 
-            border: none; 
-            border-radius: 8px; 
-            cursor: pointer; 
-            text-decoration: none; 
+
+        .btn {
+            padding: 10px 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            font-size: 14px; 
+            font-size: 14px;
             font-weight: 600;
             transition: all 0.3s ease;
         }
-        
-        .btn-primary { 
-            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%); 
-            color: white; 
+
+        .btn-primary {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
+            color: white;
         }
 
         .btn-primary:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
         }
-        
-        .btn-secondary { 
-            background: #6c757d; 
-            color: white; 
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
         }
 
         .btn-secondary:hover {
             background: #5a6268;
             transform: translateY(-2px);
         }
-        
-        .messages { 
-            margin-bottom: 20px; 
+
+        .messages {
+            margin-bottom: 20px;
         }
-        
-        .error { 
-            background: #ffebee; 
-            color: #c62828; 
-            padding: 12px 16px; 
-            border-radius: 8px; 
-            margin-bottom: 16px; 
-            border: 1px solid #feb2b2; 
+
+        .error {
+            background: #ffebee;
+            color: #c62828;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            border: 1px solid #feb2b2;
             display: flex;
             align-items: center;
             gap: 10px;
         }
-        
-        .success { 
-            background: #e8f5e8; 
-            color: #2e7d32; 
-            padding: 12px 16px; 
-            border-radius: 8px; 
-            margin-bottom: 16px; 
-            border: 1px solid #c8e6c9; 
+
+        .success {
+            background: #e8f5e8;
+            color: #2e7d32;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            border: 1px solid #c8e6c9;
             display: flex;
             align-items: center;
             gap: 10px;
         }
-        
-        .required::after { 
-            content: " *"; 
-            color: #d32f2f; 
+
+        .required::after {
+            content: " *";
+            color: #d32f2f;
         }
-        
+
         .form-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 16px;
         }
-        
+
         .checkbox-group {
             display: flex;
             align-items: center;
@@ -370,13 +375,13 @@
             border-radius: 8px;
             border: 2px solid #e2e8f0;
         }
-        
+
         .checkbox-group input[type="checkbox"] {
             width: 16px;
             height: 16px;
             accent-color: #1a3a8f;
         }
-        
+
         .checkbox-group label {
             margin: 0;
             font-weight: 600;
@@ -434,7 +439,7 @@
         /* Multiple Mentor Selection */
         .mentor-selection {
             border: 2px solid #e2e8f0;
-            border-radius: 8px;
+            border-radius: 10px;
             padding: 16px;
             background: #f8f9ff;
         }
@@ -548,6 +553,7 @@
             .sidebar {
                 width: 240px;
             }
+
             .main-content {
                 margin-left: 240px;
             }
@@ -559,35 +565,128 @@
                 height: auto;
                 position: relative;
             }
+
             .main-content {
                 margin-left: 0;
                 padding: 16px;
             }
+
             .content-header {
                 flex-direction: column;
                 text-align: center;
                 padding: 16px;
             }
+
             .form-row {
                 grid-template-columns: 1fr;
             }
+
             .mentor-checkboxes {
                 grid-template-columns: 1fr;
             }
+
             .form-actions {
                 flex-direction: column;
             }
+
             .auto-generate {
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 8px;
             }
+
             .time-inputs {
                 grid-template-columns: 1fr;
             }
+
             .form-container {
                 padding: 16px;
             }
+        }
+            /* Unified Button System - Enforce Consistency */
+        .btn, .btn-primary, .btn-secondary, .btn-danger, .btn-success, .filter-btn, .action-btn {
+            padding: 0 20px !important;
+            height: 42px !important; /* Fixed height for consistency */
+            line-height: 42px !important; /* Vertical centering */
+            border: none !important;
+            border-radius: 8px !important;
+            cursor: pointer;
+            text-decoration: none !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 8px !important; /* Standard icon spacing */
+            font-size: 14px !important;
+            font-weight: 600 !important;
+            transition: all 0.3s ease !important;
+            box-sizing: border-box !important;
+            white-space: nowrap !important; /* Prevent wrapping */
+        }
+
+        /* Specific Button Variants */
+        .btn-success, .btn-primary {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
+            color: white !important;
+        }
+
+        .btn-secondary {
+            background: #718096 !important;
+            color: white !important;
+        }
+        
+        .btn-danger {
+            background: #e53e3e !important;
+            color: white !important;
+        }
+
+        /* Filter Buttons - adjustment for border if needed, or standardizing */
+        .filter-btn {
+            background: white !important;
+            color: #1a3a8f !important;
+            border: 2px solid #1a3a8f !important;
+            padding: 0 18px !important; /* 20px - 2px border */
+            line-height: 38px !important; /* 42px - 4px border */
+        }
+        
+        .filter-btn.active {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
+            color: white !important;
+            border-color: transparent !important;
+            padding: 0 20px !important;
+            line-height: 42px !important;
+        }
+
+        /* Hover States */
+        .btn:hover, .filter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-success:hover, .btn-primary:hover, .filter-btn.active:hover {
+            box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
+        }
+        
+        .btn-secondary:hover {
+            background: #4a5568 !important;
+        }
+        
+        .btn-danger:hover {
+            background: #c53030 !important;
+            box-shadow: 0 5px 15px rgba(229, 62, 62, 0.3);
+        }
+        
+        /* Disabled State */
+        .btn:disabled, .filter-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        /* Icon Reset */
+        .btn i, .filter-btn i {
+            margin: 0 !important;
+            font-size: 1.1em;
         }
     </style>
 
@@ -607,9 +706,95 @@
         html {
             -ms-overflow-style: none;
         }
+            /* Unified Button System - Enforce Consistency */
+        .btn, .btn-primary, .btn-secondary, .btn-danger, .btn-success, .filter-btn, .action-btn {
+            padding: 0 20px !important;
+            height: 42px !important; /* Fixed height for consistency */
+            line-height: 42px !important; /* Vertical centering */
+            border: none !important;
+            border-radius: 8px !important;
+            cursor: pointer;
+            text-decoration: none !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 8px !important; /* Standard icon spacing */
+            font-size: 14px !important;
+            font-weight: 600 !important;
+            transition: all 0.3s ease !important;
+            box-sizing: border-box !important;
+            white-space: nowrap !important; /* Prevent wrapping */
+        }
+
+        /* Specific Button Variants */
+        .btn-success, .btn-primary {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
+            color: white !important;
+        }
+
+        .btn-secondary {
+            background: #718096 !important;
+            color: white !important;
+        }
+        
+        .btn-danger {
+            background: #e53e3e !important;
+            color: white !important;
+        }
+
+        /* Filter Buttons - adjustment for border if needed, or standardizing */
+        .filter-btn {
+            background: white !important;
+            color: #1a3a8f !important;
+            border: 2px solid #1a3a8f !important;
+            padding: 0 18px !important; /* 20px - 2px border */
+            line-height: 38px !important; /* 42px - 4px border */
+        }
+        
+        .filter-btn.active {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
+            color: white !important;
+            border-color: transparent !important;
+            padding: 0 20px !important;
+            line-height: 42px !important;
+        }
+
+        /* Hover States */
+        .btn:hover, .filter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-success:hover, .btn-primary:hover, .filter-btn.active:hover {
+            box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
+        }
+        
+        .btn-secondary:hover {
+            background: #4a5568 !important;
+        }
+        
+        .btn-danger:hover {
+            background: #c53030 !important;
+            box-shadow: 0 5px 15px rgba(229, 62, 62, 0.3);
+        }
+        
+        /* Disabled State */
+        .btn:disabled, .filter-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        /* Icon Reset */
+        .btn i, .filter-btn i {
+            margin: 0 !important;
+            font-size: 1.1em;
+        }
     </style>
 
 </head>
+
 <body>
     <!-- Sidebar -->
     <div class="sidebar">
@@ -681,24 +866,20 @@
                 <p>Add a new activity to the mentor-mentee system</p>
             </div>
             <div class="profile-section">
-                <button class="profile-btn">
-                    <div class="profile-avatar">
-                        <i class="fas fa-user"></i>
-                    </div>
-                    <span>Profile</span>
-                </button>
+                
             </div>
         </div>
 
         <!-- Messages -->
         <div class="messages">
             {% if messages %}
-                {% for message in messages %}
-                    <div class="{% if message.tags == 'error' %}error{% else %}success{% endif %}">
-                        <i class="fas {% if message.tags == 'error' %}fa-exclamation-circle{% else %}fa-check-circle{% endif %}"></i>
-                        {{ message }}
-                    </div>
-                {% endfor %}
+            {% for message in messages %}
+            <div class="{% if message.tags == 'error' %}error{% else %}success{% endif %}">
+                <i
+                    class="fas {% if message.tags == 'error' %}fa-exclamation-circle{% else %}fa-check-circle{% endif %}"></i>
+                {{ message }}
+            </div>
+            {% endfor %}
             {% endif %}
         </div>
 
@@ -706,14 +887,14 @@
         <div class="form-container">
             <form method="POST">
                 {% csrf_token %}
-                
+
                 <!-- Basic Information -->
                 <div class="form-row">
                     <div class="form-group">
                         <label for="ActivityID" class="required">Activity ID</label>
-                        <input type="text" id="ActivityID" name="ActivityID" required 
-                               placeholder="e.g., A00001" value="{{ form.ActivityID.value|default:'' }}"
-                               pattern="A\d{5}" title="Activity ID must be in format A followed by 5 digits (e.g., A00001)">
+                        <input type="text" id="ActivityID" name="ActivityID" required placeholder="e.g., A00001"
+                            value="{{ form.ActivityID.value|default:'' }}" pattern="A\d{5}"
+                            title="Activity ID must be in format A followed by 5 digits (e.g., A00001)">
                         <div class="id-preview-container">
                             <div class="auto-generate">
                                 <span style="font-weight: 500; color: #4a5568;">Preview:</span>
@@ -725,76 +906,79 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="ActivityName" class="required">Activity Name</label>
-                        <input type="text" id="ActivityName" name="ActivityName" required 
-                               placeholder="Enter activity name" value="{{ form.ActivityName.value|default:'' }}">
+                        <input type="text" id="ActivityName" name="ActivityName" required
+                            placeholder="Enter activity name" value="{{ form.ActivityName.value|default:'' }}">
                     </div>
                 </div>
-                
+
                 <!-- Activity Details -->
                 <div class="form-row">
                     <div class="form-group">
                         <label for="ActivityType" class="required">Activity Type</label>
                         <select id="ActivityType" name="ActivityType" required>
                             <option value="">Select Activity Type</option>
-                            <option value="mentoring" {% if form.ActivityType.value == 'mentoring' %}selected{% endif %}>Mentoring Session</option>
-                            <option value="workshop" {% if form.ActivityType.value == 'workshop' %}selected{% endif %}>Workshop</option>
-                            <option value="seminar" {% if form.ActivityType.value == 'seminar' %}selected{% endif %}>Seminar</option>
-                            <option value="meeting" {% if form.ActivityType.value == 'meeting' %}selected{% endif %}>Meeting</option>
-                            <option value="other" {% if form.ActivityType.value == 'other' %}selected{% endif %}>Other</option>
+                            <option value="mentoring" {% if form.ActivityType.value == 'mentoring' %}selected{% endif %}>
+                                Mentoring Session</option>
+                            <option value="workshop" {% if form.ActivityType.value == 'workshop' %}selected{% endif %}>
+                                Workshop</option>
+                            <option value="seminar" {% if form.ActivityType.value == 'seminar' %}selected{% endif %}>
+                                Seminar</option>
+                            <option value="meeting" {% if form.ActivityType.value == 'meeting' %}selected{% endif %}>
+                                Meeting</option>
+                            <option value="other" {% if form.ActivityType.value == 'other' %}selected{% endif %}>Other
+                            </option>
                         </select>
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="Location" class="required">Location</label>
-                        <input type="text" id="Location" name="Location" required 
-                               placeholder="Enter location" value="{{ form.Location.value|default:'' }}">
+                        <input type="text" id="Location" name="Location" required placeholder="Enter location"
+                            value="{{ form.Location.value|default:'' }}">
                     </div>
                 </div>
-                
+
                 <!-- Date and Time -->
                 <div class="form-row">
                     <div class="form-group">
                         <label for="Date" class="required">Date</label>
-                        <input type="date" id="Date" name="Date" required 
-                               value="{{ form.Date.value|default:'' }}">
+                        <input type="date" id="Date" name="Date" required value="{{ form.Date.value|default:'' }}">
                     </div>
-                    
+
                     <div class="form-group">
                         <label class="required">Time Schedule</label>
                         <div class="time-inputs">
                             <div class="time-input-group">
                                 <label for="StartTime">Start Time</label>
-                                <input type="time" id="StartTime" name="StartTime" required 
-                                       value="{{ form.StartTime.value|default:'' }}">
+                                <input type="time" id="StartTime" name="StartTime" required
+                                    value="{{ form.StartTime.value|default:'' }}">
                             </div>
                             <div class="time-input-group">
                                 <label for="EndTime">End Time</label>
-                                <input type="time" id="EndTime" name="EndTime" required 
-                                       value="{{ form.EndTime.value|default:'' }}">
+                                <input type="time" id="EndTime" name="EndTime" required
+                                    value="{{ form.EndTime.value|default:'' }}">
                             </div>
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Description -->
                 <div class="form-group">
                     <label for="Description">Activity Description</label>
-                    <textarea id="Description" name="Description" 
-                              placeholder="Enter activity description, objectives, and any special instructions">{{ form.Description.value|default:'' }}</textarea>
+                    <textarea id="Description" name="Description"
+                        placeholder="Enter activity description, objectives, and any special instructions">{{ form.Description.value|default:'' }}</textarea>
                 </div>
-                
+
                 <!-- Mentoring Session Checkbox -->
                 <div class="form-group">
                     <div class="checkbox-group">
-                        <input type="checkbox" id="IsMentoringSession" name="IsMentoringSession" 
-                               {% if form.IsMentoringSession.value %}checked{% endif %}>
+                        <input type="checkbox" id="IsMentoringSession" name="IsMentoringSession" {% if form.IsMentoringSession.value %}checked{% endif %}>
                         <label for="IsMentoringSession">This is a mentoring session</label>
                     </div>
                 </div>
-                
+
                 <!-- Multiple Mentor Selection -->
                 <div class="form-group">
                     <label>Assign to Mentors</label>
@@ -807,8 +991,8 @@
                         <div class="mentor-checkboxes" id="mentorCheckboxes">
                             {% for mentor in mentors %}
                             <div class="mentor-checkbox-item">
-                                <input type="checkbox" id="mentor_{{ mentor.MentorID }}" name="mentors" value="{{ mentor.MentorID }}"
-                                       {% if mentor.MentorID in selected_mentors %}checked{% endif %}>
+                                <input type="checkbox" id="mentor_{{ mentor.MentorID }}" name="mentors"
+                                    value="{{ mentor.MentorID }}" {% if mentor.MentorID in selected_mentors %}checked{% endif %}>
                                 <label for="mentor_{{ mentor.MentorID }}">
                                     {{ mentor.MentorName }}
                                     <div class="mentor-department">{{ mentor.MentorDepartment }}</div>
@@ -816,14 +1000,15 @@
                             </div>
                             {% empty %}
                             <div style="color: #718096; text-align: center; padding: 20px; grid-column: 1 / -1;">
-                                <i class="fas fa-user-tie" style="font-size: 24px; margin-bottom: 10px; display: block;"></i>
+                                <i class="fas fa-user-tie"
+                                    style="font-size: 24px; margin-bottom: 10px; display: block;"></i>
                                 No mentors available
                             </div>
                             {% endfor %}
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Form Actions -->
                 <div class="form-actions">
                     <a href="{% url 'mentor_mentee_activities' %}" class="btn btn-secondary">
@@ -863,7 +1048,7 @@
         }
 
         // Update preview when Activity ID is manually entered
-        document.getElementById('ActivityID').addEventListener('input', function() {
+        document.getElementById('ActivityID').addEventListener('input', function () {
             document.getElementById('idPreview').textContent = this.value || 'A00001';
         });
 
@@ -877,41 +1062,41 @@
         function setupMentorSelection() {
             const selectAll = document.getElementById('selectAllMentors');
             const mentorCheckboxes = document.querySelectorAll('input[name="mentors"]');
-            
+
             // Select All functionality
-            selectAll.addEventListener('change', function() {
+            selectAll.addEventListener('change', function () {
                 mentorCheckboxes.forEach(checkbox => {
                     checkbox.checked = this.checked;
                 });
                 updateSelectedCount();
             });
-            
+
             // Individual checkbox functionality
             mentorCheckboxes.forEach(checkbox => {
-                checkbox.addEventListener('change', function() {
+                checkbox.addEventListener('change', function () {
                     updateSelectedCount();
-                    
+
                     // Update Select All checkbox state
                     const allChecked = document.querySelectorAll('input[name="mentors"]:checked').length === mentorCheckboxes.length;
                     const someChecked = document.querySelectorAll('input[name="mentors"]:checked').length > 0;
-                    
+
                     selectAll.checked = allChecked;
                     selectAll.indeterminate = someChecked && !allChecked;
                 });
             });
-            
+
             // Initial count update
             updateSelectedCount();
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // Set minimum date to today
             const today = new Date().toISOString().split('T')[0];
             document.getElementById('Date').min = today;
-            
+
             // Auto-generate Activity ID on page load
             generateActivityId();
-            
+
             // Setup mentor selection
             setupMentorSelection();
 
@@ -919,19 +1104,20 @@
             const currentPage = window.location.pathname;
             document.querySelectorAll('.nav-link').forEach(link => {
                 if (link.getAttribute('href') === '{% url 'mentor_mentee_activities' %}') {
-                    link.classList.add('active');
-                } else {
-                    link.classList.remove('active');
-                }
-            });
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
 
-            // Profile button functionality
-            document.querySelector('.profile-btn').addEventListener('click', function() {
-                alert('Profile page would open here!');
-                // In a real application, this would navigate to the profile page
-                // window.location.href = '/profile/';
-            });
+        // Profile button functionality
+        document.querySelector('.profile-btn').addEventListener('click', function () {
+            alert('Profile page would open here!');
+            // In a real application, this would navigate to the profile page
+            // window.location.href = '/profile/';
+        });
         });
     </script>
 </body>
+
 </html>
