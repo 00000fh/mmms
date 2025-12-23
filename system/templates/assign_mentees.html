@@ -21,9 +21,9 @@
             color: #333;
         }
 
-        /* Sidebar Styles - Consistent Blue Theme */
+        /* Sidebar Styles */
         .sidebar {
-            width: 280px;
+            width: 260px;
             background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
             color: white;
             height: 100vh;
@@ -33,79 +33,82 @@
             overflow-y: auto;
             box-shadow: 2px 0 20px rgba(0, 0, 0, 0.1);
             z-index: 1000;
+            display: flex;
+            flex-direction: column;
         }
 
         .logo-section {
-            padding: 30px 25px;
+            padding: 24px 20px;
             text-align: center;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .logo {
-            font-size: 32px;
+            font-size: 28px;
             font-weight: bold;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
-            margin-bottom: 10px;
+            gap: 10px;
+            margin-bottom: 8px;
         }
 
         .logo i {
-            font-size: 36px;
+            font-size: 32px;
         }
 
         .logo-text {
-            font-size: 24px;
+            font-size: 22px;
         }
 
         .user-info {
-            padding: 25px;
+            padding: 20px;
             text-align: center;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .user-avatar {
-            width: 80px;
-            height: 80px;
+            width: 70px;
+            height: 70px;
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.1);
-            margin: 0 auto 15px;
+            margin: 0 auto 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 30px;
+            font-size: 26px;
             border: 3px solid rgba(255, 255, 255, 0.2);
         }
 
         .user-name {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 600;
-            margin-bottom: 5px;
+            margin-bottom: 4px;
         }
 
         .user-role {
-            font-size: 14px;
+            font-size: 13px;
             opacity: 0.8;
             background: rgba(255, 255, 255, 0.2);
-            padding: 4px 12px;
+            padding: 3px 10px;
             border-radius: 20px;
             display: inline-block;
         }
 
         .nav-menu {
             list-style: none;
-            padding: 25px 0;
+            padding: 20px 0;
+            flex: 1;
         }
 
         .nav-item {
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         .nav-link {
             display: flex;
             align-items: center;
-            padding: 15px 25px;
+            padding: 12px 20px;
             color: white;
             text-decoration: none;
             transition: all 0.3s ease;
@@ -116,7 +119,7 @@
         .nav-link:hover {
             background: rgba(255, 255, 255, 0.1);
             border-left-color: rgba(255, 255, 255, 0.5);
-            padding-left: 30px;
+            padding-left: 24px;
         }
 
         .nav-link.active {
@@ -125,20 +128,55 @@
         }
 
         .nav-link i {
-            margin-right: 15px;
-            font-size: 18px;
-            width: 20px;
+            margin-right: 12px;
+            font-size: 16px;
+            width: 18px;
             text-align: center;
         }
 
         .nav-text {
             font-weight: 500;
+            font-size: 14px;
+        }
+
+        /* Logout section at bottom of sidebar */
+        .sidebar-footer {
+            margin-top: auto;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logout-item {
+            margin-bottom: 0;
+        }
+
+        .logout-link {
+            display: flex;
+            align-items: center;
+            padding: 16px 20px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .logout-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-left-color: rgba(255, 255, 255, 0.5);
+            padding-left: 24px;
+        }
+
+        .logout-link i {
+            margin-right: 12px;
+            font-size: 16px;
+            width: 18px;
+            text-align: center;
         }
 
         /* Main Content Styles */
         .main-content {
             flex: 1;
-            margin-left: 280px;
+            margin-left: 260px;
             min-height: 100vh;
             background: #f5f7fa;
             padding: 20px;
@@ -381,11 +419,20 @@
                 align-self: flex-start;
             }
         }
-            /* Unified Button System - Enforce Consistency */
-        .btn, .btn-primary, .btn-secondary, .btn-danger, .btn-success, .filter-btn, .action-btn {
+
+        /* Unified Button System - Enforce Consistency */
+        .btn,
+        .btn-primary,
+        .btn-secondary,
+        .btn-danger,
+        .btn-success,
+        .filter-btn,
+        .action-btn {
             padding: 0 20px !important;
-            height: 42px !important; /* Fixed height for consistency */
-            line-height: 42px !important; /* Vertical centering */
+            height: 42px !important;
+            /* Fixed height for consistency */
+            line-height: 42px !important;
+            /* Vertical centering */
             border: none !important;
             border-radius: 8px !important;
             cursor: pointer;
@@ -393,16 +440,19 @@
             display: inline-flex !important;
             align-items: center !important;
             justify-content: center !important;
-            gap: 8px !important; /* Standard icon spacing */
+            gap: 8px !important;
+            /* Standard icon spacing */
             font-size: 14px !important;
             font-weight: 600 !important;
             transition: all 0.3s ease !important;
             box-sizing: border-box !important;
-            white-space: nowrap !important; /* Prevent wrapping */
+            white-space: nowrap !important;
+            /* Prevent wrapping */
         }
 
         /* Specific Button Variants */
-        .btn-success, .btn-primary {
+        .btn-success,
+        .btn-primary {
             background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
             color: white !important;
         }
@@ -411,7 +461,7 @@
             background: #718096 !important;
             color: white !important;
         }
-        
+
         .btn-danger {
             background: #e53e3e !important;
             color: white !important;
@@ -422,10 +472,12 @@
             background: white !important;
             color: #1a3a8f !important;
             border: 2px solid #1a3a8f !important;
-            padding: 0 18px !important; /* 20px - 2px border */
-            line-height: 38px !important; /* 42px - 4px border */
+            padding: 0 18px !important;
+            /* 20px - 2px border */
+            line-height: 38px !important;
+            /* 42px - 4px border */
         }
-        
+
         .filter-btn.active {
             background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
             color: white !important;
@@ -435,26 +487,30 @@
         }
 
         /* Hover States */
-        .btn:hover, .filter-btn:hover {
+        .btn:hover,
+        .filter-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
-        
-        .btn-success:hover, .btn-primary:hover, .filter-btn.active:hover {
+
+        .btn-success:hover,
+        .btn-primary:hover,
+        .filter-btn.active:hover {
             box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
         }
-        
+
         .btn-secondary:hover {
             background: #4a5568 !important;
         }
-        
+
         .btn-danger:hover {
             background: #c53030 !important;
             box-shadow: 0 5px 15px rgba(229, 62, 62, 0.3);
         }
-        
+
         /* Disabled State */
-        .btn:disabled, .filter-btn:disabled {
+        .btn:disabled,
+        .filter-btn:disabled {
             opacity: 0.6;
             cursor: not-allowed;
             transform: none !important;
@@ -462,7 +518,8 @@
         }
 
         /* Icon Reset */
-        .btn i, .filter-btn i {
+        .btn i,
+        .filter-btn i {
             margin: 0 !important;
             font-size: 1.1em;
         }
@@ -484,11 +541,20 @@
         html {
             -ms-overflow-style: none;
         }
-            /* Unified Button System - Enforce Consistency */
-        .btn, .btn-primary, .btn-secondary, .btn-danger, .btn-success, .filter-btn, .action-btn {
+
+        /* Unified Button System - Enforce Consistency */
+        .btn,
+        .btn-primary,
+        .btn-secondary,
+        .btn-danger,
+        .btn-success,
+        .filter-btn,
+        .action-btn {
             padding: 0 20px !important;
-            height: 42px !important; /* Fixed height for consistency */
-            line-height: 42px !important; /* Vertical centering */
+            height: 42px !important;
+            /* Fixed height for consistency */
+            line-height: 42px !important;
+            /* Vertical centering */
             border: none !important;
             border-radius: 8px !important;
             cursor: pointer;
@@ -496,16 +562,19 @@
             display: inline-flex !important;
             align-items: center !important;
             justify-content: center !important;
-            gap: 8px !important; /* Standard icon spacing */
+            gap: 8px !important;
+            /* Standard icon spacing */
             font-size: 14px !important;
             font-weight: 600 !important;
             transition: all 0.3s ease !important;
             box-sizing: border-box !important;
-            white-space: nowrap !important; /* Prevent wrapping */
+            white-space: nowrap !important;
+            /* Prevent wrapping */
         }
 
         /* Specific Button Variants */
-        .btn-success, .btn-primary {
+        .btn-success,
+        .btn-primary {
             background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
             color: white !important;
         }
@@ -514,7 +583,7 @@
             background: #718096 !important;
             color: white !important;
         }
-        
+
         .btn-danger {
             background: #e53e3e !important;
             color: white !important;
@@ -525,10 +594,12 @@
             background: white !important;
             color: #1a3a8f !important;
             border: 2px solid #1a3a8f !important;
-            padding: 0 18px !important; /* 20px - 2px border */
-            line-height: 38px !important; /* 42px - 4px border */
+            padding: 0 18px !important;
+            /* 20px - 2px border */
+            line-height: 38px !important;
+            /* 42px - 4px border */
         }
-        
+
         .filter-btn.active {
             background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
             color: white !important;
@@ -538,26 +609,30 @@
         }
 
         /* Hover States */
-        .btn:hover, .filter-btn:hover {
+        .btn:hover,
+        .filter-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
-        
-        .btn-success:hover, .btn-primary:hover, .filter-btn.active:hover {
+
+        .btn-success:hover,
+        .btn-primary:hover,
+        .filter-btn.active:hover {
             box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
         }
-        
+
         .btn-secondary:hover {
             background: #4a5568 !important;
         }
-        
+
         .btn-danger:hover {
             background: #c53030 !important;
             box-shadow: 0 5px 15px rgba(229, 62, 62, 0.3);
         }
-        
+
         /* Disabled State */
-        .btn:disabled, .filter-btn:disabled {
+        .btn:disabled,
+        .filter-btn:disabled {
             opacity: 0.6;
             cursor: not-allowed;
             transform: none !important;
@@ -565,7 +640,8 @@
         }
 
         /* Icon Reset */
-        .btn i, .filter-btn i {
+        .btn i,
+        .filter-btn i {
             margin: 0 !important;
             font-size: 1.1em;
         }
@@ -579,7 +655,7 @@
         <div class="logo-section">
             <div class="logo">
                 <i class="fas fa-hands-helping"></i>
-                <span class="logo-text">MMS</span>
+                <span class="logo-text">MMMS</span>
             </div>
         </div>
 
@@ -622,15 +698,17 @@
                     <span class="nav-text">Activities</span>
                 </a>
             </li>
-            <li class="nav-item">
-                <a href="{% url 'logout' %}" class="nav-link">
+        </ul>
+
+        <div class="sidebar-footer">
+            <div class="nav-item logout-item">
+                <a href="{% url 'logout' %}" class="logout-link">
                     <i class="fas fa-sign-out-alt"></i>
                     <span class="nav-text">Logout</span>
                 </a>
-            </li>
-        </ul>
+            </div>
+        </div>
     </div>
-
     <!-- Main Content -->
     <div class="main-content">
         <!-- Content Header -->
@@ -673,8 +751,7 @@
                     {% for mentee in suitable_mentees %}
                     <div class="mentee-option">
                         <input type="checkbox" name="mentee_ids" value="{{ mentee.MenteeID }}"
-                            id="mentee_{{ mentee.MenteeID }}" data-gender="{{ mentee.MenteeGender }}" {% if
-                            forloop.counter> vacancy_count %}disabled{% endif %}>
+                            id="mentee_{{ mentee.MenteeID }}" data-gender="{{ mentee.MenteeGender }}" {% if forloop.counter > vacancy_count %}disabled{% endif %}>
                         <div class="mentee-info">
                             <strong>{{ mentee.MenteeName }}</strong>
                             <span
