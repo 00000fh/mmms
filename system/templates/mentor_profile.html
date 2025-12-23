@@ -933,6 +933,25 @@
             box-shadow: 0 0 10px rgba(76, 175, 80, 0.3);
         }
     </style>
+
+    <style>
+        /* Chrome, Edge, Safari */
+        ::-webkit-scrollbar {
+            width: 0px;
+            background: transparent;
+        }
+
+        /* Firefox */
+        html {
+            scrollbar-width: none;
+        }
+
+        /* Internet Explorer / old Edge */
+        html {
+            -ms-overflow-style: none;
+        }
+    </style>
+
 </head>
 <body>
     <!-- Sidebar -->

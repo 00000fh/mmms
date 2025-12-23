@@ -22,6 +22,25 @@
         .attendance-item:last-child { border-bottom: none; }
         .checkbox-group { display: flex; align-items: center; gap: 10px; }
     </style>
+
+    <style>
+        /* Chrome, Edge, Safari */
+        ::-webkit-scrollbar {
+            width: 0px;
+            background: transparent;
+        }
+
+        /* Firefox */
+        html {
+            scrollbar-width: none;
+        }
+
+        /* Internet Explorer / old Edge */
+        html {
+            -ms-overflow-style: none;
+        }
+    </style>
+
 </head>
 <body>
     <div class="nav">
