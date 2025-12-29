@@ -9,7 +9,8 @@ import re
 from datetime import datetime, date, timedelta
 from django.utils import timezone
 from django.db import models  
-from django.db.models import F, Q
+from django.db.models import F, Q, Count
+from django.db.models.functions import TruncMonth, TruncDay
 from .forms import ActivityForm
 from django.http import JsonResponse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger  # ADD THIS IMPORT
@@ -1458,15 +1459,54 @@ def head_homepage(request):
     ).count()
     
     # Calculate system usage (percentage of mentors with mentees)
-    mentors_with_mentees = Mentor.objects.filter(mentee__isnull=False).distinct().count()
+    mentors_with_mentees = Mentor.objects.filter(CurrentMentees__gt=0).count()
     system_usage = int((mentors_with_mentees / total_mentors * 100)) if total_mentors > 0 else 0
+
+    # --- GRAPH DATA PREPARATION ---
     
+    # 1. Department Distribution (Pie Chart)
+    dept_data = Mentor.objects.values('MentorDepartment').annotate(count=Count('MentorID')).order_by('-count')
+    dept_labels = [item['MentorDepartment'] for item in dept_data]
+    dept_counts = [item['count'] for item in dept_data]
+    
+    # 2. Activity Trends (Line Chart) - Last 6 months
+    six_months_ago = timezone.now().date() - timedelta(days=180)
+    activity_trend = Activity.objects.filter(
+        Date__gte=six_months_ago
+    ).annotate(
+        month=TruncMonth('Date')
+    ).values('month').annotate(
+        count=Count('ActivityID')
+    ).order_by('month')
+    
+    activity_labels = [item['month'].strftime('%b %Y') for item in activity_trend]
+    activity_data = [item['count'] for item in activity_trend]
+
+    # 3. Mentee Intake Distribution (Bar Chart)
+    intake_data = Mentee.objects.values('Year').annotate(count=Count('MenteeID')).order_by('Year')
+    intake_labels = [str(item['Year']) for item in intake_data]
+    intake_counts = [item['count'] for item in intake_data]
+
+    # 4. Recent System Activities (for list)
+    # Use CreatedAt if available (it is in Activity model)
+    recent_activities_list = Activity.objects.all().order_by('-CreatedAt')[:5]
+
     context = {
         'user': request.user,
         'total_mentors': total_mentors,
         'total_mentees': total_mentees,
         'active_sessions': active_sessions,
         'system_usage': system_usage,
+        
+        # Graph Data
+        'dept_labels': dept_labels,
+        'dept_counts': dept_counts,
+        'activity_labels': activity_labels,
+        'activity_data': activity_data,
+        'intake_labels': intake_labels,
+        'intake_counts': intake_counts,
+        
+        'recent_activities': recent_activities_list,
     }
     
     return render(request, 'homepage_head.html', context)

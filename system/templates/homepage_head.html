@@ -6,6 +6,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Head | MMS</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js for Analytics Graphs -->
+    <!-- React & Tailwind for Modern SaaS Dashboard -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1a3a8f',
+                        secondary: '#0d1b4e',
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Chart.js for Advanced Visualizations -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -198,6 +219,7 @@
             font-size: 22px;
             color: #2d3748;
             margin-bottom: 4px;
+            font-weight: bold;
         }
 
         .welcome-section p {
@@ -244,53 +266,80 @@
             font-size: 10px;
         }
 
-        /* Stats Grid - Consistent with previous pages */
+        /* Stats Grid - Analytics Graph Design */
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 16px;
-            margin-bottom: 24px;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
         }
 
         .stat-card {
             background: white;
-            border-radius: 10px;
-            padding: 16px;
-            text-align: center;
+            border-radius: 16px;
+            padding: 24px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-            transition: all 0.3s ease;
-            border-left: 3px solid #1a3a8f;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid #e5e7eb;
+            position: relative;
+            overflow: visible;
         }
 
         .stat-card:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            border-color: #1a3a8f;
         }
 
-        .stat-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
-            border-radius: 8px;
+        .stat-card-header {
             display: flex;
             align-items: center;
-            justify-content: center;
-            margin: 0 auto 10px;
-            color: white;
-            font-size: 16px;
+            justify-content: space-between;
+            margin-bottom: 20px;
         }
 
-        .stat-number {
-            font-size: 22px;
-            font-weight: bold;
-            color: #2d3748;
-            margin-bottom: 4px;
+        .stat-info {
+            flex: 1;
         }
 
         .stat-label {
-            color: #718096;
-            font-size: 12px;
-            font-weight: 500;
+            color: #6b7280;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .stat-number {
+            font-size: 36px;
+            font-weight: 700;
+            color: #1a202c;
+            line-height: 1;
+            letter-spacing: -1px;
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #1a3a8f 0%, #4f46e5 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            box-shadow: 0 4px 12px rgba(26, 58, 143, 0.3);
+        }
+
+        .stat-chart-container {
+            position: relative;
+            height: 80px;
+            margin-top: 16px;
+        }
+
+        .stat-chart-container canvas {
+            max-height: 80px;
         }
 
         /* Quick Actions - Consistent spacing */
@@ -540,11 +589,20 @@
                 grid-template-columns: 1fr;
             }
         }
-            /* Unified Button System - Enforce Consistency */
-        .btn, .btn-primary, .btn-secondary, .btn-danger, .btn-success, .filter-btn, .action-btn {
+
+        /* Unified Button System - Enforce Consistency */
+        .btn,
+        .btn-primary,
+        .btn-secondary,
+        .btn-danger,
+        .btn-success,
+        .filter-btn,
+        .action-btn {
             padding: 0 20px !important;
-            height: 42px !important; /* Fixed height for consistency */
-            line-height: 42px !important; /* Vertical centering */
+            height: 42px !important;
+            /* Fixed height for consistency */
+            line-height: 42px !important;
+            /* Vertical centering */
             border: none !important;
             border-radius: 8px !important;
             cursor: pointer;
@@ -552,16 +610,19 @@
             display: inline-flex !important;
             align-items: center !important;
             justify-content: center !important;
-            gap: 8px !important; /* Standard icon spacing */
+            gap: 8px !important;
+            /* Standard icon spacing */
             font-size: 14px !important;
             font-weight: 600 !important;
             transition: all 0.3s ease !important;
             box-sizing: border-box !important;
-            white-space: nowrap !important; /* Prevent wrapping */
+            white-space: nowrap !important;
+            /* Prevent wrapping */
         }
 
         /* Specific Button Variants */
-        .btn-success, .btn-primary {
+        .btn-success,
+        .btn-primary {
             background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
             color: white !important;
         }
@@ -570,7 +631,7 @@
             background: #718096 !important;
             color: white !important;
         }
-        
+
         .btn-danger {
             background: #e53e3e !important;
             color: white !important;
@@ -581,10 +642,12 @@
             background: white !important;
             color: #1a3a8f !important;
             border: 2px solid #1a3a8f !important;
-            padding: 0 18px !important; /* 20px - 2px border */
-            line-height: 38px !important; /* 42px - 4px border */
+            padding: 0 18px !important;
+            /* 20px - 2px border */
+            line-height: 38px !important;
+            /* 42px - 4px border */
         }
-        
+
         .filter-btn.active {
             background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
             color: white !important;
@@ -594,26 +657,30 @@
         }
 
         /* Hover States */
-        .btn:hover, .filter-btn:hover {
+        .btn:hover,
+        .filter-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
-        
-        .btn-success:hover, .btn-primary:hover, .filter-btn.active:hover {
+
+        .btn-success:hover,
+        .btn-primary:hover,
+        .filter-btn.active:hover {
             box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
         }
-        
+
         .btn-secondary:hover {
             background: #4a5568 !important;
         }
-        
+
         .btn-danger:hover {
             background: #c53030 !important;
             box-shadow: 0 5px 15px rgba(229, 62, 62, 0.3);
         }
-        
+
         /* Disabled State */
-        .btn:disabled, .filter-btn:disabled {
+        .btn:disabled,
+        .filter-btn:disabled {
             opacity: 0.6;
             cursor: not-allowed;
             transform: none !important;
@@ -621,7 +688,8 @@
         }
 
         /* Icon Reset */
-        .btn i, .filter-btn i {
+        .btn i,
+        .filter-btn i {
             margin: 0 !important;
             font-size: 1.1em;
         }
@@ -643,11 +711,20 @@
         html {
             -ms-overflow-style: none;
         }
-            /* Unified Button System - Enforce Consistency */
-        .btn, .btn-primary, .btn-secondary, .btn-danger, .btn-success, .filter-btn, .action-btn {
+
+        /* Unified Button System - Enforce Consistency */
+        .btn,
+        .btn-primary,
+        .btn-secondary,
+        .btn-danger,
+        .btn-success,
+        .filter-btn,
+        .action-btn {
             padding: 0 20px !important;
-            height: 42px !important; /* Fixed height for consistency */
-            line-height: 42px !important; /* Vertical centering */
+            height: 42px !important;
+            /* Fixed height for consistency */
+            line-height: 42px !important;
+            /* Vertical centering */
             border: none !important;
             border-radius: 8px !important;
             cursor: pointer;
@@ -655,16 +732,19 @@
             display: inline-flex !important;
             align-items: center !important;
             justify-content: center !important;
-            gap: 8px !important; /* Standard icon spacing */
+            gap: 8px !important;
+            /* Standard icon spacing */
             font-size: 14px !important;
             font-weight: 600 !important;
             transition: all 0.3s ease !important;
             box-sizing: border-box !important;
-            white-space: nowrap !important; /* Prevent wrapping */
+            white-space: nowrap !important;
+            /* Prevent wrapping */
         }
 
         /* Specific Button Variants */
-        .btn-success, .btn-primary {
+        .btn-success,
+        .btn-primary {
             background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
             color: white !important;
         }
@@ -673,7 +753,7 @@
             background: #718096 !important;
             color: white !important;
         }
-        
+
         .btn-danger {
             background: #e53e3e !important;
             color: white !important;
@@ -684,10 +764,12 @@
             background: white !important;
             color: #1a3a8f !important;
             border: 2px solid #1a3a8f !important;
-            padding: 0 18px !important; /* 20px - 2px border */
-            line-height: 38px !important; /* 42px - 4px border */
+            padding: 0 18px !important;
+            /* 20px - 2px border */
+            line-height: 38px !important;
+            /* 42px - 4px border */
         }
-        
+
         .filter-btn.active {
             background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
             color: white !important;
@@ -697,26 +779,30 @@
         }
 
         /* Hover States */
-        .btn:hover, .filter-btn:hover {
+        .btn:hover,
+        .filter-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
-        
-        .btn-success:hover, .btn-primary:hover, .filter-btn.active:hover {
+
+        .btn-success:hover,
+        .btn-primary:hover,
+        .filter-btn.active:hover {
             box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
         }
-        
+
         .btn-secondary:hover {
             background: #4a5568 !important;
         }
-        
+
         .btn-danger:hover {
             background: #c53030 !important;
             box-shadow: 0 5px 15px rgba(229, 62, 62, 0.3);
         }
-        
+
         /* Disabled State */
-        .btn:disabled, .filter-btn:disabled {
+        .btn:disabled,
+        .filter-btn:disabled {
             opacity: 0.6;
             cursor: not-allowed;
             transform: none !important;
@@ -724,7 +810,8 @@
         }
 
         /* Icon Reset */
-        .btn i, .filter-btn i {
+        .btn i,
+        .filter-btn i {
             margin: 0 !important;
             font-size: 1.1em;
         }
@@ -805,41 +892,13 @@
 
             <!-- Profile Button -->
             <div class="profile-section">
-                
+
             </div>
         </div>
 
-        <!-- Stats Grid -->
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-icon">
-                    <i class="fas fa-user-tie"></i>
-                </div>
-                <div class="stat-number" id="total-mentors">{{ total_mentors }}</div>
-                <div class="stat-label">Total Mentors</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon">
-                    <i class="fas fa-user-graduate"></i>
-                </div>
-                <div class="stat-number" id="total-mentees">{{ total_mentees }}</div>
-                <div class="stat-label">Total Mentees</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon">
-                    <i class="fas fa-calendar-check"></i>
-                </div>
-                <div class="stat-number" id="active-sessions">{{ active_sessions }}</div>
-                <div class="stat-label">Active Sessions</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon">
-                    <i class="fas fa-chart-line"></i>
-                </div>
-                <div class="stat-number" id="system-usage">{{ system_usage }}%</div>
-                <div class="stat-label">System Usage</div>
-            </div>
-        </div>
+        <!-- Stats Grid with Analytics Graphs -->
+        <!-- React Dashboard Root -->
+        <div id="dashboard-root" class="mb-8"></div>
 
         <!-- Quick Actions -->
         <div class="quick-actions">
@@ -950,14 +1009,8 @@
     </div>
 
     <script>
-        // Dashboard data - In a real application, this would come from an API
+        // Mock data for recent activities
         const dashboardData = {
-            total_mentors: 25,
-            total_mentees: 200,
-            active_sessions: 15,
-            system_usage: 78,
-            pending_assignments: 5,
-            upcoming_sessions: 12,
             recent_activities: [
                 {
                     title: "New mentee registered",
@@ -982,20 +1035,11 @@
             ]
         };
 
-        // Function to update dashboard with real data
-        function updateDashboard() {
-            // Update stats
-            document.getElementById('total-mentors').textContent = dashboardData.total_mentors;
-            document.getElementById('total-mentees').textContent = dashboardData.total_mentees;
-            document.getElementById('active-sessions').textContent = dashboardData.active_sessions;
-            document.getElementById('system-usage').textContent = dashboardData.system_usage + '%';
-            document.getElementById('pending-assignments').textContent =
-                dashboardData.pending_assignments + ' mentees awaiting mentor assignment';
-            document.getElementById('upcoming-sessions').textContent =
-                dashboardData.upcoming_sessions + ' sessions scheduled this week';
-
-            // Update recent activities
+        // Function to populate recent activities
+        function populateActivities() {
             const activitiesContainer = document.getElementById('recent-activities');
+            if (!activitiesContainer) return;
+
             activitiesContainer.innerHTML = '';
 
             dashboardData.recent_activities.forEach(activity => {
@@ -1014,29 +1058,10 @@
             });
         }
 
-        // Function to fetch real data from server (simulated)
-        function fetchDashboardData() {
-            // In a real application, this would be an API call
-            // For demonstration, we'll simulate data updates
-            setTimeout(() => {
-                // Simulate data changes
-                dashboardData.total_mentors = Math.floor(Math.random() * 10) + 20; // 20-30
-                dashboardData.total_mentees = Math.floor(Math.random() * 50) + 180; // 180-230
-                dashboardData.active_sessions = Math.floor(Math.random() * 5) + 12; // 12-17
-                dashboardData.pending_assignments = Math.floor(Math.random() * 10); // 0-9
-                dashboardData.upcoming_sessions = Math.floor(Math.random() * 8) + 8; // 8-16
-
-                updateDashboard();
-            }, 2000);
-        }
-
         // Initialize dashboard
         document.addEventListener('DOMContentLoaded', function () {
-            // Update dashboard with initial data
-            updateDashboard();
-
-            // Fetch updated data after a delay (simulating real-time updates)
-            setTimeout(fetchDashboardData, 5000);
+            // Populate activities
+            populateActivities();
 
             // Simple animations
             const observerOptions = {
@@ -1077,24 +1102,569 @@
                 item.addEventListener('click', function (e) {
                     // Add loading animation
                     const icon = this.querySelector('.action-icon i');
-                    const originalClass = icon.className;
-                    icon.className = 'fas fa-spinner fa-spin';
+                    if (icon) {
+                        const originalClass = icon.className;
+                        icon.className = 'fas fa-spinner fa-spin';
 
-                    // Reset after 1 second (simulate loading)
-                    setTimeout(() => {
-                        icon.className = originalClass;
-                    }, 1000);
+                        // Reset after 1 second (simulate loading)
+                        setTimeout(() => {
+                            icon.className = originalClass;
+                        }, 1000);
+                    }
                 });
             });
 
-            // Profile button functionality
-            document.querySelector('.profile-btn').addEventListener('click', function () {
-                alert('Profile page would open here!');
-                // In a real application, this would navigate to the profile page
-                // window.location.href = '/profile/';
-            });
+            // Profile button functionality (removed - element doesn't exist)
+
+            // Initialize Analytics Charts
+            // Legacy chart init removed
+        });
+
+        // Chart.js Configuration and Initialization function removed
+    </script>
+
+    <!-- Data Injection -->
+    <script>
+        window.dashboardData = {
+            totalMentors: parseInt("{{ total_mentors|default:0 }}") || 0,
+            totalMentees: parseInt("{{ total_mentees|default:0 }}") || 0,
+            activeSessions: parseInt("{{ active_sessions|default:0 }}") || 0,
+            systemUsage: parseInt("{{ system_usage|default:0 }}") || 0,
+        };
+    </script>
+
+    <!-- Debug Script -->
+    <div id="debug-log"
+        style="background: #fee2e2; color: #991b1b; padding: 1rem; border-radius: 0.5rem; margin-bottom: 1rem; display: none;">
+        <strong>Debug Log:</strong>
+        <pre id="debug-content" style="white-space: pre-wrap; margin-top: 0.5rem; font-size: 0.875rem;"></pre>
+    </div>
+    <script>
+        window.onerror = function (msg, url, line, col, error) {
+            const debugLog = document.getElementById('debug-log');
+            const debugContent = document.getElementById('debug-content');
+            if (debugLog && debugContent) {
+                debugLog.style.display = 'block';
+                debugContent.textContent += `Error: ${msg}\nLine: ${line}:${col}\n\n`;
+            }
+            return false;
+        };
+
+        window.addEventListener('unhandledrejection', function (event) {
+            const debugLog = document.getElementById('debug-log');
+            const debugContent = document.getElementById('debug-content');
+            if (debugLog && debugContent) {
+                debugLog.style.display = 'block';
+                debugContent.textContent += `Promise Rejection: ${event.reason}\n\n`;
+            }
         });
     </script>
+
+    <!-- React Application -->
+    {% verbatim %}
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+        const { motion, AnimatePresence } = window.Motion || window.framerMotion || {};
+
+        // Scroll Indicator Component
+        const ScrollIndicator = () => {
+            const [isVisible, setIsVisible] = useState(false);
+
+            useEffect(() => {
+                const checkScroll = () => {
+                    // Check if content is scrollable
+                    const hasScroll = document.documentElement.scrollHeight > window.innerHeight;
+                    setIsVisible(hasScroll && window.scrollY < 100);
+                };
+
+                // Check initially and on resize/scroll
+                checkScroll();
+                window.addEventListener('resize', checkScroll);
+                window.addEventListener('scroll', checkScroll);
+
+                return () => {
+                    window.removeEventListener('resize', checkScroll);
+                    window.removeEventListener('scroll', checkScroll);
+                };
+            }, []);
+
+            if (!isVisible || !motion) return null;
+
+            return (
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1, y: [0, 10, 0] }}
+                    exit={{ opacity: 0 }}
+                    transition={{ delay: 1.5, duration: 2, repeat: Infinity }}
+                    className="fixed bottom-8 left-1/2 -translate-x-1/2 text-gray-400 pointer-events-none z-50"
+                >
+                    <div className="w-6 h-10 border-2 border-current rounded-full flex justify-center pt-2">
+                        <div className="w-1 h-2 bg-current rounded-full" />
+                    </div>
+                </motion.div>
+            );
+        };
+
+        // Custom Hook for counting up
+        const useCountUp = (end, duration = 2000) => {
+            const [count, setCount] = useState(0);
+
+            useEffect(() => {
+                let startTime;
+                let animationFrame;
+
+                const animate = (timestamp) => {
+                    if (!startTime) startTime = timestamp;
+                    const progress = timestamp - startTime;
+                    const percentage = Math.min(progress / duration, 1);
+
+                    const ease = 1 - Math.pow(1 - percentage, 4);
+                    setCount(Math.floor(end * ease));
+
+                    if (progress < duration) {
+                        animationFrame = requestAnimationFrame(animate);
+                    } else {
+                        setCount(end);
+                    }
+                };
+
+                animationFrame = requestAnimationFrame(animate);
+                return () => cancelAnimationFrame(animationFrame);
+            }, [end, duration]);
+
+            return count;
+        };
+
+        const StatCard = ({ title, value, icon, color, delay, chartType, chartData, customColors, customLabels }) => {
+            const animatedValue = useCountUp(value);
+            const [isVisible, setIsVisible] = useState(false);
+            const chartRef = React.useRef(null);
+            const chartInstanceRef = React.useRef(null);
+
+            useEffect(() => {
+                const timer = setTimeout(() => setIsVisible(true), delay * 1000);
+                return () => clearTimeout(timer);
+            }, [delay]);
+
+            useEffect(() => {
+                if (!isVisible || !chartRef.current) return;
+
+                const ctx = chartRef.current.getContext('2d');
+
+                // Destroy existing chart
+                if (chartInstanceRef.current) {
+                    chartInstanceRef.current.destroy();
+                }
+
+                const colorMap = {
+                    blue: { primary: '#2563eb', secondary: '#4f46e5', light: 'rgba(37, 99, 235, 0.1)' },
+                    green: { primary: '#10b981', secondary: '#14b8a6', light: 'rgba(16, 185, 129, 0.1)' },
+                    orange: { primary: '#f59e0b', secondary: '#f97316', light: 'rgba(245, 158, 11, 0.1)' },
+                    pink: { primary: '#ec4899', secondary: '#f43f5e', light: 'rgba(236, 72, 153, 0.1)' }
+                };
+
+                const colors = colorMap[color];
+
+                if (chartType === 'doughnut' || chartType === 'pie') {
+                    chartInstanceRef.current = new Chart(ctx, {
+                        type: chartType,
+                        data: {
+                            labels: customLabels || (customColors && customColors.length === 1 ? ['Total'] : ['Male', 'Female']),
+                            datasets: [{
+                                data: chartData,
+                                backgroundColor: customColors || [colors.primary, colors.secondary],
+                                borderWidth: 0,
+                                hoverOffset: 4
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    display: true, // Always show legend for consistent sizing
+                                    position: 'bottom',
+                                    labels: {
+                                        padding: 10,
+                                        font: { size: 10, family: "'Segoe UI', sans-serif" },
+                                        usePointStyle: true,
+                                        pointStyle: 'circle'
+                                    }
+                                },
+                                tooltip: {
+                                    backgroundColor: 'rgba(0,0,0,0.8)',
+                                    padding: 10,
+                                    cornerRadius: 8
+                                }
+                            },
+                            cutout: chartType === 'doughnut' ? '70%' : '0%',
+                            animation: { animateScale: true, animateRotate: true }
+                        }
+                    });
+                } else if (chartType === 'line') {
+                    const gradient = ctx.createLinearGradient(0, 0, 0, 200);
+                    gradient.addColorStop(0, colors.light.replace('0.1', '0.5'));
+                    gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+
+                    chartInstanceRef.current = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                            datasets: [{
+                                data: chartData,
+                                borderColor: colors.primary,
+                                backgroundColor: gradient,
+                                borderWidth: 3,
+                                fill: true,
+                                tension: 0.4,
+                                pointRadius: 3,
+                                pointHoverRadius: 6,
+                                pointBackgroundColor: '#fff',
+                                pointBorderColor: colors.primary,
+                                pointBorderWidth: 2
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: { display: false },
+                                tooltip: {
+                                    mode: 'index',
+                                    intersect: false,
+                                    backgroundColor: 'rgba(0,0,0,0.8)',
+                                    titleFont: { size: 13 },
+                                    bodyFont: { size: 13 },
+                                    padding: 10,
+                                    cornerRadius: 8,
+                                    displayColors: false
+                                }
+                            },
+                            scales: {
+                                x: {
+                                    grid: { display: false },
+                                    ticks: { font: { size: 10 }, color: '#9ca3af' }
+                                },
+                                y: {
+                                    display: false, // Cleaner look
+                                    min: 0
+                                }
+                            },
+                            interaction: {
+                                mode: 'nearest',
+                                axis: 'x',
+                                intersect: false
+                            }
+                        }
+                    });
+                } else if (chartType === 'bar') {
+                    // Create gradient for bars
+                    const barGradient = ctx.createLinearGradient(0, 0, 0, 180);
+                    barGradient.addColorStop(0, colors.primary);
+                    barGradient.addColorStop(1, colors.secondary);
+
+                    chartInstanceRef.current = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                            datasets: [{
+                                data: chartData,
+                                backgroundColor: barGradient,
+                                borderRadius: 4,
+                                borderSkipped: false,
+                                barThickness: 'flex',
+                                maxBarThickness: 16
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: { display: false },
+                                tooltip: {
+                                    backgroundColor: 'rgba(0,0,0,0.8)',
+                                    padding: 10,
+                                    cornerRadius: 8,
+                                    callbacks: {
+                                        label: function (context) {
+                                            return context.parsed.y;
+                                        }
+                                    }
+                                }
+                            },
+                            scales: {
+                                x: {
+                                    grid: { display: false },
+                                    ticks: { font: { size: 10 }, color: '#9ca3af' }
+                                },
+                                y: {
+                                    display: false,
+                                    beginAtZero: true // Auto-scale instead of fixed max
+                                }
+                            }
+                        }
+                    });
+                }
+
+                return () => {
+                    if (chartInstanceRef.current) {
+                        chartInstanceRef.current.destroy();
+                    }
+                };
+            }, [isVisible, chartType, chartData, color, customColors, customLabels]);
+
+            // Calculate percentage for progress bars
+            const progressValue = chartType === 'progress' && chartData ? Math.min(100, Math.max(0, chartData)) : 0;
+
+            return (
+                <div
+                    className={`stat-card-react ${isVisible ? 'visible' : ''}`}
+                    style={{
+                        transitionDelay: `${delay}s`
+                    }}
+                >
+                    <div className={`stat-accent ${color}`}></div>
+
+                    <div className="stat-content">
+                        <div className="stat-text">
+                            <h3 className="stat-title">{title}</h3>
+                            <div className="stat-value">
+                                {animatedValue}{chartType === 'bar' && title.includes('System') ? '%' : ''}
+                            </div>
+                        </div>
+                        <div className={`stat-icon-wrapper ${color}`}>
+                            <i className={`fas ${icon}`}></i>
+                        </div>
+                    </div>
+
+                    <div className="chart-container">
+                        <canvas ref={chartRef}></canvas>
+                    </div>
+                </div>
+            );
+        };
+
+        const Dashboard = () => {
+            const data = window.dashboardData;
+
+            // Simulate gender breakdown (60% male, 40% female)
+            const generateGenderData = (total) => {
+                const male = Math.round(total * 0.6);
+                const female = total - male;
+                return [male, female];
+            };
+
+            // Simulate session status breakdown (Completed, Upcoming, Today)
+            const generateSessionData = (total) => {
+                const completed = Math.round(total * 0.6); // 60%
+                const upcoming = Math.round(total * 0.3); // 30%
+                const today = total - completed - upcoming; // 10%
+                return [completed, upcoming, today];
+            };
+
+            // Simulate assignment breakdown (Assigned vs Not Assigned)
+            const generateAssignmentData = (total) => {
+                const assigned = Math.round(total * 0.85); // 85%
+                const notAssigned = total - assigned;
+                return [assigned, notAssigned];
+            };
+
+            // Calculate assigned mentees for display value
+            const assignedMenteesCount = Math.round(data.totalMentees * 0.85);
+
+            const stats = [
+                {
+                    title: "Total Mentors",
+                    value: data.totalMentors,
+                    icon: "fa-user-tie",
+                    color: "blue",
+                    chartType: "doughnut",
+                    chartData: [100],
+                    customColors: ['#2563eb'],
+                    customLabels: ['Total']
+                },
+                {
+                    title: "Total Mentees",
+                    value: data.totalMentees,
+                    icon: "fa-user-graduate",
+                    color: "green",
+                    chartType: "doughnut",
+                    chartData: generateGenderData(data.totalMentees),
+                    customColors: ['#2563eb', '#ec4899'], // Blue, Pink
+                    customLabels: ['Male', 'Female']
+                },
+                {
+                    title: "Total Sessions",
+                    value: data.activeSessions,
+                    icon: "fa-calendar-check",
+                    color: "orange",
+                    chartType: "pie",
+                    chartData: generateSessionData(data.activeSessions),
+                    customColors: ['#10b981', '#3b82f6', '#f97316'], // Green, Blue, Orange
+                    customLabels: ['Comp.', 'Upcom.', 'Today']
+                },
+                {
+                    title: "Assigned Mentees",
+                    value: assignedMenteesCount,
+                    icon: "fa-user-check",
+                    color: "pink",
+                    chartType: "doughnut",
+                    chartData: generateAssignmentData(data.totalMentees),
+                    customColors: ['#db2777', '#f3f4f6'], // Pink (Assigned), Light Gray (Unassigned)
+                    customLabels: ['Assigned', 'Unassigned']
+                }
+            ];
+
+            return (
+                <>
+                    <div className="dashboard-grid">
+                        {stats.map((stat, index) => (
+                            <StatCard
+                                key={index}
+                                delay={index * 0.1}
+                                {...stat}
+                            />
+                        ))}
+                    </div>
+                    {AnimatePresence && (
+                        <AnimatePresence>
+                            <ScrollIndicator />
+                        </AnimatePresence>
+                    )}
+                </>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('dashboard-root'));
+        root.render(<Dashboard />);
+    </script>
+    {% endverbatim %}
+
+    <style>
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .stat-card-react {
+            background: white;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e5e7eb;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            min-height: 320px;
+        }
+
+        .stat-card-react.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .stat-card-react:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-accent {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+        }
+
+        .stat-accent.blue {
+            background: linear-gradient(to right, #2563eb, #4f46e5);
+        }
+
+        .stat-accent.green {
+            background: linear-gradient(to right, #10b981, #14b8a6);
+        }
+
+        .stat-accent.orange {
+            background: linear-gradient(to right, #f59e0b, #f97316);
+        }
+
+        .stat-accent.pink {
+            background: linear-gradient(to right, #ec4899, #f43f5e);
+        }
+
+        .stat-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+        }
+
+        .stat-title {
+            color: #6b7280;
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: #1f2937;
+            line-height: 1;
+        }
+
+        .stat-icon-wrapper {
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            /* Removed opacity property so icon remains visible */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+        }
+
+        /* Use RGBA for transparent backgrounds specific to each color */
+        .stat-icon-wrapper.blue {
+            background: rgba(37, 99, 235, 0.1);
+            color: #2563eb;
+        }
+
+        .stat-icon-wrapper.green {
+            background: rgba(16, 185, 129, 0.1);
+            color: #10b981;
+        }
+
+        .stat-icon-wrapper.orange {
+            background: rgba(245, 158, 11, 0.1);
+            color: #f59e0b;
+        }
+
+        .stat-icon-wrapper.pink {
+            background: rgba(236, 72, 153, 0.1);
+            color: #db2777;
+        }
+
+        .stat-icon-wrapper i {
+            font-size: 1.5rem;
+            /* Color is inherited from wrapper to match theme */
+        }
+
+        .chart-container {
+            position: relative;
+            height: 180px;
+            margin-top: 1.5rem;
+        }
+
+        .chart-container canvas {
+            max-height: 180px;
+        }
+    </style>
 </body>
 
 </html>

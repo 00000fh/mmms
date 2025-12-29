@@ -1553,5 +1553,76 @@
             showNotification(title, message, 'info');
         }
     </script>
+
+<!-- Scroll Indicator (Auto-Injected) -->
+<style>
+    @keyframes scroll-bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(10px); }
+    }
+    @keyframes scroll-fade-in {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    .scroll-indicator-container {
+        position: fixed;
+        bottom: 2rem;
+        left: 50%;
+        transform: translateX(-50%);
+        color: #9ca3af;
+        pointer-events: none;
+        z-index: 9999;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+        display: none;
+    }
+    .scroll-indicator-container.visible {
+        display: block;
+        opacity: 1;
+        animation: scroll-fade-in 1s ease forwards;
+    }
+    .scroll-indicator-icon {
+        width: 1.5rem;
+        height: 2.5rem;
+        border: 2px solid currentColor;
+        border-radius: 9999px;
+        display: flex;
+        justify-content: center;
+        padding-top: 0.5rem;
+        box-sizing: border-box;
+        margin: 0 auto;
+    }
+    .scroll-indicator-dot {
+        width: 0.25rem;
+        height: 0.5rem;
+        background-color: currentColor;
+        border-radius: 9999px;
+        animation: scroll-bounce 2s infinite;
+        animation-delay: 1.5s;
+    }
+</style>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var indicator = document.createElement('div');
+        indicator.className = 'scroll-indicator-container';
+        indicator.innerHTML = '<div class="scroll-indicator-icon"><div class="scroll-indicator-dot"></div></div>';
+        document.body.appendChild(indicator);
+
+        function checkScroll() {
+            var hasScroll = document.documentElement.scrollHeight > window.innerHeight;
+            if (hasScroll && window.scrollY < 100) {
+                indicator.classList.add('visible');
+            } else {
+                indicator.classList.remove('visible');
+            }
+        }
+
+        window.addEventListener('scroll', checkScroll);
+        window.addEventListener('resize', checkScroll);
+        // Initial check
+        setTimeout(checkScroll, 500);
+    });
+</script>
+
 </body>
 </html>
