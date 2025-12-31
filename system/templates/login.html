@@ -28,96 +28,6 @@
         }
 
         @layer layout {
-
-            /* Draw a particles ring in the background of the login screen */
-            /* Using Houdini PaintWorklets */
-            @layer ring-particles {
-                @supports (background: paint(something)) {
-                    @layer particles {
-                        body {
-                            background-color: #02040a;
-
-                            --ring-radius: 100;
-                            --ring-thickness: 600;
-                            --particle-count: 80;
-                            --particle-rows: 25;
-                            --particle-size: 2;
-                            --particle-color: navy;
-
-                            --particle-min-alpha: 0.1;
-                            --particle-max-alpha: 1.0;
-
-                            --seed: 200;
-
-                            background-image: paint(ring-particles);
-                        }
-                    }
-
-                    @layer animation {
-                        @property --animation-tick {
-                            syntax: '<number>';
-                            inherits: false;
-                            initial-value: 0;
-                        }
-
-                        @property --ring-radius {
-                            syntax: '<number> | auto';
-                            inherits: false;
-                            initial-value: auto;
-                        }
-
-                        @keyframes ripple {
-                            0% {
-                                --animation-tick: 0;
-                            }
-
-                            100% {
-                                --animation-tick: 1;
-                            }
-                        }
-
-                        @keyframes ring {
-                            0% {
-                                --ring-radius: 150;
-                            }
-
-                            100% {
-                                --ring-radius: 250;
-                            }
-                        }
-
-                        body {
-                            animation: ripple 6s linear infinite, ring 6s ease-in-out infinite alternate;
-                        }
-                    }
-
-                    @layer follow-mouse {
-                        @property --ring-x {
-                            syntax: '<number>';
-                            inherits: false;
-                            initial-value: 50;
-                        }
-
-                        @property --ring-y {
-                            syntax: '<number>';
-                            inherits: false;
-                            initial-value: 50;
-                        }
-
-                        @property --ring-interactive {
-                            syntax: '<number>';
-                            inherits: false;
-                            initial-value: 0;
-                        }
-
-                        body {
-                            transition: --ring-x 3s ease, --ring-y 3s ease;
-                        }
-                    }
-                }
-            }
-
-            /* Base body styling */
             body {
                 min-height: 100vh;
                 display: flex;
@@ -125,6 +35,34 @@
                 align-items: center;
                 padding: 20px;
                 overflow: hidden;
+                /* Deep Navy/Black Gradient Base */
+                background: linear-gradient(135deg, #020617 0%, #0f172a 40%, #172554 100%);
+                position: relative;
+            }
+
+            #bg-canvas {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: 1;
+                /* Low z-index */
+                pointer-events: none;
+            }
+
+            /* Ensure content sits above background */
+            .splash-screen {
+                z-index: 9999;
+            }
+
+            .container {
+                position: relative;
+                z-index: 10;
+            }
+
+            .login-popup-container {
+                z-index: 10000;
             }
         }
 
@@ -132,12 +70,14 @@
         @keyframes fadeInScale {
             0% {
                 opacity: 0;
-                transform: scale(0.95);
+                transform: scale(0.92) translateY(10px);
+                filter: blur(4px);
             }
 
             100% {
                 opacity: 1;
-                transform: scale(1);
+                transform: scale(1) translateY(0);
+                filter: blur(0);
             }
         }
 
@@ -625,14 +565,6 @@
             }
         }
 
-        .form-group,
-        .login-btn,
-        .signup-link {
-            /* Reset internal form animations to let the container animation handle it, 
-               or simple stagger if needed. For now, rely on .login-form fadeIn */
-            /* animation: fadeIn 0.5s ease forwards; */
-        }
-
         .form-group:nth-child(1) {
             animation-delay: 0.1s;
         }
@@ -927,6 +859,7 @@
 </head>
 
 <body>
+    <canvas id="bg-canvas"></canvas>
     <!-- Splash Screen -->
     <div class="splash-screen">
         <div class="splash-content">
@@ -1185,120 +1118,131 @@
             showLoginPopup(title, message, 'error');
         }
 
-        // Ring Particles - Robust Inlined Implementation
-        if ('paintWorklet' in CSS) {
+        // Interactive AI SaaS Particle Background
+        (function () {
+            const canvas = document.getElementById('bg-canvas');
+            const ctx = canvas.getContext('2d');
 
-            const workletCode = `
-                class RingParticles {
-                    static get inputProperties() {
-                        return [
-                            '--ring-radius', 
-                            '--ring-thickness', 
-                            '--particle-count', 
-                            '--particle-rows', 
-                            '--particle-size', 
-                            '--particle-color', 
-                            '--particle-min-alpha', 
-                            '--particle-max-alpha',
-                            '--seed', 
-                            '--ring-x', 
-                            '--ring-y', 
-                            '--animation-tick', 
-                            '--ring-interactive'
-                        ];
-                    }
+            let width, height;
+            let particles = [];
 
-                    paint(ctx, size, props) {
-                        const radius = parseFloat(props.get('--ring-radius').toString()) || 100;
-                        const thickness = parseFloat(props.get('--ring-thickness').toString()) || 100;
-                        const count = parseInt(props.get('--particle-count').toString()) || 50;
-                        const rows = parseInt(props.get('--particle-rows').toString()) || 10;
-                        const dotSize = parseFloat(props.get('--particle-size').toString()) || 2;
-                        const color = props.get('--particle-color').toString().trim() || 'white';
-                        const minAlpha = parseFloat(props.get('--particle-min-alpha').toString()) || 0.1;
-                        const maxAlpha = parseFloat(props.get('--particle-max-alpha').toString()) || 1.0;
-                        const seed = parseFloat(props.get('--seed').toString()) || 0;
-                        
-                        // Mouse/Center Position (0-100%)
-                        const rx = parseFloat(props.get('--ring-x').toString()) || 50;
-                        const ry = parseFloat(props.get('--ring-y').toString()) || 50;
-                        
-                        const centerX = (rx / 100) * size.width;
-                        const centerY = (ry / 100) * size.height;
+            // Configuration
 
-                        const tick = parseFloat(props.get('--animation-tick').toString()) || 0;
+            const particleCount = 450; // Dense field
+            const connectionDistance = 0; // No lines, just dots
+            const baseSpeed = 0.2;
+            const parallaxStrength = 20; // How much mouse moves them
 
-                        // Deterministic Random
-                        const random = (s) => {
-                            const x = Math.sin(s) * 10000;
-                            return x - Math.floor(x);
-                        };
+            // Neural Colors: Cyan, Blue, Purple, White(dim)
+            const colorPalette = [
+                { r: 100, g: 149, b: 237 }, // Cornflower Blue
+                { r: 79, g: 209, b: 197 },  // Teal/Cyan
+                { r: 167, g: 139, b: 250 }, // Soft Purple
+                { r: 147, g: 197, b: 253 }  // Light Blue
+            ];
 
-                        ctx.fillStyle = color;
+            // Mouse state
+            const mouse = { x: 0, y: 0 };
+            const targetMouse = { x: 0, y: 0 };
 
-                        for (let r = 0; r < rows; r++) {
-                            for (let p = 0; p < count; p++) {
-                                // Unique ID for this particle
-                                const id = seed + r * count + p;
-                                const rnd1 = random(id);
-                                const rnd2 = random(id + 1000);
-                                
-                                // Angle
-                                const angle = (p / count) * Math.PI * 2 + rnd1 * 0.5;
-                                
-                                // Distance from center
-                                // Base radius + distributed thickness
-                                const dist = radius + (r / rows) * thickness + (rnd2 - 0.5) * 20;
+            // Resize handling
+            function resize() {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+            }
+            window.addEventListener('resize', resize);
+            resize();
 
-                                // Animation Ripple effect
-                                // Particles move outward slightly based on tick
-                                const animOffset = Math.sin(tick * Math.PI * 2 + r) * 20;
-                                
-                                const x = centerX + Math.cos(angle) * (dist + animOffset);
-                                const y = centerY + Math.sin(angle) * (dist + animOffset);
-                                
-                                const alpha = minAlpha + rnd2 * (maxAlpha - minAlpha);
-                                
-                                ctx.globalAlpha = alpha;
-                                ctx.beginPath();
-                                ctx.arc(x, y, dotSize, 0, Math.PI * 2);
-                                ctx.fill();
-                            }
-                        }
-                    }
+            // Track mouse for parallax
+            window.addEventListener('mousemove', (e) => {
+                // Normalize mouse position -0.5 to 0.5
+                targetMouse.x = (e.clientX / width) - 0.5;
+                targetMouse.y = (e.clientY / height) - 0.5;
+            });
+
+            class Particle {
+                constructor() {
+                    this.init();
                 }
-                registerPaint('ring-particles', RingParticles);
-            `;
 
-            const blob = new Blob([workletCode], { type: 'text/javascript' });
-            CSS.paintWorklet.addModule(URL.createObjectURL(blob));
+                init() {
+                    this.x = Math.random() * width;
+                    this.y = Math.random() * height;
+                    this.z = Math.random() * 2 + 0.5; // Depth factor (0.5 to 2.5)
+                    this.size = Math.random() * 1.5 + 0.5; // Size variation
 
-            // Mouse Interaction Logic
-            let isInteractive = false;
-            document.body.addEventListener('pointermove', (e) => {
-                if (!isInteractive) {
-                    document.body.classList.add('interactive');
-                    isInteractive = true;
+                    // Velocity (continuous float)
+                    this.vx = (Math.random() - 0.5) * baseSpeed * this.z;
+                    this.vy = (Math.random() - 0.5) * baseSpeed * this.z;
+
+                    // Appearance
+                    this.rgb = colorPalette[Math.floor(Math.random() * colorPalette.length)];
+                    this.alpha = Math.random() * 0.5 + 0.1;
+                    this.targetAlpha = this.alpha;
                 }
-                const x = (e.clientX / window.innerWidth) * 100;
-                const y = (e.clientY / window.innerHeight) * 100;
 
-                // Use requestAnimationFrame for performance
-                requestAnimationFrame(() => {
-                    document.body.style.setProperty('--ring-x', x);
-                    document.body.style.setProperty('--ring-y', y);
-                    document.body.style.setProperty('--ring-interactive', 1);
+                update() {
+                    // Constant drift
+                    this.x += this.vx;
+                    this.y += this.vy;
+
+                    // Soft parallax easing
+                    // We move the particle position based on mouse * depth
+                    // But we don't want to permanently change x/y, just the render position? 
+                    // No, usually parallax shifts the viewport.
+                    // Let's create an offset based on mouse.
+
+                    // Wrap around screen
+                    if (this.x < -50) this.x = width + 50;
+                    if (this.x > width + 50) this.x = -50;
+                    if (this.y < -50) this.y = height + 50;
+                    if (this.y > height + 50) this.y = -50;
+
+                    // Twinkle
+                    if (Math.random() < 0.01) {
+                        this.targetAlpha = Math.random() * 0.6 + 0.1;
+                    }
+                    this.alpha += (this.targetAlpha - this.alpha) * 0.05;
+                }
+
+                draw(mouseX, mouseY) {
+                    // Parallax offset
+                    // Closer particles (higher z) move MORE opposite to mouse (or with mouse depending on effect)
+                    // Standard parallax: layers move at different speeds.
+                    const offX = mouseX * parallaxStrength * this.z;
+                    const offY = mouseY * parallaxStrength * this.z;
+
+                    ctx.beginPath();
+                    ctx.fillStyle = `rgba(${this.rgb.r}, ${this.rgb.g}, ${this.rgb.b}, ${this.alpha})`;
+                    ctx.arc(this.x + offX, this.y + offY, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+
+            // Create particles
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+
+            function animate() {
+                // Clear with trail effect? No, clean wipe for crisp dots
+                ctx.clearRect(0, 0, width, height);
+
+                // Smooth mouse interpolation
+                mouse.x += (targetMouse.x - mouse.x) * 0.05;
+                mouse.y += (targetMouse.y - mouse.y) * 0.05;
+
+                particles.forEach(p => {
+                    p.update();
+                    p.draw(-mouse.x, -mouse.y); // Invert for depth feel
                 });
-            });
 
-            document.body.addEventListener('pointerleave', (e) => {
-                document.body.classList.remove('interactive');
-                isInteractive = false;
-                document.body.style.setProperty('--ring-x', 50);
-                document.body.style.setProperty('--ring-y', 50);
-                document.body.style.setProperty('--ring-interactive', 0);
-            });
-        }
+                requestAnimationFrame(animate);
+            }
+
+            animate();
+
+        })();
     </script>
 </body>
 
