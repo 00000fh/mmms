@@ -1070,6 +1070,7 @@
 
         <!-- Activities Table -->
         {% if activities %}
+        {% now "Y-m-d" as current_date %}
         <div class="activities-table-container">
             <table class="activities-table" id="activitiesTable">
                 <thead>
@@ -1088,7 +1089,7 @@
                 <tbody>
                     {% for activity in activities %}
                     <tr class="activity-row clickable-row"
-                        data-status="{% if activity.Date > timezone.now.date %}upcoming{% elif activity.Date == timezone.now.date %}ongoing{% else %}completed{% endif %}"
+                        data-status="{% if activity.Date|date:'Y-m-d' > current_date %}upcoming{% elif activity.Date|date:'Y-m-d' == current_date %}ongoing{% else %}completed{% endif %}"
                         data-type="{{ activity.ActivityType }}"
                         onclick="window.location.href='{% url 'view_activity' activity.ActivityID %}'">
                         <td><strong>{{ activity.ActivityID }}</strong></td>
@@ -1123,12 +1124,12 @@
                         </td>
                         <td>{{ activity.attendance_set.count }}</td>
                         <td>
-                            {% if activity.Date > timezone.now.date %}
+                            {% if activity.Date|date:"Y-m-d" > current_date %}
                             <span class="status-upcoming">
                                 <i class="fas fa-clock"></i>
                                 Upcoming
                             </span>
-                            {% elif activity.Date == timezone.now.date %}
+                            {% elif activity.Date|date:"Y-m-d" == current_date %}
                             <span class="status-ongoing">
                                 <i class="fas fa-play-circle"></i>
                                 Today

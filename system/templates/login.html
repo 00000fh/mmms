@@ -14,14 +14,118 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        body {
-            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            overflow: hidden;
+        /* Rework of https://antigravity.google/ using modern CSS */
+        /* See https://brm.us/antigravity for details */
+        @layer reset, base, layout, components;
+
+        @layer base {
+
+            html,
+            body {
+                height: 100%;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            }
+        }
+
+        @layer layout {
+
+            /* Draw a particles ring in the background of the login screen */
+            /* Using Houdini PaintWorklets */
+            @layer ring-particles {
+                @supports (background: paint(something)) {
+                    @layer particles {
+                        body {
+                            background-color: #02040a;
+
+                            --ring-radius: 100;
+                            --ring-thickness: 600;
+                            --particle-count: 80;
+                            --particle-rows: 25;
+                            --particle-size: 2;
+                            --particle-color: navy;
+
+                            --particle-min-alpha: 0.1;
+                            --particle-max-alpha: 1.0;
+
+                            --seed: 200;
+
+                            background-image: paint(ring-particles);
+                        }
+                    }
+
+                    @layer animation {
+                        @property --animation-tick {
+                            syntax: '<number>';
+                            inherits: false;
+                            initial-value: 0;
+                        }
+
+                        @property --ring-radius {
+                            syntax: '<number> | auto';
+                            inherits: false;
+                            initial-value: auto;
+                        }
+
+                        @keyframes ripple {
+                            0% {
+                                --animation-tick: 0;
+                            }
+
+                            100% {
+                                --animation-tick: 1;
+                            }
+                        }
+
+                        @keyframes ring {
+                            0% {
+                                --ring-radius: 150;
+                            }
+
+                            100% {
+                                --ring-radius: 250;
+                            }
+                        }
+
+                        body {
+                            animation: ripple 6s linear infinite, ring 6s ease-in-out infinite alternate;
+                        }
+                    }
+
+                    @layer follow-mouse {
+                        @property --ring-x {
+                            syntax: '<number>';
+                            inherits: false;
+                            initial-value: 50;
+                        }
+
+                        @property --ring-y {
+                            syntax: '<number>';
+                            inherits: false;
+                            initial-value: 50;
+                        }
+
+                        @property --ring-interactive {
+                            syntax: '<number>';
+                            inherits: false;
+                            initial-value: 0;
+                        }
+
+                        body {
+                            transition: --ring-x 3s ease, --ring-y 3s ease;
+                        }
+                    }
+                }
+            }
+
+            /* Base body styling */
+            body {
+                min-height: 100vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 20px;
+                overflow: hidden;
+            }
         }
 
         /* Global Animations */
@@ -1079,6 +1183,121 @@
 
         function showLoginError(message, title = 'Error') {
             showLoginPopup(title, message, 'error');
+        }
+
+        // Ring Particles - Robust Inlined Implementation
+        if ('paintWorklet' in CSS) {
+
+            const workletCode = `
+                class RingParticles {
+                    static get inputProperties() {
+                        return [
+                            '--ring-radius', 
+                            '--ring-thickness', 
+                            '--particle-count', 
+                            '--particle-rows', 
+                            '--particle-size', 
+                            '--particle-color', 
+                            '--particle-min-alpha', 
+                            '--particle-max-alpha',
+                            '--seed', 
+                            '--ring-x', 
+                            '--ring-y', 
+                            '--animation-tick', 
+                            '--ring-interactive'
+                        ];
+                    }
+
+                    paint(ctx, size, props) {
+                        const radius = parseFloat(props.get('--ring-radius').toString()) || 100;
+                        const thickness = parseFloat(props.get('--ring-thickness').toString()) || 100;
+                        const count = parseInt(props.get('--particle-count').toString()) || 50;
+                        const rows = parseInt(props.get('--particle-rows').toString()) || 10;
+                        const dotSize = parseFloat(props.get('--particle-size').toString()) || 2;
+                        const color = props.get('--particle-color').toString().trim() || 'white';
+                        const minAlpha = parseFloat(props.get('--particle-min-alpha').toString()) || 0.1;
+                        const maxAlpha = parseFloat(props.get('--particle-max-alpha').toString()) || 1.0;
+                        const seed = parseFloat(props.get('--seed').toString()) || 0;
+                        
+                        // Mouse/Center Position (0-100%)
+                        const rx = parseFloat(props.get('--ring-x').toString()) || 50;
+                        const ry = parseFloat(props.get('--ring-y').toString()) || 50;
+                        
+                        const centerX = (rx / 100) * size.width;
+                        const centerY = (ry / 100) * size.height;
+
+                        const tick = parseFloat(props.get('--animation-tick').toString()) || 0;
+
+                        // Deterministic Random
+                        const random = (s) => {
+                            const x = Math.sin(s) * 10000;
+                            return x - Math.floor(x);
+                        };
+
+                        ctx.fillStyle = color;
+
+                        for (let r = 0; r < rows; r++) {
+                            for (let p = 0; p < count; p++) {
+                                // Unique ID for this particle
+                                const id = seed + r * count + p;
+                                const rnd1 = random(id);
+                                const rnd2 = random(id + 1000);
+                                
+                                // Angle
+                                const angle = (p / count) * Math.PI * 2 + rnd1 * 0.5;
+                                
+                                // Distance from center
+                                // Base radius + distributed thickness
+                                const dist = radius + (r / rows) * thickness + (rnd2 - 0.5) * 20;
+
+                                // Animation Ripple effect
+                                // Particles move outward slightly based on tick
+                                const animOffset = Math.sin(tick * Math.PI * 2 + r) * 20;
+                                
+                                const x = centerX + Math.cos(angle) * (dist + animOffset);
+                                const y = centerY + Math.sin(angle) * (dist + animOffset);
+                                
+                                const alpha = minAlpha + rnd2 * (maxAlpha - minAlpha);
+                                
+                                ctx.globalAlpha = alpha;
+                                ctx.beginPath();
+                                ctx.arc(x, y, dotSize, 0, Math.PI * 2);
+                                ctx.fill();
+                            }
+                        }
+                    }
+                }
+                registerPaint('ring-particles', RingParticles);
+            `;
+
+            const blob = new Blob([workletCode], { type: 'text/javascript' });
+            CSS.paintWorklet.addModule(URL.createObjectURL(blob));
+
+            // Mouse Interaction Logic
+            let isInteractive = false;
+            document.body.addEventListener('pointermove', (e) => {
+                if (!isInteractive) {
+                    document.body.classList.add('interactive');
+                    isInteractive = true;
+                }
+                const x = (e.clientX / window.innerWidth) * 100;
+                const y = (e.clientY / window.innerHeight) * 100;
+
+                // Use requestAnimationFrame for performance
+                requestAnimationFrame(() => {
+                    document.body.style.setProperty('--ring-x', x);
+                    document.body.style.setProperty('--ring-y', y);
+                    document.body.style.setProperty('--ring-interactive', 1);
+                });
+            });
+
+            document.body.addEventListener('pointerleave', (e) => {
+                document.body.classList.remove('interactive');
+                isInteractive = false;
+                document.body.style.setProperty('--ring-x', 50);
+                document.body.style.setProperty('--ring-y', 50);
+                document.body.style.setProperty('--ring-interactive', 0);
+            });
         }
     </script>
 </body>
