@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -521,36 +522,6 @@
             color: #1a3a8f;
         }
 
-        /* Statistics Cards */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 16px;
-            margin-bottom: 24px;
-        }
-
-        .stat-card {
-            background: white;
-            padding: 16px;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-            text-align: center;
-            border-left: 4px solid #1a3a8f;
-        }
-
-        .stat-value {
-            font-size: 28px;
-            font-weight: 700;
-            color: #1a3a8f;
-            margin-bottom: 8px;
-        }
-
-        .stat-label {
-            font-size: 14px;
-            color: #718096;
-            font-weight: 600;
-        }
-
         /* Department Badge */
         .department-badge {
             background: #e3f2fd;
@@ -560,6 +531,37 @@
             font-size: 12px;
             font-weight: 600;
             display: inline-block;
+        }
+
+        /* Capacity Bar Styles */
+        .capacity-bar {
+            height: 10px;
+            background: #e2e8f0;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-top: 5px;
+        }
+
+        .capacity-fill {
+            height: 100%;
+            border-radius: 5px;
+            transition: width 0.5s ease;
+        }
+
+        .capacity-fill.high {
+            background: linear-gradient(90deg, #48bb78, #38a169);
+        }
+
+        .capacity-fill.medium {
+            background: linear-gradient(90deg, #ed8936, #dd6b20);
+        }
+
+        .capacity-fill.low {
+            background: linear-gradient(90deg, #e53e3e, #c53030);
+        }
+
+        .capacity-fill.full {
+            background: linear-gradient(90deg, #718096, #4a5568);
         }
 
         /* Responsive Design */
@@ -630,10 +632,6 @@
                 justify-content: flex-start;
                 padding: 12px 16px;
             }
-
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
         }
 
         @media (max-width: 480px) {
@@ -666,11 +664,20 @@
                 /* Smaller for very small screens */
             }
         }
-            /* Unified Button System - Enforce Consistency */
-        .btn, .btn-primary, .btn-secondary, .btn-danger, .btn-success, .filter-btn, .action-btn {
+
+        /* Unified Button System - Enforce Consistency */
+        .btn,
+        .btn-primary,
+        .btn-secondary,
+        .btn-danger,
+        .btn-success,
+        .filter-btn,
+        .action-btn {
             padding: 0 20px !important;
-            height: 42px !important; /* Fixed height for consistency */
-            line-height: 42px !important; /* Vertical centering */
+            height: 42px !important;
+            /* Fixed height for consistency */
+            line-height: 42px !important;
+            /* Vertical centering */
             border: none !important;
             border-radius: 8px !important;
             cursor: pointer;
@@ -678,16 +685,19 @@
             display: inline-flex !important;
             align-items: center !important;
             justify-content: center !important;
-            gap: 8px !important; /* Standard icon spacing */
+            gap: 8px !important;
+            /* Standard icon spacing */
             font-size: 14px !important;
             font-weight: 600 !important;
             transition: all 0.3s ease !important;
             box-sizing: border-box !important;
-            white-space: nowrap !important; /* Prevent wrapping */
+            white-space: nowrap !important;
+            /* Prevent wrapping */
         }
 
         /* Specific Button Variants */
-        .btn-success, .btn-primary {
+        .btn-success,
+        .btn-primary {
             background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
             color: white !important;
         }
@@ -696,7 +706,7 @@
             background: #718096 !important;
             color: white !important;
         }
-        
+
         .btn-danger {
             background: #e53e3e !important;
             color: white !important;
@@ -707,10 +717,12 @@
             background: white !important;
             color: #1a3a8f !important;
             border: 2px solid #1a3a8f !important;
-            padding: 0 18px !important; /* 20px - 2px border */
-            line-height: 38px !important; /* 42px - 4px border */
+            padding: 0 18px !important;
+            /* 20px - 2px border */
+            line-height: 38px !important;
+            /* 42px - 4px border */
         }
-        
+
         .filter-btn.active {
             background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
             color: white !important;
@@ -720,26 +732,30 @@
         }
 
         /* Hover States */
-        .btn:hover, .filter-btn:hover {
+        .btn:hover,
+        .filter-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
-        
-        .btn-success:hover, .btn-primary:hover, .filter-btn.active:hover {
+
+        .btn-success:hover,
+        .btn-primary:hover,
+        .filter-btn.active:hover {
             box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
         }
-        
+
         .btn-secondary:hover {
             background: #4a5568 !important;
         }
-        
+
         .btn-danger:hover {
             background: #c53030 !important;
             box-shadow: 0 5px 15px rgba(229, 62, 62, 0.3);
         }
-        
+
         /* Disabled State */
-        .btn:disabled, .filter-btn:disabled {
+        .btn:disabled,
+        .filter-btn:disabled {
             opacity: 0.6;
             cursor: not-allowed;
             transform: none !important;
@@ -747,7 +763,8 @@
         }
 
         /* Icon Reset */
-        .btn i, .filter-btn i {
+        .btn i,
+        .filter-btn i {
             margin: 0 !important;
             font-size: 1.1em;
         }
@@ -769,93 +786,7 @@
         html {
             -ms-overflow-style: none;
         }
-            /* Unified Button System - Enforce Consistency */
-        .btn, .btn-primary, .btn-secondary, .btn-danger, .btn-success, .filter-btn, .action-btn {
-            padding: 0 20px !important;
-            height: 42px !important; /* Fixed height for consistency */
-            line-height: 42px !important; /* Vertical centering */
-            border: none !important;
-            border-radius: 8px !important;
-            cursor: pointer;
-            text-decoration: none !important;
-            display: inline-flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            gap: 8px !important; /* Standard icon spacing */
-            font-size: 14px !important;
-            font-weight: 600 !important;
-            transition: all 0.3s ease !important;
-            box-sizing: border-box !important;
-            white-space: nowrap !important; /* Prevent wrapping */
-        }
-
-        /* Specific Button Variants */
-        .btn-success, .btn-primary {
-            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
-            color: white !important;
-        }
-
-        .btn-secondary {
-            background: #718096 !important;
-            color: white !important;
-        }
-        
-        .btn-danger {
-            background: #e53e3e !important;
-            color: white !important;
-        }
-
-        /* Filter Buttons - adjustment for border if needed, or standardizing */
-        .filter-btn {
-            background: white !important;
-            color: #1a3a8f !important;
-            border: 2px solid #1a3a8f !important;
-            padding: 0 18px !important; /* 20px - 2px border */
-            line-height: 38px !important; /* 42px - 4px border */
-        }
-        
-        .filter-btn.active {
-            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
-            color: white !important;
-            border-color: transparent !important;
-            padding: 0 20px !important;
-            line-height: 42px !important;
-        }
-
-        /* Hover States */
-        .btn:hover, .filter-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        .btn-success:hover, .btn-primary:hover, .filter-btn.active:hover {
-            box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
-        }
-        
-        .btn-secondary:hover {
-            background: #4a5568 !important;
-        }
-        
-        .btn-danger:hover {
-            background: #c53030 !important;
-            box-shadow: 0 5px 15px rgba(229, 62, 62, 0.3);
-        }
-        
-        /* Disabled State */
-        .btn:disabled, .filter-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none !important;
-            box-shadow: none !important;
-        }
-
-        /* Icon Reset */
-        .btn i, .filter-btn i {
-            margin: 0 !important;
-            font-size: 1.1em;
-        }
     </style>
-
 </head>
 
 <body>
@@ -864,7 +795,7 @@
         <div class="logo-section">
             <div class="logo">
                 <i class="fas fa-hands-helping"></i>
-                <span class="logo-text">MMMS</span>
+                <span class="logo-text">MMS</span>
             </div>
         </div>
 
@@ -938,34 +869,8 @@
                     Edit Mentor
                 </a>
                 <div class="profile-section">
-                    
+                    <!-- Profile button can be added here if needed -->
                 </div>
-            </div>
-        </div>
-
-        <!-- Statistics Cards -->
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-value">{{ mentor.CurrentMentees }}</div>
-                <div class="stat-label">Current Mentees</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value">{{ mentor.vacancy_count }}</div>
-                <div class="stat-label">Available Slots</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value">{{ mentor.MaxMentees }}</div>
-                <div class="stat-label">Max Capacity</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value">
-                    {% if assigned_mentees %}
-                    {{ assigned_mentees.count }}
-                    {% else %}
-                    0
-                    {% endif %}
-                </div>
-                <div class="stat-label">Total Assigned</div>
             </div>
         </div>
 
@@ -984,8 +889,6 @@
                 <h3>{{ mentor.MentorName }}</h3>
                 <p><i class="fas fa-id-card"></i> {{ mentor.MentorID }}</p>
                 <p><i class="fas fa-building"></i> {{ mentor.MentorDepartment }}</p>
-                <p><i class="fas fa-envelope"></i> {{ mentor.MentorEmail }}</p>
-                <p><i class="fas fa-phone"></i> {{ mentor.MentorPhone|default:"Not set" }}</p>
                 <p><i class="fas fa-calendar-alt"></i> Joined {{ mentor.MentorJoinDate|date:"F d, Y" }}</p>
             </div>
         </div>
@@ -1288,91 +1191,86 @@
             // Add active state to current page in navigation
             const currentPage = window.location.pathname;
             document.querySelectorAll('.nav-link').forEach(link => {
-                if (link.getAttribute('href') === '{% url 'manage_mentors' %}') {
-                link.classList.add('active');
-            } else {
-                link.classList.remove('active');
-            }
-        });
-
-        // Profile button functionality
-        document.querySelector('.profile-btn').addEventListener('click', function () {
-            alert('Profile page would open here!');
-            // In a real application, this would navigate to the profile page
-            // window.location.href = '/profile/';
-        });
+                // Check if this is the mentors page
+                if (link.href.includes('/head/mentors/') ||
+                    link.getAttribute('href') === '{% url "manage_mentors" %}') {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
         });
     </script>
 
-<!-- Scroll Indicator (Auto-Injected) -->
-<style>
-    @keyframes scroll-bounce {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(10px); }
-    }
-    @keyframes scroll-fade-in {
-        from { opacity: 0; }
-        to { opacity: 1; }
-    }
-    .scroll-indicator-container {
-        position: fixed;
-        bottom: 2rem;
-        left: 50%;
-        transform: translateX(-50%);
-        color: #9ca3af;
-        pointer-events: none;
-        z-index: 9999;
-        opacity: 0;
-        transition: opacity 0.5s ease;
-        display: none;
-    }
-    .scroll-indicator-container.visible {
-        display: block;
-        opacity: 1;
-        animation: scroll-fade-in 1s ease forwards;
-    }
-    .scroll-indicator-icon {
-        width: 1.5rem;
-        height: 2.5rem;
-        border: 2px solid currentColor;
-        border-radius: 9999px;
-        display: flex;
-        justify-content: center;
-        padding-top: 0.5rem;
-        box-sizing: border-box;
-        margin: 0 auto;
-    }
-    .scroll-indicator-dot {
-        width: 0.25rem;
-        height: 0.5rem;
-        background-color: currentColor;
-        border-radius: 9999px;
-        animation: scroll-bounce 2s infinite;
-        animation-delay: 1.5s;
-    }
-</style>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var indicator = document.createElement('div');
-        indicator.className = 'scroll-indicator-container';
-        indicator.innerHTML = '<div class="scroll-indicator-icon"><div class="scroll-indicator-dot"></div></div>';
-        document.body.appendChild(indicator);
-
-        function checkScroll() {
-            var hasScroll = document.documentElement.scrollHeight > window.innerHeight;
-            if (hasScroll && window.scrollY < 100) {
-                indicator.classList.add('visible');
-            } else {
-                indicator.classList.remove('visible');
-            }
+    <!-- Scroll Indicator -->
+    <style>
+        @keyframes scroll-bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(10px); }
         }
+        @keyframes scroll-fade-in {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .scroll-indicator-container {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #9ca3af;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            display: none;
+        }
+        .scroll-indicator-container.visible {
+            display: block;
+            opacity: 1;
+            animation: scroll-fade-in 1s ease forwards;
+        }
+        .scroll-indicator-icon {
+            width: 1.5rem;
+            height: 2.5rem;
+            border: 2px solid currentColor;
+            border-radius: 9999px;
+            display: flex;
+            justify-content: center;
+            padding-top: 0.5rem;
+            box-sizing: border-box;
+            margin: 0 auto;
+        }
+        .scroll-indicator-dot {
+            width: 0.25rem;
+            height: 0.5rem;
+            background-color: currentColor;
+            border-radius: 9999px;
+            animation: scroll-bounce 2s infinite;
+            animation-delay: 1.5s;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var indicator = document.createElement('div');
+            indicator.className = 'scroll-indicator-container';
+            indicator.innerHTML = '<div class="scroll-indicator-icon"><div class="scroll-indicator-dot"></div></div>';
+            document.body.appendChild(indicator);
 
-        window.addEventListener('scroll', checkScroll);
-        window.addEventListener('resize', checkScroll);
-        // Initial check
-        setTimeout(checkScroll, 500);
-    });
-</script>
+            function checkScroll() {
+                var hasScroll = document.documentElement.scrollHeight > window.innerHeight;
+                if (hasScroll && window.scrollY < 100) {
+                    indicator.classList.add('visible');
+                } else {
+                    indicator.classList.remove('visible');
+                }
+            }
+
+            window.addEventListener('scroll', checkScroll);
+            window.addEventListener('resize', checkScroll);
+            // Initial check
+            setTimeout(checkScroll, 500);
+        });
+    </script>
 
 </body>
 

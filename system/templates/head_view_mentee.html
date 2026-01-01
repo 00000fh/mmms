@@ -556,36 +556,6 @@
             color: #1a3a8f;
         }
 
-        /* Statistics Cards */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 16px;
-            margin-bottom: 24px;
-        }
-
-        .stat-card {
-            background: white;
-            padding: 16px;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-            text-align: center;
-            border-left: 4px solid #1a3a8f;
-        }
-
-        .stat-value {
-            font-size: 28px;
-            font-weight: 700;
-            color: #1a3a8f;
-            margin-bottom: 8px;
-        }
-
-        .stat-label {
-            font-size: 14px;
-            color: #718096;
-            font-weight: 600;
-        }
-
         /* Responsive Design */
         @media (max-width: 1024px) {
             .sidebar {
@@ -655,9 +625,6 @@
                 padding: 12px 16px;
             }
 
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
         }
 
         @media (max-width: 480px) {
@@ -973,43 +940,6 @@
             </div>
         </div>
 
-        <!-- Statistics Cards -->
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-value">{{ mentee.MenteeSemester }}</div>
-                <div class="stat-label">Current Semester</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value">
-                    {% if mentee.assigned_mentor %}
-                    <i class="fas fa-check" style="color: #2e7d32;"></i>
-                    {% else %}
-                    <i class="fas fa-times" style="color: #c62828;"></i>
-                    {% endif %}
-                </div>
-                <div class="stat-label">Mentor Assigned</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value">
-                    {% if mentee.MenteeStatus == 'active' %}
-                    <i class="fas fa-user-check" style="color: #2e7d32;"></i>
-                    {% elif mentee.MenteeStatus == 'inactive' %}
-                    <i class="fas fa-user-slash" style="color: #c62828;"></i>
-                    {% else %}
-                    <i class="fas fa-user-graduate" style="color: #1565c0;"></i>
-                    {% endif %}
-                </div>
-                <div class="stat-label">Status</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value">
-                    <i class="fas {% if mentee.MenteeGender == 'male' %}fa-mars{% else %}fa-venus{% endif %}"
-                        style="color: {% if mentee.MenteeGender == 'male' %}#1565c0{% else %}#c2185b{% endif %};"></i>
-                </div>
-                <div class="stat-label">Gender</div>
-            </div>
-        </div>
-
         <!-- Mentee Profile Picture Section (BIGGER and CENTERED) -->
         <div class="mentee-profile-section">
             <div class="mentee-avatar">
@@ -1026,7 +956,6 @@
                 <p><i class="fas fa-id-card"></i> {{ mentee.MenteeID }}</p>
                 <p><i class="fas fa-graduation-cap"></i> {{ mentee.MenteeCourse }}</p>
                 <p><i class="fas fa-calendar-alt"></i> Semester {{ mentee.MenteeSemester }}</p>
-                <p><i class="fas fa-envelope"></i> {{ mentee.MenteeEmail }}</p>
                 <p>
                     <i class="fas fa-user-tie"></i>
                     {% if mentee.assigned_mentor %}
