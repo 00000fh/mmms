@@ -279,55 +279,6 @@
             box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
         }
 
-        /* Stats Grid - Consistent with previous page */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 16px;
-            margin-bottom: 24px;
-        }
-
-        .stat-card {
-            background: white;
-            border-radius: 10px;
-            padding: 16px;
-            text-align: center;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-            transition: all 0.3s ease;
-            border-left: 3px solid #1a3a8f;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
-        }
-
-        .stat-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 10px;
-            color: white;
-            font-size: 16px;
-        }
-
-        .stat-number {
-            font-size: 22px;
-            font-weight: bold;
-            color: #2d3748;
-            margin-bottom: 4px;
-        }
-
-        .stat-label {
-            color: #718096;
-            font-size: 12px;
-            font-weight: 500;
-        }
-
         /* Auto Assignment Section - IMPROVED SPACING */
         .auto-assign-section {
             background: white;
@@ -851,10 +802,6 @@
                 text-align: center;
             }
 
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-
             .mentor-grid {
                 grid-template-columns: 1fr;
             }
@@ -1166,38 +1113,6 @@
                 <div class="profile-section">
                     
                 </div>
-            </div>
-        </div>
-
-        <!-- Stats Grid -->
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-icon">
-                    <i class="fas fa-user-tie"></i>
-                </div>
-                <div class="stat-number">{{ mentors_with_vacancy|length }}</div>
-                <div class="stat-label">Mentors with Vacancy</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon">
-                    <i class="fas fa-user-graduate"></i>
-                </div>
-                <div class="stat-number">{{ unassigned_mentees|length }}</div>
-                <div class="stat-label">Unassigned Mentees</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon">
-                    <i class="fas fa-users"></i>
-                </div>
-                <div class="stat-number">{{ total_vacancy }}</div>
-                <div class="stat-label">Total Available Slots</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon">
-                    <i class="fas fa-balance-scale"></i>
-                </div>
-                <div class="stat-number">{{ balanced_assignments }}</div>
-                <div class="stat-label">Balanced Assignments</div>
             </div>
         </div>
 
