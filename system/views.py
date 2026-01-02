@@ -711,14 +711,77 @@ def mentor_homepage(request):
             }
         )
     
+    # Calculate real statistics
+    today = timezone.now().date()
+    
+    # Get total assigned mentees (mentees where this mentor is assigned_mentor)
+    assigned_mentees_count = Mentee.objects.filter(assigned_mentor=mentor).count()
+    
+    # Get total mentees in the entire system (not just assigned to this mentor)
+    total_mentees_system = Mentee.objects.count()
+    
+    # Get system-wide assigned and pending mentees
+    mentees_with_mentor = Mentee.objects.filter(assigned_mentor__isnull=False).count()
+    mentees_pending = Mentee.objects.filter(assigned_mentor__isnull=True).count()
+    
+    # Get upcoming sessions (activities where mentor is primary mentor and date is today or future)
+    upcoming_sessions = Activity.objects.filter(
+        PrimaryMentor=mentor,
+        Date__gte=today,
+        IsMentoringSession=True
+    ).count()
+    
+    # Get completed sessions (past mentoring sessions)
+    completed_sessions = Activity.objects.filter(
+        PrimaryMentor=mentor,
+        Date__lt=today,
+        IsMentoringSession=True
+    ).count()
+    
+    # Calculate total sessions (upcoming + completed)
+    total_sessions = upcoming_sessions + completed_sessions
+    
+    # Get pending reports (activities without completed mentoring sessions)
+    pending_reports = Activity.objects.filter(
+        PrimaryMentor=mentor,
+        IsMentoringSession=True,
+        Date__lt=today
+    ).exclude(
+        mentoringsession__completed=True
+    ).count()
+    
+    # Calculate completion rate based on mentoring sessions
+    total_past_sessions = Activity.objects.filter(
+        PrimaryMentor=mentor,
+        Date__lt=today,
+        IsMentoringSession=True
+    ).count()
+    
+    completed_sessions_with_materials = MentoringSession.objects.filter(
+        activity__PrimaryMentor=mentor,
+        activity__Date__lt=today,
+        completed=True
+    ).count()
+    
+    if total_past_sessions > 0:
+        completion_rate = int((completed_sessions_with_materials / total_past_sessions) * 100)
+    else:
+        completion_rate = 0
+    
     context = {
         'user': request.user,
-        'assigned_mentees': 8,
-        'upcoming_sessions': 5,
-        'pending_reports': 3,
-        'completion_rate': 92,
+        'mentor': mentor,
+        'assigned_mentees': assigned_mentees_count,
+        'total_mentees_system': total_mentees_system,
+        'mentees_with_mentor': mentees_with_mentor,
+        'mentees_pending': mentees_pending,
+        'total_sessions': total_sessions,
+        'upcoming_sessions': upcoming_sessions,
+        'pending_reports': pending_reports,
+        'completion_rate': completion_rate,
     }
     return render(request, 'homepage_mentor.html', context)
+
 
 @login_required
 def mentor_update_profile(request):
@@ -1453,14 +1516,33 @@ def head_homepage(request):
     # Get actual statistics
     total_mentors = Mentor.objects.count()
     total_mentees = Mentee.objects.count()
-    active_sessions = Activity.objects.filter(
-        Date=timezone.now().date(),
-        IsMentoringSession=True
+    
+    # Calculate session statistics
+    today = timezone.now().date()
+    
+    # Count completed sessions (past) - ALL activities
+    completed_sessions = Activity.objects.filter(
+        Date__lt=today
     ).count()
+    
+    # Count upcoming sessions (future) - ALL activities
+    upcoming_sessions = Activity.objects.filter(
+        Date__gt=today
+    ).count()
+    
+    # Count today's sessions - ALL activities
+    today_sessions = Activity.objects.filter(
+        Date=today
+    ).count()
+    
+    # Total sessions for display
+    total_sessions = completed_sessions + upcoming_sessions + today_sessions
+
     
     # Calculate system usage (percentage of mentors with mentees)
     mentors_with_mentees = Mentor.objects.filter(CurrentMentees__gt=0).count()
     system_usage = int((mentors_with_mentees / total_mentors * 100)) if total_mentors > 0 else 0
+
 
     # --- GRAPH DATA PREPARATION ---
     
@@ -1495,7 +1577,10 @@ def head_homepage(request):
         'user': request.user,
         'total_mentors': total_mentors,
         'total_mentees': total_mentees,
-        'active_sessions': active_sessions,
+        'total_sessions': total_sessions,
+        'completed_sessions': completed_sessions,
+        'upcoming_sessions': upcoming_sessions,
+        'today_sessions': today_sessions,
         'system_usage': system_usage,
         
         # Graph Data

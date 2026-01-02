@@ -1127,13 +1127,20 @@
             let particles = [];
 
             // Configuration
+            const spacing = 45; // Grid spacing
+            const parallaxStrength = 15; // Subtle grid distortion
 
-            const particleCount = 450; // Dense field
-            const connectionDistance = 0; // No lines, just dots
-            const baseSpeed = 0.2;
-            const parallaxStrength = 20; // How much mouse moves them
+            // Light Wave Configuration (Diagonal: Bottom-Right -> Top-Left)
+            const waveSpeed = 0.02;
+            const waveFrequency = 0.008; // Slightly lower freq for diagonal spread
+            const waveSharpness = 4;
 
-            // Neural Colors: Cyan, Blue, Purple, White(dim)
+            // Mouse Glow & Magnet Configuration
+            const glowRadius = 300;
+            const magneticRadius = 200;
+            const magneticStrength = 0.2;
+
+            // Multi-Color Palette
             const colorPalette = [
                 { r: 100, g: 149, b: 237 }, // Cornflower Blue
                 { r: 79, g: 209, b: 197 },  // Teal/Cyan
@@ -1142,99 +1149,170 @@
             ];
 
             // Mouse state
-            const mouse = { x: 0, y: 0 };
+            const mouse = { x: -1000, y: -1000 };
             const targetMouse = { x: 0, y: 0 };
+            const smoothedMouse = { x: 0, y: 0 };
+
+            let time = 0;
 
             // Resize handling
             function resize() {
                 width = canvas.width = window.innerWidth;
                 height = canvas.height = window.innerHeight;
+                initParticles();
             }
             window.addEventListener('resize', resize);
-            resize();
 
-            // Track mouse for parallax
+            // Track mouse
             window.addEventListener('mousemove', (e) => {
-                // Normalize mouse position -0.5 to 0.5
+                mouse.x = e.clientX;
+                mouse.y = e.clientY;
+
                 targetMouse.x = (e.clientX / width) - 0.5;
                 targetMouse.y = (e.clientY / height) - 0.5;
             });
 
             class Particle {
-                constructor() {
-                    this.init();
-                }
+                constructor(x, y) {
+                    this.x = x;
+                    this.y = y;
+                    this.baseX = x;
+                    this.baseY = y;
 
-                init() {
-                    this.x = Math.random() * width;
-                    this.y = Math.random() * height;
-                    this.z = Math.random() * 2 + 0.5; // Depth factor (0.5 to 2.5)
-                    this.size = Math.random() * 1.5 + 0.5; // Size variation
+                    this.z = Math.random() * 0.5 + 0.8;
+                    this.size = 2.5;
 
-                    // Velocity (continuous float)
-                    this.vx = (Math.random() - 0.5) * baseSpeed * this.z;
-                    this.vy = (Math.random() - 0.5) * baseSpeed * this.z;
-
-                    // Appearance
                     this.rgb = colorPalette[Math.floor(Math.random() * colorPalette.length)];
-                    this.alpha = Math.random() * 0.5 + 0.1;
-                    this.targetAlpha = this.alpha;
+
+                    // Invisible when not lit
+                    this.baseAlpha = 0.02;
+                    this.alpha = this.baseAlpha;
+
+                    // Controlled Twinkle State
+                    this.twinkleVal = 0; // 0 to 1
+                    this.twinkleDir = 0; // 0: idle, 1: fade in, -1: fade out
                 }
 
-                update() {
-                    // Constant drift
-                    this.x += this.vx;
-                    this.y += this.vy;
+                update(t) {
+                    // --- 1. Diagonal Wave Logic (Bottom-Right -> Top-Left) ---
+                    // To move towards Top-Left (decreasing X, Y), we need phase to increase as (x+y) decreases?
+                    // Surface: sin(k*(x+y) + w*t)
+                    // If t increases, argument increases.
+                    // For argument to stay constant (track a peak), k*(x+y) must decrease.
+                    // Decreasing (x+y) means moving towards Top-Left (0,0).
 
-                    // Soft parallax easing
-                    // We move the particle position based on mouse * depth
-                    // But we don't want to permanently change x/y, just the render position? 
-                    // No, usually parallax shifts the viewport.
-                    // Let's create an offset based on mouse.
+                    const phase = ((this.baseX + this.baseY) * waveFrequency) + (t * waveSpeed);
+                    const sineVal = Math.sin(phase);
+                    const normSine = (sineVal + 1) / 2;
+                    const waveIntensity = Math.pow(normSine, waveSharpness) * 0.8;
 
-                    // Wrap around screen
-                    if (this.x < -50) this.x = width + 50;
-                    if (this.x > width + 50) this.x = -50;
-                    if (this.y < -50) this.y = height + 50;
-                    if (this.y > height + 50) this.y = -50;
-
-                    // Twinkle
-                    if (Math.random() < 0.01) {
-                        this.targetAlpha = Math.random() * 0.6 + 0.1;
+                    // --- 2. Controlled Twinkle Update ---
+                    // Managed by global loop, but we handle the transition here
+                    if (this.twinkleDir === 1) {
+                        this.twinkleVal += 0.05;
+                        if (this.twinkleVal >= 1) {
+                            this.twinkleVal = 1;
+                            this.twinkleDir = -1; // Start fade out
+                        }
+                    } else if (this.twinkleDir === -1) {
+                        this.twinkleVal -= 0.03; // Slower fade out
+                        if (this.twinkleVal <= 0) {
+                            this.twinkleVal = 0;
+                            this.twinkleDir = 0; // Idle
+                        }
                     }
-                    this.alpha += (this.targetAlpha - this.alpha) * 0.05;
+                    const twinkleIntensity = this.twinkleVal * 0.6; // Max 0.6
+
+                    // --- 3. Mouse Glow & Magnet Logic ---
+                    const dx = mouse.x - this.baseX;
+                    const dy = mouse.y - this.baseY;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    let mouseIntensity = 0;
+                    let magX = 0;
+                    let magY = 0;
+
+                    if (dist < glowRadius) {
+                        mouseIntensity = 1 - (dist / glowRadius);
+                        mouseIntensity = Math.pow(mouseIntensity, 2);
+
+                        if (dist < magneticRadius) {
+                            const force = (magneticRadius - dist) / magneticRadius;
+                            magX = dx * force * magneticStrength;
+                            magY = dy * force * magneticStrength;
+                        }
+                    }
+
+                    // --- Combine Alpha ---
+                    this.alpha = this.baseAlpha + waveIntensity + twinkleIntensity + mouseIntensity;
+                    if (this.alpha > 1) this.alpha = 1;
+
+                    // --- Combine Position ---
+                    const parX = smoothedMouse.x * parallaxStrength * this.z;
+                    const parY = smoothedMouse.y * parallaxStrength * this.z;
+
+                    this.renderX = this.baseX - parX + magX;
+                    this.renderY = this.baseY - parY + magY;
                 }
 
-                draw(mouseX, mouseY) {
-                    // Parallax offset
-                    // Closer particles (higher z) move MORE opposite to mouse (or with mouse depending on effect)
-                    // Standard parallax: layers move at different speeds.
-                    const offX = mouseX * parallaxStrength * this.z;
-                    const offY = mouseY * parallaxStrength * this.z;
+                draw(ctx) {
+                    if (this.alpha < 0.03) return;
 
                     ctx.beginPath();
                     ctx.fillStyle = `rgba(${this.rgb.r}, ${this.rgb.g}, ${this.rgb.b}, ${this.alpha})`;
-                    ctx.arc(this.x + offX, this.y + offY, this.size, 0, Math.PI * 2);
+                    ctx.arc(this.renderX, this.renderY, this.size, 0, Math.PI * 2);
                     ctx.fill();
                 }
             }
 
-            // Create particles
-            for (let i = 0; i < particleCount; i++) {
-                particles.push(new Particle());
+            function initParticles() {
+                particles = [];
+                const cols = Math.ceil(width / spacing) + 2;
+                const rows = Math.ceil(height / spacing) + 2;
+
+                // Random Jitter Amount (Not too structured but still organized)
+                const jitter = spacing * 0.5; // +/- 22px
+
+                for (let r = -1; r < rows; r++) {
+                    for (let c = -1; c < cols; c++) {
+                        // Apply randomness to initial position
+                        const x = c * spacing + (Math.random() - 0.5) * jitter;
+                        const y = r * spacing + (Math.random() - 0.5) * jitter;
+                        particles.push(new Particle(x, y));
+                    }
+                }
             }
 
-            function animate() {
-                // Clear with trail effect? No, clean wipe for crisp dots
-                ctx.clearRect(0, 0, width, height);
+            resize();
 
-                // Smooth mouse interpolation
-                mouse.x += (targetMouse.x - mouse.x) * 0.05;
-                mouse.y += (targetMouse.y - mouse.y) * 0.05;
+            function animate() {
+                ctx.clearRect(0, 0, width, height);
+                time += 1;
+
+                // Smooth Global Mouse for Parallax
+                smoothedMouse.x += (targetMouse.x - smoothedMouse.x) * 0.05;
+                smoothedMouse.y += (targetMouse.y - smoothedMouse.y) * 0.05;
+
+                // Manage Twinkles
+                // Count active
+                const activeTwinkles = particles.filter(p => p.twinkleDir !== 0).length;
+                const targetTwinkles = 6; // 4-6 range generally
+
+                if (activeTwinkles < targetTwinkles && Math.random() < 0.2) {
+                    // Pick a random idle particle
+                    // Limit retries
+                    for (let i = 0; i < 5; i++) {
+                        const p = particles[Math.floor(Math.random() * particles.length)];
+                        if (p.twinkleDir === 0 && p.alpha < 0.1) { // Only pick dark ones
+                            p.twinkleDir = 1;
+                            break;
+                        }
+                    }
+                }
 
                 particles.forEach(p => {
-                    p.update();
-                    p.draw(-mouse.x, -mouse.y); // Invert for depth feel
+                    p.update(time);
+                    p.draw(ctx);
                 });
 
                 requestAnimationFrame(animate);

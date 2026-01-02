@@ -1128,7 +1128,10 @@
         window.dashboardData = {
             totalMentors: parseInt("{{ total_mentors|default:0 }}") || 0,
             totalMentees: parseInt("{{ total_mentees|default:0 }}") || 0,
-            activeSessions: parseInt("{{ active_sessions|default:0 }}") || 0,
+            totalSessions: parseInt("{{ total_sessions|default:0 }}") || 0,
+            completedSessions: parseInt("{{ completed_sessions|default:0 }}") || 0,
+            upcomingSessions: parseInt("{{ upcoming_sessions|default:0 }}") || 0,
+            todaySessions: parseInt("{{ today_sessions|default:0 }}") || 0,
             systemUsage: parseInt("{{ system_usage|default:0 }}") || 0,
         };
     </script>
@@ -1454,14 +1457,6 @@
                 return [male, female];
             };
 
-            // Simulate session status breakdown (Completed, Upcoming, Today)
-            const generateSessionData = (total) => {
-                const completed = Math.round(total * 0.6); // 60%
-                const upcoming = Math.round(total * 0.3); // 30%
-                const today = total - completed - upcoming; // 10%
-                return [completed, upcoming, today];
-            };
-
             // Simulate assignment breakdown (Assigned vs Not Assigned)
             const generateAssignmentData = (total) => {
                 const assigned = Math.round(total * 0.85); // 85%
@@ -1495,13 +1490,21 @@
                 },
                 {
                     title: "Total Sessions",
-                    value: data.activeSessions,
+                    value: data.totalSessions,
                     icon: "fa-calendar-check",
                     color: "orange",
                     chartType: "pie",
-                    chartData: generateSessionData(data.activeSessions),
+                    chartData: (() => {
+                        console.log('Session Data:', {
+                            completed: data.completedSessions,
+                            upcoming: data.upcomingSessions,
+                            today: data.todaySessions,
+                            total: data.totalSessions
+                        });
+                        return [data.completedSessions, data.upcomingSessions, data.todaySessions];
+                    })(),
                     customColors: ['#10b981', '#3b82f6', '#f97316'], // Green, Blue, Orange
-                    customLabels: ['Comp.', 'Upcom.', 'Today']
+                    customLabels: ['Completed', 'Upcoming', 'Today']
                 },
                 {
                     title: "Assigned Mentees",

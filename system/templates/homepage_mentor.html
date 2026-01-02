@@ -1,10 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Mentor | MMS</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- React & Tailwind for Dashboard Stats -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Disable Tailwind preflight to prevent CSS reset interference
+        tailwind.config = {
+            corePlugins: {
+                preflight: false,
+            },
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1a3a8f',
+                        secondary: '#0d1b4e',
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Chart.js for Graphs -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -399,6 +423,7 @@
             .sidebar {
                 width: 240px;
             }
+
             .main-content {
                 margin-left: 240px;
             }
@@ -410,15 +435,18 @@
                 height: auto;
                 position: relative;
             }
+
             .main-content {
                 margin-left: 0;
                 padding: 16px;
             }
+
             .content-header {
                 flex-direction: column;
                 gap: 16px;
                 text-align: center;
             }
+
             .action-grid {
                 grid-template-columns: 1fr;
             }
@@ -444,6 +472,7 @@
     </style>
 
 </head>
+
 <body>
     <!-- Sidebar -->
     <div class="sidebar">
@@ -457,10 +486,10 @@
         <div class="user-info">
             <div class="user-avatar">
                 {% if user.mentor.profile_picture %}
-                    <img src="{{ user.mentor.profile_picture.url }}" alt="Profile Picture" id="sidebarProfilePic">
-                    <i class="fas fa-user-tie" id="sidebarProfileIcon" style="display: none;"></i>
+                <img src="{{ user.mentor.profile_picture.url }}" alt="Profile Picture" id="sidebarProfilePic">
+                <i class="fas fa-user-tie" id="sidebarProfileIcon" style="display: none;"></i>
                 {% else %}
-                    <i class="fas fa-user-tie" id="sidebarProfileIcon"></i>
+                <i class="fas fa-user-tie" id="sidebarProfileIcon"></i>
                 {% endif %}
             </div>
             <div class="user-name">{{ user.mentor.MentorName|default:"Mentor" }}</div>
@@ -513,7 +542,7 @@
                 <h1>Welcome to Your Dashboard</h1>
                 <p>Track your mentoring activities and manage your mentees</p>
             </div>
-            
+
             <!-- Profile Button - Only in the header now -->
             <div class="profile-section">
                 <a href="{% url 'mentor_update_profile' %}" class="profile-btn">
@@ -524,6 +553,10 @@
                 </a>
             </div>
         </div>
+
+        <!-- Stats Grid with Analytics Graphs -->
+        <!-- React Dashboard Root -->
+        <div id="dashboard-root" class="mb-8"></div>
 
         <!-- Quick Actions -->
         <div class="quick-actions">
@@ -577,186 +610,607 @@
                 <i class="fas fa-history"></i>
                 Recent Activity
             </h2>
-            <div class="activity-list">
-                <div class="activity-item">
-                    <div class="activity-icon">
-                        <i class="fas fa-user-check"></i>
-                    </div>
-                    <div class="activity-content">
-                        <div class="activity-title">Session Completed</div>
-                        <div class="activity-time">Today, 2:30 PM - Academic Progress Review</div>
-                    </div>
-                </div>
-                <div class="activity-item">
-                    <div class="activity-icon">
-                        <i class="fas fa-calendar-plus"></i>
-                    </div>
-                    <div class="activity-content">
-                        <div class="activity-title">New Session Scheduled</div>
-                        <div class="activity-time">Tomorrow, 10:00 AM - Career Guidance</div>
-                    </div>
-                </div>
-                <div class="activity-item">
-                    <div class="activity-icon">
-                        <i class="fas fa-file-upload"></i>
-                    </div>
-                    <div class="activity-content">
-                        <div class="activity-title">Report Submitted</div>
-                        <div class="activity-time">October 18, 2023 - Monthly Progress Report</div>
-                    </div>
-                </div>
-                <div class="activity-item">
-                    <div class="activity-icon">
-                        <i class="fas fa-comments"></i>
-                    </div>
-                    <div class="activity-content">
-                        <div class="activity-title">New Message</div>
-                        <div class="activity-time">October 17, 2023 - From Mentee: Sarah Johnson</div>
-                    </div>
-                </div>
+            <div class="activity-list" id="recent-activities">
+                <!-- Activities will be populated by JavaScript -->
             </div>
         </div>
     </div>
 
     <script>
-        // Simple animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
+        // Mock data for recent activities
+        const dashboardData = {
+            recent_activities: [
+                {
+                    title: "New mentee assigned",
+                    time: "Today, 10:30 AM",
+                    icon: "user-plus"
+                },
+                {
+                    title: "Mentoring session completed",
+                    time: "Yesterday, 3:45 PM",
+                    icon: "check-circle"
+                },
+                {
+                    title: "New activity scheduled",
+                    time: "October 20, 2023",
+                    icon: "calendar-plus"
+                },
+                {
+                    title: "Monthly report requested",
+                    time: "October 18, 2023",
+                    icon: "file-alt"
+                }
+            ]
         };
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
+        // Function to populate recent activities
+        function populateActivities() {
+            const activitiesContainer = document.getElementById('recent-activities');
+            if (!activitiesContainer) return;
+
+            activitiesContainer.innerHTML = '';
+
+            dashboardData.recent_activities.forEach(activity => {
+                const activityItem = document.createElement('div');
+                activityItem.className = 'activity-item';
+                activityItem.innerHTML = `
+                <div class="activity-icon">
+                    <i class="fas fa-${activity.icon}"></i>
+                </div>
+                <div class="activity-content">
+                    <div class="activity-title">${activity.title}</div>
+                    <div class="activity-time">${activity.time}</div>
+                </div>
+            `;
+                activitiesContainer.appendChild(activityItem);
             });
-        }, observerOptions);
-
-        // Observe all cards for animation
-        document.querySelectorAll('.action-item, .activity-item').forEach(card => {
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(20px)';
-            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(card);
-        });
-
-        // Active nav link highlighting
-        const currentPage = window.location.pathname;
-        document.querySelectorAll('.nav-link').forEach(link => {
-            if (link.getAttribute('href') === currentPage || 
-                (currentPage === '/' && link.getAttribute('href').includes('homepage'))) {
-                link.classList.add('active');
-            } else {
-                link.classList.remove('active');
-            }
-        });
-
-        // Add loading animation for action items
-        document.querySelectorAll('.action-item').forEach(item => {
-            item.addEventListener('click', function(e) {
-                // Add loading animation
-                const icon = this.querySelector('.action-icon i');
-                const originalClass = icon.className;
-                icon.className = 'fas fa-spinner fa-spin';
-                
-                // Reset after 1 second (simulate loading)
-                setTimeout(() => {
-                    icon.className = originalClass;
-                }, 1000);
-            });
-        });
-
-        // Update profile picture display in sidebar only
-        function updateProfilePictureDisplay() {
-            // Check if profile picture exists in sidebar
-            const sidebarAvatar = document.querySelector('.user-avatar');
-            const sidebarImg = sidebarAvatar.querySelector('img');
-            const sidebarIcon = sidebarAvatar.querySelector('i');
-            
-            // If profile picture exists, show image and hide icon
-            if (sidebarImg && sidebarImg.src) {
-                sidebarImg.style.display = 'block';
-                sidebarIcon.style.display = 'none';
-            }
         }
 
-        // Initialize profile picture display
-        document.addEventListener('DOMContentLoaded', function() {
-            updateProfilePictureDisplay();
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', function () {
+            // Populate activities
+            populateActivities();
+
+            // Simple animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all cards for animation
+            document.querySelectorAll('.stat-card, .action-item, .status-item, .activity-item').forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(card);
+            });
+
+            // Active nav link highlighting
+            const currentPage = window.location.pathname;
+            document.querySelectorAll('.nav-link').forEach(link => {
+                if (link.getAttribute('href') === currentPage ||
+                    (currentPage === '/' && link.getAttribute('href').includes('homepage'))) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+
+            // Add loading animation for action items
+            document.querySelectorAll('.action-item').forEach(item => {
+                item.addEventListener('click', function (e) {
+                    // Add loading animation
+                    const icon = this.querySelector('.action-icon i');
+                    if (icon) {
+                        const originalClass = icon.className;
+                        icon.className = 'fas fa-spinner fa-spin';
+
+                        // Reset after 1 second (simulate loading)
+                        setTimeout(() => {
+                            icon.className = originalClass;
+                        }, 1000);
+                    }
+                });
+            });
         });
     </script>
 
-<!-- Scroll Indicator (Auto-Injected) -->
-<style>
-    @keyframes scroll-bounce {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(10px); }
-    }
-    @keyframes scroll-fade-in {
-        from { opacity: 0; }
-        to { opacity: 1; }
-    }
-    .scroll-indicator-container {
-        position: fixed;
-        bottom: 2rem;
-        left: 50%;
-        transform: translateX(-50%);
-        color: #9ca3af;
-        pointer-events: none;
-        z-index: 9999;
-        opacity: 0;
-        transition: opacity 0.5s ease;
-        display: none;
-    }
-    .scroll-indicator-container.visible {
-        display: block;
-        opacity: 1;
-        animation: scroll-fade-in 1s ease forwards;
-    }
-    .scroll-indicator-icon {
-        width: 1.5rem;
-        height: 2.5rem;
-        border: 2px solid currentColor;
-        border-radius: 9999px;
-        display: flex;
-        justify-content: center;
-        padding-top: 0.5rem;
-        box-sizing: border-box;
-        margin: 0 auto;
-    }
-    .scroll-indicator-dot {
-        width: 0.25rem;
-        height: 0.5rem;
-        background-color: currentColor;
-        border-radius: 9999px;
-        animation: scroll-bounce 2s infinite;
-        animation-delay: 1.5s;
-    }
-</style>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var indicator = document.createElement('div');
-        indicator.className = 'scroll-indicator-container';
-        indicator.innerHTML = '<div class="scroll-indicator-icon"><div class="scroll-indicator-dot"></div></div>';
-        document.body.appendChild(indicator);
+    <!-- Data Injection -->
+    <script>
+        window.dashboardData = {
+            totalMentees: parseInt("{{ assigned_mentees|default:0 }}") || 0,
+            totalMenteesSystem: parseInt("{{ total_mentees_system|default:0 }}") || 0,
+            menteesWithMentor: parseInt("{{ mentees_with_mentor|default:0 }}") || 0,
+            menteesPending: parseInt("{{ mentees_pending|default:0 }}") || 0,
+            pendingReports: parseInt("{{ pending_reports|default:0 }}") || 0,
+            upcomingSessions: parseInt("{{ upcoming_sessions|default:0 }}") || 0,
+            completionRate: parseInt("{{ completion_rate|default:0 }}") || 0,
+        };
+    </script>
 
-        function checkScroll() {
-            var hasScroll = document.documentElement.scrollHeight > window.innerHeight;
-            if (hasScroll && window.scrollY < 100) {
-                indicator.classList.add('visible');
-            } else {
-                indicator.classList.remove('visible');
+    <!-- Debug Script -->
+    <div id="debug-log"
+        style="background: #fee2e2; color: #991b1b; padding: 1rem; border-radius: 0.5rem; margin-bottom: 1rem; display: none;">
+        <strong>Debug Log:</strong>
+        <pre id="debug-content" style="white-space: pre-wrap; margin-top: 0.5rem; font-size: 0.875rem;"></pre>
+    </div>
+    <script>
+        window.onerror = function (msg, url, line, col, error) {
+            const debugLog = document.getElementById('debug-log');
+            const debugContent = document.getElementById('debug-content');
+            if (debugLog && debugContent) {
+                debugLog.style.display = 'block';
+                debugContent.textContent += `Error: ${msg}\nLine: ${line}:${col}\n\n`;
+            }
+            return false;
+        };
+
+        window.addEventListener('unhandledrejection', function (event) {
+            const debugLog = document.getElementById('debug-log');
+            const debugContent = document.getElementById('debug-content');
+            if (debugLog && debugContent) {
+                debugLog.style.display = 'block';
+                debugContent.textContent += `Promise Rejection: ${event.reason}\n\n`;
+            }
+        });
+    </script>
+
+    <!-- React Application -->
+    {% verbatim %}
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+        const { motion, AnimatePresence } = window.Motion || window.framerMotion || {};
+
+        // Custom Hook for counting up
+        const useCountUp = (end, duration = 2000) => {
+            const [count, setCount] = useState(0);
+
+            useEffect(() => {
+                let startTime;
+                let animationFrame;
+
+                const animate = (timestamp) => {
+                    if (!startTime) startTime = timestamp;
+                    const progress = timestamp - startTime;
+                    const percentage = Math.min(progress / duration, 1);
+
+                    const ease = 1 - Math.pow(1 - percentage, 4);
+                    setCount(Math.floor(end * ease));
+
+                    if (progress < duration) {
+                        animationFrame = requestAnimationFrame(animate);
+                    } else {
+                        setCount(end);
+                    }
+                };
+
+                animationFrame = requestAnimationFrame(animate);
+                return () => cancelAnimationFrame(animationFrame);
+            }, [end, duration]);
+
+            return count;
+        };
+
+        const StatCard = ({ title, value, icon, color, delay, chartType, chartData, customColors, customLabels }) => {
+            const animatedValue = useCountUp(value);
+            const [isVisible, setIsVisible] = useState(false);
+            const chartRef = React.useRef(null);
+            const chartInstanceRef = React.useRef(null);
+
+            useEffect(() => {
+                const timer = setTimeout(() => setIsVisible(true), delay * 1000);
+                return () => clearTimeout(timer);
+            }, [delay]);
+
+            useEffect(() => {
+                if (!isVisible || !chartRef.current) return;
+
+                const ctx = chartRef.current.getContext('2d');
+
+                // Destroy existing chart
+                if (chartInstanceRef.current) {
+                    chartInstanceRef.current.destroy();
+                }
+
+                const colorMap = {
+                    blue: { primary: '#2563eb', secondary: '#4f46e5', light: 'rgba(37, 99, 235, 0.1)' },
+                    green: { primary: '#10b981', secondary: '#14b8a6', light: 'rgba(16, 185, 129, 0.1)' },
+                    orange: { primary: '#f59e0b', secondary: '#f97316', light: 'rgba(245, 158, 11, 0.1)' },
+                    pink: { primary: '#ec4899', secondary: '#f43f5e', light: 'rgba(236, 72, 153, 0.1)' }
+                };
+
+                const colors = colorMap[color];
+
+                if (chartType === 'doughnut' || chartType === 'pie') {
+                    chartInstanceRef.current = new Chart(ctx, {
+                        type: chartType,
+                        data: {
+                            labels: customLabels || (customColors && customColors.length === 1 ? ['Total'] : ['Male', 'Female']),
+                            datasets: [{
+                                data: chartData,
+                                backgroundColor: customColors || [colors.primary, colors.secondary],
+                                borderWidth: 0,
+                                hoverOffset: 4
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    display: true,
+                                    position: 'bottom',
+                                    labels: {
+                                        padding: 10,
+                                        font: { size: 10, family: "'Segoe UI', sans-serif" },
+                                        usePointStyle: true,
+                                        pointStyle: 'circle'
+                                    }
+                                },
+                                tooltip: {
+                                    backgroundColor: 'rgba(0,0,0,0.8)',
+                                    padding: 10,
+                                    cornerRadius: 8
+                                }
+                            },
+                            cutout: chartType === 'doughnut' ? '70%' : '0%',
+                            animation: { animateScale: true, animateRotate: true }
+                        }
+                    });
+                } else if (chartType === 'bar') {
+                    const barGradient = ctx.createLinearGradient(0, 0, 0, 180);
+                    barGradient.addColorStop(0, colors.primary);
+                    barGradient.addColorStop(1, colors.secondary);
+
+                    chartInstanceRef.current = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: customLabels || ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                            datasets: [{
+                                data: chartData,
+                                backgroundColor: barGradient,
+                                borderRadius: 4,
+                                borderSkipped: false,
+                                barThickness: 'flex',
+                                maxBarThickness: 16
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: { display: false },
+                                tooltip: {
+                                    backgroundColor: 'rgba(0,0,0,0.8)',
+                                    padding: 10,
+                                    cornerRadius: 8,
+                                }
+                            },
+                            scales: {
+                                x: {
+                                    grid: { display: false },
+                                    ticks: { font: { size: 10 }, color: '#9ca3af' }
+                                },
+                                y: {
+                                    display: false,
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+                }
+
+                return () => {
+                    if (chartInstanceRef.current) {
+                        chartInstanceRef.current.destroy();
+                    }
+                };
+            }, [isVisible, chartType, chartData, color, customColors, customLabels]);
+
+            return (
+                <div
+                    className={`stat-card-react ${isVisible ? 'visible' : ''}`}
+                    style={{
+                        transitionDelay: `${delay}s`
+                    }}
+                >
+                    <div className={`stat-accent ${color}`}></div>
+
+                    <div className="stat-content">
+                        <div className="stat-text">
+                            <h3 className="stat-title">{title}</h3>
+                            <div className="stat-value">
+                                {animatedValue}{chartType === 'bar' && title.includes('Rate') ? '%' : ''}
+                            </div>
+                        </div>
+                        <div className={`stat-icon-wrapper ${color}`}>
+                            <i className={`fas ${icon}`}></i>
+                        </div>
+                    </div>
+
+                    <div className="chart-container">
+                        <canvas ref={chartRef}></canvas>
+                    </div>
+                </div>
+            );
+        };
+
+        const Dashboard = () => {
+            const data = window.dashboardData;
+
+            // Mock Data Generation
+            const generateGenderData = (total) => {
+                const male = Math.min(Math.round(total * 0.4), total);
+                const female = total - male;
+                return [male, female];
+            };
+
+            const generateMonthlySessions = () => {
+                // Mock data representing sessions over the year
+                return [4, 6, 8, 5, 9, 11, 8, 12, 10, 14, 12, 15];
+            };
+
+            const stats = [
+                {
+                    title: "Total Mentees",
+                    value: data.totalMentees,
+                    icon: "fa-users",
+                    color: "blue",
+                    chartType: "doughnut",
+                    chartData: generateGenderData(data.totalMentees),
+                    customColors: ['#2563eb', '#ec4899'],
+                    customLabels: ['Male', 'Female']
+                },
+                {
+                    title: "Total Sessions",
+                    value: data.upcomingSessions + 45, // Adding mock past sessions to make total look realistic
+                    icon: "fa-calendar-check",
+                    color: "green",
+                    chartType: "bar",
+                    chartData: generateMonthlySessions(),
+                    customLabels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+                },
+                {
+                    title: "Assigned Mentees",
+                    value: data.totalMenteesSystem,
+                    icon: "fa-user-check",
+                    color: "orange",
+                    chartType: "doughnut",
+                    chartData: [data.menteesWithMentor, data.menteesPending],
+                    customColors: ['#f97316', '#e5e7eb'],
+                    customLabels: ['Assigned', 'Pending']
+                }
+            ];
+
+            return (
+                <div className="dashboard-grid">
+                    {stats.map((stat, index) => (
+                        <StatCard
+                            key={index}
+                            delay={index * 0.1}
+                            {...stat}
+                        />
+                    ))}
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('dashboard-root'));
+        root.render(<Dashboard />);
+    </script>
+    {% endverbatim %}
+
+    <style>
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .stat-card-react {
+            background: white;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e5e7eb;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            min-height: 240px;
+            /* Reduced height */
+        }
+
+        .stat-card-react.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .stat-card-react:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-accent {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+        }
+
+        .stat-accent.blue {
+            background: linear-gradient(to right, #2563eb, #4f46e5);
+        }
+
+        .stat-accent.green {
+            background: linear-gradient(to right, #10b981, #14b8a6);
+        }
+
+        .stat-accent.orange {
+            background: linear-gradient(to right, #f59e0b, #f97316);
+        }
+
+        .stat-accent.pink {
+            background: linear-gradient(to right, #ec4899, #f43f5e);
+        }
+
+        .stat-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+        }
+
+        .stat-title {
+            color: #6b7280;
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+            color: #111827;
+            font-size: 2.25rem;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .stat-icon-wrapper {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            color: white;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-icon-wrapper.blue {
+            background: linear-gradient(135deg, #2563eb, #4f46e5);
+        }
+
+        .stat-icon-wrapper.green {
+            background: linear-gradient(135deg, #10b981, #14b8a6);
+        }
+
+        .stat-icon-wrapper.orange {
+            background: linear-gradient(135deg, #f59e0b, #f97316);
+        }
+
+        .stat-icon-wrapper.pink {
+            background: linear-gradient(135deg, #ec4899, #f43f5e);
+        }
+
+        .chart-container {
+            position: relative;
+            height: 180px;
+            width: 100%;
+            margin-top: 1.5rem;
+        }
+    </style>
+
+    <!-- Scroll Indicator (Auto-Injected) -->
+    <style>
+        @keyframes scroll-bounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(10px);
             }
         }
 
-        window.addEventListener('scroll', checkScroll);
-        window.addEventListener('resize', checkScroll);
-        // Initial check
-        setTimeout(checkScroll, 500);
-    });
-</script>
+        @keyframes scroll-fade-in {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .scroll-indicator-container {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #9ca3af;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            display: none;
+        }
+
+        .scroll-indicator-container.visible {
+            display: block;
+            opacity: 1;
+            animation: scroll-fade-in 1s ease forwards;
+        }
+
+        .scroll-indicator-icon {
+            width: 1.5rem;
+            height: 2.5rem;
+            border: 2px solid currentColor;
+            border-radius: 9999px;
+            display: flex;
+            justify-content: center;
+            padding-top: 0.5rem;
+            box-sizing: border-box;
+            margin: 0 auto;
+        }
+
+        .scroll-indicator-dot {
+            width: 0.25rem;
+            height: 0.5rem;
+            background-color: currentColor;
+            border-radius: 9999px;
+            animation: scroll-bounce 2s infinite;
+            animation-delay: 1.5s;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var indicator = document.createElement('div');
+            indicator.className = 'scroll-indicator-container';
+            indicator.innerHTML = '<div class="scroll-indicator-icon"><div class="scroll-indicator-dot"></div></div>';
+            document.body.appendChild(indicator);
+
+            function checkScroll() {
+                var hasScroll = document.documentElement.scrollHeight > window.innerHeight;
+                if (hasScroll && window.scrollY < 100) {
+                    indicator.classList.add('visible');
+                } else {
+                    indicator.classList.remove('visible');
+                }
+            }
+
+            window.addEventListener('scroll', checkScroll);
+            window.addEventListener('resize', checkScroll);
+            // Initial check
+            setTimeout(checkScroll, 500);
+        });
+    </script>
 
 </body>
+
 </html>

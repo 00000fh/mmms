@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,13 +15,32 @@
         }
 
         body {
-            background: #f5f7fa;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
             overflow: hidden;
+            /* Deep Navy/Black Gradient Base */
+            background: linear-gradient(135deg, #020617 0%, #0f172a 40%, #172554 100%);
+            position: relative;
+        }
+
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            /* Low z-index */
+            pointer-events: none;
+        }
+
+        /* Ensure content sits above background */
+        .signup-container {
+            position: relative;
+            z-index: 10;
         }
 
         .signup-container {
@@ -30,7 +50,7 @@
             max-height: 95vh;
             border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
         }
 
         /* Left Side - Brand Section */
@@ -137,7 +157,8 @@
             color: #e53e3e;
         }
 
-        input, select {
+        input,
+        select {
             width: 100%;
             padding: 10px 12px;
             border: 1px solid #e2e8f0;
@@ -147,7 +168,8 @@
             background: white;
         }
 
-        input:focus, select:focus {
+        input:focus,
+        select:focus {
             outline: none;
             border-color: #1a3a8f;
             box-shadow: 0 0 0 3px rgba(26, 58, 143, 0.1);
@@ -255,7 +277,7 @@
             opacity: 1;
             transition: opacity 0.5s ease-in-out;
         }
-        
+
         .message-hidden {
             opacity: 0;
             height: 0;
@@ -291,19 +313,19 @@
                 max-width: 500px;
                 max-height: 98vh;
             }
-            
+
             .brand-section {
                 padding: 25px;
             }
-            
+
             .form-section {
                 padding: 25px;
             }
-            
+
             .logo {
                 font-size: 32px;
             }
-            
+
             .brand-title {
                 font-size: 22px;
             }
@@ -313,44 +335,45 @@
             .brand-section {
                 padding: 20px;
             }
-            
+
             .form-section {
                 padding: 20px;
             }
-            
+
             .logo {
                 font-size: 30px;
                 margin-bottom: 10px;
             }
-            
+
             .brand-title {
                 font-size: 20px;
                 margin-bottom: 8px;
             }
-            
+
             .brand-subtitle {
                 font-size: 13px;
                 margin-bottom: 15px;
             }
-            
+
             .features {
                 gap: 8px;
                 margin-top: 15px;
             }
-            
+
             .form-header {
                 margin-bottom: 15px;
             }
-            
+
             .form-header h1 {
                 font-size: 22px;
             }
-            
+
             .form-group {
                 margin-bottom: 12px;
             }
-            
-            input, select {
+
+            input,
+            select {
                 padding: 8px 10px;
             }
         }
@@ -375,7 +398,9 @@
     </style>
 
 </head>
+
 <body>
+    <canvas id="bg-canvas"></canvas>
     <div class="signup-container">
         <!-- Left Side - Brand Section -->
         <div class="brand-section">
@@ -384,8 +409,9 @@
                 <span>MMMS</span>
             </div>
             <h2 class="brand-title">Join Our Community</h2>
-            <p class="brand-subtitle">Start your journey with the Mentor Mentee System and unlock your potential through guided mentorship</p>
-            
+            <p class="brand-subtitle">Start your journey with the Mentor Mentee System and unlock your potential through
+                guided mentorship</p>
+
             <div class="features">
                 <div class="feature-item">
                     <i class="fas fa-check-circle"></i>
@@ -412,21 +438,22 @@
                 <h1>Create Account</h1>
                 <p>Fill in your details to get started</p>
             </div>
-            
+
             <div class="messages">
                 {% if messages %}
-                    {% for message in messages %}
-                        <div class="{% if message.tags == 'error' %}error{% else %}success{% endif %} message-fade-out">
-                            <i class="fas fa-{% if message.tags == 'error' %}exclamation-circle{% else %}check-circle{% endif %}"></i>
-                            {{ message }}
-                        </div>
-                    {% endfor %}
+                {% for message in messages %}
+                <div class="{% if message.tags == 'error' %}error{% else %}success{% endif %} message-fade-out">
+                    <i
+                        class="fas fa-{% if message.tags == 'error' %}exclamation-circle{% else %}check-circle{% endif %}"></i>
+                    {{ message }}
+                </div>
+                {% endfor %}
                 {% endif %}
             </div>
 
             <form method="POST">
                 {% csrf_token %}
-                
+
                 <div class="form-group">
                     <label for="role" class="required">
                         <i class="fas fa-user-tag"></i> Role
@@ -435,15 +462,17 @@
                         <option value="">Select your role</option>
                         <option value="mentee" {% if request.POST.role == 'mentee' %}selected{% endif %}>Mentee</option>
                         <option value="mentor" {% if request.POST.role == 'mentor' %}selected{% endif %}>Mentor</option>
-                        <option value="head" {% if request.POST.role == 'head' %}selected{% endif %}>Head of Mentor Mentee</option>
+                        <option value="head" {% if request.POST.role == 'head' %}selected{% endif %}>Head of Mentor Mentee
+                        </option>
                     </select>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="full_name" class="required">
                         <i class="fas fa-user"></i> Full Name
                     </label>
-                    <input type="text" id="full_name" name="full_name" placeholder="Enter your full name" required value="{{ request.POST.full_name }}">
+                    <input type="text" id="full_name" name="full_name" placeholder="Enter your full name" required
+                        value="{{ request.POST.full_name }}">
                     <div class="help-text">This will be displayed on your profile</div>
                 </div>
 
@@ -451,7 +480,8 @@
                     <label for="email" class="required">
                         <i class="fas fa-envelope"></i> Email Address
                     </label>
-                    <input type="email" id="email" name="email" placeholder="Enter your email address" required value="{{ request.POST.email }}">
+                    <input type="email" id="email" name="email" placeholder="Enter your email address" required
+                        value="{{ request.POST.email }}">
                     <div class="help-text">This will be used for password recovery and notifications</div>
                 </div>
 
@@ -467,17 +497,18 @@
                     </select>
                     <div class="help-text">This helps in proportional mentor assignment</div>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="identification_id" id="id_label" class="required">
                         <i class="fas fa-id-card"></i> Student ID
                     </label>
-                    <input type="text" id="identification_id" name="identification_id" placeholder="Enter ID" required value="{{ request.POST.student_id }}">
+                    <input type="text" id="identification_id" name="identification_id" placeholder="Enter ID" required
+                        value="{{ request.POST.student_id }}">
                     <div class="help-text" id="id_help">
                         Format: ABC2311-123 (e.g., BCS2311-017)
                     </div>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="password" class="required">
                         <i class="fas fa-lock"></i> Password
@@ -485,19 +516,20 @@
                     <input type="password" id="password" name="password" placeholder="Enter password" required>
                     <div class="help-text">Minimum 6 characters</div>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="confirmPassword" class="required">
                         <i class="fas fa-lock"></i> Confirm Password
                     </label>
-                    <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm password" required>
+                    <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm password"
+                        required>
                 </div>
-                
+
                 <button type="submit" class="btn btn-primary">
                     <i class="fas fa-user-plus"></i> Create Account
                 </button>
             </form>
-            
+
             <div class="login-link">
                 Already have an account? <a href="{% url 'login' %}">Login</a>
             </div>
@@ -511,37 +543,37 @@
             const idInput = document.getElementById('identification_id');
             const idHelp = document.getElementById('id_help');
             const genderField = document.getElementById('gender-field');
-            
+
             if (role === 'mentee') {
                 idLabel.innerHTML = '<i class="fas fa-graduation-cap"></i> Student ID';
                 idInput.placeholder = 'Enter your Student ID (e.g., BCS2311-017)';
                 idHelp.innerHTML = '<strong>Format:</strong> BCS2311-017, BDA2307-123, IEP2307-001, CFAB2307-001<br>' +
-                                '<strong>Diploma:</strong> B + Program + Year + Month + Number<br>' +
-                                '<strong>Examples:</strong><br>' +
-                                '• BCS2311-017 (Computer Science)<br>' +
-                                '• BDA2307-123 (Accounting)<br>' +
-                                '• DB2311-001 (Business Studies)<br>' +
-                                '• IEP2307-001 (English Programme)<br>' +
-                                '• CFAB2307-001 (Certificate in Finance, Accountancy and Business)';
+                    '<strong>Diploma:</strong> B + Program + Year + Month + Number<br>' +
+                    '<strong>Examples:</strong><br>' +
+                    '• BCS2311-017 (Computer Science)<br>' +
+                    '• BDA2307-123 (Accounting)<br>' +
+                    '• DB2311-001 (Business Studies)<br>' +
+                    '• IEP2307-001 (English Programme)<br>' +
+                    '• CFAB2307-001 (Certificate in Finance, Accountancy and Business)';
                 // Show gender field for mentee
                 genderField.style.display = 'block';
                 document.getElementById('gender').required = true;
-                
+
             } else if (role === 'mentor') {
                 idLabel.innerHTML = '<i class="fas fa-user-tie"></i> Staff ID';
                 idInput.placeholder = 'Enter your Staff ID (e.g., STA001)';
                 idHelp.innerHTML = '<strong>Format:</strong> ST + Department Code + 3-digit number<br>' +
-                                '<strong>Examples:</strong> STA001, STB015, STC123, STD045, STGS008<br>' +
-                                '<strong>Departments:</strong><br>' +
-                                'STA = Accounting Department<br>' +
-                                'STB = Business Studies Department<br>' +
-                                'STC = Quantitative Science Department<br>' +
-                                'STD = Landscape and Horticulture Department<br>' +
-                                'STGS = General Studies';
+                    '<strong>Examples:</strong> STA001, STB015, STC123, STD045, STGS008<br>' +
+                    '<strong>Departments:</strong><br>' +
+                    'STA = Accounting Department<br>' +
+                    'STB = Business Studies Department<br>' +
+                    'STC = Quantitative Science Department<br>' +
+                    'STD = Landscape and Horticulture Department<br>' +
+                    'STGS = General Studies';
                 // Hide gender field for mentor - NOT NEEDED
                 genderField.style.display = 'none';
                 document.getElementById('gender').required = false;
-                
+
             } else {
                 // No role selected or invalid role
                 idLabel.innerHTML = '<i class="fas fa-id-card"></i> ID Number';
@@ -553,57 +585,57 @@
         }
 
         // Initialize on page load
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             updateIdField();
-            
+
             // Auto-dismiss messages after 5 seconds
             const messages = document.querySelectorAll('.message-fade-out');
-            messages.forEach(function(message) {
-                setTimeout(function() {
+            messages.forEach(function (message) {
+                setTimeout(function () {
                     message.classList.add('message-hidden');
-                    setTimeout(function() {
+                    setTimeout(function () {
                         if (message.parentElement) {
                             message.remove();
                         }
                     }, 500);
                 }, 5000);
             });
-            
+
             // Basic form validation
-            document.querySelector('form').addEventListener('submit', function(e) {
+            document.querySelector('form').addEventListener('submit', function (e) {
                 const fullName = document.getElementById('full_name').value;
                 const password = document.getElementById('password').value;
                 const confirmPassword = document.getElementById('confirmPassword').value;
                 const role = document.getElementById('role').value;
                 const gender = document.getElementById('gender').value;
-                
+
                 if (!role) {
                     e.preventDefault();
                     alert('Please select your role');
                     return;
                 }
-                
+
                 if (!fullName.trim()) {
                     e.preventDefault();
                     alert('Please enter your full name');
                     return;
                 }
-                
+
                 // Only validate gender for mentees (NOT for mentors)
                 if (role === 'mentee' && !gender) {
                     e.preventDefault();
                     alert('Please select your gender');
                     return;
                 }
-                
+
                 // Gender is NOT required for mentors
-                
+
                 if (password !== confirmPassword) {
                     e.preventDefault();
                     alert('Passwords do not match');
                     return;
                 }
-                
+
                 if (password.length < 6) {
                     e.preventDefault();
                     alert('Password must be at least 6 characters long');
@@ -617,13 +649,218 @@
                 group.style.opacity = '0';
                 group.style.transform = 'translateY(20px)';
                 group.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
-                
+
                 setTimeout(() => {
                     group.style.opacity = '1';
                     group.style.transform = 'translateY(0)';
                 }, 100);
             });
         });
+
+        // Interactive AI SaaS Particle Background
+        (function () {
+            const canvas = document.getElementById('bg-canvas');
+            const ctx = canvas.getContext('2d');
+
+            let width, height;
+            let particles = [];
+
+            // Configuration
+            const spacing = 45; // Grid spacing
+            const parallaxStrength = 15; // Subtle grid distortion
+
+            // Light Wave Configuration (Diagonal: Bottom-Right -> Top-Left)
+            const waveSpeed = 0.02;
+            const waveFrequency = 0.008; // Slightly lower freq for diagonal spread
+            const waveSharpness = 4;
+
+            // Mouse Glow & Magnet Configuration
+            const glowRadius = 300;
+            const magneticRadius = 200;
+            const magneticStrength = 0.2;
+
+            // Multi-Color Palette
+            const colorPalette = [
+                { r: 100, g: 149, b: 237 }, // Cornflower Blue
+                { r: 79, g: 209, b: 197 },  // Teal/Cyan
+                { r: 167, g: 139, b: 250 }, // Soft Purple
+                { r: 147, g: 197, b: 253 }  // Light Blue
+            ];
+
+            // Mouse state
+            const mouse = { x: -1000, y: -1000 };
+            const targetMouse = { x: 0, y: 0 };
+            const smoothedMouse = { x: 0, y: 0 };
+
+            let time = 0;
+
+            // Resize handling
+            function resize() {
+                width = canvas.width = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+                initParticles();
+            }
+            window.addEventListener('resize', resize);
+
+            // Track mouse
+            window.addEventListener('mousemove', (e) => {
+                mouse.x = e.clientX;
+                mouse.y = e.clientY;
+
+                targetMouse.x = (e.clientX / width) - 0.5;
+                targetMouse.y = (e.clientY / height) - 0.5;
+            });
+
+            class Particle {
+                constructor(x, y) {
+                    this.x = x;
+                    this.y = y;
+                    this.baseX = x;
+                    this.baseY = y;
+
+                    this.z = Math.random() * 0.5 + 0.8;
+                    this.size = 2.5;
+
+                    this.rgb = colorPalette[Math.floor(Math.random() * colorPalette.length)];
+
+                    // Invisible when not lit
+                    this.baseAlpha = 0.02;
+                    this.alpha = this.baseAlpha;
+
+                    // Controlled Twinkle State
+                    this.twinkleVal = 0; // 0 to 1
+                    this.twinkleDir = 0; // 0: idle, 1: fade in, -1: fade out
+                }
+
+                update(t) {
+                    // --- 1. Diagonal Wave Logic (Bottom-Right -> Top-Left) ---
+                    // To move towards Top-Left (decreasing X, Y), we need phase to increase as (x+y) decreases?
+                    // Surface: sin(k*(x+y) + w*t)
+                    // If t increases, argument increases.
+                    // For argument to stay constant (track a peak), k*(x+y) must decrease.
+                    // Decreasing (x+y) means moving towards Top-Left (0,0).
+
+                    const phase = ((this.baseX + this.baseY) * waveFrequency) + (t * waveSpeed);
+                    const sineVal = Math.sin(phase);
+                    const normSine = (sineVal + 1) / 2;
+                    const waveIntensity = Math.pow(normSine, waveSharpness) * 0.8;
+
+                    // --- 2. Controlled Twinkle Update ---
+                    // Managed by global loop, but we handle the transition here
+                    if (this.twinkleDir === 1) {
+                        this.twinkleVal += 0.05;
+                        if (this.twinkleVal >= 1) {
+                            this.twinkleVal = 1;
+                            this.twinkleDir = -1; // Start fade out
+                        }
+                    } else if (this.twinkleDir === -1) {
+                        this.twinkleVal -= 0.03; // Slower fade out
+                        if (this.twinkleVal <= 0) {
+                            this.twinkleVal = 0;
+                            this.twinkleDir = 0; // Idle
+                        }
+                    }
+                    const twinkleIntensity = this.twinkleVal * 0.6; // Max 0.6
+
+                    // --- 3. Mouse Glow & Magnet Logic ---
+                    const dx = mouse.x - this.baseX;
+                    const dy = mouse.y - this.baseY;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    let mouseIntensity = 0;
+                    let magX = 0;
+                    let magY = 0;
+
+                    if (dist < glowRadius) {
+                        mouseIntensity = 1 - (dist / glowRadius);
+                        mouseIntensity = Math.pow(mouseIntensity, 2);
+
+                        if (dist < magneticRadius) {
+                            const force = (magneticRadius - dist) / magneticRadius;
+                            magX = dx * force * magneticStrength;
+                            magY = dy * force * magneticStrength;
+                        }
+                    }
+
+                    // --- Combine Alpha ---
+                    this.alpha = this.baseAlpha + waveIntensity + twinkleIntensity + mouseIntensity;
+                    if (this.alpha > 1) this.alpha = 1;
+
+                    // --- Combine Position ---
+                    const parX = smoothedMouse.x * parallaxStrength * this.z;
+                    const parY = smoothedMouse.y * parallaxStrength * this.z;
+
+                    this.renderX = this.baseX - parX + magX;
+                    this.renderY = this.baseY - parY + magY;
+                }
+
+                draw(ctx) {
+                    if (this.alpha < 0.03) return;
+
+                    ctx.beginPath();
+                    ctx.fillStyle = `rgba(${this.rgb.r}, ${this.rgb.g}, ${this.rgb.b}, ${this.alpha})`;
+                    ctx.arc(this.renderX, this.renderY, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+
+            function initParticles() {
+                particles = [];
+                const cols = Math.ceil(width / spacing) + 2;
+                const rows = Math.ceil(height / spacing) + 2;
+
+                // Random Jitter Amount (Not too structured but still organized)
+                const jitter = spacing * 0.5; // +/- 22px
+
+                for (let r = -1; r < rows; r++) {
+                    for (let c = -1; c < cols; c++) {
+                        // Apply randomness to initial position
+                        const x = c * spacing + (Math.random() - 0.5) * jitter;
+                        const y = r * spacing + (Math.random() - 0.5) * jitter;
+                        particles.push(new Particle(x, y));
+                    }
+                }
+            }
+
+            resize();
+
+            function animate() {
+                ctx.clearRect(0, 0, width, height);
+                time += 1;
+
+                // Smooth Global Mouse for Parallax
+                smoothedMouse.x += (targetMouse.x - smoothedMouse.x) * 0.05;
+                smoothedMouse.y += (targetMouse.y - smoothedMouse.y) * 0.05;
+
+                // Manage Twinkles
+                // Count active
+                const activeTwinkles = particles.filter(p => p.twinkleDir !== 0).length;
+                const targetTwinkles = 6; // 4-6 range generally
+
+                if (activeTwinkles < targetTwinkles && Math.random() < 0.2) {
+                    // Pick a random idle particle
+                    // Limit retries
+                    for (let i = 0; i < 5; i++) {
+                        const p = particles[Math.floor(Math.random() * particles.length)];
+                        if (p.twinkleDir === 0 && p.alpha < 0.1) { // Only pick dark ones
+                            p.twinkleDir = 1;
+                            break;
+                        }
+                    }
+                }
+
+                particles.forEach(p => {
+                    p.update(time);
+                    p.draw(ctx);
+                });
+
+                requestAnimationFrame(animate);
+            }
+
+            animate();
+
+        })();
     </script>
 </body>
+
 </html>

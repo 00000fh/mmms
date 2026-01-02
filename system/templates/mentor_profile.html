@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -224,7 +225,7 @@
             font-size: 14px;
         }
 
-        /* Profile Button Styles */
+        /* Profile Button Styles - Positioned like head homepage */
         .profile-section {
             display: flex;
             align-items: center;
@@ -253,10 +254,8 @@
         }
 
         .profile-avatar {
-            width: 40px;
+            width: 18px;
             height: 18px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.2);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -284,7 +283,9 @@
             font-size: 14px;
         }
 
-        input, select, textarea {
+        input,
+        select,
+        textarea {
             width: 100%;
             padding: 12px 15px;
             border: 1px solid #e2e8f0;
@@ -294,7 +295,9 @@
             background: white;
         }
 
-        input:focus, select:focus, textarea:focus {
+        input:focus,
+        select:focus,
+        textarea:focus {
             outline: none;
             border-color: #1a3a8f;
             box-shadow: 0 0 0 3px rgba(26, 58, 143, 0.1);
@@ -679,7 +682,8 @@
         /* Messages */
         .messages {
             margin-bottom: 16px;
-            display: none; /* Hide the message container */
+            display: none;
+            /* Hide the message container */
         }
 
         .error {
@@ -860,6 +864,7 @@
             from {
                 transform: scaleX(1);
             }
+
             to {
                 transform: scaleX(0);
             }
@@ -870,6 +875,7 @@
             .sidebar {
                 width: 240px;
             }
+
             .main-content {
                 margin-left: 240px;
             }
@@ -881,33 +887,37 @@
                 height: auto;
                 position: relative;
             }
+
             .main-content {
                 margin-left: 0;
                 padding: 16px;
             }
+
             .form-row {
                 flex-direction: column;
                 gap: 0;
             }
+
             .stats-container {
                 flex-direction: column;
                 gap: 10px;
             }
+
             .content-header {
                 flex-direction: column;
                 text-align: center;
                 padding: 16px;
             }
-            
+
             .profile-picture-section {
                 padding: 20px;
             }
-            
+
             .profile-picture-preview {
                 width: 120px;
                 height: 120px;
             }
-            
+
             /* Responsive design for notifications */
             .notification-container {
                 bottom: 10px;
@@ -915,7 +925,7 @@
                 left: 10px;
                 max-width: none;
             }
-            
+
             .notification {
                 max-width: none;
             }
@@ -953,6 +963,7 @@
     </style>
 
 </head>
+
 <body>
     <!-- Sidebar -->
     <div class="sidebar">
@@ -966,10 +977,10 @@
         <div class="user-info">
             <div class="user-avatar">
                 {% if mentor.profile_picture %}
-                    <img src="{{ mentor.profile_picture.url }}" alt="Profile Picture" id="sidebarProfilePic">
-                    <i class="fas fa-user-tie" id="sidebarProfileIcon" style="display: none;"></i>
+                <img src="{{ mentor.profile_picture.url }}" alt="Profile Picture" id="sidebarProfilePic">
+                <i class="fas fa-user-tie" id="sidebarProfileIcon" style="display: none;"></i>
                 {% else %}
-                    <i class="fas fa-user-tie" id="sidebarProfileIcon"></i>
+                <i class="fas fa-user-tie" id="sidebarProfileIcon"></i>
                 {% endif %}
             </div>
             <div class="user-name">{{ mentor.MentorName }}</div>
@@ -1035,12 +1046,13 @@
         <!-- Messages - Hidden by default -->
         <div class="messages" style="display: none;">
             {% if messages %}
-                {% for message in messages %}
-                    <div class="{% if message.tags == 'error' %}error{% else %}success{% endif %}">
-                        <i class="fas fa-{% if message.tags == 'error' %}exclamation-circle{% else %}check-circle{% endif %}"></i>
-                        {{ message }}
-                    </div>
-                {% endfor %}
+            {% for message in messages %}
+            <div class="{% if message.tags == 'error' %}error{% else %}success{% endif %}">
+                <i
+                    class="fas fa-{% if message.tags == 'error' %}exclamation-circle{% else %}check-circle{% endif %}"></i>
+                {{ message }}
+            </div>
+            {% endfor %}
             {% endif %}
         </div>
 
@@ -1052,26 +1064,27 @@
             <!-- FIXED: Added the hidden file input that will actually be submitted with the form -->
             <form method="POST" enctype="multipart/form-data" id="profileForm">
                 {% csrf_token %}
-                
+
                 <!-- Hidden file input that will contain the selected file -->
-                <input type="file" id="profile_picture" name="profile_picture" accept="image/jpeg,image/jpg,image/png,image/gif" style="display: none;">
-                
+                <input type="file" id="profile_picture" name="profile_picture"
+                    accept="image/jpeg,image/jpg,image/png,image/gif" style="display: none;">
+
                 <!-- Updated Profile Picture Section - NOW USING MENTOR MODEL -->
                 <div class="profile-picture-section">
                     <div class="profile-picture-header">
                         <h3>Profile Picture</h3>
                     </div>
-                    
+
                     <div class="profile-picture-preview">
                         {% if mentor.profile_picture %}
-                            <img src="{{ mentor.profile_picture.url }}" alt="Profile Picture" id="profilePreview">
+                        <img src="{{ mentor.profile_picture.url }}" alt="Profile Picture" id="profilePreview">
                         {% else %}
-                            <div class="default-profile-preview" id="profilePreview">
-                                <i class="fas fa-user-tie"></i>
-                            </div>
+                        <div class="default-profile-preview" id="profilePreview">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
                         {% endif %}
                     </div>
-                    
+
                     <button type="button" class="add-photo-btn" id="addPhotoBtn">
                         <i class="fas fa-plus"></i>
                         <span>{% if mentor.profile_picture %}Change Photo{% else %}Add Photo{% endif %}</span>
@@ -1095,7 +1108,8 @@
                         <label for="MentorID">
                             <i class="fas fa-id-card"></i> Mentor ID
                         </label>
-                        <input type="text" id="MentorID" name="MentorID" value="{{ mentor.MentorID }}" class="readonly-field" readonly>
+                        <input type="text" id="MentorID" name="MentorID" value="{{ mentor.MentorID }}"
+                            class="readonly-field" readonly>
                     </div>
                 </div>
 
@@ -1104,13 +1118,15 @@
                         <label for="MentorEmail">
                             <i class="fas fa-envelope"></i> Email
                         </label>
-                        <input type="email" id="MentorEmail" name="MentorEmail" value="{{ mentor.MentorEmail }}" required>
+                        <input type="email" id="MentorEmail" name="MentorEmail" value="{{ mentor.MentorEmail }}"
+                            required>
                     </div>
                     <div class="form-group">
                         <label for="MentorPhone">
                             <i class="fas fa-phone"></i> Phone Number
                         </label>
-                        <input type="text" id="MentorPhone" name="MentorPhone" value="{{ mentor.MentorPhone }}" required>
+                        <input type="text" id="MentorPhone" name="MentorPhone" value="{{ mentor.MentorPhone }}"
+                            required>
                     </div>
                 </div>
 
@@ -1119,13 +1135,15 @@
                         <label for="MentorDepartment">
                             <i class="fas fa-building"></i> Department
                         </label>
-                        <input type="text" id="MentorDepartment" name="MentorDepartment" value="{{ mentor.MentorDepartment }}" class="readonly-field" readonly>
+                        <input type="text" id="MentorDepartment" name="MentorDepartment"
+                            value="{{ mentor.MentorDepartment }}" class="readonly-field" readonly>
                     </div>
                     <div class="form-group">
                         <label for="MentorIC">
                             <i class="fas fa-fingerprint"></i> IC Number
                         </label>
-                        <input type="text" id="MentorIC" name="MentorIC" value="{{ mentor.MentorIC }}" class="readonly-field" readonly>
+                        <input type="text" id="MentorIC" name="MentorIC" value="{{ mentor.MentorIC }}"
+                            class="readonly-field" readonly>
                     </div>
                 </div>
 
@@ -1139,7 +1157,8 @@
                     <label for="MentorAddress">
                         <i class="fas fa-home"></i> Address
                     </label>
-                    <textarea id="MentorAddress" name="MentorAddress" rows="3" required>{{ mentor.MentorAddress }}</textarea>
+                    <textarea id="MentorAddress" name="MentorAddress" rows="3"
+                        required>{{ mentor.MentorAddress }}</textarea>
                 </div>
 
                 <div class="form-row">
@@ -1153,13 +1172,15 @@
                         <label for="MentorState">
                             <i class="fas fa-map"></i> State
                         </label>
-                        <input type="text" id="MentorState" name="MentorState" value="{{ mentor.MentorState }}" required>
+                        <input type="text" id="MentorState" name="MentorState" value="{{ mentor.MentorState }}"
+                            required>
                     </div>
                     <div class="form-group">
                         <label for="MentorPostcode">
                             <i class="fas fa-mail-bulk"></i> Postcode
                         </label>
-                        <input type="text" id="MentorPostcode" name="MentorPostcode" value="{{ mentor.MentorPostcode }}" required>
+                        <input type="text" id="MentorPostcode" name="MentorPostcode" value="{{ mentor.MentorPostcode }}"
+                            required>
                     </div>
                 </div>
 
@@ -1180,7 +1201,8 @@
                         <label for="MentorReligion">
                             <i class="fas fa-pray"></i> Religion
                         </label>
-                        <input type="text" id="MentorReligion" name="MentorReligion" value="{{ mentor.MentorReligion }}" required>
+                        <input type="text" id="MentorReligion" name="MentorReligion" value="{{ mentor.MentorReligion }}"
+                            required>
                     </div>
                 </div>
 
@@ -1245,7 +1267,8 @@
                         <i class="fas fa-folder-open"></i>
                         <span>Choose File</span>
                     </button>
-                    <input type="file" id="modalProfilePicture" accept="image/jpeg,image/jpg,image/png,image/gif" class="file-input">
+                    <input type="file" id="modalProfilePicture" accept="image/jpeg,image/jpg,image/png,image/gif"
+                        class="file-input">
                     <div class="file-upload-info">Drag & drop your image here or click to browse</div>
                 </div>
                 <div class="file-upload-status" id="fileUploadStatus"></div>
@@ -1258,215 +1281,215 @@
     </div>
 
     <script>
-    // Add animations to form elements
-    document.addEventListener('DOMContentLoaded', function() {
-        console.log("Page loaded - initializing form");
-        
-        // Hide the messages container completely
-        const messagesContainer = document.querySelector('.messages');
-        if (messagesContainer) {
-            messagesContainer.style.display = 'none';
-        }
-        
-        const formGroups = document.querySelectorAll('.form-group');
-        formGroups.forEach((group, index) => {
-            group.style.opacity = '0';
-            group.style.transform = 'translateY(20px)';
-            group.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
-            
-            setTimeout(() => {
-                group.style.opacity = '1';
-                group.style.transform = 'translateY(0)';
-            }, 100);
-        });
+        // Add animations to form elements
+        document.addEventListener('DOMContentLoaded', function () {
+            console.log("Page loaded - initializing form");
 
-        // Add animation to profile picture section
-        const profileSection = document.querySelector('.profile-picture-section');
-        profileSection.style.opacity = '0';
-        profileSection.style.transform = 'scale(0.9)';
-        profileSection.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        
-        setTimeout(() => {
-            profileSection.style.opacity = '1';
-            profileSection.style.transform = 'scale(1)';
-        }, 200);
-        
-        // Process Django messages and show as popup notifications
-        processDjangoMessages();
-        
-        // Form submission handler
-        document.getElementById('profileForm').addEventListener('submit', function(e) {
-            console.log("Form submission started");
-            
-            // Validate form before submission
-            if (!validateForm()) {
+            // Hide the messages container completely
+            const messagesContainer = document.querySelector('.messages');
+            if (messagesContainer) {
+                messagesContainer.style.display = 'none';
+            }
+
+            const formGroups = document.querySelectorAll('.form-group');
+            formGroups.forEach((group, index) => {
+                group.style.opacity = '0';
+                group.style.transform = 'translateY(20px)';
+                group.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+
+                setTimeout(() => {
+                    group.style.opacity = '1';
+                    group.style.transform = 'translateY(0)';
+                }, 100);
+            });
+
+            // Add animation to profile picture section
+            const profileSection = document.querySelector('.profile-picture-section');
+            profileSection.style.opacity = '0';
+            profileSection.style.transform = 'scale(0.9)';
+            profileSection.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+
+            setTimeout(() => {
+                profileSection.style.opacity = '1';
+                profileSection.style.transform = 'scale(1)';
+            }, 200);
+
+            // Process Django messages and show as popup notifications
+            processDjangoMessages();
+
+            // Form submission handler
+            document.getElementById('profileForm').addEventListener('submit', function (e) {
+                console.log("Form submission started");
+
+                // Validate form before submission
+                if (!validateForm()) {
+                    e.preventDefault();
+                    showNotification('Validation Error', 'Please fill in all required fields correctly.', 'error', 3000);
+                    return;
+                }
+
+                // Show loading state on button
+                const submitBtn = document.getElementById('updateProfileBtn');
+                const originalText = submitBtn.innerHTML;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Updating...';
+                submitBtn.disabled = true;
+                submitBtn.classList.add('btn-loading');
+
+                // Allow the form to submit normally to Django
+
+                // Optional: Add a timeout to re-enable button if submission takes too long
+                setTimeout(() => {
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                    submitBtn.classList.remove('btn-loading');
+                }, 5000);
+            });
+
+            // Profile Picture Modal Functionality
+            const profilePictureModal = document.getElementById('profilePictureModal');
+            const addPhotoBtn = document.getElementById('addPhotoBtn');
+            const modalClose = document.getElementById('modalClose');
+            const modalCancel = document.getElementById('modalCancel');
+            const modalSave = document.getElementById('modalSave');
+            const fileInput = document.getElementById('profile_picture'); // Main form file input
+            const modalFileInput = document.getElementById('modalProfilePicture'); // Modal file input
+            const fileUploadBtn = document.getElementById('fileUploadBtn');
+            const fileUploadArea = document.getElementById('fileUploadArea');
+            const fileUploadStatus = document.getElementById('fileUploadStatus');
+            let profilePreview = document.getElementById('profilePreview');
+            let selectedFile = null;
+            let tempPreviewImage = null; // Store temporary preview image
+
+            // Open modal when "Add Photo" button is clicked
+            addPhotoBtn.addEventListener('click', function () {
+                profilePictureModal.classList.add('active');
+            });
+
+            // Close modal when close button is clicked
+            modalClose.addEventListener('click', function () {
+                profilePictureModal.classList.remove('active');
+                resetModal();
+            });
+
+            // Close modal when cancel button is clicked
+            modalCancel.addEventListener('click', function () {
+                profilePictureModal.classList.remove('active');
+                resetModal();
+            });
+
+            // Close modal when clicking outside the modal
+            profilePictureModal.addEventListener('click', function (e) {
+                if (e.target === profilePictureModal) {
+                    profilePictureModal.classList.remove('active');
+                    resetModal();
+                }
+            });
+
+            // Open file dialog when upload button is clicked
+            fileUploadBtn.addEventListener('click', function () {
+                modalFileInput.click();
+            });
+
+            // Handle file selection in modal
+            modalFileInput.addEventListener('change', function (e) {
+                if (e.target.files.length > 0) {
+                    selectedFile = e.target.files[0];
+                    handleFileSelection(selectedFile);
+                }
+            });
+
+            // Drag and drop functionality
+            fileUploadArea.addEventListener('dragover', function (e) {
                 e.preventDefault();
-                showNotification('Validation Error', 'Please fill in all required fields correctly.', 'error', 3000);
-                return;
+                fileUploadArea.classList.add('dragover');
+            });
+
+            fileUploadArea.addEventListener('dragleave', function () {
+                fileUploadArea.classList.remove('dragover');
+            });
+
+            fileUploadArea.addEventListener('drop', function (e) {
+                e.preventDefault();
+                fileUploadArea.classList.remove('dragover');
+
+                if (e.dataTransfer.files.length > 0) {
+                    selectedFile = e.dataTransfer.files[0];
+                    modalFileInput.files = e.dataTransfer.files;
+                    handleFileSelection(selectedFile);
+                }
+            });
+
+            // Save button functionality - FIXED: Now properly sets the file to the main form input
+            modalSave.addEventListener('click', function () {
+                if (selectedFile) {
+                    // Create a new FileList and set it to the main form file input
+                    const dataTransfer = new DataTransfer();
+                    dataTransfer.items.add(selectedFile);
+                    fileInput.files = dataTransfer.files;
+
+                    console.log("File set to main form input:", fileInput.files[0].name);
+
+                    // Update the profile preview
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        updateProfilePreview(e.target.result);
+
+                        // Store the temporary preview image
+                        tempPreviewImage = e.target.result;
+                    };
+                    reader.readAsDataURL(selectedFile);
+
+                    // Close the modal
+                    profilePictureModal.classList.remove('active');
+                    resetModal();
+                }
+            });
+
+            // Function to update main profile preview
+            function updateProfilePreview(imageSrc) {
+                if (profilePreview.classList.contains('default-profile-preview')) {
+                    const img = document.createElement('img');
+                    img.src = imageSrc;
+                    img.alt = 'Profile Picture Preview';
+                    img.style.width = '100%';
+                    img.style.height = '100%';
+                    img.style.objectFit = 'cover';
+
+                    profilePreview.parentNode.replaceChild(img, profilePreview);
+                    profilePreview = img;
+                } else {
+                    profilePreview.src = imageSrc;
+                }
+
+                // Add temporary preview styling
+                profilePreview.classList.add('temp-preview');
+
+                // Update button text
+                addPhotoBtn.innerHTML = '<i class="fas fa-sync-alt"></i><span>Change Photo</span>';
             }
-            
-            // Show loading state on button
-            const submitBtn = document.getElementById('updateProfileBtn');
-            const originalText = submitBtn.innerHTML;
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Updating...';
-            submitBtn.disabled = true;
-            submitBtn.classList.add('btn-loading');
-            
-            // Allow the form to submit normally to Django
-            
-            // Optional: Add a timeout to re-enable button if submission takes too long
-            setTimeout(() => {
-                submitBtn.innerHTML = originalText;
-                submitBtn.disabled = false;
-                submitBtn.classList.remove('btn-loading');
-            }, 5000);
-        });
 
-        // Profile Picture Modal Functionality
-        const profilePictureModal = document.getElementById('profilePictureModal');
-        const addPhotoBtn = document.getElementById('addPhotoBtn');
-        const modalClose = document.getElementById('modalClose');
-        const modalCancel = document.getElementById('modalCancel');
-        const modalSave = document.getElementById('modalSave');
-        const fileInput = document.getElementById('profile_picture'); // Main form file input
-        const modalFileInput = document.getElementById('modalProfilePicture'); // Modal file input
-        const fileUploadBtn = document.getElementById('fileUploadBtn');
-        const fileUploadArea = document.getElementById('fileUploadArea');
-        const fileUploadStatus = document.getElementById('fileUploadStatus');
-        let profilePreview = document.getElementById('profilePreview');
-        let selectedFile = null;
-        let tempPreviewImage = null; // Store temporary preview image
+            // Function to handle file selection
+            function handleFileSelection(file) {
+                fileUploadStatus.className = 'file-upload-status';
+                fileUploadStatus.textContent = '';
 
-        // Open modal when "Add Photo" button is clicked
-        addPhotoBtn.addEventListener('click', function() {
-            profilePictureModal.classList.add('active');
-        });
+                // Validate file
+                if (!validateFile(file)) {
+                    modalSave.disabled = true;
+                    return;
+                }
 
-        // Close modal when close button is clicked
-        modalClose.addEventListener('click', function() {
-            profilePictureModal.classList.remove('active');
-            resetModal();
-        });
+                // Show file info
+                fileUploadStatus.className = 'file-upload-status success';
+                fileUploadStatus.innerHTML = `<i class="fas fa-check"></i> Selected: ${file.name} (${formatFileSize(file.size)})`;
 
-        // Close modal when cancel button is clicked
-        modalCancel.addEventListener('click', function() {
-            profilePictureModal.classList.remove('active');
-            resetModal();
-        });
+                // Enable save button
+                modalSave.disabled = false;
 
-        // Close modal when clicking outside the modal
-        profilePictureModal.addEventListener('click', function(e) {
-            if (e.target === profilePictureModal) {
-                profilePictureModal.classList.remove('active');
-                resetModal();
-            }
-        });
-
-        // Open file dialog when upload button is clicked
-        fileUploadBtn.addEventListener('click', function() {
-            modalFileInput.click();
-        });
-
-        // Handle file selection in modal
-        modalFileInput.addEventListener('change', function(e) {
-            if (e.target.files.length > 0) {
-                selectedFile = e.target.files[0];
-                handleFileSelection(selectedFile);
-            }
-        });
-
-        // Drag and drop functionality
-        fileUploadArea.addEventListener('dragover', function(e) {
-            e.preventDefault();
-            fileUploadArea.classList.add('dragover');
-        });
-
-        fileUploadArea.addEventListener('dragleave', function() {
-            fileUploadArea.classList.remove('dragover');
-        });
-
-        fileUploadArea.addEventListener('drop', function(e) {
-            e.preventDefault();
-            fileUploadArea.classList.remove('dragover');
-            
-            if (e.dataTransfer.files.length > 0) {
-                selectedFile = e.dataTransfer.files[0];
-                modalFileInput.files = e.dataTransfer.files;
-                handleFileSelection(selectedFile);
-            }
-        });
-
-        // Save button functionality - FIXED: Now properly sets the file to the main form input
-        modalSave.addEventListener('click', function() {
-            if (selectedFile) {
-                // Create a new FileList and set it to the main form file input
-                const dataTransfer = new DataTransfer();
-                dataTransfer.items.add(selectedFile);
-                fileInput.files = dataTransfer.files;
-                
-                console.log("File set to main form input:", fileInput.files[0].name);
-                
-                // Update the profile preview
+                // Update the file upload area to show preview
                 const reader = new FileReader();
-                reader.onload = function(e) {
-                    updateProfilePreview(e.target.result);
-                    
-                    // Store the temporary preview image
-                    tempPreviewImage = e.target.result;
-                };
-                reader.readAsDataURL(selectedFile);
-                
-                // Close the modal
-                profilePictureModal.classList.remove('active');
-                resetModal();
-            }
-        });
-
-        // Function to update main profile preview
-        function updateProfilePreview(imageSrc) {
-            if (profilePreview.classList.contains('default-profile-preview')) {
-                const img = document.createElement('img');
-                img.src = imageSrc;
-                img.alt = 'Profile Picture Preview';
-                img.style.width = '100%';
-                img.style.height = '100%';
-                img.style.objectFit = 'cover';
-                
-                profilePreview.parentNode.replaceChild(img, profilePreview);
-                profilePreview = img;
-            } else {
-                profilePreview.src = imageSrc;
-            }
-            
-            // Add temporary preview styling
-            profilePreview.classList.add('temp-preview');
-            
-            // Update button text
-            addPhotoBtn.innerHTML = '<i class="fas fa-sync-alt"></i><span>Change Photo</span>';
-        }
-
-        // Function to handle file selection
-        function handleFileSelection(file) {
-            fileUploadStatus.className = 'file-upload-status';
-            fileUploadStatus.textContent = '';
-            
-            // Validate file
-            if (!validateFile(file)) {
-                modalSave.disabled = true;
-                return;
-            }
-            
-            // Show file info
-            fileUploadStatus.className = 'file-upload-status success';
-            fileUploadStatus.innerHTML = `<i class="fas fa-check"></i> Selected: ${file.name} (${formatFileSize(file.size)})`;
-            
-            // Enable save button
-            modalSave.disabled = false;
-            
-            // Update the file upload area to show preview
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                fileUploadArea.innerHTML = `
+                reader.onload = function (e) {
+                    fileUploadArea.innerHTML = `
                     <div class="file-upload-icon">
                         <i class="fas fa-check-circle" style="color: #4CAF50;"></i>
                     </div>
@@ -1479,47 +1502,47 @@
                         <span>Change File</span>
                     </button>
                 `;
-                
-                // Add event listener to the new change file button
-                document.getElementById('changeFileBtn').addEventListener('click', function() {
-                    modalFileInput.click();
-                });
-            };
-            reader.readAsDataURL(file);
-        }
 
-        // File validation function
-        function validateFile(file) {
-            // Check file size (15MB limit)
-            if (file.size > 15 * 1024 * 1024) {
-                fileUploadStatus.className = 'file-upload-status error';
-                fileUploadStatus.innerHTML = '<i class="fas fa-exclamation-triangle"></i> File too large (max 15MB)';
-                modalFileInput.value = '';
-                return false;
+                    // Add event listener to the new change file button
+                    document.getElementById('changeFileBtn').addEventListener('click', function () {
+                        modalFileInput.click();
+                    });
+                };
+                reader.readAsDataURL(file);
             }
-            
-            // Check file type
-            const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
-            if (!allowedTypes.includes(file.type)) {
-                fileUploadStatus.className = 'file-upload-status error';
-                fileUploadStatus.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Invalid file type (use JPG, PNG, GIF)';
-                modalFileInput.value = '';
-                return false;
-            }
-            
-            return true;
-        }
 
-        // Function to reset modal to initial state
-        function resetModal() {
-            selectedFile = null;
-            modalFileInput.value = '';
-            modalSave.disabled = true;
-            fileUploadStatus.className = 'file-upload-status';
-            fileUploadStatus.textContent = '';
-            
-            // Reset file upload area
-            fileUploadArea.innerHTML = `
+            // File validation function
+            function validateFile(file) {
+                // Check file size (15MB limit)
+                if (file.size > 15 * 1024 * 1024) {
+                    fileUploadStatus.className = 'file-upload-status error';
+                    fileUploadStatus.innerHTML = '<i class="fas fa-exclamation-triangle"></i> File too large (max 15MB)';
+                    modalFileInput.value = '';
+                    return false;
+                }
+
+                // Check file type
+                const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
+                if (!allowedTypes.includes(file.type)) {
+                    fileUploadStatus.className = 'file-upload-status error';
+                    fileUploadStatus.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Invalid file type (use JPG, PNG, GIF)';
+                    modalFileInput.value = '';
+                    return false;
+                }
+
+                return true;
+            }
+
+            // Function to reset modal to initial state
+            function resetModal() {
+                selectedFile = null;
+                modalFileInput.value = '';
+                modalSave.disabled = true;
+                fileUploadStatus.className = 'file-upload-status';
+                fileUploadStatus.textContent = '';
+
+                // Reset file upload area
+                fileUploadArea.innerHTML = `
                 <div class="file-upload-icon">
                     <i class="fas fa-cloud-upload-alt"></i>
                 </div>
@@ -1533,70 +1556,70 @@
                 </button>
                 <div class="file-upload-info">Drag & drop your image here or click to browse</div>
             `;
-            
-            // Reattach event listener to the new button
-            document.getElementById('fileUploadBtn').addEventListener('click', function() {
-                modalFileInput.click();
-            });
-        }
 
-        // Helper function to format file size
-        function formatFileSize(bytes) {
-            if (bytes === 0) return '0 Bytes';
-            const k = 1024;
-            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-            const i = Math.floor(Math.log(bytes) / Math.log(k));
-            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
-        }
+                // Reattach event listener to the new button
+                document.getElementById('fileUploadBtn').addEventListener('click', function () {
+                    modalFileInput.click();
+                });
+            }
 
-        // Add input validation styling
-        const inputs = document.querySelectorAll('input, select, textarea');
-        
-        inputs.forEach(input => {
-            // Add focus effect
-            input.addEventListener('focus', function() {
-                this.style.borderColor = '#1a3a8f';
-                this.style.boxShadow = '0 0 0 3px rgba(26, 58, 143, 0.1)';
-            });
-            
-            // Remove focus effect
-            input.addEventListener('blur', function() {
-                if (this.checkValidity()) {
-                    this.style.borderColor = '#e2e8f0';
-                    this.style.boxShadow = 'none';
-                }
-            });
-            
-            // Real-time validation
-            input.addEventListener('input', function() {
-                if (this.checkValidity()) {
-                    this.style.borderColor = '#4CAF50';
-                    this.style.boxShadow = '0 0 0 3px rgba(76, 175, 80, 0.1)';
-                } else {
-                    this.style.borderColor = '#f44336';
-                    this.style.boxShadow = '0 0 0 3px rgba(244, 67, 54, 0.1)';
-                }
+            // Helper function to format file size
+            function formatFileSize(bytes) {
+                if (bytes === 0) return '0 Bytes';
+                const k = 1024;
+                const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+                const i = Math.floor(Math.log(bytes) / Math.log(k));
+                return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+            }
+
+            // Add input validation styling
+            const inputs = document.querySelectorAll('input, select, textarea');
+
+            inputs.forEach(input => {
+                // Add focus effect
+                input.addEventListener('focus', function () {
+                    this.style.borderColor = '#1a3a8f';
+                    this.style.boxShadow = '0 0 0 3px rgba(26, 58, 143, 0.1)';
+                });
+
+                // Remove focus effect
+                input.addEventListener('blur', function () {
+                    if (this.checkValidity()) {
+                        this.style.borderColor = '#e2e8f0';
+                        this.style.boxShadow = 'none';
+                    }
+                });
+
+                // Real-time validation
+                input.addEventListener('input', function () {
+                    if (this.checkValidity()) {
+                        this.style.borderColor = '#4CAF50';
+                        this.style.boxShadow = '0 0 0 3px rgba(76, 175, 80, 0.1)';
+                    } else {
+                        this.style.borderColor = '#f44336';
+                        this.style.boxShadow = '0 0 0 3px rgba(244, 67, 54, 0.1)';
+                    }
+                });
             });
         });
-    });
 
-    // Function to show popup notification
-    function showNotification(title, message, type = 'success', duration = 5000) {
-        const container = document.getElementById('notificationContainer');
-        
-        // Create notification element
-        const notification = document.createElement('div');
-        notification.className = `notification ${type}`;
-        
-        // Map message types to icons
-        const icons = {
-            'success': 'fas fa-check',
-            'error': 'fas fa-exclamation-circle',
-            'warning': 'fas fa-exclamation-triangle',
-            'info': 'fas fa-info-circle'
-        };
-        
-        notification.innerHTML = `
+        // Function to show popup notification
+        function showNotification(title, message, type = 'success', duration = 5000) {
+            const container = document.getElementById('notificationContainer');
+
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+
+            // Map message types to icons
+            const icons = {
+                'success': 'fas fa-check',
+                'error': 'fas fa-exclamation-circle',
+                'warning': 'fas fa-exclamation-triangle',
+                'info': 'fas fa-info-circle'
+            };
+
+            notification.innerHTML = `
             <div class="notification-icon">
                 <i class="${icons[type] || icons.info}"></i>
             </div>
@@ -1611,172 +1634,190 @@
                 <div class="notification-progress-bar"></div>
             </div>
         `;
-        
-        container.appendChild(notification);
-        
-        // Animate in
-        setTimeout(() => {
-            notification.classList.add('show');
-        }, 100);
-        
-        // Auto remove after duration
-        setTimeout(() => {
-            notification.classList.add('hide');
-            setTimeout(() => {
-                if (notification.parentElement) {
-                    notification.remove();
-                }
-            }, 300);
-        }, duration);
-    }
 
-    // Function to process Django messages and convert to popup notifications
-    function processDjangoMessages() {
-        const messagesContainer = document.querySelector('.messages');
-        if (!messagesContainer) return;
-        
-        const messages = messagesContainer.querySelectorAll('.success, .error');
-        
-        messages.forEach(messageEl => {
-            const isError = messageEl.classList.contains('error');
-            const type = isError ? 'error' : 'success';
-            const title = isError ? 'Error' : 'Success';
-            const message = messageEl.textContent.trim();
-            
-            // Skip the "Profile picture updated successfully!" message
-            if (message.includes('Profile picture updated successfully')) {
-                // Remove this message without showing notification
+            container.appendChild(notification);
+
+            // Animate in
+            setTimeout(() => {
+                notification.classList.add('show');
+            }, 100);
+
+            // Auto remove after duration
+            setTimeout(() => {
+                notification.classList.add('hide');
+                setTimeout(() => {
+                    if (notification.parentElement) {
+                        notification.remove();
+                    }
+                }, 300);
+            }, duration);
+        }
+
+        // Function to process Django messages and convert to popup notifications
+        function processDjangoMessages() {
+            const messagesContainer = document.querySelector('.messages');
+            if (!messagesContainer) return;
+
+            const messages = messagesContainer.querySelectorAll('.success, .error');
+
+            messages.forEach(messageEl => {
+                const isError = messageEl.classList.contains('error');
+                const type = isError ? 'error' : 'success';
+                const title = isError ? 'Error' : 'Success';
+                const message = messageEl.textContent.trim();
+
+                // Skip the "Profile picture updated successfully!" message
+                if (message.includes('Profile picture updated successfully')) {
+                    // Remove this message without showing notification
+                    setTimeout(() => {
+                        messageEl.style.opacity = '0';
+                        messageEl.style.transform = 'translateY(-10px)';
+                        setTimeout(() => {
+                            messageEl.remove();
+                        }, 300);
+                    }, 100);
+                    return;
+                }
+
+                // Show as popup notification for other messages
+                showNotification(title, message, type);
+
+                // Remove the original message after a short delay
                 setTimeout(() => {
                     messageEl.style.opacity = '0';
                     messageEl.style.transform = 'translateY(-10px)';
                     setTimeout(() => {
                         messageEl.remove();
                     }, 300);
-                }, 100);
-                return;
-            }
-            
-            // Show as popup notification for other messages
-            showNotification(title, message, type);
-            
-            // Remove the original message after a short delay
-            setTimeout(() => {
-                messageEl.style.opacity = '0';
-                messageEl.style.transform = 'translateY(-10px)';
-                setTimeout(() => {
-                    messageEl.remove();
-                }, 300);
-            }, 1000);
-        });
-    }
+                }, 1000);
+            });
+        }
 
-    // Enhanced form validation - Only validates required fields
-    function validateForm() {
-        const form = document.getElementById('profileForm');
-        const requiredFields = form.querySelectorAll('[required]');
-        let isValid = true;
-        let firstErrorField = null;
-        
-        requiredFields.forEach(field => {
-            // Skip readonly fields even if they have required attribute
-            if (field.classList.contains('readonly-field')) {
-                return;
-            }
-            
-            if (!field.value.trim()) {
-                field.style.borderColor = '#f44336';
-                field.style.boxShadow = '0 0 0 3px rgba(244, 67, 54, 0.1)';
-                isValid = false;
-                
-                // Store first error field for scrolling
-                if (!firstErrorField) {
-                    firstErrorField = field;
+        // Enhanced form validation - Only validates required fields
+        function validateForm() {
+            const form = document.getElementById('profileForm');
+            const requiredFields = form.querySelectorAll('[required]');
+            let isValid = true;
+            let firstErrorField = null;
+
+            requiredFields.forEach(field => {
+                // Skip readonly fields even if they have required attribute
+                if (field.classList.contains('readonly-field')) {
+                    return;
                 }
-            } else {
-                field.style.borderColor = '#e2e8f0';
-                field.style.boxShadow = 'none';
+
+                if (!field.value.trim()) {
+                    field.style.borderColor = '#f44336';
+                    field.style.boxShadow = '0 0 0 3px rgba(244, 67, 54, 0.1)';
+                    isValid = false;
+
+                    // Store first error field for scrolling
+                    if (!firstErrorField) {
+                        firstErrorField = field;
+                    }
+                } else {
+                    field.style.borderColor = '#e2e8f0';
+                    field.style.boxShadow = 'none';
+                }
+            });
+
+            // Scroll to first error field
+            if (firstErrorField) {
+                firstErrorField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                firstErrorField.focus();
             }
+
+            return isValid;
+        }
+    </script>
+
+    <!-- Scroll Indicator (Auto-Injected) -->
+    <style>
+        @keyframes scroll-bounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(10px);
+            }
+        }
+
+        @keyframes scroll-fade-in {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .scroll-indicator-container {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #9ca3af;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            display: none;
+        }
+
+        .scroll-indicator-container.visible {
+            display: block;
+            opacity: 1;
+            animation: scroll-fade-in 1s ease forwards;
+        }
+
+        .scroll-indicator-icon {
+            width: 1.5rem;
+            height: 2.5rem;
+            border: 2px solid currentColor;
+            border-radius: 9999px;
+            display: flex;
+            justify-content: center;
+            padding-top: 0.5rem;
+            box-sizing: border-box;
+            margin: 0 auto;
+        }
+
+        .scroll-indicator-dot {
+            width: 0.25rem;
+            height: 0.5rem;
+            background-color: currentColor;
+            border-radius: 9999px;
+            animation: scroll-bounce 2s infinite;
+            animation-delay: 1.5s;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var indicator = document.createElement('div');
+            indicator.className = 'scroll-indicator-container';
+            indicator.innerHTML = '<div class="scroll-indicator-icon"><div class="scroll-indicator-dot"></div></div>';
+            document.body.appendChild(indicator);
+
+            function checkScroll() {
+                var hasScroll = document.documentElement.scrollHeight > window.innerHeight;
+                if (hasScroll && window.scrollY < 100) {
+                    indicator.classList.add('visible');
+                } else {
+                    indicator.classList.remove('visible');
+                }
+            }
+
+            window.addEventListener('scroll', checkScroll);
+            window.addEventListener('resize', checkScroll);
+            // Initial check
+            setTimeout(checkScroll, 500);
         });
-        
-        // Scroll to first error field
-        if (firstErrorField) {
-            firstErrorField.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            firstErrorField.focus();
-        }
-        
-        return isValid;
-    }
-</script>
-
-<!-- Scroll Indicator (Auto-Injected) -->
-<style>
-    @keyframes scroll-bounce {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(10px); }
-    }
-    @keyframes scroll-fade-in {
-        from { opacity: 0; }
-        to { opacity: 1; }
-    }
-    .scroll-indicator-container {
-        position: fixed;
-        bottom: 2rem;
-        left: 50%;
-        transform: translateX(-50%);
-        color: #9ca3af;
-        pointer-events: none;
-        z-index: 9999;
-        opacity: 0;
-        transition: opacity 0.5s ease;
-        display: none;
-    }
-    .scroll-indicator-container.visible {
-        display: block;
-        opacity: 1;
-        animation: scroll-fade-in 1s ease forwards;
-    }
-    .scroll-indicator-icon {
-        width: 1.5rem;
-        height: 2.5rem;
-        border: 2px solid currentColor;
-        border-radius: 9999px;
-        display: flex;
-        justify-content: center;
-        padding-top: 0.5rem;
-        box-sizing: border-box;
-        margin: 0 auto;
-    }
-    .scroll-indicator-dot {
-        width: 0.25rem;
-        height: 0.5rem;
-        background-color: currentColor;
-        border-radius: 9999px;
-        animation: scroll-bounce 2s infinite;
-        animation-delay: 1.5s;
-    }
-</style>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var indicator = document.createElement('div');
-        indicator.className = 'scroll-indicator-container';
-        indicator.innerHTML = '<div class="scroll-indicator-icon"><div class="scroll-indicator-dot"></div></div>';
-        document.body.appendChild(indicator);
-
-        function checkScroll() {
-            var hasScroll = document.documentElement.scrollHeight > window.innerHeight;
-            if (hasScroll && window.scrollY < 100) {
-                indicator.classList.add('visible');
-            } else {
-                indicator.classList.remove('visible');
-            }
-        }
-
-        window.addEventListener('scroll', checkScroll);
-        window.addEventListener('resize', checkScroll);
-        // Initial check
-        setTimeout(checkScroll, 500);
-    });
-</script>
+    </script>
 
 </body>
+
 </html>
