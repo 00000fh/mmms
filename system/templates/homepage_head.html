@@ -82,6 +82,28 @@
 
         .logo-text {
             font-size: 22px;
+            overflow: hidden;
+            white-space: nowrap;
+            width: 0;
+            animation: typing 8s ease-in-out infinite;
+        }
+
+        @keyframes typing {
+            0% {
+                width: 0
+            }
+
+            30% {
+                width: 95px
+            }
+
+            80% {
+                width: 95px
+            }
+
+            100% {
+                width: 0
+            }
         }
 
         .user-info {
@@ -378,32 +400,69 @@
             align-items: center;
             padding: 16px;
             background: #f8f9ff;
-            border-radius: 10px;
+            border-radius: 12px;
             text-decoration: none;
             color: #4a5568;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             border: 2px solid transparent;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
         }
 
         .action-item:hover {
             background: white;
-            border-color: #1a3a8f;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(26, 58, 143, 0.15);
+            border-color: rgba(26, 58, 143, 0.3);
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 12px 30px rgba(26, 58, 143, 0.12);
+        }
+
+        .action-item:active {
+            transform: translateY(-2px) scale(0.98);
+            box-shadow: 0 4px 15px rgba(26, 58, 143, 0.1);
+        }
+
+        /* Subtle shine effect */
+
+
+        .action-item:hover::after {
+            left: 200%;
+            transition: 0.7s ease-in-out;
         }
 
         .action-icon {
             width: 50px;
             height: 50px;
             background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
-            border-radius: 10px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
             font-size: 20px;
             margin-right: 16px;
+            transition: transform 0.3s ease;
         }
+
+        .action-item:hover .action-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .action-arrow {
+            font-size: 18px;
+            color: #cbd5e0;
+            margin-left: auto;
+            transition: all 0.3s ease;
+            opacity: 0.7;
+        }
+
+        .action-item:hover .action-arrow {
+            color: #1a3a8f;
+            transform: translateX(5px);
+            opacity: 1;
+        }
+
+
 
         .action-content {
             flex: 1;
@@ -916,6 +975,9 @@
                         <div class="action-description">View, add, edit, and manage all mentee records and their study
                             status</div>
                     </div>
+                    <div class="action-arrow">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
                 </a>
                 <a href="{% url 'manage_mentors' %}" class="action-item">
                     <div class="action-icon">
@@ -924,6 +986,9 @@
                     <div class="action-content">
                         <div class="action-title">Manage Mentors</div>
                         <div class="action-description">Manage mentor records, departments, and capacity settings</div>
+                    </div>
+                    <div class="action-arrow">
+                        <i class="fas fa-chevron-right"></i>
                     </div>
                 </a>
                 <a href="{% url 'mentor_assignments' %}" class="action-item">
@@ -935,6 +1000,9 @@
                         <div class="action-description">Assign mentees to mentors with balanced gender distribution
                         </div>
                     </div>
+                    <div class="action-arrow">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
                 </a>
                 <a href="{% url 'mentor_mentee_activities' %}" class="action-item">
                     <div class="action-icon">
@@ -943,6 +1011,9 @@
                     <div class="action-content">
                         <div class="action-title">Manage Activities</div>
                         <div class="action-description">Create and manage mentoring activities and sessions</div>
+                    </div>
+                    <div class="action-arrow">
+                        <i class="fas fa-chevron-right"></i>
                     </div>
                 </a>
             </div>
@@ -1448,7 +1519,7 @@
         };
 
         const Dashboard = () => {
-            const data = window.dashboardData;
+            const data = window.dashboardData || {};
 
             // Simulate gender breakdown (60% male, 40% female)
             const generateGenderData = (total) => {

@@ -58,6 +58,28 @@
 
         .logo-text {
             font-size: 22px;
+            overflow: hidden;
+            white-space: nowrap;
+            width: 0;
+            animation: typing 8s ease-in-out infinite;
+        }
+
+        @keyframes typing {
+            0% {
+                width: 0
+            }
+
+            30% {
+                width: 95px
+            }
+
+            80% {
+                width: 95px
+            }
+
+            100% {
+                width: 0
+            }
         }
 
         .user-info {

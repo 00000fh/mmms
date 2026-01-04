@@ -59,6 +59,28 @@
 
         .logo-text {
             font-size: 22px;
+            overflow: hidden;
+            white-space: nowrap;
+            width: 0;
+            animation: typing 8s ease-in-out infinite;
+        }
+
+        @keyframes typing {
+            0% {
+                width: 0
+            }
+
+            30% {
+                width: 95px
+            }
+
+            80% {
+                width: 95px
+            }
+
+            100% {
+                width: 0
+            }
         }
 
         .user-info {
@@ -823,7 +845,7 @@
         <div class="logo-section">
             <div class="logo">
                 <i class="fas fa-hands-helping"></i>
-                <span class="logo-text">MMS</span>
+                <span class="logo-text">MMMS</span>
             </div>
         </div>
 
@@ -941,15 +963,15 @@
                         <label for="ActivityType" class="required">Activity Type</label>
                         <select id="ActivityType" name="ActivityType" required>
                             <option value="">Select Activity Type</option>
-                            <option value="mentoring" {% if activity.ActivityType == 'mentoring' %}selected{% endif %}>
+                            <option value="mentoring" {% if activity.ActivityType=='mentoring' %}selected{% endif %}>
                                 Mentoring Session</option>
-                            <option value="workshop" {% if activity.ActivityType == 'workshop' %}selected{% endif %}>
+                            <option value="workshop" {% if activity.ActivityType=='workshop' %}selected{% endif %}>
                                 Workshop</option>
-                            <option value="seminar" {% if activity.ActivityType == 'seminar' %}selected{% endif %}>Seminar
+                            <option value="seminar" {% if activity.ActivityType=='seminar' %}selected{% endif %}>Seminar
                             </option>
-                            <option value="meeting" {% if activity.ActivityType == 'meeting' %}selected{% endif %}>Meeting
+                            <option value="meeting" {% if activity.ActivityType=='meeting' %}selected{% endif %}>Meeting
                             </option>
-                            <option value="other" {% if activity.ActivityType == 'other' %}selected{% endif %}>Other
+                            <option value="other" {% if activity.ActivityType=='other' %}selected{% endif %}>Other
                             </option>
                         </select>
                     </div>
@@ -992,7 +1014,8 @@
 
                 <div class="form-group">
                     <div class="checkbox-group">
-                        <input type="checkbox" id="IsMentoringSession" name="IsMentoringSession" {% if activity.IsMentoringSession %}checked{% endif %}>
+                        <input type="checkbox" id="IsMentoringSession" name="IsMentoringSession" {% if
+                            activity.IsMentoringSession %}checked{% endif %}>
                         <label for="IsMentoringSession">This is a mentoring session</label>
                     </div>
                 </div>

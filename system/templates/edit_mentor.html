@@ -60,6 +60,28 @@
 
         .logo-text {
             font-size: 22px;
+            overflow: hidden;
+            white-space: nowrap;
+            width: 0;
+            animation: typing 8s ease-in-out infinite;
+        }
+
+        @keyframes typing {
+            0% {
+                width: 0
+            }
+
+            30% {
+                width: 95px
+            }
+
+            80% {
+                width: 95px
+            }
+
+            100% {
+                width: 0
+            }
         }
 
         .user-info {
@@ -485,7 +507,13 @@
         }
 
         /* Unified Button System - Enforce Consistency */
-        .btn, .btn-primary, .btn-secondary, .btn-danger, .btn-success, .filter-btn, .action-btn {
+        .btn,
+        .btn-primary,
+        .btn-secondary,
+        .btn-danger,
+        .btn-success,
+        .filter-btn,
+        .action-btn {
             padding: 0 20px !important;
             height: 42px !important;
             line-height: 42px !important;
@@ -505,7 +533,8 @@
         }
 
         /* Specific Button Variants */
-        .btn-success, .btn-primary {
+        .btn-success,
+        .btn-primary {
             background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
             color: white !important;
         }
@@ -514,7 +543,7 @@
             background: #718096 !important;
             color: white !important;
         }
-        
+
         .btn-danger {
             background: #e53e3e !important;
             color: white !important;
@@ -528,7 +557,7 @@
             padding: 0 18px !important;
             line-height: 38px !important;
         }
-        
+
         .filter-btn.active {
             background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
             color: white !important;
@@ -538,26 +567,30 @@
         }
 
         /* Hover States */
-        .btn:hover, .filter-btn:hover {
+        .btn:hover,
+        .filter-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
-        
-        .btn-success:hover, .btn-primary:hover, .filter-btn.active:hover {
+
+        .btn-success:hover,
+        .btn-primary:hover,
+        .filter-btn.active:hover {
             box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
         }
-        
+
         .btn-secondary:hover {
             background: #4a5568 !important;
         }
-        
+
         .btn-danger:hover {
             background: #c53030 !important;
             box-shadow: 0 5px 15px rgba(229, 62, 62, 0.3);
         }
-        
+
         /* Disabled State */
-        .btn:disabled, .filter-btn:disabled {
+        .btn:disabled,
+        .filter-btn:disabled {
             opacity: 0.6;
             cursor: not-allowed;
             transform: none !important;
@@ -565,7 +598,8 @@
         }
 
         /* Icon Reset */
-        .btn i, .filter-btn i {
+        .btn i,
+        .filter-btn i {
             margin: 0 !important;
             font-size: 1.1em;
         }
@@ -591,7 +625,7 @@
         <div class="logo-section">
             <div class="logo">
                 <i class="fas fa-hands-helping"></i>
-                <span class="logo-text">MMS</span>
+                <span class="logo-text">MMMS</span>
             </div>
         </div>
 
@@ -667,7 +701,8 @@
             {% if messages %}
             {% for message in messages %}
             <div class="{% if message.tags == 'error' %}error{% else %}success{% endif %}">
-                <i class="fas {% if message.tags == 'error' %}fa-exclamation-circle{% else %}fa-check-circle{% endif %}"></i>
+                <i
+                    class="fas {% if message.tags == 'error' %}fa-exclamation-circle{% else %}fa-check-circle{% endif %}"></i>
                 {{ message }}
             </div>
             {% endfor %}
@@ -734,24 +769,24 @@
                         </label>
                         <select id="MentorDepartment" name="MentorDepartment" required>
                             <option value="">Select Department</option>
-                            <option value="Accounting Department" 
-                                {% if mentor.MentorDepartment == 'Accounting Department' %}selected{% endif %}>
+                            <option value="Accounting Department" {% if mentor.MentorDepartment=='Accounting Department'
+                                %}selected{% endif %}>
                                 Accounting Department
                             </option>
-                            <option value="Business Studies Department" 
-                                {% if mentor.MentorDepartment == 'Business Studies Department' %}selected{% endif %}>
+                            <option value="Business Studies Department" {% if
+                                mentor.MentorDepartment=='Business Studies Department' %}selected{% endif %}>
                                 Business Studies Department
                             </option>
-                            <option value="Quantitative Science Department" 
-                                {% if mentor.MentorDepartment == 'Quantitative Science Department' %}selected{% endif %}>
+                            <option value="Quantitative Science Department" {% if
+                                mentor.MentorDepartment=='Quantitative Science Department' %}selected{% endif %}>
                                 Quantitative Science Department
                             </option>
-                            <option value="Landscape and Horticulture Department" 
-                                {% if mentor.MentorDepartment == 'Landscape and Horticulture Department' %}selected{% endif %}>
+                            <option value="Landscape and Horticulture Department" {% if
+                                mentor.MentorDepartment=='Landscape and Horticulture Department' %}selected{% endif %}>
                                 Landscape and Horticulture Department
                             </option>
-                            <option value="General Studies" 
-                                {% if mentor.MentorDepartment == 'General Studies' %}selected{% endif %}>
+                            <option value="General Studies" {% if mentor.MentorDepartment=='General Studies'
+                                %}selected{% endif %}>
                                 General Studies
                             </option>
                         </select>
@@ -957,13 +992,27 @@
     <!-- Scroll Indicator -->
     <style>
         @keyframes scroll-bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(10px); }
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(10px);
+            }
         }
+
         @keyframes scroll-fade-in {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
+
         .scroll-indicator-container {
             position: fixed;
             bottom: 2rem;
@@ -976,11 +1025,13 @@
             transition: opacity 0.5s ease;
             display: none;
         }
+
         .scroll-indicator-container.visible {
             display: block;
             opacity: 1;
             animation: scroll-fade-in 1s ease forwards;
         }
+
         .scroll-indicator-icon {
             width: 1.5rem;
             height: 2.5rem;
@@ -992,6 +1043,7 @@
             box-sizing: border-box;
             margin: 0 auto;
         }
+
         .scroll-indicator-dot {
             width: 0.25rem;
             height: 0.5rem;
@@ -1002,7 +1054,7 @@
         }
     </style>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             var indicator = document.createElement('div');
             indicator.className = 'scroll-indicator-container';
             indicator.innerHTML = '<div class="scroll-indicator-icon"><div class="scroll-indicator-dot"></div></div>';
