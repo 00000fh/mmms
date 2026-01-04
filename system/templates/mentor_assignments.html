@@ -173,13 +173,213 @@
             text-align: center;
         }
 
-        /* Main Content Styles - Consistent spacing */
+        /* Main Content Styles - Adjusted for right sidebar */
         .main-content {
             flex: 1;
             margin-left: 260px;
+            margin-right: 320px;
             min-height: 100vh;
             background: #f5f7fa;
             padding: 20px;
+        }
+
+        /* Right Sidebar Styles - UPDATED */
+        .right-sidebar {
+            width: 320px;
+            background: white;
+            height: 100vh;
+            position: fixed;
+            right: 0;
+            top: 0;
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            border-left: 1px solid #e2e8f0;
+            overflow: hidden;
+        }
+
+        .right-sidebar-header {
+            padding: 20px;
+            border-bottom: 1px solid #e2e8f0;
+            background: linear-gradient(135deg, #f8faff, #ffffff);
+            flex-shrink: 0;
+        }
+
+        .right-sidebar-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #2d3748;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 6px;
+        }
+
+        .right-sidebar-title i {
+            background: linear-gradient(135deg, #1a3a8f, #0d1b4e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 22px;
+        }
+
+        .right-sidebar-subtitle {
+            font-size: 12px;
+            color: #718096;
+            line-height: 1.4;
+        }
+
+        .right-sidebar-content {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            height: calc(100vh - 90px);
+            overflow-y: auto;
+        }
+
+        /* Auto Assignment Card in Right Sidebar - UPDATED */
+        .auto-assign-card {
+            background: linear-gradient(135deg, #f8faff, #ffffff);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            flex-shrink: 0;
+        }
+
+        .auto-assign-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #1a3a8f, #0d1b4e);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            color: white;
+            font-size: 22px;
+        }
+
+        .auto-assign-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 8px;
+        }
+
+        .auto-assign-desc {
+            font-size: 12px;
+            color: #718096;
+            margin-bottom: 16px;
+            line-height: 1.4;
+        }
+
+        .auto-assign-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 16px;
+            padding: 10px;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1a3a8f;
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 10px;
+            color: #718096;
+            font-weight: 500;
+        }
+
+        /* Algorithm Features - UPDATED */
+        .algorithm-features {
+            background: #f8faff;
+            padding: 16px;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+            flex-shrink: 0;
+        }
+
+        .features-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .features-title i {
+            color: #1a3a8f;
+        }
+
+        .features-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            font-size: 12px;
+            color: #4a5568;
+            line-height: 1.4;
+        }
+
+        .feature-item i {
+            color: #1a3a8f;
+            font-size: 11px;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+        
+        /* Buttons */
+        .btn-action {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #1a3a8f, #0d1b4e);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(26, 58, 143, 0.3);
+        }
+
+        .btn-action:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
         }
 
         /* Updated Content Header with Profile Button */
@@ -279,110 +479,17 @@
             box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
         }
 
-        /* Auto Assignment Section - IMPROVED SPACING */
-        .auto-assign-section {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
-            margin-bottom: 20px;
-        }
-
-        .section-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: #2d3748;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .section-title i {
-            color: #1a3a8f;
-        }
-
-        .auto-assign-content {
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-        }
-
-        .auto-assign-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 30px;
-        }
-
-        .auto-assign-info {
-            flex: 1;
-        }
-
-        .auto-assign-description {
-            color: #718096;
-            font-size: 14px;
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-
-        .assignment-features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 14px;
-            margin-bottom: -10px;
-        }
-
-        .feature-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 12px 14px;
-            background: #f8f9ff;
-            border-radius: 8px;
-            font-size: 13px;
-        }
-
-        .feature-item i {
-            color: #1a3a8f;
-            font-size: 14px;
-        }
-
-        .department-mapping {
-            background: #e8f5e8;
-            padding: 18px;
-            border-radius: 8px;
-            font-size: 13px;
-            line-height: 1.5;
-            border-left: 4px solid #2e7d32;
-        }
-
-        .department-mapping strong {
-            color: #2e7d32;
-            display: block;
-            margin-bottom: 10px;
-        }
-
-        .auto-assign-actions {
-            display: flex;
-            gap: 16px;
-            flex-wrap: wrap;
-            justify-content: center;
-            padding-top: 20px;
-            border-top: 1px solid #e2e8f0;
-        }
-
         /* Buttons - Consistent with previous page */
         .btn {
-            padding: 12px 20px;
+            padding: 8px 16px;
             border: none;
             border-radius: 8px;
             cursor: pointer;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            font-size: 14px;
+            gap: 6px;
+            font-size: 13px;
             font-weight: 600;
             transition: all 0.3s ease;
         }
@@ -405,17 +512,6 @@
         .btn-secondary:hover {
             background: #4a5568;
             transform: translateY(-2px);
-        }
-
-        .btn-primary {
-            background: #1a3a8f;
-            color: white;
-            padding: 8px 14px;
-        }
-
-        .btn-primary:hover {
-            background: #0d1b4e;
-            transform: translateY(-1px);
         }
 
         .btn:disabled {
@@ -476,10 +572,25 @@
             display: block;
         }
 
-        /* Mentor Grid - Consistent spacing */
+        /* Section Titles - Updated with smaller font size */
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-title i {
+            color: #1a3a8f;
+        }
+
+        /* NEW: Compact Mentor Grid */
         .mentor-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 16px;
         }
 
@@ -489,6 +600,8 @@
             padding: 16px;
             transition: all 0.3s ease;
             background: #f8f9ff;
+            display: flex;
+            flex-direction: column;
         }
 
         .mentor-card:hover {
@@ -509,58 +622,121 @@
             border-left: 4px solid #d32f2f;
         }
 
+        .mentor-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+
+        .mentor-info {
+            flex: 1;
+        }
+
         .mentor-name {
             font-size: 16px;
             font-weight: 600;
             color: #2d3748;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
         }
 
         .mentor-department {
             color: #718096;
-            margin-bottom: 12px;
-            font-size: 13px;
+            font-size: 12px;
+            margin-bottom: 8px;
         }
 
-        .mentor-stats {
-            display: flex;
-            justify-content: space-between;
+        /* NEW: Compact Stats Container */
+        .mentor-stats-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 10px;
             margin-bottom: 12px;
+        }
+
+        .mentor-stat {
             background: white;
-            padding: 12px;
+            padding: 10px;
             border-radius: 8px;
-        }
-
-        .stat {
             text-align: center;
-            flex: 1;
+            border: 1px solid #e2e8f0;
         }
 
-        .stat-value {
-            font-size: 18px;
-            font-weight: bold;
+        .mentor-stat-value {
+            font-size: 16px;
+            font-weight: 700;
             color: #1a3a8f;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
         }
 
-        .stat-label {
-            font-size: 11px;
+        .mentor-stat-label {
+            font-size: 10px;
             color: #718096;
             font-weight: 500;
         }
 
-        .gender-distribution {
+        /* NEW: Compact Gender Balance Indicator */
+        .gender-balance {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: white;
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            margin-bottom: 12px;
+        }
+
+        .gender-ratio {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .ratio-indicator {
+            width: 60px;
+            height: 6px;
+            background: #e2e8f0;
+            border-radius: 3px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .ratio-fill {
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .ratio-fill.male {
+            background: #1565c0;
+        }
+
+        .ratio-fill.female {
+            background: #c2185b;
+        }
+
+        .ratio-text {
+            font-size: 11px;
+            font-weight: 600;
+            color: #4a5568;
+            min-width: 50px;
+        }
+
+        .gender-counts {
             display: flex;
             gap: 8px;
-            margin: 12px 0;
-            justify-content: center;
         }
 
         .gender-count {
-            padding: 5px 10px;
-            border-radius: 16px;
+            padding: 4px 8px;
+            border-radius: 12px;
             font-size: 11px;
             font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 4px;
         }
 
         .male-count {
@@ -573,51 +749,93 @@
             color: #c2185b;
         }
 
-        .mentee-list {
-            max-height: 120px;
-            overflow-y: auto;
-            border: 1px solid #e2e8f0;
-            border-radius: 6px;
-            padding: 10px;
+        /* NEW: Capacity Indicator */
+        .capacity-indicator {
+            margin-bottom: 12px;
+        }
+
+        .capacity-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 4px;
+            font-size: 11px;
+            color: #718096;
+        }
+
+        .capacity-bar {
+            width: 100%;
+            height: 6px;
+            background: #e2e8f0;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .capacity-fill {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 0.3s ease;
+        }
+
+        .capacity-fill.high {
+            background: #2e7d32;
+        }
+
+        .capacity-fill.medium {
+            background: #ed6c02;
+        }
+
+        .capacity-fill.low {
+            background: #d32f2f;
+        }
+
+        .mentor-actions {
+            margin-top: auto;
+            text-align: center;
+        }
+
+        /* OPTION 1: Card-based Layout for Mentees */
+        .mentees-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        .mentee-card {
             background: white;
-            margin: 12px 0;
-        }
-
-        .mentee-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 6px 0;
-            border-bottom: 1px solid #f1f5f9;
-            font-size: 12px;
-        }
-
-        .mentee-item:last-child {
-            border-bottom: none;
-        }
-
-        /* Unassigned List - Consistent spacing */
-        .unassigned-list {
-            max-height: 500px;
-            overflow-y: auto;
-        }
-
-        .unassigned-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 14px 16px;
+            border-radius: 12px;
+            padding: 20px;
             border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            background: #f8f9ff;
             transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
         }
 
-        .unassigned-item:hover {
+        .mentee-card:hover {
             border-color: #1a3a8f;
-            background: white;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 24px rgba(26, 58, 143, 0.12);
+            transform: translateY(-3px);
+        }
+
+        .mentee-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .mentee-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f0f4ff, #e6eeff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: #1a3a8f;
+            flex-shrink: 0;
         }
 
         .mentee-info {
@@ -625,15 +843,86 @@
         }
 
         .mentee-name {
+            font-size: 16px;
             font-weight: 600;
             color: #2d3748;
             margin-bottom: 4px;
-            font-size: 14px;
+        }
+
+        .mentee-id {
+            font-size: 13px;
+            color: #718096;
+            margin-bottom: 8px;
+            font-weight: 500;
         }
 
         .mentee-details {
-            color: #718096;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: #4a5568;
+        }
+
+        .detail-item i {
+            color: #1a3a8f;
+            width: 16px;
             font-size: 12px;
+        }
+
+        .mentee-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 16px;
+            border-top: 1px solid #f1f5f9;
+        }
+
+        .mentee-gender {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .mentee-gender.male {
+            background: #e3f2fd;
+            color: #1565c0;
+        }
+
+        .mentee-gender.female {
+            background: #fce4ec;
+            color: #c2185b;
+        }
+
+        .btn-quick-assign {
+            padding: 8px 16px;
+            background: linear-gradient(135deg, #1a3a8f, #0d1b4e);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn-quick-assign:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(26, 58, 143, 0.25);
         }
 
         /* Toast Notification Styles */
@@ -733,6 +1022,7 @@
             text-align: center;
             color: #718096;
             padding: 30px;
+            grid-column: 1 / -1;
         }
 
         .no-data h3 {
@@ -746,35 +1036,17 @@
             font-size: 14px;
         }
 
-        /* Progress Bar for Capacity - Consistent with previous page */
-        .capacity-bar {
-            width: 100%;
-            height: 6px;
-            background: #e2e8f0;
-            border-radius: 3px;
-            overflow: hidden;
-            margin: 8px 0;
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .right-sidebar {
+                width: 280px;
+            }
+            
+            .main-content {
+                margin-right: 280px;
+            }
         }
 
-        .capacity-fill {
-            height: 100%;
-            border-radius: 3px;
-            transition: width 0.3s ease;
-        }
-
-        .capacity-fill.high {
-            background: #2e7d32;
-        }
-
-        .capacity-fill.medium {
-            background: #ed6c02;
-        }
-
-        .capacity-fill.low {
-            background: #d32f2f;
-        }
-
-        /* Responsive Design - Consistent with previous page */
         @media (max-width: 1024px) {
             .sidebar {
                 width: 240px;
@@ -782,6 +1054,11 @@
 
             .main-content {
                 margin-left: 240px;
+                margin-right: 0;
+            }
+
+            .right-sidebar {
+                display: none;
             }
         }
 
@@ -802,24 +1079,33 @@
                 text-align: center;
             }
 
-            .mentor-grid {
+            .mentor-grid,
+            .mentees-container {
                 grid-template-columns: 1fr;
             }
 
-            .unassigned-item {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 10px;
+            .mentee-card {
+                padding: 16px;
             }
 
-            .auto-assign-header {
+            .mentee-header {
                 flex-direction: column;
-                text-align: center;
+                gap: 12px;
             }
 
-            .auto-assign-actions {
+            .mentee-avatar {
+                align-self: center;
+            }
+
+            .mentee-footer {
                 flex-direction: column;
-                align-items: center;
+                gap: 12px;
+                align-items: stretch;
+            }
+
+            .btn-quick-assign {
+                width: 100%;
+                justify-content: center;
             }
 
             .tabs-nav {
@@ -831,10 +1117,6 @@
                 justify-content: flex-start;
             }
 
-            .assignment-features {
-                grid-template-columns: 1fr;
-            }
-
             /* Toast adjustments for mobile */
             .toast-container {
                 bottom: 16px;
@@ -843,200 +1125,22 @@
                 max-width: none;
             }
         }
-            /* Unified Button System - Enforce Consistency */
-        .btn, .btn-primary, .btn-secondary, .btn-danger, .btn-success, .filter-btn, .action-btn {
-            padding: 0 20px !important;
-            height: 42px !important; /* Fixed height for consistency */
-            line-height: 42px !important; /* Vertical centering */
-            border: none !important;
-            border-radius: 8px !important;
-            cursor: pointer;
-            text-decoration: none !important;
-            display: inline-flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            gap: 8px !important; /* Standard icon spacing */
-            font-size: 14px !important;
-            font-weight: 600 !important;
-            transition: all 0.3s ease !important;
-            box-sizing: border-box !important;
-            white-space: nowrap !important; /* Prevent wrapping */
-        }
 
-        /* Specific Button Variants */
-        .btn-success, .btn-primary {
-            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
-            color: white !important;
-        }
-
-        .btn-secondary {
-            background: #718096 !important;
-            color: white !important;
-        }
-        
-        .btn-danger {
-            background: #e53e3e !important;
-            color: white !important;
-        }
-
-        /* Filter Buttons - adjustment for border if needed, or standardizing */
-        .filter-btn {
-            background: white !important;
-            color: #1a3a8f !important;
-            border: 2px solid #1a3a8f !important;
-            padding: 0 18px !important; /* 20px - 2px border */
-            line-height: 38px !important; /* 42px - 4px border */
-        }
-        
-        .filter-btn.active {
-            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
-            color: white !important;
-            border-color: transparent !important;
-            padding: 0 20px !important;
-            line-height: 42px !important;
-        }
-
-        /* Hover States */
-        .btn:hover, .filter-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        .btn-success:hover, .btn-primary:hover, .filter-btn.active:hover {
-            box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
-        }
-        
-        .btn-secondary:hover {
-            background: #4a5568 !important;
-        }
-        
-        .btn-danger:hover {
-            background: #c53030 !important;
-            box-shadow: 0 5px 15px rgba(229, 62, 62, 0.3);
-        }
-        
-        /* Disabled State */
-        .btn:disabled, .filter-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none !important;
-            box-shadow: none !important;
-        }
-
-        /* Icon Reset */
-        .btn i, .filter-btn i {
-            margin: 0 !important;
-            font-size: 1.1em;
-        }
-    </style>
-
-    <style>
-        /* Chrome, Edge, Safari */
+        /* Scrollbar hiding */
         ::-webkit-scrollbar {
             width: 0px;
             background: transparent;
         }
 
-        /* Firefox */
         html {
             scrollbar-width: none;
-        }
-
-        /* Internet Explorer / old Edge */
-        html {
             -ms-overflow-style: none;
         }
-            /* Unified Button System - Enforce Consistency */
-        .btn, .btn-primary, .btn-secondary, .btn-danger, .btn-success, .filter-btn, .action-btn {
-            padding: 0 20px !important;
-            height: 42px !important; /* Fixed height for consistency */
-            line-height: 42px !important; /* Vertical centering */
-            border: none !important;
-            border-radius: 8px !important;
-            cursor: pointer;
-            text-decoration: none !important;
-            display: inline-flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            gap: 8px !important; /* Standard icon spacing */
-            font-size: 14px !important;
-            font-weight: 600 !important;
-            transition: all 0.3s ease !important;
-            box-sizing: border-box !important;
-            white-space: nowrap !important; /* Prevent wrapping */
-        }
-
-        /* Specific Button Variants */
-        .btn-success, .btn-primary {
-            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
-            color: white !important;
-        }
-
-        .btn-secondary {
-            background: #718096 !important;
-            color: white !important;
-        }
-        
-        .btn-danger {
-            background: #e53e3e !important;
-            color: white !important;
-        }
-
-        /* Filter Buttons - adjustment for border if needed, or standardizing */
-        .filter-btn {
-            background: white !important;
-            color: #1a3a8f !important;
-            border: 2px solid #1a3a8f !important;
-            padding: 0 18px !important; /* 20px - 2px border */
-            line-height: 38px !important; /* 42px - 4px border */
-        }
-        
-        .filter-btn.active {
-            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
-            color: white !important;
-            border-color: transparent !important;
-            padding: 0 20px !important;
-            line-height: 42px !important;
-        }
-
-        /* Hover States */
-        .btn:hover, .filter-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        .btn-success:hover, .btn-primary:hover, .filter-btn.active:hover {
-            box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
-        }
-        
-        .btn-secondary:hover {
-            background: #4a5568 !important;
-        }
-        
-        .btn-danger:hover {
-            background: #c53030 !important;
-            box-shadow: 0 5px 15px rgba(229, 62, 62, 0.3);
-        }
-        
-        /* Disabled State */
-        .btn:disabled, .filter-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none !important;
-            box-shadow: none !important;
-        }
-
-        /* Icon Reset */
-        .btn i, .filter-btn i {
-            margin: 0 !important;
-            font-size: 1.1em;
-        }
     </style>
-
 </head>
 
 <body>
-    <!-- Sidebar -->
+    <!-- Left Sidebar -->
     <div class="sidebar">
         <div class="logo-section">
             <div class="logo">
@@ -1097,13 +1201,84 @@
         </div>
     </div>
 
+    <!-- Right Sidebar - Auto Assignment - UPDATED -->
+    <div class="right-sidebar">
+        <div class="right-sidebar-header">
+            <div class="right-sidebar-title">
+                <i class="fas fa-magic"></i>
+                Auto-Assignment
+            </div>
+            <div class="right-sidebar-subtitle">
+                Intelligent algorithm for automatic mentor-mentee matching
+            </div>
+        </div>
+
+        <div class="right-sidebar-content">
+            <!-- Auto Assignment Card - Simplified -->
+            <div class="auto-assign-card">
+                <div class="auto-assign-icon">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="auto-assign-title">Auto-Assign All Mentees</div>
+                <div class="auto-assign-desc">
+                    Automatically assign all unassigned mentees to suitable mentors using intelligent matching.
+                </div>
+                
+                <div class="auto-assign-stats">
+                    <div class="stat-item">
+                        <div class="stat-value">{{ unassigned_mentees|length }}</div>
+                        <div class="stat-label">Unassigned</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">{{ mentors_with_vacancy|length }}</div>
+                        <div class="stat-label">Available</div>
+                    </div>
+                </div>
+
+                <form method="POST" style="margin: 0; width: 100%;">
+                    {% csrf_token %}
+                    <button type="submit" name="auto_assign_smart" class="btn-action btn-primary" {% if not unassigned_mentees %}disabled{% endif %}>
+                        <i class="fas fa-bolt"></i>
+                        Run Auto-Assignment
+                    </button>
+                </form>
+            </div>
+
+            <!-- Algorithm Features - Simplified -->
+            <div class="algorithm-features">
+                <div class="features-title">
+                    <i class="fas fa-star"></i>
+                    Matching Criteria
+                </div>
+                <div class="features-list">
+                    <div class="feature-item">
+                        <i class="fas fa-check"></i>
+                        <span>Department compatibility matching</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-check"></i>
+                        <span>Optimal gender balance across groups</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-check"></i>
+                        <span>Respects mentor capacity limits</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-check"></i>
+                        <span>Fair distribution among mentors</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Main Content -->
     <div class="main-content">
         <!-- Content Header with Profile Button -->
         <div class="content-header">
             <div class="header-content">
                 <h1>Mentor Assignments Management</h1>
-                <p>Assign mentees to mentors with balanced gender distribution (15-20 mentees per mentor)</p>
+                <p>Assign mentees to mentors with balanced gender distribution</p>
             </div>
             <div class="header-right">
                 <a href="{% url 'assignment_history' %}" class="history-btn">
@@ -1111,64 +1286,7 @@
                     View Assignment Records
                 </a>
                 <div class="profile-section">
-                    
-                </div>
-            </div>
-        </div>
-
-        <!-- Auto Assignment Section - IMPROVED SPACING -->
-        <div class="auto-assign-section">
-            <h2 class="section-title">
-                <i class="fas fa-robot"></i>
-                Automatic Assignment
-            </h2>
-
-            <div class="auto-assign-content">
-                <div class="auto-assign-header">
-                    <div class="auto-assign-info">
-                        <p class="auto-assign-description">
-                            Automatically assign unassigned mentees to appropriate mentors using our intelligent
-                            algorithm
-                            that considers department compatibility, gender balance, and mentor capacity limits.
-                        </p>
-
-                        <div class="assignment-features">
-                            <div class="feature-item">
-                                <i class="fas fa-building"></i>
-                                <span>Department Matching</span>
-                            </div>
-                            <div class="feature-item">
-                                <i class="fas fa-venus-mars"></i>
-                                <span>Gender Balance</span>
-                            </div>
-                            <div class="feature-item">
-                                <i class="fas fa-users"></i>
-                                <span>Capacity Limits (15-20)</span>
-                            </div>
-                            <div class="feature-item">
-                                <i class="fas fa-brain"></i>
-                                <span>Smart Algorithm</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="auto-assign-actions">
-                    <!-- Smart Auto-Assign Button -->
-                    <form method="POST" style="margin: 0;">
-                        {% csrf_token %}
-                        <button type="submit" name="auto_assign_smart" class="btn btn-success" {% if not unassigned_mentees %}disabled{% endif %}>
-                            <i class="fas fa-brain"></i>
-                            Smart Auto-Assign with Gender Balance
-                        </button>
-                    </form>
-
-                    <!-- Manual Assignment Button -->
-                    <a href="#mentors-tab" class="btn btn-secondary" onclick="switchToMentorsTab()">
-                        <i class="fas fa-user-plus"></i>
-                        Manual Assignment
-                    </a>
+                    <!-- Profile button can be added here if needed -->
                 </div>
             </div>
         </div>
@@ -1186,75 +1304,85 @@
                 </button>
             </div>
 
-            <!-- Mentors Tab -->
+            <!-- Mentors Tab - UPDATED LAYOUT -->
             <div class="tab-content active" id="mentors-tab">
                 <h2 class="section-title">
                     <i class="fas fa-user-tie"></i>
                     Mentors with Available Slots
                 </h2>
-                <p style="color: #718096; margin-bottom: 16px; font-size: 13px;">Mentors sorted by department with
-                    available capacity</p>
+                <p style="color: #718096; margin-bottom: 16px; font-size: 13px;">Mentors sorted by department with available capacity</p>
 
                 {% if mentors_with_vacancy %}
                 <div class="mentor-grid">
                     {% for mentor in mentors_with_vacancy %}
-                    <div
-                        class="mentor-card {% if mentor.available_slots >= 10 %}high-vacancy{% elif mentor.available_slots >= 5 %}medium-vacancy{% else %}low-vacancy{% endif %}">
-                        <div class="mentor-name">{{ mentor.MentorName }}</div>
-                        <div class="mentor-department">{{ mentor.MentorDepartment }}</div>
+                    <div class="mentor-card {% if mentor.available_slots >= 10 %}high-vacancy{% elif mentor.available_slots >= 5 %}medium-vacancy{% else %}low-vacancy{% endif %}">
+                        <div class="mentor-header">
+                            <div class="mentor-info">
+                                <div class="mentor-name">{{ mentor.MentorName }}</div>
+                                <div class="mentor-department">{{ mentor.MentorDepartment }}</div>
+                            </div>
+                        </div>
 
-                        <div class="mentor-stats">
-                            <div class="stat">
-                                <div class="stat-value">{{ mentor.current_assignments_count }}/{{ mentor.MaxMentees }}
+                        <!-- Compact Stats Container -->
+                        <div class="mentor-stats-container">
+                            <div class="mentor-stat">
+                                <div class="mentor-stat-value">{{ mentor.current_assignments_count }}</div>
+                                <div class="mentor-stat-label">Current</div>
+                            </div>
+                            <div class="mentor-stat">
+                                <div class="mentor-stat-value">{{ mentor.MaxMentees }}</div>
+                                <div class="mentor-stat-label">Max</div>
+                            </div>
+                            <div class="mentor-stat">
+                                <div class="mentor-stat-value">{{ mentor.available_slots }}</div>
+                                <div class="mentor-stat-label">Available</div>
+                            </div>
+                        </div>
+
+                        <!-- Capacity Indicator -->
+                        <div class="capacity-indicator">
+                            <div class="capacity-label">
+                                <span>Capacity Usage</span>
+                                <span>{% widthratio mentor.current_assignments_count mentor.MaxMentees 100 %}%</span>
+                            </div>
+                            <div class="capacity-bar">
+                                <div class="capacity-fill {% if mentor.available_slots >= 10 %}high{% elif mentor.available_slots >= 5 %}medium{% else %}low{% endif %}"
+                                    style="width: {% widthratio mentor.current_assignments_count mentor.MaxMentees 100 %}%">
                                 </div>
-                                <div class="stat-label">Current/Max</div>
-                            </div>
-                            <div class="stat">
-                                <div class="stat-value">{{ mentor.available_slots }}</div>
-                                <div class="stat-label">Available</div>
                             </div>
                         </div>
 
-                        <!-- Capacity Progress Bar -->
-                        <div class="capacity-bar">
-                            <div class="capacity-fill {% if mentor.available_slots >= 10 %}high{% elif mentor.available_slots >= 5 %}medium{% else %}low{% endif %}"
-                                style="width: {% widthratio mentor.current_assignments_count mentor.MaxMentees 100 %}%">
-                            </div>
-                        </div>
-
-                        <div class="gender-distribution">
-                            <span class="gender-count male-count">
-                                <i class="fas fa-mars"></i>
-                                {{ mentor.get_male_mentees_count }}M
-                            </span>
-                            <span class="gender-count female-count">
-                                <i class="fas fa-venus"></i>
-                                {{ mentor.get_female_mentees_count }}F
-                            </span>
-                        </div>
-
-                        <div style="margin-top: 12px;">
-                            <strong style="color: #2d3748; font-size: 13px;">Current Mentees:</strong>
-                            <div class="mentee-list">
-                                {% for assignment in mentor.assignments.all %}
-                                {% if assignment.assignment_status == 'active' %}
-                                <div class="mentee-item">
-                                    <span>{{ assignment.mentee.MenteeName }}</span>
-                                    <span
-                                        style="color: {% if assignment.mentee.MenteeGender == 'male' %}#1565c0{% else %}#c2185b{% endif %}; font-weight: 600;">
-                                        {{ assignment.mentee.MenteeGender|first|upper }}
-                                    </span>
+                        <!-- Gender Balance Indicator -->
+                        <div class="gender-balance">
+                            <div class="gender-ratio">
+                                <div class="ratio-indicator">
+                                    {% with male=mentor.get_male_mentees_count female=mentor.get_female_mentees_count total=mentor.current_assignments_count %}
+                                    {% if total > 0 %}
+                                    <div class="ratio-fill male" style="width: {% widthratio male total 100 %}%"></div>
+                                    <div class="ratio-fill female" style="width: {% widthratio female total 100 %}%; left: {% widthratio male total 100 %}%"></div>
+                                    {% endif %}
+                                    {% endwith %}
                                 </div>
-                                {% endif %}
-                                {% empty %}
-                                <div style="color: #718096; text-align: center; padding: 8px; font-size: 12px;">
-                                    No mentees assigned yet
+                                <div class="ratio-text">
+                                    {% with male=mentor.get_male_mentees_count female=mentor.get_female_mentees_count %}
+                                    {{ male }}:{{ female }}
+                                    {% endwith %}
                                 </div>
-                                {% endfor %}
+                            </div>
+                            <div class="gender-counts">
+                                <span class="gender-count male-count">
+                                    <i class="fas fa-mars"></i>
+                                    {{ mentor.get_male_mentees_count }}
+                                </span>
+                                <span class="gender-count female-count">
+                                    <i class="fas fa-venus"></i>
+                                    {{ mentor.get_female_mentees_count }}
+                                </span>
                             </div>
                         </div>
 
-                        <div style="margin-top: 16px; text-align: center;">
+                        <!-- Assign Button -->
+                        <div class="mentor-actions">
                             <a href="{% url 'assign_mentees_to_mentor' mentor.MentorID %}" class="btn btn-success">
                                 <i class="fas fa-user-plus"></i>
                                 Assign Mentees
@@ -1271,33 +1399,44 @@
                 {% endif %}
             </div>
 
-            <!-- Mentees Tab -->
+            <!-- Mentees Tab - OPTION 1: Card-based Layout -->
             <div class="tab-content" id="mentees-tab">
                 <h2 class="section-title">
                     <i class="fas fa-user-clock"></i>
-                    Unassigned Mentees
+                    Unassigned Mentees ({{ unassigned_mentees|length }})
                 </h2>
-                <p style="color: #718096; margin-bottom: 16px; font-size: 13px;">Mentees waiting for mentor assignment
-                </p>
+                <p style="color: #718096; margin-bottom: 24px; font-size: 13px;">Click "Quick Assign" to manually assign or wait for auto-assignment</p>
 
                 {% if unassigned_mentees %}
-                <div class="unassigned-list">
+                <div class="mentees-container">
                     {% for mentee in unassigned_mentees %}
-                    <div class="unassigned-item">
-                        <div class="mentee-info">
-                            <div class="mentee-name">{{ mentee.MenteeName }}</div>
-                            <div class="mentee-details">
-                                {{ mentee.MenteeID }} • {{ mentee.MenteeCourse }} • Sem {{ mentee.MenteeSemester }}
+                    <div class="mentee-card">
+                        <div class="mentee-header">
+                            <div class="mentee-avatar">
+                                <i class="fas fa-user-graduate"></i>
+                            </div>
+                            <div class="mentee-info">
+                                <div class="mentee-name">{{ mentee.MenteeName }}</div>
+                                <div class="mentee-id">ID: {{ mentee.MenteeID }}</div>
+                                <div class="mentee-details">
+                                    <div class="detail-item">
+                                        <i class="fas fa-graduation-cap"></i>
+                                        <span>{{ mentee.MenteeCourse }}</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <i class="fas fa-layer-group"></i>
+                                        <span>Semester {{ mentee.MenteeSemester }}</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div style="display: flex; align-items: center; gap: 10px;">
-                            <span
-                                class="gender-count {% if mentee.MenteeGender == 'male' %}male-count{% else %}female-count{% endif %}">
-                                <i
-                                    class="fas {% if mentee.MenteeGender == 'male' %}fa-mars{% else %}fa-venus{% endif %}"></i>
-                                {{ mentee.MenteeGender|upper }}
+                        
+                        <div class="mentee-footer">
+                            <span class="mentee-gender {% if mentee.MenteeGender == 'male' %}male{% else %}female{% endif %}">
+                                <i class="fas {% if mentee.MenteeGender == 'male' %}fa-mars{% else %}fa-venus{% endif %}"></i>
+                                {{ mentee.MenteeGender|title }}
                             </span>
-                            <a href="{% url 'quick_assign' mentee.MenteeID %}" class="btn btn-primary">
+                            <a href="{% url 'quick_assign' mentee.MenteeID %}" class="btn-quick-assign">
                                 <i class="fas fa-bolt"></i>
                                 Quick Assign
                             </a>
@@ -1385,45 +1524,10 @@
                 });
             });
 
-            // Function to switch to mentors tab (used by manual assignment button)
-            window.switchToMentorsTab = function () {
-                tabBtns.forEach(b => b.classList.remove('active'));
-                tabContents.forEach(c => c.classList.remove('active'));
-
-                document.querySelector('[data-tab="mentors-tab"]').classList.add('active');
-                document.getElementById('mentors-tab').classList.add('active');
-            };
-
             // Auto-refresh to check for new unassigned mentees
             setTimeout(function () {
                 window.location.reload();
             }, 300000); // 5 minutes
-
-            // Highlight mentors with good gender balance
-            const mentorCards = document.querySelectorAll('.mentor-card');
-            mentorCards.forEach(card => {
-                const maleCount = parseInt(card.querySelector('.male-count').textContent) || 0;
-                const femaleCount = parseInt(card.querySelector('.female-count').textContent) || 0;
-                const total = maleCount + femaleCount;
-
-                if (total > 0) {
-                    const ratio = Math.min(maleCount, femaleCount) / Math.max(maleCount, femaleCount);
-                    if (ratio >= 0.6) {
-                        card.style.borderLeft = '4px solid #2e7d32';
-                    } else if (ratio >= 0.3) {
-                        card.style.borderLeft = '4px solid #ed6c02';
-                    } else {
-                        card.style.borderLeft = '4px solid #d32f2f';
-                    }
-                }
-            });
-
-            // Profile button functionality
-            document.querySelector('.profile-btn').addEventListener('click', function () {
-                alert('Profile page would open here!');
-                // In a real application, this would navigate to the profile page
-                // window.location.href = '/profile/';
-            });
 
             // Add active state to current page in navigation
             const currentPage = window.location.pathname;
@@ -1519,5 +1623,4 @@
 </script>
 
 </body>
-
 </html>
