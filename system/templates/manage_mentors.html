@@ -817,12 +817,14 @@
 
         .dropdown-menu {
             display: none;
-            position: fixed; /* Changed from absolute to fixed */
+            position: fixed;
+            /* Changed from absolute to fixed */
             background: white;
             min-width: 140px;
             border-radius: 6px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-            z-index: 1003; /* Higher z-index to appear above everything */
+            z-index: 1003;
+            /* Higher z-index to appear above everything */
             border: 1px solid #e2e8f0;
             overflow: hidden;
         }
@@ -1144,6 +1146,59 @@
             }
         }
 
+        /* Unified Button System - Enforce Consistency */
+        .btn,
+        .btn-primary,
+        .btn-secondary,
+        .btn-danger,
+        .btn-success,
+        .filter-btn,
+        .action-btn {
+            padding: 0 20px !important;
+            height: 42px !important;
+            /* Fixed height for consistency */
+            line-height: 42px !important;
+            /* Vertical centering */
+            border: none !important;
+            border-radius: 8px !important;
+            cursor: pointer;
+            text-decoration: none !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 8px !important;
+            /* Standard icon spacing */
+            font-size: 14px !important;
+            font-weight: 600 !important;
+            transition: all 0.3s ease !important;
+            box-sizing: border-box !important;
+            white-space: nowrap !important;
+            /* Prevent wrapping */
+        }
+
+        /* Specific Button Variants */
+        .btn-success,
+        .btn-primary {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
+            color: white !important;
+        }
+
+        .btn-secondary {
+            background: #718096 !important;
+            color: white !important;
+        }
+
+        .btn-danger {
+            background: #e53e3e !important;
+            color: white !important;
+        }
+
+        /* Hover States */
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
         @media (max-width: 480px) {
             .pagination {
                 flex-wrap: wrap;
@@ -1164,6 +1219,7 @@
 <body>
     <!-- Sidebar -->
     <div class="sidebar">
+        <!-- ... sidebar content ... -->
         <div class="logo-section">
             <div class="logo">
                 <i class="fas fa-hands-helping"></i>
@@ -1239,14 +1295,13 @@
             </div>
         </div>
 
-        <!-- UPDATED: Controls Section with Search, Department Filter, and Sort Dropdown -->
+        <!-- ... controls ... -->
         <div class="controls">
             <!-- Search bar -->
             <div class="search-container">
                 <i class="fas fa-search"></i>
-                <input type="text" class="search-input" id="searchInput"
-                    placeholder="Search by ID, Name, or Department" value="{{ search_query }}"
-                    onkeyup="filterMentors()">
+                <input type="text" class="search-input" id="searchInput" placeholder="Search by ID, Name, or Department"
+                    value="{{ search_query }}" onkeyup="filterMentors()">
                 {% if search_query %}
                 <button class="clear-search-btn" onclick="clearSearch()">
                     <i class="fas fa-times"></i>
@@ -1256,7 +1311,8 @@
 
             <!-- Department Dropdown Filter -->
             <div class="department-filter-dropdown" id="departmentFilterDropdown">
-                <button class="department-dropdown-toggle" id="departmentDropdownToggle" onclick="toggleDepartmentDropdown(event)">
+                <button class="department-dropdown-toggle" id="departmentDropdownToggle"
+                    onclick="toggleDepartmentDropdown(event)">
                     <span id="currentDepartmentLabel">
                         <i class="fas fa-building"></i>
                         All Departments
@@ -1296,6 +1352,7 @@
                         Latest Created
                         <i class="fas fa-check" style="margin-left: auto;"></i>
                     </div>
+                    <!-- ... sort items ... -->
                     <div class="sort-dropdown-item" data-sort="oldest" onclick="selectSort('oldest', 'Oldest Created')">
                         <i class="fas fa-calendar-minus"></i>
                         Oldest Created
@@ -1317,11 +1374,13 @@
                         <i class="fas fa-sort-alpha-up"></i>
                         Name (Z-A)
                     </div>
-                    <div class="sort-dropdown-item" data-sort="vacancy_high" onclick="selectSort('vacancy_high', 'High Vacancy')">
+                    <div class="sort-dropdown-item" data-sort="vacancy_high"
+                        onclick="selectSort('vacancy_high', 'High Vacancy')">
                         <i class="fas fa-user-plus"></i>
                         High Vacancy
                     </div>
-                    <div class="sort-dropdown-item" data-sort="vacancy_low" onclick="selectSort('vacancy_low', 'Low Vacancy')">
+                    <div class="sort-dropdown-item" data-sort="vacancy_low"
+                        onclick="selectSort('vacancy_low', 'Low Vacancy')">
                         <i class="fas fa-user-minus"></i>
                         Low Vacancy
                     </div>
@@ -1329,10 +1388,10 @@
             </div>
         </div>
 
-        <!-- Mentor Table -->
         {% if mentors %}
         <div class="mentor-table-container">
             <table class="mentor-table" id="mentorTable">
+                <!-- ... table header ... -->
                 <thead>
                     <tr>
                         <th></th> <!-- Profile Picture Column -->
@@ -1348,8 +1407,7 @@
                     {% for mentor in mentors %}
                     <tr class="mentor-row" data-department="{{ mentor.MentorDepartment }}"
                         data-vacancy="{{ mentor.available_slots }}"
-                        data-assigned="{{ mentor.current_assignments_count }}"
-                        data-total="{{ mentor.MaxMentees }}"
+                        data-assigned="{{ mentor.current_assignments_count }}" data-total="{{ mentor.MaxMentees }}"
                         data-view-url="{% url 'view_mentor' mentor.MentorID %}" data-mentor-id="{{ mentor.MentorID }}"
                         data-mentor-name="{{ mentor.MentorName }}"
                         data-created-date="{{ mentor.MentorJoinDate|date:'Y-m-d' }}">
@@ -1379,7 +1437,7 @@
                                 </div>
                                 <div class="capacity-bar">
                                     <div class="capacity-fill {% if mentor.available_slots >= 10 %}high{% elif mentor.available_slots >= 5 %}medium{% elif mentor.available_slots > 0 %}low{% else %}full{% endif %}"
-                                        style="width: {% widthratio mentor.current_assignments_count mentor.MaxMentees 100 %}%">
+                                        style="width: {% if mentor.MaxMentees > 0 %}{% widthratio mentor.current_assignments_count mentor.MaxMentees 100 %}{% else %}0{% endif %}%">
                                     </div>
                                 </div>
                             </div>
@@ -1790,7 +1848,7 @@
             } else {
                 // Get button position
                 const buttonRect = button.getBoundingClientRect();
-                
+
                 // Position dropdown relative to button
                 menu.style.position = 'fixed';
                 menu.style.top = (buttonRect.bottom + 5) + 'px';

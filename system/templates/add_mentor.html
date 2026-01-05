@@ -300,16 +300,12 @@
             gap: 8px;
         }
 
-        .section-title i {
-            color: #1a3a8f;
-        }
 
         /* Form Styles - Consistent spacing */
-        .form-grid {
+        .form-row {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: 1fr 1fr;
             gap: 16px;
-            margin-bottom: 24px;
         }
 
         .form-group {
@@ -361,62 +357,18 @@
             line-height: 1.4;
         }
 
-        /* Info Card - Consistent spacing */
-        .info-card {
-            background: linear-gradient(135deg, #e8f0ff 0%, #f0f4ff 100%);
-            border: 1px solid #1a3a8f;
-            border-radius: 10px;
+        /* Info Box */
+        .info-box {
+            background: #e3f2fd;
+            border: 1px solid #2196F3;
+            border-radius: 8px;
             padding: 16px;
             margin: 16px 0;
-        }
-
-        .info-card-header {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 12px;
-        }
-
-        .info-card-icon {
-            width: 36px;
-            height: 36px;
-            background: #1a3a8f;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 16px;
-        }
-
-        .info-card-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: #2d3748;
-        }
-
-        .info-list {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        .info-list li {
-            padding: 6px 0;
-            border-bottom: 1px solid rgba(26, 58, 143, 0.1);
-            display: flex;
-            align-items: center;
-            gap: 8px;
             font-size: 13px;
         }
 
-        .info-list li:last-child {
-            border-bottom: none;
-        }
-
-        .info-list i {
-            color: #1a3a8f;
-            font-size: 13px;
-            width: 14px;
+        .info-box strong {
+            color: #1565c0;
         }
 
         /* Buttons - Consistent with previous pages */
@@ -967,12 +919,16 @@
             <form method="POST" id="mentorForm">
                 {% csrf_token %}
 
-                <h2 class="section-title">
-                    <i class="fas fa-id-card"></i>
-                    Basic Information
-                </h2>
+                <div class="form-group">
+                    <label for="MentorName">
+                        Full Name <span class="required">*</span>
+                    </label>
+                    <input type="text" id="MentorName" name="MentorName"
+                        value="{% if mentor %}{{ mentor.MentorName }}{% else %}{{ request.POST.MentorName }}{% endif %}"
+                        class="form-control" required placeholder="Enter full name">
+                </div>
 
-                <div class="form-grid">
+                <div class="form-row">
                     <div class="form-group">
                         <label for="MentorID">
                             Mentor ID <span class="required">*</span>
@@ -988,15 +944,6 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="MentorName">
-                            Full Name <span class="required">*</span>
-                        </label>
-                        <input type="text" id="MentorName" name="MentorName"
-                            value="{% if mentor %}{{ mentor.MentorName }}{% else %}{{ request.POST.MentorName }}{% endif %}"
-                            class="form-control" required placeholder="Enter full name">
-                    </div>
-
-                    <div class="form-group">
                         <label for="MentorEmail">
                             Email Address <span class="required">*</span>
                         </label>
@@ -1004,7 +951,9 @@
                             value="{% if mentor %}{{ mentor.MentorEmail }}{% else %}{{ request.POST.MentorEmail }}{% endif %}"
                             class="form-control" required placeholder="mentor@college.edu">
                     </div>
+                </div>
 
+                <div class="form-row">
                     <div class="form-group">
                         <label for="MentorIC">
                             IC Number <span class="required">*</span>
@@ -1024,31 +973,20 @@
                             value="{% if mentor %}{{ mentor.MentorPhone }}{% else %}{{ request.POST.MentorPhone }}{% endif %}"
                             class="form-control" placeholder="Phone number (optional)">
                     </div>
+                </div>
 
+                <div class="form-row">
                     <div class="form-group">
                         <label for="MentorDepartment">
                             Department <span class="required">*</span>
                         </label>
-                        <select id="MentorDepartment" name="MentorDepartment" class="form-control form-select" required>
+                                                <select id="MentorDepartment" name="MentorDepartment" class="form-control form-select" required>
                             <option value="">Select Department</option>
-                            <option value="Accounting Department" {% if mentor.MentorDepartment=='Accounting Department'
-                                or request.POST.MentorDepartment=='Accounting Department' %}selected{% endif %}>
-                                Accounting Department</option>
-                            <option value="Business Studies Department" {% if
-                                mentor.MentorDepartment=='Business Studies Department' or
-                                request.POST.MentorDepartment=='Business Studies Department' %}selected{% endif %}>
-                                Business Studies Department</option>
-                            <option value="Quantitative Science Department" {% if
-                                mentor.MentorDepartment=='Quantitative Science Department' or
-                                request.POST.MentorDepartment=='Quantitative Science Department' %}selected{% endif %}>
-                                Quantitative Science Department</option>
-                            <option value="Landscape and Horticulture Department" {% if
-                                mentor.MentorDepartment=='Landscape and Horticulture Department' or
-                                request.POST.MentorDepartment=='Landscape and Horticulture Department' %}selected{%
-                                endif %}>Landscape and Horticulture Department</option>
-                            <option value="General Studies" {% if mentor.MentorDepartment=='General Studies' or
-                                request.POST.MentorDepartment=='General Studies' %}selected{% endif %}>General Studies
-                            </option>
+                            <option value="Accounting Department" {% if mentor.MentorDepartment == 'Accounting Department' or request.POST.MentorDepartment == 'Accounting Department' %}selected{% endif %}>Accounting Department</option>
+                            <option value="Business Studies Department" {% if mentor.MentorDepartment == 'Business Studies Department' or request.POST.MentorDepartment == 'Business Studies Department' %}selected{% endif %}>Business Studies Department</option>
+                            <option value="Quantitative Science Department" {% if mentor.MentorDepartment == 'Quantitative Science Department' or request.POST.MentorDepartment == 'Quantitative Science Department' %}selected{% endif %}>Quantitative Science Department</option>
+                            <option value="Landscape and Horticulture Department" {% if mentor.MentorDepartment == 'Landscape and Horticulture Department' or request.POST.MentorDepartment == 'Landscape and Horticulture Department' %}selected{% endif %}>Landscape and Horticulture Department</option>
+                            <option value="General Studies" {% if mentor.MentorDepartment == 'General Studies' or request.POST.MentorDepartment == 'General Studies' %}selected{% endif %}>General Studies</option>
                         </select>
                     </div>
 
@@ -1064,40 +1002,13 @@
                     </div>
                 </div>
 
-                <!-- Login Information Card -->
-                <div class="info-card">
-                    <div class="info-card-header">
-                        <div class="info-card-icon">
-                            <i class="fas fa-key"></i>
-                        </div>
-                        <div class="info-card-title">Login Information</div>
-                    </div>
-                    <ul class="info-list">
-                        <li>
-                            <i class="fas fa-user"></i>
-                            <div>
-                                <strong>Username:</strong> Mentor ID (e.g., STA001)
-                            </div>
-                        </li>
-                        <li>
-                            <i class="fas fa-lock"></i>
-                            <div>
-                                <strong>Initial Password:</strong> IC Number (12 digits)
-                            </div>
-                        </li>
-                        <li>
-                            <i class="fas fa-shield-alt"></i>
-                            <div>
-                                <strong>Security:</strong> Password change required on first login
-                            </div>
-                        </li>
-                        <li>
-                            <i class="fas fa-info-circle"></i>
-                            <div>
-                                <strong>Note:</strong> Account will be created automatically upon submission
-                            </div>
-                        </li>
-                    </ul>
+                <div class="info-box">
+                    <strong>Login Information:</strong><br>
+                    The mentor will be able to login using:<br>
+                    • <strong>Username:</strong> Mentor ID (e.g., STA001)<br>
+                    • <strong>Initial Password:</strong> IC Number (12 digits)<br>
+                    They will be prompted to change their password on first login.<br>
+                    <strong>Note:</strong> Account will be created automatically upon submission
                 </div>
 
                 <div class="form-actions">
