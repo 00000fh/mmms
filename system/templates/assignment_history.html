@@ -292,235 +292,454 @@
             box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
         }
 
-        /* Stats Grid - SMALLER SIZE */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 16px;
-            margin-bottom: 24px;
-        }
 
-        .stat-card {
+
+        /* UPDATED: Controls Section */
+        .controls {
             background: white;
             border-radius: 10px;
             padding: 16px;
-            text-align: center;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-            transition: all 0.3s ease;
-            border-left: 3px solid #1a3a8f;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
-        }
-
-        .stat-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 10px;
-            color: white;
-            font-size: 16px;
-        }
-
-        .stat-number {
-            font-size: 22px;
-            font-weight: bold;
-            color: #2d3748;
-            margin-bottom: 4px;
-        }
-
-        .stat-label {
-            color: #718096;
-            font-size: 12px;
-            font-weight: 500;
-        }
-
-        /* Filter Section - Consistent spacing */
-        .filter-section {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
             margin-bottom: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            align-items: center;
         }
 
-        .section-title {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 16px;
-            color: #2d3748;
+        /* Search bar styling */
+        .search-container {
             display: flex;
             align-items: center;
-            gap: 10px;
+            background: #f8f9ff;
+            border-radius: 6px;
+            padding: 0 12px;
+            border: 1px solid #e2e8f0;
+            flex: 1;
+            min-width: 300px;
+            max-width: 400px;
         }
 
-        .section-title i {
+        .search-container i {
+            color: #718096;
+            font-size: 14px;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 10px 12px;
+            border: none;
+            background: transparent;
+            font-size: 13px;
+            color: #2d3748;
+            outline: none;
+            width: 100%;
+        }
+
+        .search-input::placeholder {
+            color: #a0aec0;
+        }
+
+        /* Status Dropdown Filter */
+        .status-filter-dropdown {
+            position: relative;
+            min-width: 150px;
+        }
+
+        .status-dropdown-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            padding: 10px 14px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            color: #4a5568;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .status-dropdown-toggle:hover {
+            border-color: #1a3a8f;
+            background: #f8f9ff;
+        }
+
+        .status-dropdown-toggle i {
+            font-size: 12px;
+            transition: transform 0.2s ease;
+            margin-left: 16px;
+        }
+
+        .status-dropdown-toggle.active i {
+            transform: rotate(180deg);
+        }
+
+        .status-dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+            margin-top: 4px;
+            overflow: hidden;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .status-dropdown-menu.show {
+            display: block;
+            animation: dropdownFadeIn 0.2s ease;
+        }
+
+        .status-dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 10px 14px;
+            color: #4a5568;
+            font-size: 13px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border-bottom: 1px solid #f7fafc;
+        }
+
+        .status-dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .status-dropdown-item:hover {
+            background: #f8f9ff;
             color: #1a3a8f;
         }
 
-        .filter-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 16px;
-            margin-bottom: 16px;
+        .status-dropdown-item.active {
+            background: #1a3a8f;
+            color: white;
         }
 
-        .filter-group {
-            margin-bottom: 12px;
+        .status-dropdown-item i {
+            font-size: 10px;
+            width: 14px;
+            text-align: center;
         }
 
-        .filter-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #2d3748;
-            font-size: 14px;
+        /* Sort Dropdown Styles */
+        .sort-filter-dropdown {
+            position: relative;
+            min-width: 150px;
         }
 
-        .filter-control {
+        .sort-dropdown-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
             width: 100%;
-            padding: 10px 12px;
-            border: 2px solid #e2e8f0;
-            border-radius: 8px;
-            font-size: 14px;
-            transition: all 0.3s ease;
-        }
-
-        .filter-control:focus {
-            border-color: #1a3a8f;
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(26, 58, 143, 0.1);
-        }
-
-        .btn-secondary {
-            background: #6c757d;
-            color: white;
-        }
-
-        .btn-secondary:hover {
-            background: #5a6268;
-            transform: translateY(-2px);
-        }
-
-        .btn-danger {
-            background: #e53e3e;
-            color: white;
-        }
-
-        .btn-danger:hover {
-            background: #c53030;
-            transform: translateY(-2px);
-        }
-
-        /* Assignment History Section - Consistent spacing */
-        .history-section {
+            padding: 10px 14px;
             background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
-            margin-bottom: 20px;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            color: #4a5568;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            height: 42px;
         }
 
-        /* Updated Table Styles - Matching Image Spacing */
-        .table-container {
-            overflow-x: auto;
-            border-radius: 10px;
+        .sort-dropdown-toggle:hover {
+            border-color: #1a3a8f;
+            background: #f8f9ff;
+        }
+
+        .sort-dropdown-toggle i {
+            font-size: 12px;
+            transition: transform 0.2s ease;
+        }
+
+        .sort-dropdown-toggle.active i.fa-chevron-down {
+            transform: rotate(180deg);
+        }
+
+        .sort-dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
             border: 1px solid #e2e8f0;
-            margin: 0 auto;
+            border-radius: 6px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+            margin-top: 4px;
+            overflow: hidden;
+        }
+
+        .sort-dropdown-menu.show {
+            display: block;
+            animation: dropdownFadeIn 0.2s ease;
+        }
+
+        .sort-dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            color: #4a5568;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border-bottom: 1px solid #f7fafc;
+        }
+
+        .sort-dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .sort-dropdown-item:hover {
+            background: #f8f9ff;
+            color: #1a3a8f;
+        }
+
+        .sort-dropdown-item.active {
+            background: #1a3a8f;
+            color: white;
+        }
+
+        .sort-dropdown-item i {
+            width: 16px;
+            text-align: center;
+        }
+
+        /* Date input group (moved below for fallback) */
+        .date-input-group {
+            display: flex;
+            align-items: center;
+            background: #f8f9ff;
+            border-radius: 6px;
+            padding: 0 12px;
+            border: 1px solid #e2e8f0;
+            height: 42px;
+        }
+
+        .date-input-group i {
+            color: #718096;
+            font-size: 14px;
+            margin-right: 8px;
+        }
+
+        .date-input {
+            border: none;
+            background: transparent;
+            font-size: 13px;
+            color: #2d3748;
+            outline: none;
+            font-family: inherit;
+        }
+
+        /* Custom Dropdown Styles (Reused from manage_mentees) */
+        .custom-dropdown {
+            position: relative;
+            min-width: 200px;
+        }
+
+        .dropdown-toggle-btn {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            padding: 10px 14px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            color: #4a5568;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            height: 42px;
+        }
+
+        .dropdown-toggle-btn:hover {
+            border-color: #1a3a8f;
+            background: #f8f9ff;
+        }
+
+        .dropdown-toggle-btn.active {
+            border-color: #1a3a8f;
+        }
+
+        .dropdown-toggle-btn i.fa-chevron-down {
+            font-size: 12px;
+            transition: transform 0.2s ease;
+            margin-left: 12px;
+        }
+
+        .dropdown-toggle-btn.active i.fa-chevron-down {
+            transform: rotate(180deg);
+        }
+
+        .custom-dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+            margin-top: 4px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .custom-dropdown-menu.show {
+            display: block;
+            animation: dropdownFadeIn 0.2s ease;
+        }
+
+        @keyframes dropdownFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 14px;
+            color: #4a5568;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border-bottom: 1px solid #f7fafc;
+        }
+
+        .dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-item:hover {
+            background: #f8f9ff;
+            color: #1a3a8f;
+        }
+
+        .dropdown-item.active {
+            background: #1a3a8f;
+            color: white;
+        }
+
+        /* Status Indicators */
+        .status-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .status-indicator.active {
+            background: #38a169;
+        }
+
+        .status-indicator.completed {
+            background: #3182ce;
+        }
+
+        .status-indicator.transferred {
+            background: #d69e2e;
+        }
+
+        .status-indicator.all {
+            background: #718096;
+        }
+
+
+        /* COMPACT Table Styles (assignment-table using mentee-table styles) */
+        .table-container {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            margin-bottom: 20px;
+            overflow-x: auto;
         }
 
         .assignment-table {
             width: 100%;
             border-collapse: separate;
             border-spacing: 0;
-            min-width: 800px;
+            min-width: 900px;
+            font-size: 12px;
         }
 
         .assignment-table th {
             background: #f8f9ff;
-            padding: 12px 10px;
+            padding: 12px 14px;
             text-align: left;
             font-weight: 600;
             color: #2d3748;
-            border-bottom: 2px solid #1a3a8f;
-            font-size: 13px;
+            border-bottom: 1px solid #e2e8f0;
+            position: sticky;
+            top: 0;
+            font-size: 12px;
             white-space: nowrap;
         }
 
         .assignment-table td {
-            padding: 10px;
+            padding: 10px 14px;
             border-bottom: 1px solid #e2e8f0;
-            font-size: 13px;
-            vertical-align: top;
-            line-height: 1.3;
+            font-size: 12px;
+            vertical-align: middle;
+            height: 52px;
         }
 
-        .assignment-table tr:hover {
-            background: #f8f9ff;
-        }
-
-        .assignment-table tr:last-child td {
+        .assignment-table tbody tr:last-child td {
             border-bottom: none;
         }
 
-        /* Improved Column Spacing - More Balanced */
-        .assignment-table th:nth-child(1),
-        .assignment-table td:nth-child(1) {
-            /* Mentor */
-            width: 16%;
-            min-width: 130px;
-            padding-left: 12px;
+        .assignment-row {
+            transition: all 0.2s ease;
+            cursor: default;
+            /* No row click unless we want it */
         }
 
-        .assignment-table th:nth-child(2),
-        .assignment-table td:nth-child(2) {
-            /* Mentee */
-            width: 22%;
-            min-width: 160px;
+        .assignment-row:hover {
+            background: #f8f9ff;
         }
 
-        .assignment-table th:nth-child(3),
-        .assignment-table td:nth-child(3) {
-            /* Department/Course */
-            width: 18%;
-            min-width: 140px;
+        .assignment-table tbody tr:nth-child(even) {
+            background-color: #fafbfc;
         }
 
-        .assignment-table th:nth-child(4),
-        .assignment-table td:nth-child(4) {
-            /* Assigned Date */
-            width: 12%;
-            min-width: 100px;
+        .assignment-table tbody tr:nth-child(even):hover {
+            background-color: #f8f9ff;
         }
 
-        .assignment-table th:nth-child(5),
-        .assignment-table td:nth-child(5) {
-            /* Status */
-            width: 10%;
-            min-width: 90px;
-        }
 
-        .assignment-table th:nth-child(6),
-        .assignment-table td:nth-child(6) {
-            /* Actions */
-            width: 22%;
-            min-width: 180px;
-            padding-right: 12px;
-        }
-
-        /* Status Badges - More Compact */
+        /* Status Badges - More Compact and matching manage_mentees */
         .status-badge {
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-size: 11px;
+            padding: 4px 10px;
+            border-radius: 14px;
+            font-size: 10px;
             font-weight: 600;
-            text-transform: uppercase;
             display: inline-flex;
             align-items: center;
             gap: 4px;
@@ -532,9 +751,25 @@
             color: #2e7d32;
         }
 
+        .status-active:before {
+            content: "";
+            width: 5px;
+            height: 5px;
+            background: #38a169;
+            border-radius: 50%;
+        }
+
         .status-completed {
             background: #e3f2fd;
             color: #1565c0;
+        }
+
+        .status-completed:before {
+            content: "";
+            width: 5px;
+            height: 5px;
+            background: #3182ce;
+            border-radius: 50%;
         }
 
         .status-transferred {
@@ -542,134 +777,76 @@
             color: #ef6c00;
         }
 
-        /* Gender Badges - More Compact */
-        .gender-badge {
-            padding: 3px 6px;
-            border-radius: 10px;
-            font-size: 10px;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 3px;
-            white-space: nowrap;
+        .status-transferred:before {
+            content: "";
+            width: 5px;
+            height: 5px;
+            background: #d69e2e;
+            border-radius: 50%;
         }
 
-        .gender-male {
-            background: #e3f2fd;
-            color: #1565c0;
-        }
-
-        .gender-female {
-            background: #fce4ec;
-            color: #c2185b;
-        }
-
-        /* Action Buttons - More Compact */
+        /* Action Buttons - Compact */
         .action-buttons {
             display: flex;
-            gap: 4px;
-            flex-wrap: wrap;
-            justify-content: flex-start;
+            gap: 6px;
         }
 
         .btn-sm {
-            padding: 5px 8px;
-            font-size: 11px;
+            padding: 5px 10px;
+            font-size: 10px;
             border-radius: 5px;
-            white-space: nowrap;
         }
 
-        .btn-outline {
-            background: transparent;
-            border: 1px solid #1a3a8f;
-            color: #1a3a8f;
-        }
-
-        .btn-outline:hover {
-            background: #1a3a8f;
-            color: white;
-        }
-
-        .btn-outline-danger {
-            background: transparent;
-            border: 1px solid #e53e3e;
-            color: #e53e3e;
-        }
-
-        .btn-outline-danger:hover {
-            background: #e53e3e;
-            color: white;
-        }
-
-        /* No Data State */
-        .no-data {
-            text-align: center;
-            color: #718096;
-            padding: 30px;
-            margin: 10px 0;
-        }
-
-        .no-data i {
-            font-size: 30px;
-            margin-top: 5px;
-            margin-bottom: 5px;
-            color: #cbd5e0;
-        }
-
-        .no-data h3 {
-            color: #2d3748;
-            margin-bottom: 8px;
-            font-size: 18px;
-        }
-
-        .no-data p {
-            margin-bottom: 16px;
-            font-size: 14px;
-            line-height: 1.5;
-        }
-
-        /* Pagination - Consistent spacing */
-        .pagination {
+        /* Pagination Styles - COMPACT */
+        .pagination-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            background: white;
+            padding: 12px 16px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
             margin-top: 20px;
-            padding: 16px 0;
-            border-top: 1px solid #e2e8f0;
+            font-size: 12px;
         }
 
         .pagination-info {
             color: #718096;
-            font-size: 14px;
             font-weight: 500;
         }
 
-        .pagination-controls {
+        .pagination {
             display: flex;
-            gap: 8px;
+            gap: 4px;
             align-items: center;
+            padding: 0;
+            border: none;
+            margin: 0;
+            border-top: none;
+            /* Remove old style */
         }
 
         .page-btn {
-            padding: 8px 12px;
+            padding: 6px 10px;
             border: 1px solid #e2e8f0;
             background: white;
-            color: #2d3748;
-            border-radius: 6px;
+            color: #4a5568;
+            border-radius: 4px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 13px;
+            font-size: 11px;
             font-weight: 500;
-            min-width: 36px;
-            display: flex;
-            align-items: center;
+            transition: all 0.2s ease;
+            min-width: 32px;
+            text-align: center;
+            display: inline-flex;
             justify-content: center;
+            align-items: center;
         }
 
-        .page-btn:hover {
-            background: #1a3a8f;
-            color: white;
+        .page-btn:hover:not(:disabled) {
+            background: #f8f9ff;
             border-color: #1a3a8f;
+            color: #1a3a8f;
         }
 
         .page-btn.active {
@@ -679,69 +856,29 @@
         }
 
         .page-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
             background: #f7fafc;
             color: #a0aec0;
-            cursor: not-allowed;
             border-color: #e2e8f0;
         }
 
-        /* Tooltip */
-        .tooltip {
-            position: relative;
-            display: inline-block;
-        }
-
-        .tooltip .tooltiptext {
-            visibility: hidden;
-            width: 200px;
-            background-color: #2d3748;
-            color: white;
-            text-align: center;
-            border-radius: 6px;
-            padding: 8px;
-            position: absolute;
-            z-index: 1;
-            bottom: 125%;
-            left: 50%;
-            margin-left: -100px;
-            opacity: 0;
-            transition: opacity 0.3s;
-            font-size: 12px;
-            font-weight: normal;
-            line-height: 1.4;
-        }
-
-        .tooltip:hover .tooltiptext {
-            visibility: visible;
-            opacity: 1;
-        }
-
-        /* Improved Text Hierarchy - More Compact */
-        .mentor-info,
-        .mentee-info {
-            line-height: 1.2;
-        }
-
-        .mentor-id,
-        .mentee-id {
-            font-size: 11px;
+        .page-ellipsis {
+            padding: 6px 4px;
             color: #718096;
-            margin-top: 1px;
         }
 
-        .department-info {
-            line-height: 1.2;
+        /* Dropdown Backdrops */
+        .dropdown-backdrop {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 99;
         }
 
-        .course-info {
-            font-size: 11px;
-            color: #718096;
-            margin-top: 1px;
-        }
-
-        .date-info {
-            line-height: 1.2;
-        }
 
         .time-ago {
             font-size: 11px;
@@ -981,9 +1118,7 @@
                 padding: 16px;
             }
 
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
+
 
             .filter-grid {
                 grid-template-columns: 1fr;
@@ -1029,11 +1164,20 @@
                 max-width: none;
             }
         }
-            /* Unified Button System - Enforce Consistency */
-        .btn, .btn-primary, .btn-secondary, .btn-danger, .btn-success, .filter-btn, .action-btn {
+
+        /* Unified Button System - Enforce Consistency */
+        .btn,
+        .btn-primary,
+        .btn-secondary,
+        .btn-danger,
+        .btn-success,
+        .filter-btn,
+        .action-btn {
             padding: 0 20px !important;
-            height: 42px !important; /* Fixed height for consistency */
-            line-height: 42px !important; /* Vertical centering */
+            height: 42px !important;
+            /* Fixed height for consistency */
+            line-height: 42px !important;
+            /* Vertical centering */
             border: none !important;
             border-radius: 8px !important;
             cursor: pointer;
@@ -1041,16 +1185,19 @@
             display: inline-flex !important;
             align-items: center !important;
             justify-content: center !important;
-            gap: 8px !important; /* Standard icon spacing */
+            gap: 8px !important;
+            /* Standard icon spacing */
             font-size: 14px !important;
             font-weight: 600 !important;
             transition: all 0.3s ease !important;
             box-sizing: border-box !important;
-            white-space: nowrap !important; /* Prevent wrapping */
+            white-space: nowrap !important;
+            /* Prevent wrapping */
         }
 
         /* Specific Button Variants */
-        .btn-success, .btn-primary {
+        .btn-success,
+        .btn-primary {
             background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
             color: white !important;
         }
@@ -1059,7 +1206,7 @@
             background: #718096 !important;
             color: white !important;
         }
-        
+
         .btn-danger {
             background: #e53e3e !important;
             color: white !important;
@@ -1070,10 +1217,12 @@
             background: white !important;
             color: #1a3a8f !important;
             border: 2px solid #1a3a8f !important;
-            padding: 0 18px !important; /* 20px - 2px border */
-            line-height: 38px !important; /* 42px - 4px border */
+            padding: 0 18px !important;
+            /* 20px - 2px border */
+            line-height: 38px !important;
+            /* 42px - 4px border */
         }
-        
+
         .filter-btn.active {
             background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
             color: white !important;
@@ -1083,26 +1232,30 @@
         }
 
         /* Hover States */
-        .btn:hover, .filter-btn:hover {
+        .btn:hover,
+        .filter-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
-        
-        .btn-success:hover, .btn-primary:hover, .filter-btn.active:hover {
+
+        .btn-success:hover,
+        .btn-primary:hover,
+        .filter-btn.active:hover {
             box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
         }
-        
+
         .btn-secondary:hover {
             background: #4a5568 !important;
         }
-        
+
         .btn-danger:hover {
             background: #c53030 !important;
             box-shadow: 0 5px 15px rgba(229, 62, 62, 0.3);
         }
-        
+
         /* Disabled State */
-        .btn:disabled, .filter-btn:disabled {
+        .btn:disabled,
+        .filter-btn:disabled {
             opacity: 0.6;
             cursor: not-allowed;
             transform: none !important;
@@ -1110,7 +1263,8 @@
         }
 
         /* Icon Reset */
-        .btn i, .filter-btn i {
+        .btn i,
+        .filter-btn i {
             margin: 0 !important;
             font-size: 1.1em;
         }
@@ -1132,11 +1286,20 @@
         html {
             -ms-overflow-style: none;
         }
-            /* Unified Button System - Enforce Consistency */
-        .btn, .btn-primary, .btn-secondary, .btn-danger, .btn-success, .filter-btn, .action-btn {
+
+        /* Unified Button System - Enforce Consistency */
+        .btn,
+        .btn-primary,
+        .btn-secondary,
+        .btn-danger,
+        .btn-success,
+        .filter-btn,
+        .action-btn {
             padding: 0 20px !important;
-            height: 42px !important; /* Fixed height for consistency */
-            line-height: 42px !important; /* Vertical centering */
+            height: 42px !important;
+            /* Fixed height for consistency */
+            line-height: 42px !important;
+            /* Vertical centering */
             border: none !important;
             border-radius: 8px !important;
             cursor: pointer;
@@ -1144,16 +1307,19 @@
             display: inline-flex !important;
             align-items: center !important;
             justify-content: center !important;
-            gap: 8px !important; /* Standard icon spacing */
+            gap: 8px !important;
+            /* Standard icon spacing */
             font-size: 14px !important;
             font-weight: 600 !important;
             transition: all 0.3s ease !important;
             box-sizing: border-box !important;
-            white-space: nowrap !important; /* Prevent wrapping */
+            white-space: nowrap !important;
+            /* Prevent wrapping */
         }
 
         /* Specific Button Variants */
-        .btn-success, .btn-primary {
+        .btn-success,
+        .btn-primary {
             background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
             color: white !important;
         }
@@ -1162,7 +1328,7 @@
             background: #718096 !important;
             color: white !important;
         }
-        
+
         .btn-danger {
             background: #e53e3e !important;
             color: white !important;
@@ -1173,10 +1339,12 @@
             background: white !important;
             color: #1a3a8f !important;
             border: 2px solid #1a3a8f !important;
-            padding: 0 18px !important; /* 20px - 2px border */
-            line-height: 38px !important; /* 42px - 4px border */
+            padding: 0 18px !important;
+            /* 20px - 2px border */
+            line-height: 38px !important;
+            /* 42px - 4px border */
         }
-        
+
         .filter-btn.active {
             background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
             color: white !important;
@@ -1186,26 +1354,30 @@
         }
 
         /* Hover States */
-        .btn:hover, .filter-btn:hover {
+        .btn:hover,
+        .filter-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
-        
-        .btn-success:hover, .btn-primary:hover, .filter-btn.active:hover {
+
+        .btn-success:hover,
+        .btn-primary:hover,
+        .filter-btn.active:hover {
             box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
         }
-        
+
         .btn-secondary:hover {
             background: #4a5568 !important;
         }
-        
+
         .btn-danger:hover {
             background: #c53030 !important;
             box-shadow: 0 5px 15px rgba(229, 62, 62, 0.3);
         }
-        
+
         /* Disabled State */
-        .btn:disabled, .filter-btn:disabled {
+        .btn:disabled,
+        .filter-btn:disabled {
             opacity: 0.6;
             cursor: not-allowed;
             transform: none !important;
@@ -1213,9 +1385,194 @@
         }
 
         /* Icon Reset */
-        .btn i, .filter-btn i {
+        .btn i,
+        .filter-btn i {
             margin: 0 !important;
             font-size: 1.1em;
+        }
+
+        /* Status and Badge Styles from Manage Mentees */
+        .status-active {
+            color: #2e7d32;
+            font-weight: 600;
+            background: #e8f5e8;
+            padding: 4px 10px;
+            border-radius: 14px;
+            font-size: 10px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .status-active:before {
+            content: "";
+            width: 5px;
+            height: 5px;
+            background: #38a169;
+            border-radius: 50%;
+        }
+
+        .status-completed {
+            color: #1565c0;
+            font-weight: 600;
+            background: #e3f2fd;
+            padding: 4px 10px;
+            border-radius: 14px;
+            font-size: 10px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .status-completed:before {
+            content: "";
+            width: 5px;
+            height: 5px;
+            background: #3182ce;
+            border-radius: 50%;
+        }
+
+        .status-transferred {
+            color: #c62828;
+            font-weight: 600;
+            background: #ffebee;
+            padding: 4px 10px;
+            border-radius: 14px;
+            font-size: 10px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .status-transferred:before {
+            content: "";
+            width: 5px;
+            height: 5px;
+            background: #e53e3e;
+            border-radius: 50%;
+        }
+
+        .course-badge {
+            background: #e8f5e8;
+            color: #2e7d32;
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 10px;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .unassigned-badge {
+            background: #ffebee;
+            color: #c62828;
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 10px;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        /* COMPACT Table Styles */
+        .mentee-table-container {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            margin-bottom: 20px;
+            overflow-x: auto;
+            position: relative;
+        }
+
+        .mentee-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            min-width: 900px;
+            font-size: 12px;
+        }
+
+        .mentee-table th {
+            background: #f8f9ff;
+            padding: 12px 14px;
+            text-align: left;
+            font-weight: 600;
+            color: #2d3748;
+            border-bottom: 1px solid #e2e8f0;
+            position: sticky;
+            top: 0;
+            font-size: 12px;
+            white-space: nowrap;
+        }
+
+        .mentee-table td {
+            padding: 10px 14px;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 12px;
+            line-height: 1.3;
+            vertical-align: middle;
+            height: 52px;
+        }
+
+        .mentee-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .mentee-table tr:hover td {
+            background-color: #f8f9ff;
+        }
+
+        /* Profile Picture Styles */
+        .profile-picture {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1px solid #e2e8f0;
+            background: #f8f9fa;
+        }
+
+        .profile-picture-placeholder {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+            border: 1px solid #e2e8f0;
+        }
+
+        /* Action Buttons Coloring */
+        .btn-view {
+            color: #3182ce;
+            border-color: #3182ce;
+        }
+
+        .btn-view:hover {
+            background: #3182ce;
+            color: white;
+        }
+
+        .btn-transfer {
+            color: #38a169;
+            border-color: #38a169;
+        }
+
+        .btn-transfer:hover {
+            background: #38a169;
+            color: white;
+        }
+
+        .btn-delete {
+            color: #e53e3e;
+            border-color: #e53e3e;
+        }
+
+        .btn-delete:hover {
+            background: #e53e3e;
+            color: white;
         }
     </style>
 
@@ -1292,288 +1649,246 @@
                 <p>Track all mentor-mentee assignments, transfers, and completions with detailed audit trail</p>
             </div>
             <div class="profile-section">
-                
+
             </div>
         </div>
 
-        <!-- Stats Overview -->
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-icon">
-                    <i class="fas fa-link"></i>
-                </div>
-                <div class="stat-number">{{ total_assignments }}</div>
-                <div class="stat-label">Total Assignments</div>
+
+
+        <!-- Controls Section -->
+        <div class="controls">
+            <!-- Search bar -->
+            <div class="search-container">
+                <i class="fas fa-search"></i>
+                <input type="text" class="search-input" id="searchInput"
+                    placeholder="Search by ID, Name, Course, or Mentor" onkeyup="filterAssignments()">
             </div>
-            <div class="stat-card">
-                <div class="stat-icon">
-                    <i class="fas fa-user-check"></i>
-                </div>
-                <div class="stat-number">{{ active_assignments }}</div>
-                <div class="stat-label">Active Assignments</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon">
-                    <i class="fas fa-exchange-alt"></i>
-                </div>
-                <div class="stat-number">{{ transferred_assignments }}</div>
-                <div class="stat-label">Transfers</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon">
-                    <i class="fas fa-calendar-check"></i>
-                </div>
-                <div class="stat-number">{{ completed_assignments }}</div>
-                <div class="stat-label">Completed</div>
-            </div>
-        </div>
 
-        <!-- Filter Section -->
-        <div class="filter-section">
-            <h2 class="section-title">
-                <i class="fas fa-filter"></i>
-                Filter Assignments
-            </h2>
-
-            <form method="GET" id="filterForm">
-                <div class="filter-grid">
-                    <div class="filter-group">
-                        <label for="mentor"><i class="fas fa-user-tie"></i> Mentor</label>
-                        <select name="mentor" id="mentor" class="filter-control">
-                            <option value="">All Mentors</option>
-                            {% for mentor in mentors %}
-                            <option value="{{ mentor.MentorID }}" {% if selected_mentor == mentor.MentorID %}selected{% endif %}>
-                                {{ mentor.MentorName }} ({{ mentor.MentorDepartment }})
-                            </option>
-                            {% endfor %}
-                        </select>
-                    </div>
-
-                    <div class="filter-group">
-                        <label for="status"><i class="fas fa-tag"></i> Status</label>
-                        <select name="status" id="status" class="filter-control">
-                            <option value="">All Statuses</option>
-                            <option value="active" {% if request.GET.status == 'active' %}selected{% endif %}>Active
-                            </option>
-                            <option value="completed" {% if request.GET.status == 'completed' %}selected{% endif %}>
-                                Completed</option>
-                            <option value="transferred" {% if request.GET.status == 'transferred' %}selected{% endif %}>
-                                Transferred</option>
-                        </select>
-                    </div>
-
-                    <div class="filter-group">
-                        <label for="date_from"><i class="fas fa-calendar"></i> Date From</label>
-                        <input type="date" name="date_from" id="date_from" class="filter-control"
-                            value="{{ request.GET.date_from }}">
-                    </div>
-
-                    <div class="filter-group">
-                        <label for="date_to"><i class="fas fa-calendar"></i> Date To</label>
-                        <input type="date" name="date_to" id="date_to" class="filter-control"
-                            value="{{ request.GET.date_to }}">
-                    </div>
-                </div>
-
-                <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-search"></i> Apply Filters
+            <!-- Status Dropdown Filter -->
+            <div class="status-filter-dropdown" id="statusFilterDropdown">
+                <form method="get" id="filterForm" style="display: contents;">
+                    <input type="hidden" name="status" id="statusInput" value="{{ request.GET.status|default:'' }}">
+                    <button type="button" class="status-dropdown-toggle" id="statusDropdownToggle"
+                        onclick="toggleStatusDropdown(event)">
+                        <span id="currentStatusLabel">
+                            {% if request.GET.status == 'active' %}
+                            <span class="status-indicator active"></span> Active
+                            {% elif request.GET.status == 'completed' %}
+                            <span class="status-indicator completed"></span> Completed
+                            {% elif request.GET.status == 'transferred' %}
+                            <span class="status-indicator transferred"></span> Transferred
+                            {% else %}
+                            <span class="status-indicator all"></span> All Status
+                            {% endif %}
+                        </span>
+                        <i class="fas fa-chevron-down"></i>
                     </button>
-                    <a href="{% url 'assignment_history' %}" class="btn btn-secondary">
-                        <i class="fas fa-redo"></i> Reset Filters
-                    </a>
+                    <div class="status-dropdown-menu" id="statusDropdownMenu">
+                        <div class="status-dropdown-item {% if not request.GET.status %}active{% endif %}"
+                            onclick="selectStatus('', 'All Status')">
+                            <span class="status-indicator all"></span> All Status
+                            {% if not request.GET.status %}<i class="fas fa-check"
+                                style="margin-left: auto;"></i>{%endif%}
+                        </div>
+                        <div class="status-dropdown-item {% if request.GET.status == 'active' %}active{% endif %}"
+                            onclick="selectStatus('active', 'Active')">
+                            <span class="status-indicator active"></span> Active
+                            {% if request.GET.status == 'active' %}<i class="fas fa-check"
+                                style="margin-left: auto;"></i>{% endif %}
+                        </div>
+                        <div class="status-dropdown-item {% if request.GET.status == 'completed' %}active{% endif %}"
+                            onclick="selectStatus('completed', 'Completed')">
+                            <span class="status-indicator completed"></span> Completed
+                            {% if request.GET.status == 'completed' %}<i class="fas fa-check"
+                                style="margin-left: auto;"></i>{% endif %}
+                        </div>
+                        <div class="status-dropdown-item {% if request.GET.status == 'transferred' %}active{% endif %}"
+                            onclick="selectStatus('transferred', 'Transferred')">
+                            <span class="status-indicator transferred"></span> Transferred
+                            {% if request.GET.status == 'transferred' %}<i class="fas fa-check"
+                                style="margin-left: auto;"></i>{% endif %}
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Sort Dropdown -->
+            <div class="sort-filter-dropdown" id="sortFilterDropdown">
+                <button type="button" class="sort-dropdown-toggle" id="sortDropdownToggle"
+                    onclick="toggleSortDropdown(event)">
+                    <span id="currentSortLabel">
+                        <i class="fas fa-calendar-plus"></i> Latest Created
+                    </span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="sort-dropdown-menu" id="sortDropdownMenu">
+                    <div class="sort-dropdown-item active" data-sort="latest"
+                        onclick="selectSort('latest', 'Latest Created')">
+                        <i class="fas fa-calendar-plus"></i> Latest Created
+                        <i class="fas fa-check" style="margin-left: auto;"></i>
+                    </div>
+                    <div class="sort-dropdown-item" data-sort="oldest" onclick="selectSort('oldest', 'Oldest Created')">
+                        <i class="fas fa-calendar-minus"></i> Oldest Created
+                    </div>
+                    <div class="sort-dropdown-item" data-sort="mentor_asc"
+                        onclick="selectSort('mentor_asc', 'Mentor (A-Z)')">
+                        <i class="fas fa-sort-alpha-down"></i> Mentor (A-Z)
+                    </div>
+                    <div class="sort-dropdown-item" data-sort="mentor_desc"
+                        onclick="selectSort('mentor_desc', 'Mentor (Z-A)')">
+                        <i class="fas fa-sort-alpha-up"></i> Mentor (Z-A)
+                    </div>
                 </div>
-            </form>
+            </div>
         </div>
 
         <!-- Assignment History Table -->
-        <div class="history-section">
-            <h2 class="section-title">
-                <i class="fas fa-list-alt"></i>
-                Assignment Records
-            </h2>
+        {% if assignments %}
+        <div class="mentee-table-container">
+            <table class="mentee-table">
+                <thead>
+                    <tr>
+                        <th></th> <!-- Profile Picture Column -->
+                        <th>Mentee ID</th>
+                        <th>Name</th>
+                        <th>Course</th>
+                        <th>Semester</th>
+                        <th>Assigned Mentor</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for assignment in assignments %}
+                    <tr class="assignment-row">
+                        <!-- Profile Picture Column -->
+                        <td>
+                            {% if assignment.mentee.profile_picture %}
+                            <img src="{{ assignment.mentee.profile_picture.url }}"
+                                alt="{{ assignment.mentee.MenteeName }}" class="profile-picture">
+                            {% else %}
+                            <div class="profile-picture-placeholder">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            {% endif %}
+                        </td>
+                        <td><strong>{{ assignment.mentee.MenteeID }}</strong></td>
+                        <td>{{ assignment.mentee.MenteeName }}</td>
+                        <td>
+                            <span class="course-badge">{{ assignment.mentee.display_course }}</span>
+                        </td>
+                        <td>{{ assignment.mentee.MenteeSemester }}</td>
+                        <td>{{ assignment.mentor.MentorName }}</td>
+                        <td>
+                            <span class="status-{{ assignment.assignment_status }}">
+                                {{ assignment.assignment_status|title }}
+                            </span>
+                        </td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="btn btn-outline btn-sm view-details btn-view"
+                                    data-assignment-id="{{ assignment.assignment_id }}"
+                                    data-mentor-name="{{ assignment.mentor.MentorName }}"
+                                    data-mentor-id="{{ assignment.mentor.MentorID }}"
+                                    data-mentor-department="{{ assignment.mentor.MentorDepartment }}"
+                                    data-mentor-email="{{ assignment.mentor.MentorEmail }}"
+                                    data-mentee-name="{{ assignment.mentee.MenteeName }}"
+                                    data-mentee-id="{{ assignment.mentee.MenteeID }}"
+                                    data-mentee-course="{{ assignment.mentee.MenteeCourse }}"
+                                    data-mentee-semester="{{ assignment.mentee.MenteeSemester }}"
+                                    data-mentee-gender="{{ assignment.mentee.MenteeGender }}"
+                                    data-mentee-email="{{ assignment.mentee.MenteeEmail }}"
+                                    data-assigned-date="{{ assignment.assigned_date|date:'M d, Y' }}"
+                                    data-assigned-by="{% if assignment.assigned_by %}{{ assignment.assigned_by.get_full_name|default:assignment.assigned_by.username }}{% else %}System (Auto-Assign){% endif %}"
+                                    data-status="{{ assignment.assignment_status }}"
+                                    data-notes="{{ assignment.notes|default:'No notes' }}">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                {% if assignment.assignment_status == 'active' %}
+                                <button class="btn btn-outline btn-sm transfer-assignment btn-transfer" title="Transfer"
+                                    data-assignment-id="{{ assignment.assignment_id }}"
+                                    data-mentee-name="{{ assignment.mentee.MenteeName }}"
+                                    data-mentor-name="{{ assignment.mentor.MentorName }}"
+                                    data-current-mentor-id="{{ assignment.mentor.MentorID }}"
+                                    data-mentee-course="{{ assignment.mentee.MenteeCourse }}">
+                                    <i class="fas fa-exchange-alt"></i>
+                                </button>
+                                {% endif %}
+                                <button class="btn btn-outline-danger btn-sm delete-assignment btn-delete"
+                                    title="Delete" data-assignment-id="{{ assignment.assignment_id }}"
+                                    data-mentor-name="{{ assignment.mentor.MentorName }}"
+                                    data-mentee-name="{{ assignment.mentee.MenteeName }}"
+                                    data-status="{{ assignment.assignment_status }}">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
 
-            {% if assignments %}
-            <div class="table-container">
-                <table class="assignment-table">
-                    <thead>
-                        <tr>
-                            <th>Mentor</th>
-                            <th>Mentee</th>
-                            <th>Department/Course</th>
-                            <th>Assigned Date</th>
-                            <th>Status</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for assignment in assignments %}
-                        <tr>
-                            <td>
-                                <div class="tooltip mentor-info">
-                                    <strong>{{ assignment.mentor.MentorName }}</strong>
-                                    <span class="tooltiptext">
-                                        ID: {{ assignment.mentor.MentorID }}<br>
-                                        Department: {{ assignment.mentor.MentorDepartment }}<br>
-                                        Email: {{ assignment.mentor.MentorEmail }}
-                                    </span>
-                                </div>
-                                <div class="mentor-id">{{ assignment.mentor.MentorID }}</div>
-                            </td>
-                            <td>
-                                <div class="tooltip mentee-info">
-                                    <strong>{{ assignment.mentee.MenteeName }}</strong>
-                                    <span class="tooltiptext">
-                                        ID: {{ assignment.mentee.MenteeID }}<br>
-                                        Course: {{ assignment.mentee.MenteeCourse }}<br>
-                                        Semester: {{ assignment.mentee.MenteeSemester }}<br>
-                                        Email: {{ assignment.mentee.MenteeEmail }}
-                                    </span>
-                                </div>
-                                <div style="display: flex; align-items: center; gap: 8px; margin-top: 4px;">
-                                    <span
-                                        class="gender-badge {% if assignment.mentee.MenteeGender == 'male' %}gender-male{% else %}gender-female{% endif %}">
-                                        <i
-                                            class="fas {% if assignment.mentee.MenteeGender == 'male' %}fa-mars{% else %}fa-venus{% endif %}"></i>
-                                        {{ assignment.mentee.MenteeGender|title }}
-                                    </span>
-                                    <span class="mentee-id">
-                                        {{ assignment.mentee.MenteeID }}
-                                    </span>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="department-info">
-                                    <strong>{{ assignment.mentor.MentorDepartment }}</strong>
-                                </div>
-                                <div class="course-info">
-                                    {{ assignment.mentee.MenteeCourse }}
-                                </div>
-                            </td>
-                            <td>
-                                <div class="date-info">
-                                    <strong>{{ assignment.assigned_date|date:"M d, Y" }}</strong>
-                                </div>
-                                <div class="time-ago">
-                                    {{ assignment.assigned_date|timesince }} ago
-                                </div>
-                            </td>
-                            <td>
-                                <span class="status-badge 
-                                    {% if assignment.assignment_status == 'active' %}status-active
-                                    {% elif assignment.assignment_status == 'completed' %}status-completed
-                                    {% else %}status-transferred{% endif %}">
-                                    <i class="fas 
-                                        {% if assignment.assignment_status == 'active' %}fa-check-circle
-                                        {% elif assignment.assignment_status == 'completed' %}fa-flag-checkered
-                                        {% else %}fa-exchange-alt{% endif %}">
-                                    </i>
-                                    {{ assignment.assignment_status|title }}
-                                </span>
-                            </td>
-                            <td>
-                                <div class="action-buttons">
-                                    <button class="btn btn-outline btn-sm view-details"
-                                        data-assignment-id="{{ assignment.assignment_id }}"
-                                        data-mentor-name="{{ assignment.mentor.MentorName }}"
-                                        data-mentor-id="{{ assignment.mentor.MentorID }}"
-                                        data-mentor-department="{{ assignment.mentor.MentorDepartment }}"
-                                        data-mentor-email="{{ assignment.mentor.MentorEmail }}"
-                                        data-mentee-name="{{ assignment.mentee.MenteeName }}"
-                                        data-mentee-id="{{ assignment.mentee.MenteeID }}"
-                                        data-mentee-course="{{ assignment.mentee.MenteeCourse }}"
-                                        data-mentee-semester="{{ assignment.mentee.MenteeSemester }}"
-                                        data-mentee-gender="{{ assignment.mentee.MenteeGender }}"
-                                        data-mentee-email="{{ assignment.mentee.MenteeEmail }}"
-                                        data-assigned-date="{{ assignment.assigned_date|date:'M d, Y' }}"
-                                        data-assigned-by="{% if assignment.assigned_by %}{{ assignment.assigned_by.get_full_name|default:assignment.assigned_by.username }}{% else %}System (Auto-Assign){% endif %}"
-                                        data-status="{{ assignment.assignment_status }}"
-                                        data-notes="{{ assignment.notes|default:'No notes' }}">
-                                        <i class="fas fa-eye"></i> Details
-                                    </button>
-                                    {% if assignment.assignment_status == 'active' %}
-                                    <button class="btn btn-outline btn-sm transfer-assignment"
-                                        data-assignment-id="{{ assignment.assignment_id }}"
-                                        data-mentee-name="{{ assignment.mentee.MenteeName }}"
-                                        data-mentor-name="{{ assignment.mentor.MentorName }}"
-                                        data-current-mentor-id="{{ assignment.mentor.MentorID }}"
-                                        data-mentee-course="{{ assignment.mentee.MenteeCourse }}">
-                                        <i class="fas fa-exchange-alt"></i> Transfer
-                                    </button>
-                                    {% endif %}
-                                    <button class="btn btn-outline-danger btn-sm delete-assignment"
-                                        data-assignment-id="{{ assignment.assignment_id }}"
-                                        data-mentor-name="{{ assignment.mentor.MentorName }}"
-                                        data-mentee-name="{{ assignment.mentee.MenteeName }}"
-                                        data-status="{{ assignment.assignment_status }}">
-                                        <i class="fas fa-trash-alt"></i> Delete
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+        <!-- Pagination -->
+        {% if is_paginated %}
+        <div class="pagination-container">
+            <div class="pagination-info">
+                Showing {{ assignments.start_index }} - {{ assignments.end_index }} of {{ paginator.count }} assignments
             </div>
-
-            <!-- Pagination -->
-            {% if is_paginated %}
             <div class="pagination">
-                <div class="pagination-info">
-                    Showing {{ assignments.start_index }} - {{ assignments.end_index }} of {{ paginator.count }}
-                    assignments
-                </div>
-                <div class="pagination-controls">
-                    {% if page_obj.has_previous %}
-                    <a href="?page=1{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}"
-                        class="page-btn">
-                        <i class="fas fa-angle-double-left"></i>
+                {% if page_obj.has_previous %}
+                <a href="?page=1{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}"
+                    class="page-btn" title="First Page">
+                    <i class="fas fa-angle-double-left"></i>
+                </a>
+                <a href="?page={{ page_obj.previous_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}"
+                    class="page-btn" title="Previous Page">
+                    <i class="fas fa-angle-left"></i>
+                </a>
+                {% else %}
+                <button class="page-btn" disabled><i class="fas fa-angle-double-left"></i></button>
+                <button class="page-btn" disabled><i class="fas fa-angle-left"></i></button>
+                {% endif %}
+
+                {% for num in paginator.page_range %}
+                {% if page_obj.number == num %}
+                <span class="page-btn active">{{ num }}</span>
+                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %} <a
+                    href="?page={{ num }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}"
+                    class="page-btn">
+                    {{ num }}
                     </a>
-                    <a href="?page={{ page_obj.previous_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}"
-                        class="page-btn">
-                        <i class="fas fa-angle-left"></i>
+                    {% endif %}
+                    {% endfor %}
+
+                    {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}"
+                        class="page-btn" title="Next Page">
+                        <i class="fas fa-angle-right"></i>
+                    </a>
+                    <a href="?page={{ paginator.num_pages }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}"
+                        class="page-btn" title="Last Page">
+                        <i class="fas fa-angle-double-right"></i>
                     </a>
                     {% else %}
-                    <button class="page-btn" disabled><i class="fas fa-angle-double-left"></i></button>
-                    <button class="page-btn" disabled><i class="fas fa-angle-left"></i></button>
+                    <button class="page-btn" disabled><i class="fas fa-angle-right"></i></button>
+                    <button class="page-btn" disabled><i class="fas fa-angle-double-right"></i></button>
                     {% endif %}
-
-                    {% for num in paginator.page_range %}
-                    {% if page_obj.number == num %}
-                    <span class="page-btn active">{{ num }}</span>
-                    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %} <a
-                        href="?page={{ num }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}"
-                        class="page-btn">
-                        {{ num }}
-                        </a>
-                        {% endif %}
-                        {% endfor %}
-
-                        {% if page_obj.has_next %}
-                        <a href="?page={{ page_obj.next_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}"
-                            class="page-btn">
-                            <i class="fas fa-angle-right"></i>
-                        </a>
-                        <a href="?page={{ paginator.num_pages }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}"
-                            class="page-btn">
-                            <i class="fas fa-angle-double-right"></i>
-                        </a>
-                        {% else %}
-                        <button class="page-btn" disabled><i class="fas fa-angle-right"></i></button>
-                        <button class="page-btn" disabled><i class="fas fa-angle-double-right"></i></button>
-                        {% endif %}
-                </div>
             </div>
-            {% endif %}
-
-            {% else %}
-            <div class="no-data">
-                <i class="fas fa-inbox"></i>
-                <h3>No Assignment Records Found</h3>
-                <p>No assignment history matches your current filters.</p>
-            </div>
-            {% endif %}
         </div>
+        {% endif %}
+
+        {% else %}
+        <div class="no-data">
+            <i class="fas fa-clipboard-list" style="font-size: 48px; color: #cbd5e0; margin-bottom: 16px;"></i>
+            <h3>No Assignment Records Found</h3>
+            <p>Try adjusting your filters or search criteria.</p>
+            <a href="{% url 'assignment_history' %}" class="btn btn-primary">
+                View All Assignments
+            </a>
+        </div>
+        {% endif %}
+
     </div>
 
     <!-- Toast Container -->
@@ -1759,7 +2074,8 @@
                     Confirm Deletion
                 </h3>
                 <p>Are you sure you want to delete the assignment between <strong id="deleteMentorName">-</strong> and
-                    <strong id="deleteMenteeName">-</strong>?</p>
+                    <strong id="deleteMenteeName">-</strong>?
+                </p>
                 <p class="warning-text">
                     <i class="fas fa-exclamation-circle"></i>
                     This action cannot be undone. All assignment history will be permanently removed from the system.
@@ -2090,77 +2406,203 @@
                 });
             }
         });
-    </script>
 
-<!-- Scroll Indicator (Auto-Injected) -->
-<style>
-    @keyframes scroll-bounce {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(10px); }
-    }
-    @keyframes scroll-fade-in {
-        from { opacity: 0; }
-        to { opacity: 1; }
-    }
-    .scroll-indicator-container {
-        position: fixed;
-        bottom: 2rem;
-        left: 50%;
-        transform: translateX(-50%);
-        color: #9ca3af;
-        pointer-events: none;
-        z-index: 9999;
-        opacity: 0;
-        transition: opacity 0.5s ease;
-        display: none;
-    }
-    .scroll-indicator-container.visible {
-        display: block;
-        opacity: 1;
-        animation: scroll-fade-in 1s ease forwards;
-    }
-    .scroll-indicator-icon {
-        width: 1.5rem;
-        height: 2.5rem;
-        border: 2px solid currentColor;
-        border-radius: 9999px;
-        display: flex;
-        justify-content: center;
-        padding-top: 0.5rem;
-        box-sizing: border-box;
-        margin: 0 auto;
-    }
-    .scroll-indicator-dot {
-        width: 0.25rem;
-        height: 0.5rem;
-        background-color: currentColor;
-        border-radius: 9999px;
-        animation: scroll-bounce 2s infinite;
-        animation-delay: 1.5s;
-    }
-</style>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var indicator = document.createElement('div');
-        indicator.className = 'scroll-indicator-container';
-        indicator.innerHTML = '<div class="scroll-indicator-icon"><div class="scroll-indicator-dot"></div></div>';
-        document.body.appendChild(indicator);
+        // Dropdown Functions
+        function toggleMentorDropdown(event) {
+            event.stopPropagation();
+            const menu = document.getElementById('mentorDropdownMenu');
+            const btn = event.currentTarget;
+            const isVisible = menu.classList.contains('show');
 
-        function checkScroll() {
-            var hasScroll = document.documentElement.scrollHeight > window.innerHeight;
-            if (hasScroll && window.scrollY < 100) {
-                indicator.classList.add('visible');
-            } else {
-                indicator.classList.remove('visible');
+            closeAllDropdowns();
+
+            if (!isVisible) {
+                menu.classList.add('show');
+                btn.classList.add('active');
             }
         }
 
-        window.addEventListener('scroll', checkScroll);
-        window.addEventListener('resize', checkScroll);
-        // Initial check
-        setTimeout(checkScroll, 500);
-    });
-</script>
+        function toggleStatusDropdown(event) {
+            event.stopPropagation();
+            const menu = document.getElementById('statusDropdownMenu');
+            const btn = event.currentTarget;
+            const isVisible = menu.classList.contains('show');
+
+            closeAllDropdowns();
+
+            if (!isVisible) {
+                menu.classList.add('show');
+                btn.classList.add('active');
+            }
+        }
+
+        function toggleSortDropdown(event) {
+            event.stopPropagation();
+            const menu = document.getElementById('sortDropdownMenu');
+            const btn = event.currentTarget;
+            const isVisible = menu.classList.contains('show');
+
+            closeAllDropdowns();
+
+            if (!isVisible) {
+                menu.classList.add('show');
+                btn.classList.add('active');
+            }
+        }
+
+        function closeAllDropdowns() {
+            // Close all dropdown menus
+            document.querySelectorAll('.custom-dropdown-menu, .status-dropdown-menu, .sort-dropdown-menu').forEach(menu => {
+                menu.classList.remove('show');
+            });
+            // Remove active class from all toggles
+            document.querySelectorAll('.dropdown-toggle-btn, .status-dropdown-toggle, .sort-dropdown-toggle').forEach(btn => {
+                btn.classList.remove('active');
+            });
+        }
+
+        function selectMentor(id, name) {
+            document.getElementById('mentorInput').value = id;
+            document.getElementById('filterForm').submit();
+        }
+
+        function selectStatus(value, label) {
+            document.getElementById('statusInput').value = value;
+            document.getElementById('filterForm').submit();
+        }
+
+        function selectSort(sortValue, label) {
+            // Find all rows and sort client-side
+            const table = document.querySelector('.assignment-table tbody');
+            if (!table) return;
+
+            const rows = Array.from(table.querySelectorAll('tr'));
+
+            // Sort logic would go here (client-side sorting)
+            // For now, just update the UI and close dropdown
+            document.getElementById('currentSortLabel').innerHTML = `<i class="fas fa-calendar-plus"></i> ${label}`;
+
+            // Update active state
+            document.querySelectorAll('.sort-dropdown-item').forEach(item => {
+                item.classList.remove('active');
+                item.querySelector('.fa-check')?.remove();
+            });
+
+            const activeItem = document.querySelector(`.sort-dropdown-item[data-sort="${sortValue}"]`);
+            if (activeItem) {
+                activeItem.classList.add('active');
+                activeItem.innerHTML += '<i class="fas fa-check" style="margin-left: auto;"></i>';
+            }
+
+            closeAllDropdowns();
+        }
+
+        function filterAssignments() {
+            const searchInput = document.getElementById('searchInput').value.toLowerCase();
+            const rows = document.querySelectorAll('.assignment-table tbody tr');
+
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                if (text.includes(searchInput)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+
+        // Close dropdowns on outside click
+        window.addEventListener('click', function () {
+            closeAllDropdowns();
+        });
+    </script>
+
+    <!-- Scroll Indicator (Auto-Injected) -->
+    <style>
+        @keyframes scroll-bounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(10px);
+            }
+        }
+
+        @keyframes scroll-fade-in {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .scroll-indicator-container {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #9ca3af;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            display: none;
+        }
+
+        .scroll-indicator-container.visible {
+            display: block;
+            opacity: 1;
+            animation: scroll-fade-in 1s ease forwards;
+        }
+
+        .scroll-indicator-icon {
+            width: 1.5rem;
+            height: 2.5rem;
+            border: 2px solid currentColor;
+            border-radius: 9999px;
+            display: flex;
+            justify-content: center;
+            padding-top: 0.5rem;
+            box-sizing: border-box;
+            margin: 0 auto;
+        }
+
+        .scroll-indicator-dot {
+            width: 0.25rem;
+            height: 0.5rem;
+            background-color: currentColor;
+            border-radius: 9999px;
+            animation: scroll-bounce 2s infinite;
+            animation-delay: 1.5s;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var indicator = document.createElement('div');
+            indicator.className = 'scroll-indicator-container';
+            indicator.innerHTML = '<div class="scroll-indicator-icon"><div class="scroll-indicator-dot"></div></div>';
+            document.body.appendChild(indicator);
+
+            function checkScroll() {
+                var hasScroll = document.documentElement.scrollHeight > window.innerHeight;
+                if (hasScroll && window.scrollY < 100) {
+                    indicator.classList.add('visible');
+                } else {
+                    indicator.classList.remove('visible');
+                }
+            }
+
+            window.addEventListener('scroll', checkScroll);
+            window.addEventListener('resize', checkScroll);
+            // Initial check
+            setTimeout(checkScroll, 500);
+        });
+    </script>
 
 </body>
 
