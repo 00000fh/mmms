@@ -984,11 +984,11 @@
             const stats = [
                 {
                     title: "Total Mentees",
-                    value: data.totalMentees,
+                    value: data.totalMenteesSystem,
                     icon: "fa-users",
                     color: "blue",
                     chartType: "doughnut",
-                    chartData: generateGenderData(data.totalMentees),
+                    chartData: generateGenderData(data.totalMenteesSystem),
                     customColors: ['#2563eb', '#ec4899'],
                     customLabels: ['Male', 'Female']
                 },
@@ -1003,7 +1003,7 @@
                 },
                 {
                     title: "Assigned Mentees",
-                    value: data.totalMenteesSystem,
+                    value: data.totalMentees,
                     icon: "fa-user-check",
                     color: "orange",
                     chartType: "doughnut",
