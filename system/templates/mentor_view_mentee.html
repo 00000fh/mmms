@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -319,7 +320,7 @@
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
         }
-        
+
         .btn-secondary {
             background: #718096;
             color: white;
@@ -331,14 +332,14 @@
         }
 
         /* Profile Card - Consistent spacing */
-        .profile-card { 
-            background: white; 
-            padding: 24px; 
-            border-radius: 12px; 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08); 
-            margin-bottom: 24px; 
+        .profile-card {
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            margin-bottom: 24px;
         }
-        
+
         /* Mentee Profile Picture Section - BIGGER and CENTERED */
         .mentee-profile-section {
             display: flex;
@@ -354,17 +355,22 @@
         }
 
         .mentee-avatar {
-            width: 180px; /* Increased from 120px */
-            height: 180px; /* Increased from 120px */
+            width: 180px;
+            /* Increased from 120px */
+            height: 180px;
+            /* Increased from 120px */
             border-radius: 50%;
             background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 50px; /* Increased from 40px */
+            font-size: 50px;
+            /* Increased from 40px */
             color: white;
-            border: 5px solid white; /* Slightly thicker border */
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15); /* Enhanced shadow */
+            border: 5px solid white;
+            /* Slightly thicker border */
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            /* Enhanced shadow */
             overflow: hidden;
             position: relative;
             flex-shrink: 0;
@@ -388,13 +394,16 @@
         .mentee-basic-info {
             display: flex;
             flex-direction: column;
-            gap: 5px; /* Increased gap for better spacing */
+            gap: 5px;
+            /* Increased gap for better spacing */
             flex: 1;
-            max-width: 450px; /* Slightly wider */
+            max-width: 450px;
+            /* Slightly wider */
         }
 
         .mentee-basic-info h3 {
-            font-size: 22px; /* Increased from 28px */
+            font-size: 22px;
+            /* Increased from 28px */
             color: #2d3748;
             margin-bottom: 0;
             font-weight: 700;
@@ -406,47 +415,51 @@
             display: flex;
             align-items: center;
             gap: 5px;
-            font-size: 14px; /* Slightly larger text */
-            padding: 6px 0; /* More padding for better spacing */
+            font-size: 14px;
+            /* Slightly larger text */
+            padding: 6px 0;
+            /* More padding for better spacing */
         }
 
         .mentee-basic-info p i {
             color: #1a3a8f;
-            width: 20px; /* Slightly wider for better alignment */
+            width: 20px;
+            /* Slightly wider for better alignment */
             text-align: center;
-            font-size: 16px; /* Slightly larger icons */
+            font-size: 16px;
+            /* Slightly larger icons */
         }
 
-        .status-badge { 
-            padding: 6px 12px; 
-            border-radius: 16px; 
-            font-size: 11px; 
-            font-weight: 600; 
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 16px;
+            font-size: 11px;
+            font-weight: 600;
             display: inline-flex;
             align-items: center;
             gap: 4px;
         }
-        
-        .status-active { 
-            background: #e8f5e8; 
-            color: #2e7d32; 
+
+        .status-active {
+            background: #e8f5e8;
+            color: #2e7d32;
         }
-        
-        .status-inactive { 
-            background: #ffebee; 
-            color: #c62828; 
+
+        .status-inactive {
+            background: #ffebee;
+            color: #c62828;
         }
-        
-        .status-graduated { 
-            background: #e3f2fd; 
-            color: #1565c0; 
+
+        .status-graduated {
+            background: #e3f2fd;
+            color: #1565c0;
         }
 
         /* Tab Styles */
         .tab-container {
             margin-bottom: 24px;
         }
-        
+
         .tab-navigation {
             display: flex;
             background: white;
@@ -456,7 +469,7 @@
             margin-bottom: 0;
             overflow-x: auto;
         }
-        
+
         .tab-button {
             flex: 1;
             padding: 12px 16px;
@@ -475,18 +488,18 @@
             gap: 8px;
             white-space: nowrap;
         }
-        
+
         .tab-button:hover {
             color: #1a3a8f;
             background: rgba(26, 58, 143, 0.05);
         }
-        
+
         .tab-button.active {
             color: white;
             background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
             box-shadow: 0 2px 8px rgba(26, 58, 143, 0.3);
         }
-        
+
         .tab-content {
             display: none;
             background: white;
@@ -496,14 +509,21 @@
             margin-bottom: 24px;
             animation: fadeIn 0.5s ease;
         }
-        
+
         .tab-content.active {
             display: block;
         }
-        
+
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* Form Styles for Readonly Fields */
@@ -519,7 +539,9 @@
             font-size: 14px;
         }
 
-        input, select, textarea {
+        input,
+        select,
+        textarea {
             width: 100%;
             padding: 12px 15px;
             border: 1px solid #e2e8f0;
@@ -562,41 +584,14 @@
             color: #1a3a8f;
         }
 
-        /* Statistics Cards */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 16px;
-            margin-bottom: 24px;
-        }
 
-        .stat-card {
-            background: white;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-            text-align: center;
-            border-left: 4px solid #1a3a8f;
-        }
-
-        .stat-value {
-            font-size: 28px;
-            font-weight: 700;
-            color: #1a3a8f;
-            margin-bottom: 8px;
-        }
-
-        .stat-label {
-            font-size: 14px;
-            color: #718096;
-            font-weight: 600;
-        }
 
         /* Responsive Design */
         @media (max-width: 1024px) {
             .sidebar {
                 width: 240px;
             }
+
             .main-content {
                 margin-left: 240px;
             }
@@ -608,45 +603,58 @@
                 height: auto;
                 position: relative;
             }
+
             .main-content {
                 margin-left: 0;
                 padding: 16px;
             }
+
             .content-header {
                 flex-direction: column;
                 text-align: center;
             }
+
             .header-right {
                 justify-content: center;
                 width: 100%;
             }
+
             .mentee-profile-section {
                 padding: 30px 20px;
                 flex-direction: column;
                 text-align: center;
                 gap: 25px;
             }
+
             .mentee-avatar {
-                width: 140px; /* Adjusted for mobile */
-                height: 140px; /* Adjusted for mobile */
-                font-size: 42px; /* Adjusted for mobile */
+                width: 140px;
+                /* Adjusted for mobile */
+                height: 140px;
+                /* Adjusted for mobile */
+                font-size: 42px;
+                /* Adjusted for mobile */
             }
+
             .mentee-basic-info h3 {
-                font-size: 26px; /* Adjusted for mobile */
+                font-size: 26px;
+                /* Adjusted for mobile */
             }
+
             .form-row {
                 flex-direction: column;
                 gap: 0;
             }
+
             .tab-navigation {
                 flex-direction: column;
                 gap: 8px;
             }
-            
+
             .tab-button {
                 justify-content: flex-start;
                 padding: 12px 16px;
             }
+
             .stats-grid {
                 grid-template-columns: 1fr;
             }
@@ -657,20 +665,29 @@
                 flex-direction: column;
                 width: 100%;
             }
+
             .btn {
                 width: 100%;
                 justify-content: center;
             }
+
             .mentee-avatar {
-                width: 120px; /* Smaller for very small screens */
-                height: 120px; /* Smaller for very small screens */
-                font-size: 36px; /* Smaller for very small screens */
+                width: 120px;
+                /* Smaller for very small screens */
+                height: 120px;
+                /* Smaller for very small screens */
+                font-size: 36px;
+                /* Smaller for very small screens */
             }
+
             .mentee-basic-info h3 {
-                font-size: 22px; /* Smaller for very small screens */
+                font-size: 22px;
+                /* Smaller for very small screens */
             }
+
             .mentee-basic-info p {
-                font-size: 14px; /* Smaller for very small screens */
+                font-size: 14px;
+                /* Smaller for very small screens */
             }
         }
     </style>
@@ -694,6 +711,7 @@
     </style>
 
 </head>
+
 <body>
     <!-- Sidebar -->
     <div class="sidebar">
@@ -707,10 +725,10 @@
         <div class="user-info">
             <div class="user-avatar">
                 {% if mentor.profile_picture %}
-                    <img src="{{ mentor.profile_picture.url }}" alt="Profile Picture" id="sidebarProfilePic">
-                    <i class="fas fa-user-tie" id="sidebarProfileIcon" style="display: none;"></i>
+                <img src="{{ mentor.profile_picture.url }}" alt="Profile Picture" id="sidebarProfilePic">
+                <i class="fas fa-user-tie" id="sidebarProfileIcon" style="display: none;"></i>
                 {% else %}
-                    <i class="fas fa-user-tie" id="sidebarProfileIcon"></i>
+                <i class="fas fa-user-tie" id="sidebarProfileIcon"></i>
                 {% endif %}
             </div>
             <div class="user-name">{{ mentor.MentorName }}</div>
@@ -779,34 +797,17 @@
             </div>
         </div>
 
-        <!-- Statistics Cards -->
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-value">{{ session_count }}</div>
-                <div class="stat-label">Sessions Attended</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value">{{ attendance_rate }}%</div>
-                <div class="stat-label">Attendance Rate</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value">{{ progress_rate }}%</div>
-                <div class="stat-label">Progress Rate</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value">{{ achievements }}</div>
-                <div class="stat-label">Achievements</div>
-            </div>
-        </div>
+
 
         <!-- Mentee Profile Picture Section (BIGGER and CENTERED) -->
         <div class="mentee-profile-section">
             <div class="mentee-avatar">
                 {% if mentee.profile_picture %}
-                    <img src="{{ mentee.profile_picture.url }}" alt="{{ mentee.MenteeName }}'s Profile Picture" id="menteeProfilePic">
-                    <i class="fas fa-user-graduate" id="menteeProfileIcon" style="display: none;"></i>
+                <img src="{{ mentee.profile_picture.url }}" alt="{{ mentee.MenteeName }}'s Profile Picture"
+                    id="menteeProfilePic">
+                <i class="fas fa-user-graduate" id="menteeProfileIcon" style="display: none;"></i>
                 {% else %}
-                    <i class="fas fa-user-graduate" id="menteeProfileIcon"></i>
+                <i class="fas fa-user-graduate" id="menteeProfileIcon"></i>
                 {% endif %}
             </div>
             <div class="mentee-basic-info">
@@ -850,7 +851,8 @@
                         <label for="MenteeName">
                             <i class="fas fa-signature"></i> Full Name
                         </label>
-                        <input type="text" id="MenteeName" value="{{ mentee.MenteeName }}" class="readonly-field" readonly>
+                        <input type="text" id="MenteeName" value="{{ mentee.MenteeName }}" class="readonly-field"
+                            readonly>
                     </div>
                     <div class="form-group">
                         <label for="MenteeID">
@@ -865,13 +867,15 @@
                         <label for="MenteeEmail">
                             <i class="fas fa-envelope"></i> Email
                         </label>
-                        <input type="email" id="MenteeEmail" value="{{ mentee.MenteeEmail }}" class="readonly-field" readonly>
+                        <input type="email" id="MenteeEmail" value="{{ mentee.MenteeEmail }}" class="readonly-field"
+                            readonly>
                     </div>
                     <div class="form-group">
                         <label for="MenteePhone">
                             <i class="fas fa-phone"></i> Phone Number
                         </label>
-                        <input type="text" id="MenteePhone" value="{{ mentee.MenteePhone }}" class="readonly-field" readonly>
+                        <input type="text" id="MenteePhone" value="{{ mentee.MenteePhone }}" class="readonly-field"
+                            readonly>
                     </div>
                 </div>
 
@@ -880,7 +884,8 @@
                         <label for="MenteeCourse">
                             <i class="fas fa-graduation-cap"></i> Course
                         </label>
-                        <input type="text" id="MenteeCourse" value="{{ mentee.get_course_full_name }}" class="readonly-field" readonly>
+                        <input type="text" id="MenteeCourse" value="{{ mentee.get_course_full_name }}"
+                            class="readonly-field" readonly>
                     </div>
                     <div class="form-group">
                         <label for="MenteeIC">
@@ -895,13 +900,15 @@
                         <label for="MenteeSemester">
                             <i class="fas fa-calendar-alt"></i> Semester
                         </label>
-                        <input type="number" id="MenteeSemester" value="{{ mentee.MenteeSemester }}" class="readonly-field" readonly>
+                        <input type="number" id="MenteeSemester" value="{{ mentee.MenteeSemester }}"
+                            class="readonly-field" readonly>
                     </div>
                     <div class="form-group">
                         <label for="MenteeGender">
                             <i class="fas fa-venus-mars"></i> Gender
                         </label>
-                        <input type="text" id="MenteeGender" value="{{ mentee.get_MenteeGender_display }}" class="readonly-field" readonly>
+                        <input type="text" id="MenteeGender" value="{{ mentee.get_MenteeGender_display }}"
+                            class="readonly-field" readonly>
                     </div>
                 </div>
 
@@ -915,7 +922,8 @@
                     <label for="MenteeAddress">
                         <i class="fas fa-home"></i> Address
                     </label>
-                    <textarea id="MenteeAddress" class="readonly-field" rows="3" readonly>{{ mentee.MenteeAddress }}</textarea>
+                    <textarea id="MenteeAddress" class="readonly-field" rows="3"
+                        readonly>{{ mentee.MenteeAddress }}</textarea>
                 </div>
 
                 <div class="form-row">
@@ -923,19 +931,22 @@
                         <label for="MenteeCity">
                             <i class="fas fa-city"></i> City
                         </label>
-                        <input type="text" id="MenteeCity" value="{{ mentee.MenteeCity }}" class="readonly-field" readonly>
+                        <input type="text" id="MenteeCity" value="{{ mentee.MenteeCity }}" class="readonly-field"
+                            readonly>
                     </div>
                     <div class="form-group">
                         <label for="MenteeState">
                             <i class="fas fa-map"></i> State
                         </label>
-                        <input type="text" id="MenteeState" value="{{ mentee.MenteeState }}" class="readonly-field" readonly>
+                        <input type="text" id="MenteeState" value="{{ mentee.MenteeState }}" class="readonly-field"
+                            readonly>
                     </div>
                     <div class="form-group">
                         <label for="MenteePostcode">
                             <i class="fas fa-mail-bulk"></i> Postcode
                         </label>
-                        <input type="text" id="MenteePostcode" value="{{ mentee.MenteePostcode }}" class="readonly-field" readonly>
+                        <input type="text" id="MenteePostcode" value="{{ mentee.MenteePostcode }}"
+                            class="readonly-field" readonly>
                     </div>
                 </div>
 
@@ -950,13 +961,15 @@
                         <label for="MenteeRace">
                             <i class="fas fa-globe-asia"></i> Race
                         </label>
-                        <input type="text" id="MenteeRace" value="{{ mentee.MenteeRace }}" class="readonly-field" readonly>
+                        <input type="text" id="MenteeRace" value="{{ mentee.MenteeRace }}" class="readonly-field"
+                            readonly>
                     </div>
                     <div class="form-group">
                         <label for="MenteeReligion">
                             <i class="fas fa-pray"></i> Religion
                         </label>
-                        <input type="text" id="MenteeReligion" value="{{ mentee.MenteeReligion }}" class="readonly-field" readonly>
+                        <input type="text" id="MenteeReligion" value="{{ mentee.MenteeReligion }}"
+                            class="readonly-field" readonly>
                     </div>
                 </div>
 
@@ -964,7 +977,8 @@
                     <label for="MenteePreviousSchool">
                         <i class="fas fa-school"></i> Previous School
                     </label>
-                    <input type="text" id="MenteePreviousSchool" value="{{ mentee.MenteePreviousSchool }}" class="readonly-field" readonly>
+                    <input type="text" id="MenteePreviousSchool" value="{{ mentee.MenteePreviousSchool }}"
+                        class="readonly-field" readonly>
                 </div>
             </div>
 
@@ -980,13 +994,15 @@
                         <label for="MenteeFatherName">
                             <i class="fas fa-user"></i> Father's Name
                         </label>
-                        <input type="text" id="MenteeFatherName" value="{{ mentee.MenteeFatherName }}" class="readonly-field" readonly>
+                        <input type="text" id="MenteeFatherName" value="{{ mentee.MenteeFatherName }}"
+                            class="readonly-field" readonly>
                     </div>
                     <div class="form-group">
                         <label for="MenteeFatherIC">
                             <i class="fas fa-id-card"></i> Father's IC Number
                         </label>
-                        <input type="text" id="MenteeFatherIC" value="{{ mentee.MenteeFatherIC }}" class="readonly-field" readonly>
+                        <input type="text" id="MenteeFatherIC" value="{{ mentee.MenteeFatherIC }}"
+                            class="readonly-field" readonly>
                     </div>
                 </div>
 
@@ -995,13 +1011,15 @@
                         <label for="MenteeFatherOccupation">
                             <i class="fas fa-briefcase"></i> Father's Occupation
                         </label>
-                        <input type="text" id="MenteeFatherOccupation" value="{{ mentee.MenteeFatherOccupation }}" class="readonly-field" readonly>
+                        <input type="text" id="MenteeFatherOccupation" value="{{ mentee.MenteeFatherOccupation }}"
+                            class="readonly-field" readonly>
                     </div>
                     <div class="form-group">
                         <label for="MenteeFatherPhone">
                             <i class="fas fa-phone"></i> Father's Phone
                         </label>
-                        <input type="text" id="MenteeFatherPhone" value="{{ mentee.MenteeFatherPhone }}" class="readonly-field" readonly>
+                        <input type="text" id="MenteeFatherPhone" value="{{ mentee.MenteeFatherPhone }}"
+                            class="readonly-field" readonly>
                     </div>
                 </div>
 
@@ -1010,13 +1028,15 @@
                         <label for="MenteeMotherName">
                             <i class="fas fa-user"></i> Mother's Name
                         </label>
-                        <input type="text" id="MenteeMotherName" value="{{ mentee.MenteeMotherName }}" class="readonly-field" readonly>
+                        <input type="text" id="MenteeMotherName" value="{{ mentee.MenteeMotherName }}"
+                            class="readonly-field" readonly>
                     </div>
                     <div class="form-group">
                         <label for="MenteeMotherIC">
                             <i class="fas fa-id-card"></i> Mother's IC Number
                         </label>
-                        <input type="text" id="MenteeMotherIC" value="{{ mentee.MenteeMotherIC }}" class="readonly-field" readonly>
+                        <input type="text" id="MenteeMotherIC" value="{{ mentee.MenteeMotherIC }}"
+                            class="readonly-field" readonly>
                     </div>
                 </div>
 
@@ -1025,13 +1045,15 @@
                         <label for="MenteeMotherOccupation">
                             <i class="fas fa-briefcase"></i> Mother's Occupation
                         </label>
-                        <input type="text" id="MenteeMotherOccupation" value="{{ mentee.MenteeMotherOccupation }}" class="readonly-field" readonly>
+                        <input type="text" id="MenteeMotherOccupation" value="{{ mentee.MenteeMotherOccupation }}"
+                            class="readonly-field" readonly>
                     </div>
                     <div class="form-group">
                         <label for="MenteeMotherPhone">
                             <i class="fas fa-phone"></i> Mother's Phone
                         </label>
-                        <input type="text" id="MenteeMotherPhone" value="{{ mentee.MenteeMotherPhone }}" class="readonly-field" readonly>
+                        <input type="text" id="MenteeMotherPhone" value="{{ mentee.MenteeMotherPhone }}"
+                            class="readonly-field" readonly>
                     </div>
                 </div>
             </div>
@@ -1042,26 +1064,28 @@
                     <i class="fas fa-graduation-cap"></i>
                     Academic Performance
                 </h2>
-                
+
                 <!-- Semester GPA Tracking -->
                 <div class="form-group">
                     <h3 class="section-title" style="font-size: 16px; margin: 20px 0 15px 0;">
                         <i class="fas fa-calendar-alt"></i>
                         Semester GPA Tracking
                     </h3>
-                    
+
                     <div class="form-row">
                         <div class="form-group">
                             <label for="Sem1TargetGPA">
                                 <i class="fas fa-bullseye"></i> Semester 1 - Target GPA
                             </label>
-                            <input type="number" id="Sem1TargetGPA" value="{{ mentee.Sem1TargetGPA|default:'' }}" class="readonly-field" readonly>
+                            <input type="number" id="Sem1TargetGPA" value="{{ mentee.Sem1TargetGPA|default:'' }}"
+                                class="readonly-field" readonly>
                         </div>
                         <div class="form-group">
                             <label for="Sem1ActualGPA">
                                 <i class="fas fa-chart-line"></i> Semester 1 - Actual GPA
                             </label>
-                            <input type="number" id="Sem1ActualGPA" value="{{ mentee.Sem1ActualGPA|default:'' }}" class="readonly-field" readonly>
+                            <input type="number" id="Sem1ActualGPA" value="{{ mentee.Sem1ActualGPA|default:'' }}"
+                                class="readonly-field" readonly>
                         </div>
                     </div>
 
@@ -1070,13 +1094,15 @@
                             <label for="Sem2TargetGPA">
                                 <i class="fas fa-bullseye"></i> Semester 2 - Target GPA
                             </label>
-                            <input type="number" id="Sem2TargetGPA" value="{{ mentee.Sem2TargetGPA|default:'' }}" class="readonly-field" readonly>
+                            <input type="number" id="Sem2TargetGPA" value="{{ mentee.Sem2TargetGPA|default:'' }}"
+                                class="readonly-field" readonly>
                         </div>
                         <div class="form-group">
                             <label for="Sem2ActualGPA">
                                 <i class="fas fa-chart-line"></i> Semester 2 - Actual GPA
                             </label>
-                            <input type="number" id="Sem2ActualGPA" value="{{ mentee.Sem2ActualGPA|default:'' }}" class="readonly-field" readonly>
+                            <input type="number" id="Sem2ActualGPA" value="{{ mentee.Sem2ActualGPA|default:'' }}"
+                                class="readonly-field" readonly>
                         </div>
                     </div>
 
@@ -1085,13 +1111,15 @@
                             <label for="Sem3TargetGPA">
                                 <i class="fas fa-bullseye"></i> Semester 3 - Target GPA
                             </label>
-                            <input type="number" id="Sem3TargetGPA" value="{{ mentee.Sem3TargetGPA|default:'' }}" class="readonly-field" readonly>
+                            <input type="number" id="Sem3TargetGPA" value="{{ mentee.Sem3TargetGPA|default:'' }}"
+                                class="readonly-field" readonly>
                         </div>
                         <div class="form-group">
                             <label for="Sem3ActualGPA">
                                 <i class="fas fa-chart-line"></i> Semester 3 - Actual GPA
                             </label>
-                            <input type="number" id="Sem3ActualGPA" value="{{ mentee.Sem3ActualGPA|default:'' }}" class="readonly-field" readonly>
+                            <input type="number" id="Sem3ActualGPA" value="{{ mentee.Sem3ActualGPA|default:'' }}"
+                                class="readonly-field" readonly>
                         </div>
                     </div>
 
@@ -1100,13 +1128,15 @@
                             <label for="Sem4TargetGPA">
                                 <i class="fas fa-bullseye"></i> Semester 4 - Target GPA
                             </label>
-                            <input type="number" id="Sem4TargetGPA" value="{{ mentee.Sem4TargetGPA|default:'' }}" class="readonly-field" readonly>
+                            <input type="number" id="Sem4TargetGPA" value="{{ mentee.Sem4TargetGPA|default:'' }}"
+                                class="readonly-field" readonly>
                         </div>
                         <div class="form-group">
                             <label for="Sem4ActualGPA">
                                 <i class="fas fa-chart-line"></i> Semester 4 - Actual GPA
                             </label>
-                            <input type="number" id="Sem4ActualGPA" value="{{ mentee.Sem4ActualGPA|default:'' }}" class="readonly-field" readonly>
+                            <input type="number" id="Sem4ActualGPA" value="{{ mentee.Sem4ActualGPA|default:'' }}"
+                                class="readonly-field" readonly>
                         </div>
                     </div>
 
@@ -1115,13 +1145,15 @@
                             <label for="Sem5TargetGPA">
                                 <i class="fas fa-bullseye"></i> Semester 5 - Target GPA
                             </label>
-                            <input type="number" id="Sem5TargetGPA" value="{{ mentee.Sem5TargetGPA|default:'' }}" class="readonly-field" readonly>
+                            <input type="number" id="Sem5TargetGPA" value="{{ mentee.Sem5TargetGPA|default:'' }}"
+                                class="readonly-field" readonly>
                         </div>
                         <div class="form-group">
                             <label for="Sem5ActualGPA">
                                 <i class="fas fa-chart-line"></i> Semester 5 - Actual GPA
                             </label>
-                            <input type="number" id="Sem5ActualGPA" value="{{ mentee.Sem5ActualGPA|default:'' }}" class="readonly-field" readonly>
+                            <input type="number" id="Sem5ActualGPA" value="{{ mentee.Sem5ActualGPA|default:'' }}"
+                                class="readonly-field" readonly>
                         </div>
                     </div>
 
@@ -1130,13 +1162,15 @@
                             <label for="Sem6TargetGPA">
                                 <i class="fas fa-bullseye"></i> Semester 6 - Target GPA
                             </label>
-                            <input type="number" id="Sem6TargetGPA" value="{{ mentee.Sem6TargetGPA|default:'' }}" class="readonly-field" readonly>
+                            <input type="number" id="Sem6TargetGPA" value="{{ mentee.Sem6TargetGPA|default:'' }}"
+                                class="readonly-field" readonly>
                         </div>
                         <div class="form-group">
                             <label for="Sem6ActualGPA">
                                 <i class="fas fa-chart-line"></i> Semester 6 - Actual GPA
                             </label>
-                            <input type="number" id="Sem6ActualGPA" value="{{ mentee.Sem6ActualGPA|default:'' }}" class="readonly-field" readonly>
+                            <input type="number" id="Sem6ActualGPA" value="{{ mentee.Sem6ActualGPA|default:'' }}"
+                                class="readonly-field" readonly>
                         </div>
                     </div>
                 </div>
@@ -1147,53 +1181,59 @@
                         <i class="fas fa-chart-bar"></i>
                         Cumulative GPA (CGPA) Tracking
                     </h3>
-                    
+
                     <div class="form-row">
                         <div class="form-group">
                             <label for="TargetCGPA">
                                 <i class="fas fa-bullseye"></i> Target Final CGPA
                             </label>
-                            <input type="number" id="TargetCGPA" value="{{ mentee.TargetCGPA|default:'' }}" class="readonly-field" readonly>
+                            <input type="number" id="TargetCGPA" value="{{ mentee.TargetCGPA|default:'' }}"
+                                class="readonly-field" readonly>
                         </div>
                         <div class="form-group">
                             <label for="CurrentCGPA">
                                 <i class="fas fa-chart-line"></i> Current CGPA
                             </label>
-                            <input type="number" id="CurrentCGPA" value="{{ mentee.CurrentCGPA|default:'' }}" class="readonly-field" readonly>
+                            <input type="number" id="CurrentCGPA" value="{{ mentee.CurrentCGPA|default:'' }}"
+                                class="readonly-field" readonly>
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Academic Goals -->
                 <div class="form-group">
                     <label for="MenteeAcademicGoals">
                         <i class="fas fa-bullseye"></i> Academic Goals & Aspirations
                     </label>
-                    <textarea id="MenteeAcademicGoals" class="readonly-field" rows="4" readonly>{{ mentee.MenteeAcademicGoals }}</textarea>
+                    <textarea id="MenteeAcademicGoals" class="readonly-field" rows="4"
+                        readonly>{{ mentee.MenteeAcademicGoals }}</textarea>
                 </div>
-                
+
                 <!-- Study Habits -->
                 <div class="form-group">
                     <label for="MenteeStudyHabits">
                         <i class="fas fa-book"></i> Study Habits & Learning Strategies
                     </label>
-                    <textarea id="MenteeStudyHabits" class="readonly-field" rows="4" readonly>{{ mentee.MenteeStudyHabits }}</textarea>
+                    <textarea id="MenteeStudyHabits" class="readonly-field" rows="4"
+                        readonly>{{ mentee.MenteeStudyHabits }}</textarea>
                 </div>
-                
+
                 <!-- Challenging Subjects -->
                 <div class="form-group">
                     <label for="MenteeSubjects">
                         <i class="fas fa-book-open"></i> Challenging Subjects & Areas for Improvement
                     </label>
-                    <textarea id="MenteeSubjects" class="readonly-field" rows="3" readonly>{{ mentee.MenteeSubjects }}</textarea>
+                    <textarea id="MenteeSubjects" class="readonly-field" rows="3"
+                        readonly>{{ mentee.MenteeSubjects }}</textarea>
                 </div>
-                
+
                 <!-- Extracurricular Activities -->
                 <div class="form-group">
                     <label for="MenteeExtracurricular">
                         <i class="fas fa-running"></i> Extracurricular Activities & Achievements
                     </label>
-                    <textarea id="MenteeExtracurricular" class="readonly-field" rows="3" readonly>{{ mentee.MenteeExtracurricular }}</textarea>
+                    <textarea id="MenteeExtracurricular" class="readonly-field" rows="3"
+                        readonly>{{ mentee.MenteeExtracurricular }}</textarea>
                 </div>
 
                 <!-- Academic Support Needs -->
@@ -1201,7 +1241,8 @@
                     <label for="AcademicSupportNeeds">
                         <i class="fas fa-hands-helping"></i> Academic Support & Mentoring Needs
                     </label>
-                    <textarea id="AcademicSupportNeeds" class="readonly-field" rows="3" readonly>{{ mentee.AcademicSupportNeeds }}</textarea>
+                    <textarea id="AcademicSupportNeeds" class="readonly-field" rows="3"
+                        readonly>{{ mentee.AcademicSupportNeeds }}</textarea>
                 </div>
             </div>
         </div>
@@ -1209,49 +1250,49 @@
 
     <script>
         // Tab functionality
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // Update profile picture display in sidebar
             function updateProfilePictureDisplay() {
                 // Check if profile picture exists in sidebar
                 const sidebarAvatar = document.querySelector('.user-avatar');
                 const sidebarImg = sidebarAvatar.querySelector('img');
                 const sidebarIcon = sidebarAvatar.querySelector('i');
-                
+
                 // If profile picture exists, show image and hide icon
                 if (sidebarImg && sidebarImg.src) {
                     sidebarImg.style.display = 'block';
                     sidebarIcon.style.display = 'none';
                 }
             }
-            
+
             // Update mentee profile picture display
             function updateMenteeProfilePictureDisplay() {
                 const menteeAvatar = document.querySelector('.mentee-avatar');
                 const menteeImg = menteeAvatar.querySelector('img');
                 const menteeIcon = menteeAvatar.querySelector('i');
-                
+
                 // If mentee profile picture exists, show image and hide icon
                 if (menteeImg && menteeImg.src) {
                     menteeImg.style.display = 'block';
                     menteeIcon.style.display = 'none';
                 }
             }
-            
+
             // Initialize profile picture displays
             updateProfilePictureDisplay();
             updateMenteeProfilePictureDisplay();
-            
+
             const tabButtons = document.querySelectorAll('.tab-button');
             const tabContents = document.querySelectorAll('.tab-content');
-            
+
             tabButtons.forEach(button => {
                 button.addEventListener('click', () => {
                     const tabId = button.getAttribute('data-tab');
-                    
+
                     // Remove active class from all buttons and contents
                     tabButtons.forEach(btn => btn.classList.remove('active'));
                     tabContents.forEach(content => content.classList.remove('active'));
-                    
+
                     // Add active class to clicked button and corresponding content
                     button.classList.add('active');
                     document.getElementById(`${tabId}-tab`).classList.add('active');
@@ -1262,83 +1303,101 @@
             const currentPage = window.location.pathname;
             document.querySelectorAll('.nav-link').forEach(link => {
                 if (link.getAttribute('href') === '{% url 'view_assigned_mentees' %}') {
-                    link.classList.add('active');
-                } else {
-                    link.classList.remove('active');
-                }
-            });
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
         });
     </script>
 
-<!-- Scroll Indicator (Auto-Injected) -->
-<style>
-    @keyframes scroll-bounce {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(10px); }
-    }
-    @keyframes scroll-fade-in {
-        from { opacity: 0; }
-        to { opacity: 1; }
-    }
-    .scroll-indicator-container {
-        position: fixed;
-        bottom: 2rem;
-        left: 50%;
-        transform: translateX(-50%);
-        color: #9ca3af;
-        pointer-events: none;
-        z-index: 9999;
-        opacity: 0;
-        transition: opacity 0.5s ease;
-        display: none;
-    }
-    .scroll-indicator-container.visible {
-        display: block;
-        opacity: 1;
-        animation: scroll-fade-in 1s ease forwards;
-    }
-    .scroll-indicator-icon {
-        width: 1.5rem;
-        height: 2.5rem;
-        border: 2px solid currentColor;
-        border-radius: 9999px;
-        display: flex;
-        justify-content: center;
-        padding-top: 0.5rem;
-        box-sizing: border-box;
-        margin: 0 auto;
-    }
-    .scroll-indicator-dot {
-        width: 0.25rem;
-        height: 0.5rem;
-        background-color: currentColor;
-        border-radius: 9999px;
-        animation: scroll-bounce 2s infinite;
-        animation-delay: 1.5s;
-    }
-</style>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var indicator = document.createElement('div');
-        indicator.className = 'scroll-indicator-container';
-        indicator.innerHTML = '<div class="scroll-indicator-icon"><div class="scroll-indicator-dot"></div></div>';
-        document.body.appendChild(indicator);
+    <!-- Scroll Indicator (Auto-Injected) -->
+    <style>
+        @keyframes scroll-bounce {
 
-        function checkScroll() {
-            var hasScroll = document.documentElement.scrollHeight > window.innerHeight;
-            if (hasScroll && window.scrollY < 100) {
-                indicator.classList.add('visible');
-            } else {
-                indicator.classList.remove('visible');
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(10px);
             }
         }
 
-        window.addEventListener('scroll', checkScroll);
-        window.addEventListener('resize', checkScroll);
-        // Initial check
-        setTimeout(checkScroll, 500);
-    });
-</script>
+        @keyframes scroll-fade-in {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .scroll-indicator-container {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #9ca3af;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            display: none;
+        }
+
+        .scroll-indicator-container.visible {
+            display: block;
+            opacity: 1;
+            animation: scroll-fade-in 1s ease forwards;
+        }
+
+        .scroll-indicator-icon {
+            width: 1.5rem;
+            height: 2.5rem;
+            border: 2px solid currentColor;
+            border-radius: 9999px;
+            display: flex;
+            justify-content: center;
+            padding-top: 0.5rem;
+            box-sizing: border-box;
+            margin: 0 auto;
+        }
+
+        .scroll-indicator-dot {
+            width: 0.25rem;
+            height: 0.5rem;
+            background-color: currentColor;
+            border-radius: 9999px;
+            animation: scroll-bounce 2s infinite;
+            animation-delay: 1.5s;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var indicator = document.createElement('div');
+            indicator.className = 'scroll-indicator-container';
+            indicator.innerHTML = '<div class="scroll-indicator-icon"><div class="scroll-indicator-dot"></div></div>';
+            document.body.appendChild(indicator);
+
+            function checkScroll() {
+                var hasScroll = document.documentElement.scrollHeight > window.innerHeight;
+                if (hasScroll && window.scrollY < 100) {
+                    indicator.classList.add('visible');
+                } else {
+                    indicator.classList.remove('visible');
+                }
+            }
+
+            window.addEventListener('scroll', checkScroll);
+            window.addEventListener('resize', checkScroll);
+            // Initial check
+            setTimeout(checkScroll, 500);
+        });
+    </script>
 
 </body>
+
 </html>
