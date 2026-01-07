@@ -1317,6 +1317,192 @@
                     <input type="text" id="MenteePreviousSchool" value="{{ mentee.MenteePreviousSchool }}"
                         class="readonly-field" readonly>
                 </div>
+
+                <!-- Academic Performance -->
+                <h2 class="section-title">
+                    <i class="fas fa-graduation-cap"></i>
+                    Academic Performance
+                </h2>
+
+                <!-- Semester GPA Tracking -->
+                <div class="form-group">
+                    <h3 class="section-title" style="font-size: 16px; margin: 20px 0 15px 0;">
+                        <i class="fas fa-calendar-alt"></i>
+                        Semester GPA Tracking
+                    </h3>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="Sem1TargetGPA">
+                                <i class="fas fa-bullseye"></i> Semester 1 - Target GPA
+                            </label>
+                            <input type="number" id="Sem1TargetGPA" value="{{ mentee.Sem1TargetGPA|default:'' }}"
+                                class="readonly-field" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="Sem1ActualGPA">
+                                <i class="fas fa-chart-line"></i> Semester 1 - Actual GPA
+                            </label>
+                            <input type="number" id="Sem1ActualGPA" value="{{ mentee.Sem1ActualGPA|default:'' }}"
+                                class="readonly-field" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="Sem2TargetGPA">
+                                <i class="fas fa-bullseye"></i> Semester 2 - Target GPA
+                            </label>
+                            <input type="number" id="Sem2TargetGPA" value="{{ mentee.Sem2TargetGPA|default:'' }}"
+                                class="readonly-field" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="Sem2ActualGPA">
+                                <i class="fas fa-chart-line"></i> Semester 2 - Actual GPA
+                            </label>
+                            <input type="number" id="Sem2ActualGPA" value="{{ mentee.Sem2ActualGPA|default:'' }}"
+                                class="readonly-field" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="Sem3TargetGPA">
+                                <i class="fas fa-bullseye"></i> Semester 3 - Target GPA
+                            </label>
+                            <input type="number" id="Sem3TargetGPA" value="{{ mentee.Sem3TargetGPA|default:'' }}"
+                                class="readonly-field" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="Sem3ActualGPA">
+                                <i class="fas fa-chart-line"></i> Semester 3 - Actual GPA
+                            </label>
+                            <input type="number" id="Sem3ActualGPA" value="{{ mentee.Sem3ActualGPA|default:'' }}"
+                                class="readonly-field" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="Sem4TargetGPA">
+                                <i class="fas fa-bullseye"></i> Semester 4 - Target GPA
+                            </label>
+                            <input type="number" id="Sem4TargetGPA" value="{{ mentee.Sem4TargetGPA|default:'' }}"
+                                class="readonly-field" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="Sem4ActualGPA">
+                                <i class="fas fa-chart-line"></i> Semester 4 - Actual GPA
+                            </label>
+                            <input type="number" id="Sem4ActualGPA" value="{{ mentee.Sem4ActualGPA|default:'' }}"
+                                class="readonly-field" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="Sem5TargetGPA">
+                                <i class="fas fa-bullseye"></i> Semester 5 - Target GPA
+                            </label>
+                            <input type="number" id="Sem5TargetGPA" value="{{ mentee.Sem5TargetGPA|default:'' }}"
+                                class="readonly-field" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="Sem5ActualGPA">
+                                <i class="fas fa-chart-line"></i> Semester 5 - Actual GPA
+                            </label>
+                            <input type="number" id="Sem5ActualGPA" value="{{ mentee.Sem5ActualGPA|default:'' }}"
+                                class="readonly-field" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="Sem6TargetGPA">
+                                <i class="fas fa-bullseye"></i> Semester 6 - Target GPA
+                            </label>
+                            <input type="number" id="Sem6TargetGPA" value="{{ mentee.Sem6TargetGPA|default:'' }}"
+                                class="readonly-field" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="Sem6ActualGPA">
+                                <i class="fas fa-chart-line"></i> Semester 6 - Actual GPA
+                            </label>
+                            <input type="number" id="Sem6ActualGPA" value="{{ mentee.Sem6ActualGPA|default:'' }}"
+                                class="readonly-field" readonly>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CGPA Tracking -->
+                <div class="form-group">
+                    <h3 class="section-title" style="font-size: 16px; margin: 30px 0 15px 0;">
+                        <i class="fas fa-chart-bar"></i>
+                        Cumulative GPA (CGPA) Tracking
+                    </h3>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="TargetCGPA">
+                                <i class="fas fa-bullseye"></i> Target Final CGPA
+                            </label>
+                            <input type="number" id="TargetCGPA" value="{{ mentee.TargetCGPA|default:'' }}"
+                                class="readonly-field" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="CurrentCGPA">
+                                <i class="fas fa-chart-line"></i> Current CGPA
+                            </label>
+                            <input type="number" id="CurrentCGPA" value="{{ mentee.CurrentCGPA|default:'' }}"
+                                class="readonly-field" readonly>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Academic Goals -->
+                <div class="form-group">
+                    <label for="MenteeAcademicGoals">
+                        <i class="fas fa-bullseye"></i> Academic Goals & Aspirations
+                    </label>
+                    <textarea id="MenteeAcademicGoals" class="readonly-field" rows="4"
+                        readonly>{{ mentee.MenteeAcademicGoals }}</textarea>
+                </div>
+
+                <!-- Study Habits -->
+                <div class="form-group">
+                    <label for="MenteeStudyHabits">
+                        <i class="fas fa-book"></i> Study Habits & Learning Strategies
+                    </label>
+                    <textarea id="MenteeStudyHabits" class="readonly-field" rows="4"
+                        readonly>{{ mentee.MenteeStudyHabits }}</textarea>
+                </div>
+
+                <!-- Challenging Subjects -->
+                <div class="form-group">
+                    <label for="MenteeSubjects">
+                        <i class="fas fa-book-open"></i> Challenging Subjects & Areas for Improvement
+                    </label>
+                    <textarea id="MenteeSubjects" class="readonly-field" rows="3"
+                        readonly>{{ mentee.MenteeSubjects }}</textarea>
+                </div>
+
+                <!-- Extracurricular Activities -->
+                <div class="form-group">
+                    <label for="MenteeExtracurricular">
+                        <i class="fas fa-running"></i> Extracurricular Activities & Achievements
+                    </label>
+                    <textarea id="MenteeExtracurricular" class="readonly-field" rows="3"
+                        readonly>{{ mentee.MenteeExtracurricular }}</textarea>
+                </div>
+
+                <!-- Academic Support Needs -->
+                <div class="form-group">
+                    <label for="AcademicSupportNeeds">
+                        <i class="fas fa-hands-helping"></i> Academic Support & Mentoring Needs
+                    </label>
+                    <textarea id="AcademicSupportNeeds" class="readonly-field" rows="3"
+                        readonly>{{ mentee.AcademicSupportNeeds }}</textarea>
+                </div>
             </div>
         </div>
     </div>

@@ -515,6 +515,33 @@ def update_personal_info(request):
             mentee.MenteeMotherOccupation = request.POST.get('MenteeMotherOccupation', mentee.MenteeMotherOccupation)
             mentee.MenteeMotherPhone = request.POST.get('MenteeMotherPhone', mentee.MenteeMotherPhone)
             
+            # Update academic information
+            mentee.MenteeCourse = request.POST.get('MenteeCourse', mentee.MenteeCourse)
+            mentee.MenteeSemester = request.POST.get('MenteeSemester', mentee.MenteeSemester)
+            mentee.Year = request.POST.get('Year', mentee.Year)
+            mentee.MenteeJoinDate = request.POST.get('MenteeJoinDate', mentee.MenteeJoinDate)
+            mentee.MenteeStatus = request.POST.get('MenteeStatus', mentee.MenteeStatus)
+            mentee.MenteePreviousSchool = request.POST.get('MenteePreviousSchool', mentee.MenteePreviousSchool)
+            mentee.MenteeSem1TargetGPA = request.POST.get('MenteeSem1TargetGPA', mentee.MenteeSem1TargetGPA)
+            mentee.Sem1ActualGPA = request.POST.get('Sem1ActualGPA', mentee.Sem1ActualGPA)
+            mentee.Sem2TargetGPA = request.POST.get('Sem2TargetGPA', mentee.Sem2TargetGPA)
+            mentee.Sem2ActualGPA = request.POST.get('Sem2ActualGPA', mentee.Sem2ActualGPA)
+            mentee.Sem3TargetGPA = request.POST.get('Sem3TargetGPA', mentee.Sem3TargetGPA)
+            mentee.Sem3ActualGPA = request.POST.get('Sem3ActualGPA', mentee.Sem3ActualGPA)
+            mentee.Sem4TargetGPA = request.POST.get('Sem4TargetGPA', mentee.Sem4TargetGPA)
+            mentee.Sem4ActualGPA = request.POST.get('Sem4ActualGPA', mentee.Sem4ActualGPA)
+            mentee.Sem5TargetGPA = request.POST.get('Sem5TargetGPA', mentee.Sem5TargetGPA)
+            mentee.Sem5ActualGPA = request.POST.get('Sem5ActualGPA', mentee.Sem5ActualGPA)
+            mentee.Sem6TargetGPA = request.POST.get('Sem6TargetGPA', mentee.Sem6TargetGPA)
+            mentee.Sem6ActualGPA = request.POST.get('Sem6ActualGPA', mentee.Sem6ActualGPA)
+            mentee.TargetCGPA = request.POST.get('TargetCGPA', mentee.TargetCGPA)
+            mentee.CurrentCGPA = request.POST.get('CurrentCGPA', mentee.CurrentCGPA)
+            mentee.MenteeAcademicGoals = request.POST.get('MenteeAcademicGoals', mentee.MenteeAcademicGoals)
+            mentee.MenteeStudyHabits = request.POST.get('MenteeStudyHabits', mentee.MenteeStudyHabits)
+            mentee.MenteeSubjects = request.POST.get('MenteeSubjects', mentee.MenteeSubjects)
+            mentee.MenteeExtracurricular = request.POST.get('MenteeExtracurricular', mentee.MenteeExtracurricular)
+            mentee.AcademicSupportNeeds = request.POST.get('AcademicSupportNeeds', mentee.AcademicSupportNeeds)
+            
             # FIXED: Profile picture handling - check both possible field names
             profile_picture = None
             if 'profile_picture' in request.FILES:
