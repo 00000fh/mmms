@@ -815,6 +815,31 @@ def mentor_homepage(request):
     else:
         completion_rate = 0
     
+    # Calculate monthly sessions for the current year (for graph)
+    from django.db.models import Count
+    from django.db.models.functions import ExtractMonth
+    import json
+    
+    current_year = today.year
+    monthly_sessions_query = Activity.objects.filter(
+        PrimaryMentor=mentor,
+        IsMentoringSession=True,
+        Date__year=current_year
+    ).annotate(
+        month=ExtractMonth('Date')
+    ).values('month').annotate(
+        count=Count('ActivityID')
+    ).order_by('month')
+    
+    # Create array of 12 months with counts
+    monthly_sessions_data = [0] * 12  # Initialize with zeros for all 12 months
+    for item in monthly_sessions_query:
+        month_index = item['month'] - 1  # Convert 1-12 to 0-11 for array indexing
+        monthly_sessions_data[month_index] = item['count']
+    
+    # Convert to JSON string for JavaScript
+    monthly_sessions_json = json.dumps(monthly_sessions_data)
+    
     context = {
         'user': request.user,
         'mentor': mentor,
@@ -826,6 +851,7 @@ def mentor_homepage(request):
         'upcoming_sessions': upcoming_sessions,
         'pending_reports': pending_reports,
         'completion_rate': completion_rate,
+        'monthly_sessions': monthly_sessions_json,
     }
     return render(request, 'homepage_mentor.html', context)
 

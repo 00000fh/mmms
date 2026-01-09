@@ -774,7 +774,9 @@
             menteesPending: parseInt("{{ mentees_pending|default:0 }}") || 0,
             pendingReports: parseInt("{{ pending_reports|default:0 }}") || 0,
             upcomingSessions: parseInt("{{ upcoming_sessions|default:0 }}") || 0,
+            totalSessions: parseInt("{{ total_sessions|default:0 }}") || 0,
             completionRate: parseInt("{{ completion_rate|default:0 }}") || 0,
+            monthlySessions: {{ monthly_sessions|safe }},
         };
     </script>
 
@@ -995,10 +997,7 @@
                 return [male, female];
             };
 
-            const generateMonthlySessions = () => {
-                // Mock data representing sessions over the year
-                return [4, 6, 8, 5, 9, 11, 8, 12, 10, 14, 12, 15];
-            };
+
 
             const stats = [
                 {
@@ -1013,11 +1012,11 @@
                 },
                 {
                     title: "Total Sessions",
-                    value: data.upcomingSessions + 45, // Adding mock past sessions to make total look realistic
+                    value: data.totalSessions,
                     icon: "fa-calendar-check",
                     color: "green",
                     chartType: "bar",
-                    chartData: generateMonthlySessions(),
+                    chartData: data.monthlySessions,
                     customLabels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
                 },
                 {
