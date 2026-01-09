@@ -519,23 +519,43 @@ def update_personal_info(request):
             mentee.MenteeCourse = request.POST.get('MenteeCourse', mentee.MenteeCourse)
             mentee.MenteeSemester = request.POST.get('MenteeSemester', mentee.MenteeSemester)
             mentee.Year = request.POST.get('Year', mentee.Year)
-            mentee.MenteeJoinDate = request.POST.get('MenteeJoinDate', mentee.MenteeJoinDate)
+            
+            # Handle date field - preserve existing value if empty
+            join_date = request.POST.get('MenteeJoinDate')
+            if join_date and join_date.strip():
+                mentee.MenteeJoinDate = join_date
+            # else: keep existing mentee.MenteeJoinDate
+            
             mentee.MenteeStatus = request.POST.get('MenteeStatus', mentee.MenteeStatus)
             mentee.MenteePreviousSchool = request.POST.get('MenteePreviousSchool', mentee.MenteePreviousSchool)
-            mentee.MenteeSem1TargetGPA = request.POST.get('MenteeSem1TargetGPA', mentee.MenteeSem1TargetGPA)
-            mentee.Sem1ActualGPA = request.POST.get('Sem1ActualGPA', mentee.Sem1ActualGPA)
-            mentee.Sem2TargetGPA = request.POST.get('Sem2TargetGPA', mentee.Sem2TargetGPA)
-            mentee.Sem2ActualGPA = request.POST.get('Sem2ActualGPA', mentee.Sem2ActualGPA)
-            mentee.Sem3TargetGPA = request.POST.get('Sem3TargetGPA', mentee.Sem3TargetGPA)
-            mentee.Sem3ActualGPA = request.POST.get('Sem3ActualGPA', mentee.Sem3ActualGPA)
-            mentee.Sem4TargetGPA = request.POST.get('Sem4TargetGPA', mentee.Sem4TargetGPA)
-            mentee.Sem4ActualGPA = request.POST.get('Sem4ActualGPA', mentee.Sem4ActualGPA)
-            mentee.Sem5TargetGPA = request.POST.get('Sem5TargetGPA', mentee.Sem5TargetGPA)
-            mentee.Sem5ActualGPA = request.POST.get('Sem5ActualGPA', mentee.Sem5ActualGPA)
-            mentee.Sem6TargetGPA = request.POST.get('Sem6TargetGPA', mentee.Sem6TargetGPA)
-            mentee.Sem6ActualGPA = request.POST.get('Sem6ActualGPA', mentee.Sem6ActualGPA)
-            mentee.TargetCGPA = request.POST.get('TargetCGPA', mentee.TargetCGPA)
-            mentee.CurrentCGPA = request.POST.get('CurrentCGPA', mentee.CurrentCGPA)
+            
+            # Helper function to convert GPA values (empty strings to None for DecimalField)
+            # Uses fallback to preserve existing value if form field is empty
+            def parse_gpa(value, fallback=None):
+                if value is None or value == '':
+                    return fallback  # Preserve existing value
+                try:
+                    return float(value)
+                except (ValueError, TypeError):
+                    return fallback
+            
+            # Update GPA fields with proper None handling for DecimalFields
+            # Pass existing values as fallback to preserve them if form field is empty
+            mentee.Sem1TargetGPA = parse_gpa(request.POST.get('MenteeSem1TargetGPA'), mentee.Sem1TargetGPA)
+            mentee.Sem1ActualGPA = parse_gpa(request.POST.get('MenteeSem1ActualGPA'), mentee.Sem1ActualGPA)
+            mentee.Sem2TargetGPA = parse_gpa(request.POST.get('MenteeSem2TargetGPA'), mentee.Sem2TargetGPA)
+            mentee.Sem2ActualGPA = parse_gpa(request.POST.get('MenteeSem2ActualGPA'), mentee.Sem2ActualGPA)
+            mentee.Sem3TargetGPA = parse_gpa(request.POST.get('MenteeSem3TargetGPA'), mentee.Sem3TargetGPA)
+            mentee.Sem3ActualGPA = parse_gpa(request.POST.get('MenteeSem3ActualGPA'), mentee.Sem3ActualGPA)
+            mentee.Sem4TargetGPA = parse_gpa(request.POST.get('MenteeSem4TargetGPA'), mentee.Sem4TargetGPA)
+            mentee.Sem4ActualGPA = parse_gpa(request.POST.get('MenteeSem4ActualGPA'), mentee.Sem4ActualGPA)
+            mentee.Sem5TargetGPA = parse_gpa(request.POST.get('MenteeSem5TargetGPA'), mentee.Sem5TargetGPA)
+            mentee.Sem5ActualGPA = parse_gpa(request.POST.get('MenteeSem5ActualGPA'), mentee.Sem5ActualGPA)
+            mentee.Sem6TargetGPA = parse_gpa(request.POST.get('MenteeSem6TargetGPA'), mentee.Sem6TargetGPA)
+            mentee.Sem6ActualGPA = parse_gpa(request.POST.get('MenteeSem6ActualGPA'), mentee.Sem6ActualGPA)
+            mentee.TargetCGPA = parse_gpa(request.POST.get('TargetCGPA'), mentee.TargetCGPA)
+            mentee.CurrentCGPA = parse_gpa(request.POST.get('CurrentCGPA'), mentee.CurrentCGPA)
+            
             mentee.MenteeAcademicGoals = request.POST.get('MenteeAcademicGoals', mentee.MenteeAcademicGoals)
             mentee.MenteeStudyHabits = request.POST.get('MenteeStudyHabits', mentee.MenteeStudyHabits)
             mentee.MenteeSubjects = request.POST.get('MenteeSubjects', mentee.MenteeSubjects)
@@ -1696,6 +1716,10 @@ def manage_mentees(request):
         # If page is out of range, deliver last page
         page_obj = paginator.page(paginator.num_pages)
     
+    # Calculate upcoming sessions for sidebar badge
+    today = timezone.now().date()
+    upcoming_sessions = Activity.objects.filter(Date__gt=today).count()
+    
     context = {
         'mentees': page_obj,  # Use page_obj instead of queryset
         'page_obj': page_obj,  # For template pagination controls
@@ -1705,6 +1729,7 @@ def manage_mentees(request):
         'female_count': female_count,
         'search_query': search_query,
         'per_page': per_page,  # Pass per_page value to template
+        'upcoming_sessions': upcoming_sessions,
     }
     
     return render(request, 'manage_mentees.html', context)
@@ -1959,6 +1984,10 @@ def manage_mentors(request):
             Q(MentorDepartment__icontains=search_query)
         )
     
+    # Calculate upcoming sessions for sidebar badge
+    today = timezone.now().date()
+    upcoming_sessions = Activity.objects.filter(Date__gt=today).count()
+    
     context = {
         'mentors': mentors,
         'search_query': search_query,
@@ -1966,6 +1995,7 @@ def manage_mentors(request):
         'total_vacancy': total_vacancy,
         'departments': departments,
         'departments_count': departments_count,
+        'upcoming_sessions': upcoming_sessions,
     }
     
     return render(request, 'manage_mentors.html', context)
@@ -2228,12 +2258,17 @@ def mentor_assignments(request):
         # Stay on the same page (mentor_assignments)
         return redirect('mentor_assignments')
     
+    # Calculate upcoming sessions for sidebar badge
+    today = timezone.now().date()
+    upcoming_sessions = Activity.objects.filter(Date__gt=today).count()
+    
     context = {
         'mentors': mentors,
         'unassigned_mentees': unassigned_mentees,
         'mentors_with_vacancy': mentors_with_vacancy,
         'total_vacancy': total_vacancy,
         'balanced_assignments': balanced_assignments,
+        'upcoming_sessions': upcoming_sessions,
     }
     
     return render(request, 'mentor_assignments.html', context)

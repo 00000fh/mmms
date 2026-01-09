@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -188,9 +189,11 @@
             0% {
                 box-shadow: 0 0 0 0 rgba(255, 71, 87, 0.7);
             }
+
             70% {
                 box-shadow: 0 0 0 6px rgba(255, 71, 87, 0);
             }
+
             100% {
                 box-shadow: 0 0 0 0 rgba(255, 71, 87, 0);
             }
@@ -303,6 +306,44 @@
             font-size: 10px;
         }
 
+        /* Messages Styles */
+        .messages {
+            margin-bottom: 20px;
+        }
+
+        .messages .success {
+            background: #e8f5e8;
+            color: #2e7d32;
+            padding: 14px 18px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            border: 1px solid #c8e6c9;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .messages .error {
+            background: #ffebee;
+            color: #c62828;
+            padding: 14px 18px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            border: 1px solid #feb2b2;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .messages .success i,
+        .messages .error i {
+            font-size: 18px;
+        }
+
         /* Form Container */
         .form-container {
             background: white;
@@ -324,7 +365,9 @@
             font-size: 14px;
         }
 
-        input, select, textarea {
+        input,
+        select,
+        textarea {
             width: 100%;
             padding: 12px 15px;
             border: 1px solid #e2e8f0;
@@ -334,7 +377,9 @@
             background: white;
         }
 
-        input:focus, select:focus, textarea:focus {
+        input:focus,
+        select:focus,
+        textarea:focus {
             outline: none;
             border-color: #1a3a8f;
             box-shadow: 0 0 0 3px rgba(26, 58, 143, 0.1);
@@ -692,7 +737,7 @@
         .tab-container {
             margin-bottom: 24px;
         }
-        
+
         .tab-navigation {
             display: flex;
             background: white;
@@ -702,7 +747,7 @@
             margin-bottom: 0;
             overflow-x: auto;
         }
-        
+
         .tab-button {
             flex: 1;
             padding: 12px 16px;
@@ -721,18 +766,18 @@
             gap: 8px;
             white-space: nowrap;
         }
-        
+
         .tab-button:hover {
             color: #1a3a8f;
             background: rgba(26, 58, 143, 0.05);
         }
-        
+
         .tab-button.active {
             color: white;
             background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
             box-shadow: 0 2px 8px rgba(26, 58, 143, 0.3);
         }
-        
+
         .tab-content {
             display: none;
             background: white;
@@ -742,14 +787,21 @@
             margin-bottom: 24px;
             animation: fadeIn 0.5s ease;
         }
-        
+
         .tab-content.active {
             display: block;
         }
-        
+
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* Academic Performance Specific Styles */
@@ -943,6 +995,7 @@
             from {
                 transform: scaleX(1);
             }
+
             to {
                 transform: scaleX(0);
             }
@@ -953,6 +1006,7 @@
             .sidebar {
                 width: 240px;
             }
+
             .main-content {
                 margin-left: 240px;
             }
@@ -964,29 +1018,32 @@
                 height: auto;
                 position: relative;
             }
+
             .main-content {
                 margin-left: 0;
                 padding: 16px;
             }
+
             .form-row {
                 flex-direction: column;
                 gap: 0;
             }
+
             .content-header {
                 flex-direction: column;
                 text-align: center;
                 padding: 16px;
             }
-            
+
             .profile-picture-section {
                 padding: 20px;
             }
-            
+
             .profile-picture-preview {
                 width: 120px;
                 height: 120px;
             }
-            
+
             /* Responsive design for notifications */
             .notification-container {
                 bottom: 10px;
@@ -994,16 +1051,16 @@
                 left: 10px;
                 max-width: none;
             }
-            
+
             .notification {
                 max-width: none;
             }
-            
+
             .tab-navigation {
                 flex-direction: column;
                 gap: 8px;
             }
-            
+
             .tab-button {
                 justify-content: flex-start;
                 padding: 12px 16px;
@@ -1046,6 +1103,7 @@
     </style>
 
 </head>
+
 <body>
     <!-- Sidebar -->
     <div class="sidebar">
@@ -1059,9 +1117,9 @@
         <div class="user-info">
             <div class="user-avatar">
                 {% if mentee.profile_picture %}
-                    <img src="{{ mentee.profile_picture.url }}" alt="Profile Picture" id="sidebarProfilePic">
+                <img src="{{ mentee.profile_picture.url }}" alt="Profile Picture" id="sidebarProfilePic">
                 {% else %}
-                    <i class="fas fa-user-graduate"></i>
+                <i class="fas fa-user-graduate"></i>
                 {% endif %}
             </div>
             <div class="user-name">{{ mentee.MenteeName }}</div>
@@ -1133,12 +1191,13 @@
         <!-- Messages -->
         <div class="messages">
             {% if messages %}
-                {% for message in messages %}
-                    <div class="{% if message.tags == 'error' %}error{% else %}success{% endif %}">
-                        <i class="fas fa-{% if message.tags == 'error' %}exclamation-circle{% else %}check-circle{% endif %}"></i>
-                        {{ message }}
-                    </div>
-                {% endfor %}
+            {% for message in messages %}
+            <div class="{% if message.tags == 'error' %}error{% else %}success{% endif %}">
+                <i
+                    class="fas fa-{% if message.tags == 'error' %}exclamation-circle{% else %}check-circle{% endif %}"></i>
+                {{ message }}
+            </div>
+            {% endfor %}
             {% endif %}
         </div>
 
@@ -1150,26 +1209,27 @@
             <!-- FIXED: Added the hidden file input that will actually be submitted with the form -->
             <form method="POST" enctype="multipart/form-data" id="profileForm">
                 {% csrf_token %}
-                
+
                 <!-- Hidden file input that will contain the selected file -->
-                <input type="file" id="profile_picture" name="profile_picture" accept="image/jpeg,image/jpg,image/png,image/gif" style="display: none;">
-                
+                <input type="file" id="profile_picture" name="profile_picture"
+                    accept="image/jpeg,image/jpg,image/png,image/gif" style="display: none;">
+
                 <!-- Updated Profile Picture Section -->
                 <div class="profile-picture-section">
                     <div class="profile-picture-header">
                         <h3>Profile Picture</h3>
                     </div>
-                    
+
                     <div class="profile-picture-preview">
                         {% if mentee.profile_picture %}
-                            <img src="{{ mentee.profile_picture.url }}" alt="Profile Picture" id="profilePreview">
+                        <img src="{{ mentee.profile_picture.url }}" alt="Profile Picture" id="profilePreview">
                         {% else %}
-                            <div class="default-profile-preview" id="profilePreview">
-                                <i class="fas fa-user"></i>
-                            </div>
+                        <div class="default-profile-preview" id="profilePreview">
+                            <i class="fas fa-user"></i>
+                        </div>
                         {% endif %}
                     </div>
-                    
+
                     <button type="button" class="add-photo-btn" id="addPhotoBtn">
                         <i class="fas fa-plus"></i>
                         <span>Add Photo</span>
@@ -1206,13 +1266,15 @@
                             <label for="MenteeName">
                                 <i class="fas fa-signature"></i> Full Name
                             </label>
-                            <input type="text" id="MenteeName" name="MenteeName" value="{{ mentee.MenteeName }}" required>
+                            <input type="text" id="MenteeName" name="MenteeName" value="{{ mentee.MenteeName }}"
+                                required>
                         </div>
                         <div class="form-group">
                             <label for="MenteeID">
                                 <i class="fas fa-id-card"></i> Student ID
                             </label>
-                            <input type="text" id="MenteeID" name="MenteeID" value="{{ mentee.MenteeID }}" class="readonly-field" readonly>
+                            <input type="text" id="MenteeID" name="MenteeID" value="{{ mentee.MenteeID }}"
+                                class="readonly-field" readonly>
                         </div>
                     </div>
 
@@ -1221,13 +1283,15 @@
                             <label for="MenteeEmail">
                                 <i class="fas fa-envelope"></i> Email
                             </label>
-                            <input type="email" id="MenteeEmail" name="MenteeEmail" value="{{ mentee.MenteeEmail }}" required>
+                            <input type="email" id="MenteeEmail" name="MenteeEmail" value="{{ mentee.MenteeEmail }}"
+                                required>
                         </div>
                         <div class="form-group">
                             <label for="MenteePhone">
                                 <i class="fas fa-phone"></i> Phone Number
                             </label>
-                            <input type="text" id="MenteePhone" name="MenteePhone" value="{{ mentee.MenteePhone }}" required>
+                            <input type="text" id="MenteePhone" name="MenteePhone" value="{{ mentee.MenteePhone }}"
+                                required>
                         </div>
                     </div>
 
@@ -1236,8 +1300,7 @@
                             <label for="MenteeCourse">
                                 <i class="fas fa-graduation-cap"></i> Course
                             </label>
-                            <input type="text" id="MenteeCourse" name="MenteeCourse" 
-                                value="{{ display_course }}" 
+                            <input type="text" id="MenteeCourse" name="MenteeCourse" value="{{ display_course }}"
                                 class="readonly-field" readonly>
                             <small style="color: #718096; font-size: 12px; margin-top: 5px; display: block;">
                                 Course is automatically determined from your Student ID
@@ -1256,15 +1319,18 @@
                             <label for="MenteeSemester">
                                 <i class="fas fa-calendar-alt"></i> Semester
                             </label>
-                            <input type="number" id="MenteeSemester" name="MenteeSemester" value="{{ mentee.MenteeSemester }}" min="1" max="8" required>
+                            <input type="number" id="MenteeSemester" name="MenteeSemester"
+                                value="{{ mentee.MenteeSemester }}" min="1" max="8" required>
                         </div>
                         <div class="form-group">
                             <label for="MenteeGender">
                                 <i class="fas fa-venus-mars"></i> Gender
                             </label>
                             <select id="MenteeGender" name="MenteeGender" required>
-                                <option value="male" {% if mentee.MenteeGender == 'male' %}selected{% endif %}>Male</option>
-                                <option value="female" {% if mentee.MenteeGender == 'female' %}selected{% endif %}>Female</option>
+                                <option value="male" {% if mentee.MenteeGender == 'male' %}selected{% endif %}>Male
+                                </option>
+                                <option value="female" {% if mentee.MenteeGender == 'female' %}selected{% endif %}>Female
+                                </option>
                             </select>
                         </div>
                     </div>
@@ -1279,7 +1345,8 @@
                         <label for="MenteeAddress">
                             <i class="fas fa-home"></i> Address
                         </label>
-                        <textarea id="MenteeAddress" name="MenteeAddress" rows="3" required>{{ mentee.MenteeAddress }}</textarea>
+                        <textarea id="MenteeAddress" name="MenteeAddress" rows="3"
+                            required>{{ mentee.MenteeAddress }}</textarea>
                     </div>
 
                     <div class="form-row">
@@ -1287,19 +1354,22 @@
                             <label for="MenteeCity">
                                 <i class="fas fa-city"></i> City
                             </label>
-                            <input type="text" id="MenteeCity" name="MenteeCity" value="{{ mentee.MenteeCity }}" required>
+                            <input type="text" id="MenteeCity" name="MenteeCity" value="{{ mentee.MenteeCity }}"
+                                required>
                         </div>
                         <div class="form-group">
                             <label for="MenteeState">
                                 <i class="fas fa-map"></i> State
                             </label>
-                            <input type="text" id="MenteeState" name="MenteeState" value="{{ mentee.MenteeState }}" required>
+                            <input type="text" id="MenteeState" name="MenteeState" value="{{ mentee.MenteeState }}"
+                                required>
                         </div>
                         <div class="form-group">
                             <label for="MenteePostcode">
                                 <i class="fas fa-mail-bulk"></i> Postcode
                             </label>
-                            <input type="text" id="MenteePostcode" name="MenteePostcode" value="{{ mentee.MenteePostcode }}" required>
+                            <input type="text" id="MenteePostcode" name="MenteePostcode"
+                                value="{{ mentee.MenteePostcode }}" required>
                         </div>
                     </div>
 
@@ -1320,15 +1390,17 @@
                             <label for="MenteeReligion">
                                 <i class="fas fa-pray"></i> Religion
                             </label>
-                            <input type="text" id="MenteeReligion" name="MenteeReligion" value="{{ mentee.MenteeReligion }}">
+                            <input type="text" id="MenteeReligion" name="MenteeReligion"
+                                value="{{ mentee.MenteeReligion }}">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="MenteePreviousSchool">
                             <i class="fas fa-school"></i> Previous School
-                            </label>
-                            <input type="text" id="MenteePreviousSchool" name="MenteePreviousSchool" value="{{ mentee.MenteePreviousSchool }}">
+                        </label>
+                        <input type="text" id="MenteePreviousSchool" name="MenteePreviousSchool"
+                            value="{{ mentee.MenteePreviousSchool }}">
                     </div>
                 </div>
 
@@ -1344,13 +1416,15 @@
                             <label for="MenteeFatherName">
                                 <i class="fas fa-user"></i> Father's Name
                             </label>
-                            <input type="text" id="MenteeFatherName" name="MenteeFatherName" value="{{ mentee.MenteeFatherName }}">
+                            <input type="text" id="MenteeFatherName" name="MenteeFatherName"
+                                value="{{ mentee.MenteeFatherName }}">
                         </div>
                         <div class="form-group">
                             <label for="MenteeFatherIC">
                                 <i class="fas fa-id-card"></i> Father's IC Number
                             </label>
-                            <input type="text" id="MenteeFatherIC" name="MenteeFatherIC" value="{{ mentee.MenteeFatherIC }}">
+                            <input type="text" id="MenteeFatherIC" name="MenteeFatherIC"
+                                value="{{ mentee.MenteeFatherIC }}">
                         </div>
                     </div>
 
@@ -1359,13 +1433,15 @@
                             <label for="MenteeFatherOccupation">
                                 <i class="fas fa-briefcase"></i> Father's Occupation
                             </label>
-                            <input type="text" id="MenteeFatherOccupation" name="MenteeFatherOccupation" value="{{ mentee.MenteeFatherOccupation }}">
+                            <input type="text" id="MenteeFatherOccupation" name="MenteeFatherOccupation"
+                                value="{{ mentee.MenteeFatherOccupation }}">
                         </div>
                         <div class="form-group">
                             <label for="MenteeFatherPhone">
                                 <i class="fas fa-phone"></i> Father's Phone
                             </label>
-                            <input type="text" id="MenteeFatherPhone" name="MenteeFatherPhone" value="{{ mentee.MenteeFatherPhone }}">
+                            <input type="text" id="MenteeFatherPhone" name="MenteeFatherPhone"
+                                value="{{ mentee.MenteeFatherPhone }}">
                         </div>
                     </div>
 
@@ -1374,13 +1450,15 @@
                             <label for="MenteeMotherName">
                                 <i class="fas fa-user"></i> Mother's Name
                             </label>
-                            <input type="text" id="MenteeMotherName" name="MenteeMotherName" value="{{ mentee.MenteeMotherName }}">
+                            <input type="text" id="MenteeMotherName" name="MenteeMotherName"
+                                value="{{ mentee.MenteeMotherName }}">
                         </div>
                         <div class="form-group">
                             <label for="MenteeMotherIC">
                                 <i class="fas fa-id-card"></i> Mother's IC Number
                             </label>
-                            <input type="text" id="MenteeMotherIC" name="MenteeMotherIC" value="{{ mentee.MenteeMotherIC }}">
+                            <input type="text" id="MenteeMotherIC" name="MenteeMotherIC"
+                                value="{{ mentee.MenteeMotherIC }}">
                         </div>
                     </div>
 
@@ -1389,241 +1467,266 @@
                             <label for="MenteeMotherOccupation">
                                 <i class="fas fa-briefcase"></i> Mother's Occupation
                             </label>
-                            <input type="text" id="MenteeMotherOccupation" name="MenteeMotherOccupation" value="{{ mentee.MenteeMotherOccupation }}">
+                            <input type="text" id="MenteeMotherOccupation" name="MenteeMotherOccupation"
+                                value="{{ mentee.MenteeMotherOccupation }}">
                         </div>
                         <div class="form-group">
                             <label for="MenteeMotherPhone">
                                 <i class="fas fa-phone"></i> Mother's Phone
                             </label>
-                            <input type="text" id="MenteeMotherPhone" name="MenteeMotherPhone" value="{{ mentee.MenteeMotherPhone }}">
+                            <input type="text" id="MenteeMotherPhone" name="MenteeMotherPhone"
+                                value="{{ mentee.MenteeMotherPhone }}">
                         </div>
                     </div>
                 </div>
 
                 <!-- Academic Information Tab -->
-            <div class="tab-content" id="academic-tab">
-                <h2 class="section-title">
-                    <i class="fas fa-graduation-cap"></i>
-                    Academic Information
-                </h2>
+                <div class="tab-content" id="academic-tab">
+                    <h2 class="section-title">
+                        <i class="fas fa-graduation-cap"></i>
+                        Academic Information
+                    </h2>
 
-                <div class="form-row">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="MenteeCourse">
+                                <i class="fas fa-book"></i> Course Program
+                            </label>
+                            <input type="text" id="MenteeCourse" name="MenteeCourse" value="{{ mentee.MenteeCourse }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="MenteeSemester">
+                                <i class="fas fa-calendar-alt"></i> Current Semester
+                            </label>
+                            <input type="number" id="MenteeSemester" name="MenteeSemester"
+                                value="{{ mentee.MenteeSemester }}">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="Year">
+                                <i class="fas fa-calendar"></i> Academic Year
+                            </label>
+                            <input type="text" id="Year" name="Year" value="{{ mentee.Year }}">
+                        </div>
+                        <div class="form-group">
+                            <label for="MenteeJoinDate">
+                                <i class="fas fa-calendar-plus"></i> Join Date
+                            </label>
+                            <input type="text" id="MenteeJoinDate" name="MenteeJoinDate"
+                                value="{{ mentee.MenteeJoinDate|date:'F d, Y' }}">
+                        </div>
+                    </div>
+
+                    <!-- Additional Academic Information -->
+                    <h2 class="section-title">
+                        <i class="fas fa-info-circle"></i>
+                        Additional Information
+                    </h2>
+
                     <div class="form-group">
-                        <label for="MenteeCourse">
-                            <i class="fas fa-book"></i> Course Program
+                        <label for="MenteeStatus">
+                            <i class="fas fa-user-check"></i> Student Status
                         </label>
-                        <input type="text" id="MenteeCourse" name="MenteeCourse" value="{{ mentee.MenteeCourse }}">
+                        <input type="text" id="MenteeStatus" name="MenteeStatus"
+                            value="{{ mentee.get_MenteeStatus_display }}">
                     </div>
+
                     <div class="form-group">
-                        <label for="MenteeSemester">
-                            <i class="fas fa-calendar-alt"></i> Current Semester
+                        <label for="MenteePreviousSchool">
+                            <i class="fas fa-school"></i> Previous School
                         </label>
-                        <input type="number" id="MenteeSemester" name="MenteeSemester" value="{{ mentee.MenteeSemester }}">
+                        <input type="text" id="MenteePreviousSchool" name="MenteePreviousSchool"
+                            value="{{ mentee.MenteePreviousSchool }}">
                     </div>
-                </div>
 
-                <div class="form-row">
+                    <!-- Academic Performance -->
+                    <h2 class="section-title">
+                        <i class="fas fa-graduation-cap"></i>
+                        Academic Performance
+                    </h2>
+
+                    <!-- Semester GPA Tracking -->
                     <div class="form-group">
-                        <label for="Year">
-                            <i class="fas fa-calendar"></i> Academic Year
-                        </label>
-                        <input type="text" id="Year" name="Year" value="{{ mentee.Year }}">
+                        <h3 class="section-title" style="font-size: 16px; margin: 20px 0 15px 0;">
+                            <i class="fas fa-calendar-alt"></i>
+                            Semester GPA Tracking
+                        </h3>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="Sem1TargetGPA">
+                                    <i class="fas fa-bullseye"></i> Semester 1 - Target GPA
+                                </label>
+                                <input type="number" id="Sem1TargetGPA" name="MenteeSem1TargetGPA" step="0.01" min="0" max="4"
+                                    value="{{ mentee.Sem1TargetGPA|default:'' }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="Sem1ActualGPA">
+                                    <i class="fas fa-chart-line"></i> Semester 1 - Actual GPA
+                                </label>
+                                <input type="number" id="Sem1ActualGPA" name="MenteeSem1ActualGPA" step="0.01" min="0" max="4"
+                                    value="{{ mentee.Sem1ActualGPA|default:'' }}">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="Sem2TargetGPA">
+                                    <i class="fas fa-bullseye"></i> Semester 2 - Target GPA
+                                </label>
+                                <input type="number" id="Sem2TargetGPA" name="MenteeSem2TargetGPA" step="0.01" min="0" max="4"
+                                    value="{{ mentee.Sem2TargetGPA|default:'' }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="Sem2ActualGPA">
+                                    <i class="fas fa-chart-line"></i> Semester 2 - Actual GPA
+                                </label>
+                                <input type="number" id="Sem2ActualGPA" name="MenteeSem2ActualGPA" step="0.01" min="0" max="4"
+                                    value="{{ mentee.Sem2ActualGPA|default:'' }}">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="Sem3TargetGPA">
+                                    <i class="fas fa-bullseye"></i> Semester 3 - Target GPA
+                                </label>
+                                <input type="number" id="Sem3TargetGPA" name="MenteeSem3TargetGPA" step="0.01" min="0" max="4"
+                                    value="{{ mentee.Sem3TargetGPA|default:'' }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="Sem3ActualGPA">
+                                    <i class="fas fa-chart-line"></i> Semester 3 - Actual GPA
+                                </label>
+                                <input type="number" id="Sem3ActualGPA" name="MenteeSem3ActualGPA" step="0.01" min="0" max="4"
+                                    value="{{ mentee.Sem3ActualGPA|default:'' }}">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="Sem4TargetGPA">
+                                    <i class="fas fa-bullseye"></i> Semester 4 - Target GPA
+                                </label>
+                                <input type="number" id="Sem4TargetGPA" name="MenteeSem4TargetGPA" step="0.01" min="0" max="4"
+                                    value="{{ mentee.Sem4TargetGPA|default:'' }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="Sem4ActualGPA">
+                                    <i class="fas fa-chart-line"></i> Semester 4 - Actual GPA
+                                </label>
+                                <input type="number" id="Sem4ActualGPA" name="MenteeSem4ActualGPA" step="0.01" min="0" max="4"
+                                    value="{{ mentee.Sem4ActualGPA|default:'' }}">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="Sem5TargetGPA">
+                                    <i class="fas fa-bullseye"></i> Semester 5 - Target GPA
+                                </label>
+                                <input type="number" id="Sem5TargetGPA" name="MenteeSem5TargetGPA" step="0.01" min="0" max="4"
+                                    value="{{ mentee.Sem5TargetGPA|default:'' }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="Sem5ActualGPA">
+                                    <i class="fas fa-chart-line"></i> Semester 5 - Actual GPA
+                                </label>
+                                <input type="number" id="Sem5ActualGPA" name="MenteeSem5ActualGPA" step="0.01" min="0" max="4"
+                                    value="{{ mentee.Sem5ActualGPA|default:'' }}">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="Sem6TargetGPA">
+                                    <i class="fas fa-bullseye"></i> Semester 6 - Target GPA
+                                </label>
+                                <input type="number" id="Sem6TargetGPA" name="MenteeSem6TargetGPA" step="0.01" min="0" max="4"
+                                    value="{{ mentee.Sem6TargetGPA|default:'' }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="Sem6ActualGPA">
+                                    <i class="fas fa-chart-line"></i> Semester 6 - Actual GPA
+                                </label>
+                                <input type="number" id="Sem6ActualGPA" name="MenteeSem6ActualGPA" step="0.01" min="0" max="4"
+                                    value="{{ mentee.Sem6ActualGPA|default:'' }}">
+                            </div>
+                        </div>
                     </div>
+
+                    <!-- CGPA Tracking -->
                     <div class="form-group">
-                        <label for="MenteeJoinDate">
-                            <i class="fas fa-calendar-plus"></i> Join Date
+                        <h3 class="section-title" style="font-size: 16px; margin: 30px 0 15px 0;">
+                            <i class="fas fa-chart-bar"></i>
+                            Cumulative GPA (CGPA) Tracking
+                        </h3>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="TargetCGPA">
+                                    <i class="fas fa-bullseye"></i> Target Final CGPA
+                                </label>
+                                <input type="number" id="TargetCGPA" name="TargetCGPA" step="0.01" min="0" max="4"
+                                    value="{{ mentee.TargetCGPA|default:'' }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="CurrentCGPA">
+                                    <i class="fas fa-chart-line"></i> Current CGPA
+                                </label>
+                                <input type="number" id="CurrentCGPA" name="CurrentCGPA" step="0.01" min="0" max="4"
+                                    value="{{ mentee.CurrentCGPA|default:'' }}">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Academic Goals -->
+                    <div class="form-group">
+                        <label for="MenteeAcademicGoals">
+                            <i class="fas fa-bullseye"></i> Academic Goals & Aspirations
                         </label>
-                        <input type="text" id="MenteeJoinDate" name="MenteeJoinDate" value="{{ mentee.MenteeJoinDate|date:'F d, Y' }}">
-                    </div>
-                </div>
-
-                <!-- Additional Academic Information -->
-                <h2 class="section-title">
-                    <i class="fas fa-info-circle"></i>
-                    Additional Information
-                </h2>
-
-                <div class="form-group">
-                    <label for="MenteeStatus">
-                        <i class="fas fa-user-check"></i> Student Status
-                    </label>
-                    <input type="text" id="MenteeStatus" name="MenteeStatus" value="{{ mentee.get_MenteeStatus_display }}">
-                </div>
-
-                <div class="form-group">
-                    <label for="MenteePreviousSchool">
-                        <i class="fas fa-school"></i> Previous School
-                    </label>
-                    <input type="text" id="MenteePreviousSchool" name="MenteePreviousSchool" value="{{ mentee.MenteePreviousSchool }}">
-                </div>
-
-                <!-- Academic Performance -->
-                <h2 class="section-title">
-                    <i class="fas fa-graduation-cap"></i>
-                    Academic Performance
-                </h2>
-
-                <!-- Semester GPA Tracking -->
-                <div class="form-group">
-                    <h3 class="section-title" style="font-size: 16px; margin: 20px 0 15px 0;">
-                        <i class="fas fa-calendar-alt"></i>
-                        Semester GPA Tracking
-                    </h3>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="Sem1TargetGPA">
-                                <i class="fas fa-bullseye"></i> Semester 1 - Target GPA
-                            </label>
-                            <input type="number" id="Sem1TargetGPA" name="MenteeSem1TargetGPA" value="{{ mentee.Sem1TargetGPA|default:'' }}">
-                        </div>
-                        <div class="form-group">
-                            <label for="Sem1ActualGPA">
-                                <i class="fas fa-chart-line"></i> Semester 1 - Actual GPA
-                            </label>
-                            <input type="number" id="Sem1ActualGPA" name="MenteeSem1ActualGPA" value="{{ mentee.Sem1ActualGPA|default:'' }}">
-                        </div>
+                        <textarea id="MenteeAcademicGoals" name="MenteeAcademicGoals"
+                            rows="4">{{ mentee.MenteeAcademicGoals }}</textarea>
                     </div>
 
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="Sem2TargetGPA">
-                                <i class="fas fa-bullseye"></i> Semester 2 - Target GPA
-                            </label>
-                            <input type="number" id="Sem2TargetGPA" name="MenteeSem2TargetGPA" value="{{ mentee.Sem2TargetGPA|default:'' }}">
-                        </div>
-                        <div class="form-group">
-                            <label for="Sem2ActualGPA">
-                                <i class="fas fa-chart-line"></i> Semester 2 - Actual GPA
-                            </label>
-                            <input type="number" id="Sem2ActualGPA" name="MenteeSem2ActualGPA" value="{{ mentee.Sem2ActualGPA|default:'' }}">
-                        </div>
+                    <!-- Study Habits -->
+                    <div class="form-group">
+                        <label for="MenteeStudyHabits">
+                            <i class="fas fa-book"></i> Study Habits & Learning Strategies
+                        </label>
+                        <textarea id="MenteeStudyHabits" name="MenteeStudyHabits"
+                            rows="4">{{ mentee.MenteeStudyHabits }}</textarea>
                     </div>
 
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="Sem3TargetGPA">
-                                <i class="fas fa-bullseye"></i> Semester 3 - Target GPA
-                            </label>
-                            <input type="number" id="Sem3TargetGPA" name="MenteeSem3TargetGPA" value="{{ mentee.Sem3TargetGPA|default:'' }}">
-                        </div>
-                        <div class="form-group">
-                            <label for="Sem3ActualGPA">
-                                <i class="fas fa-chart-line"></i> Semester 3 - Actual GPA
-                            </label>
-                            <input type="number" id="Sem3ActualGPA" name="MenteeSem3ActualGPA" value="{{ mentee.Sem3ActualGPA|default:'' }}">
-                        </div>
+                    <!-- Challenging Subjects -->
+                    <div class="form-group">
+                        <label for="MenteeSubjects">
+                            <i class="fas fa-book-open"></i> Challenging Subjects & Areas for Improvement
+                        </label>
+                        <textarea id="MenteeSubjects" name="MenteeSubjects"
+                            rows="3">{{ mentee.MenteeSubjects }}</textarea>
                     </div>
 
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="Sem4TargetGPA">
-                                <i class="fas fa-bullseye"></i> Semester 4 - Target GPA
-                            </label>
-                            <input type="number" id="Sem4TargetGPA" name="MenteeSem4TargetGPA" value="{{ mentee.Sem4TargetGPA|default:'' }}">
-                        </div>
-                        <div class="form-group">
-                            <label for="Sem4ActualGPA">
-                                <i class="fas fa-chart-line"></i> Semester 4 - Actual GPA
-                            </label>
-                            <input type="number" id="Sem4ActualGPA" name="MenteeSem4ActualGPA" value="{{ mentee.Sem4ActualGPA|default:'' }}">
-                        </div>
+                    <!-- Extracurricular Activities -->
+                    <div class="form-group">
+                        <label for="MenteeExtracurricular">
+                            <i class="fas fa-running"></i> Extracurricular Activities & Achievements
+                        </label>
+                        <textarea id="MenteeExtracurricular" name="MenteeExtracurricular"
+                            rows="3">{{ mentee.MenteeExtracurricular }}</textarea>
                     </div>
 
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="Sem5TargetGPA">
-                                <i class="fas fa-bullseye"></i> Semester 5 - Target GPA
-                            </label>
-                            <input type="number" id="Sem5TargetGPA" name="MenteeSem5TargetGPA" value="{{ mentee.Sem5TargetGPA|default:'' }}">
-                        </div>
-                        <div class="form-group">
-                            <label for="Sem5ActualGPA">
-                                <i class="fas fa-chart-line"></i> Semester 5 - Actual GPA
-                            </label>
-                            <input type="number" id="Sem5ActualGPA" name="MenteeSem5ActualGPA" value="{{ mentee.Sem5ActualGPA|default:'' }}">
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="Sem6TargetGPA">
-                                <i class="fas fa-bullseye"></i> Semester 6 - Target GPA
-                            </label>
-                            <input type="number" id="Sem6TargetGPA" name="MenteeSem6TargetGPA" value="{{ mentee.Sem6TargetGPA|default:'' }}">
-                        </div>
-                        <div class="form-group">
-                            <label for="Sem6ActualGPA">
-                                <i class="fas fa-chart-line"></i> Semester 6 - Actual GPA
-                            </label>
-                            <input type="number" id="Sem6ActualGPA" name="MenteeSem6ActualGPA" value="{{ mentee.Sem6ActualGPA|default:'' }}">
-                        </div>
+                    <!-- Academic Support Needs -->
+                    <div class="form-group">
+                        <label for="AcademicSupportNeeds">
+                            <i class="fas fa-hands-helping"></i> Academic Support & Mentoring Needs
+                        </label>
+                        <textarea id="AcademicSupportNeeds" name="AcademicSupportNeeds"
+                            rows="3">{{ mentee.AcademicSupportNeeds }}</textarea>
                     </div>
                 </div>
-
-                <!-- CGPA Tracking -->
-                <div class="form-group">
-                    <h3 class="section-title" style="font-size: 16px; margin: 30px 0 15px 0;">
-                        <i class="fas fa-chart-bar"></i>
-                        Cumulative GPA (CGPA) Tracking
-                    </h3>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="TargetCGPA">
-                                <i class="fas fa-bullseye"></i> Target Final CGPA
-                            </label>
-                            <input type="number" id="TargetCGPA" name="TargetCGPA" value="{{ mentee.TargetCGPA|default:'' }}">
-                        </div>
-                        <div class="form-group">
-                            <label for="CurrentCGPA">
-                                <i class="fas fa-chart-line"></i> Current CGPA
-                            </label>
-                            <input type="number" id="CurrentCGPA" name="CurrentCGPA" value="{{ mentee.CurrentCGPA|default:'' }}">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Academic Goals -->
-                <div class="form-group">
-                    <label for="MenteeAcademicGoals">
-                        <i class="fas fa-bullseye"></i> Academic Goals & Aspirations
-                    </label>
-                    <textarea id="MenteeAcademicGoals" name="MenteeAcademicGoals" rows="4">{{ mentee.MenteeAcademicGoals }}</textarea>
-                </div>
-
-                <!-- Study Habits -->
-                <div class="form-group">
-                    <label for="MenteeStudyHabits">
-                        <i class="fas fa-book"></i> Study Habits & Learning Strategies
-                    </label>
-                    <textarea id="MenteeStudyHabits" name="MenteeStudyHabits" rows="4">{{ mentee.MenteeStudyHabits }}</textarea>
-                </div>
-
-                <!-- Challenging Subjects -->
-                <div class="form-group">
-                    <label for="MenteeSubjects">
-                        <i class="fas fa-book-open"></i> Challenging Subjects & Areas for Improvement
-                    </label>
-                    <textarea id="MenteeSubjects" name="MenteeSubjects" rows="3">{{ mentee.MenteeSubjects }}</textarea>
-                </div>
-
-                <!-- Extracurricular Activities -->
-                <div class="form-group">
-                    <label for="MenteeExtracurricular">
-                        <i class="fas fa-running"></i> Extracurricular Activities & Achievements
-                    </label>
-                    <textarea id="MenteeExtracurricular" name="MenteeExtracurricular" rows="3">{{ mentee.MenteeExtracurricular }}</textarea>
-                </div>
-
-                <!-- Academic Support Needs -->
-                <div class="form-group">
-                    <label for="AcademicSupportNeeds">
-                        <i class="fas fa-hands-helping"></i> Academic Support & Mentoring Needs
-                    </label>
-                    <textarea id="AcademicSupportNeeds" name="AcademicSupportNeeds" rows="3">{{ mentee.AcademicSupportNeeds }}</textarea>
-                </div>
-            </div>
 
                 <!-- Form Actions -->
                 <div class="form-actions">
@@ -1655,7 +1758,8 @@
                         <i class="fas fa-folder-open"></i>
                         <span>Choose File</span>
                     </button>
-                    <input type="file" id="modalProfilePicture" accept="image/jpeg,image/jpg,image/png,image/gif" class="file-input">
+                    <input type="file" id="modalProfilePicture" accept="image/jpeg,image/jpg,image/png,image/gif"
+                        class="file-input">
                     <div class="file-upload-info">Drag & drop your image here or click to browse</div>
                 </div>
                 <div class="file-upload-status" id="fileUploadStatus"></div>
@@ -1668,213 +1772,213 @@
     </div>
 
     <script>
-    // Add animations to form elements
-    document.addEventListener('DOMContentLoaded', function() {
-        console.log("Page loaded - initializing form");
-        
-        // Initialize tabs
-        initTabs();
-        
-        const formGroups = document.querySelectorAll('.form-group');
-        formGroups.forEach((group, index) => {
-            group.style.opacity = '0';
-            group.style.transform = 'translateY(20px)';
-            group.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
-            
-            setTimeout(() => {
-                group.style.opacity = '1';
-                group.style.transform = 'translateY(0)';
-            }, 100);
-        });
+        // Add animations to form elements
+        document.addEventListener('DOMContentLoaded', function () {
+            console.log("Page loaded - initializing form");
 
-        // Add animation to profile picture section
-        const profileSection = document.querySelector('.profile-picture-section');
-        profileSection.style.opacity = '0';
-        profileSection.style.transform = 'scale(0.9)';
-        profileSection.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        
-        setTimeout(() => {
-            profileSection.style.opacity = '1';
-            profileSection.style.transform = 'scale(1)';
-        }, 200);
-        
-        // Process Django messages and show as popup notifications
-        processDjangoMessages();
-        
-        // Form submission handler
-        document.getElementById('profileForm').addEventListener('submit', function(e) {
-            console.log("Form submission started");
-            
-            // Validate form before submission
-            if (!validateForm()) {
+            // Initialize tabs
+            initTabs();
+
+            const formGroups = document.querySelectorAll('.form-group');
+            formGroups.forEach((group, index) => {
+                group.style.opacity = '0';
+                group.style.transform = 'translateY(20px)';
+                group.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+
+                setTimeout(() => {
+                    group.style.opacity = '1';
+                    group.style.transform = 'translateY(0)';
+                }, 100);
+            });
+
+            // Add animation to profile picture section
+            const profileSection = document.querySelector('.profile-picture-section');
+            profileSection.style.opacity = '0';
+            profileSection.style.transform = 'scale(0.9)';
+            profileSection.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+
+            setTimeout(() => {
+                profileSection.style.opacity = '1';
+                profileSection.style.transform = 'scale(1)';
+            }, 200);
+
+            // Process Django messages and show as popup notifications
+            processDjangoMessages();
+
+            // Form submission handler
+            document.getElementById('profileForm').addEventListener('submit', function (e) {
+                console.log("Form submission started");
+
+                // Validate form before submission
+                if (!validateForm()) {
+                    e.preventDefault();
+                    showNotification('Validation Error', 'Please fill in all required fields correctly.', 'error', 3000);
+                    return;
+                }
+
+                // Show loading state on button
+                const submitBtn = document.getElementById('updateProfileBtn');
+                const originalText = submitBtn.innerHTML;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Updating...';
+                submitBtn.disabled = true;
+                submitBtn.classList.add('btn-loading');
+
+                // Allow the form to submit normally to Django
+
+                // Optional: Add a timeout to re-enable button if submission takes too long
+                setTimeout(() => {
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                    submitBtn.classList.remove('btn-loading');
+                }, 5000);
+            });
+
+            // Profile Picture Modal Functionality
+            const profilePictureModal = document.getElementById('profilePictureModal');
+            const addPhotoBtn = document.getElementById('addPhotoBtn');
+            const modalClose = document.getElementById('modalClose');
+            const modalCancel = document.getElementById('modalCancel');
+            const modalSave = document.getElementById('modalSave');
+            const fileInput = document.getElementById('profile_picture'); // Main form file input
+            const modalFileInput = document.getElementById('modalProfilePicture'); // Modal file input
+            const fileUploadBtn = document.getElementById('fileUploadBtn');
+            const fileUploadArea = document.getElementById('fileUploadArea');
+            const fileUploadStatus = document.getElementById('fileUploadStatus');
+            let profilePreview = document.getElementById('profilePreview');
+            let selectedFile = null;
+
+            // Open modal when "Add Photo" button is clicked
+            addPhotoBtn.addEventListener('click', function () {
+                profilePictureModal.classList.add('active');
+            });
+
+            // Close modal when close button is clicked
+            modalClose.addEventListener('click', function () {
+                profilePictureModal.classList.remove('active');
+                resetModal();
+            });
+
+            // Close modal when cancel button is clicked
+            modalCancel.addEventListener('click', function () {
+                profilePictureModal.classList.remove('active');
+                resetModal();
+            });
+
+            // Close modal when clicking outside the modal
+            profilePictureModal.addEventListener('click', function (e) {
+                if (e.target === profilePictureModal) {
+                    profilePictureModal.classList.remove('active');
+                    resetModal();
+                }
+            });
+
+            // Open file dialog when upload button is clicked
+            fileUploadBtn.addEventListener('click', function () {
+                modalFileInput.click();
+            });
+
+            // Handle file selection in modal
+            modalFileInput.addEventListener('change', function (e) {
+                if (e.target.files.length > 0) {
+                    selectedFile = e.target.files[0];
+                    handleFileSelection(selectedFile);
+                }
+            });
+
+            // Drag and drop functionality
+            fileUploadArea.addEventListener('dragover', function (e) {
                 e.preventDefault();
-                showNotification('Validation Error', 'Please fill in all required fields correctly.', 'error', 3000);
-                return;
+                fileUploadArea.classList.add('dragover');
+            });
+
+            fileUploadArea.addEventListener('dragleave', function () {
+                fileUploadArea.classList.remove('dragover');
+            });
+
+            fileUploadArea.addEventListener('drop', function (e) {
+                e.preventDefault();
+                fileUploadArea.classList.remove('dragover');
+
+                if (e.dataTransfer.files.length > 0) {
+                    selectedFile = e.dataTransfer.files[0];
+                    modalFileInput.files = e.dataTransfer.files;
+                    handleFileSelection(selectedFile);
+                }
+            });
+
+            // Save button functionality - FIXED: Now properly sets the file to the main form input
+            modalSave.addEventListener('click', function () {
+                if (selectedFile) {
+                    // Create a new FileList and set it to the main form file input
+                    const dataTransfer = new DataTransfer();
+                    dataTransfer.items.add(selectedFile);
+                    fileInput.files = dataTransfer.files;
+
+                    console.log("File set to main form input:", fileInput.files[0].name);
+
+                    // Update the profile preview
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        updateProfilePreview(e.target.result);
+
+                        // Show success notification
+                        showNotification('Profile Picture Selected', 'Your profile picture has been selected. Click "Update Profile" to save it.', 'success', 3000);
+                    };
+                    reader.readAsDataURL(selectedFile);
+
+                    // Close the modal
+                    profilePictureModal.classList.remove('active');
+                    resetModal();
+                }
+            });
+
+            // Function to update profile preview
+            function updateProfilePreview(imageDataURL) {
+                // If it's a default profile preview, replace it with an image
+                if (profilePreview.classList.contains('default-profile-preview')) {
+                    const img = document.createElement('img');
+                    img.src = imageDataURL;
+                    img.alt = 'Profile Picture Preview';
+                    img.style.width = '100%';
+                    img.style.height = '100%';
+                    img.style.objectFit = 'cover';
+
+                    profilePreview.parentNode.replaceChild(img, profilePreview);
+                    profilePreview = img;
+                } else {
+                    // If it's already an image, just update the src
+                    profilePreview.src = imageDataURL;
+                }
+
+                // Also update the sidebar profile picture
+                const sidebarProfilePic = document.getElementById('sidebarProfilePic');
+                if (sidebarProfilePic) {
+                    sidebarProfilePic.src = imageDataURL;
+                }
             }
-            
-            // Show loading state on button
-            const submitBtn = document.getElementById('updateProfileBtn');
-            const originalText = submitBtn.innerHTML;
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Updating...';
-            submitBtn.disabled = true;
-            submitBtn.classList.add('btn-loading');
-            
-            // Allow the form to submit normally to Django
-            
-            // Optional: Add a timeout to re-enable button if submission takes too long
-            setTimeout(() => {
-                submitBtn.innerHTML = originalText;
-                submitBtn.disabled = false;
-                submitBtn.classList.remove('btn-loading');
-            }, 5000);
-        });
 
-        // Profile Picture Modal Functionality
-        const profilePictureModal = document.getElementById('profilePictureModal');
-        const addPhotoBtn = document.getElementById('addPhotoBtn');
-        const modalClose = document.getElementById('modalClose');
-        const modalCancel = document.getElementById('modalCancel');
-        const modalSave = document.getElementById('modalSave');
-        const fileInput = document.getElementById('profile_picture'); // Main form file input
-        const modalFileInput = document.getElementById('modalProfilePicture'); // Modal file input
-        const fileUploadBtn = document.getElementById('fileUploadBtn');
-        const fileUploadArea = document.getElementById('fileUploadArea');
-        const fileUploadStatus = document.getElementById('fileUploadStatus');
-        let profilePreview = document.getElementById('profilePreview');
-        let selectedFile = null;
+            // Function to handle file selection
+            function handleFileSelection(file) {
+                fileUploadStatus.className = 'file-upload-status';
+                fileUploadStatus.textContent = '';
 
-        // Open modal when "Add Photo" button is clicked
-        addPhotoBtn.addEventListener('click', function() {
-            profilePictureModal.classList.add('active');
-        });
+                // Validate file
+                if (!validateFile(file)) {
+                    modalSave.disabled = true;
+                    return;
+                }
 
-        // Close modal when close button is clicked
-        modalClose.addEventListener('click', function() {
-            profilePictureModal.classList.remove('active');
-            resetModal();
-        });
+                // Show file info
+                fileUploadStatus.className = 'file-upload-status success';
+                fileUploadStatus.innerHTML = `<i class="fas fa-check"></i> Selected: ${file.name} (${formatFileSize(file.size)})`;
 
-        // Close modal when cancel button is clicked
-        modalCancel.addEventListener('click', function() {
-            profilePictureModal.classList.remove('active');
-            resetModal();
-        });
+                // Enable save button
+                modalSave.disabled = false;
 
-        // Close modal when clicking outside the modal
-        profilePictureModal.addEventListener('click', function(e) {
-            if (e.target === profilePictureModal) {
-                profilePictureModal.classList.remove('active');
-                resetModal();
-            }
-        });
-
-        // Open file dialog when upload button is clicked
-        fileUploadBtn.addEventListener('click', function() {
-            modalFileInput.click();
-        });
-
-        // Handle file selection in modal
-        modalFileInput.addEventListener('change', function(e) {
-            if (e.target.files.length > 0) {
-                selectedFile = e.target.files[0];
-                handleFileSelection(selectedFile);
-            }
-        });
-
-        // Drag and drop functionality
-        fileUploadArea.addEventListener('dragover', function(e) {
-            e.preventDefault();
-            fileUploadArea.classList.add('dragover');
-        });
-
-        fileUploadArea.addEventListener('dragleave', function() {
-            fileUploadArea.classList.remove('dragover');
-        });
-
-        fileUploadArea.addEventListener('drop', function(e) {
-            e.preventDefault();
-            fileUploadArea.classList.remove('dragover');
-            
-            if (e.dataTransfer.files.length > 0) {
-                selectedFile = e.dataTransfer.files[0];
-                modalFileInput.files = e.dataTransfer.files;
-                handleFileSelection(selectedFile);
-            }
-        });
-
-        // Save button functionality - FIXED: Now properly sets the file to the main form input
-        modalSave.addEventListener('click', function() {
-            if (selectedFile) {
-                // Create a new FileList and set it to the main form file input
-                const dataTransfer = new DataTransfer();
-                dataTransfer.items.add(selectedFile);
-                fileInput.files = dataTransfer.files;
-                
-                console.log("File set to main form input:", fileInput.files[0].name);
-                
-                // Update the profile preview
+                // Update the file upload area to show preview
                 const reader = new FileReader();
-                reader.onload = function(e) {
-                    updateProfilePreview(e.target.result);
-                    
-                    // Show success notification
-                    showNotification('Profile Picture Selected', 'Your profile picture has been selected. Click "Update Profile" to save it.', 'success', 3000);
-                };
-                reader.readAsDataURL(selectedFile);
-                
-                // Close the modal
-                profilePictureModal.classList.remove('active');
-                resetModal();
-            }
-        });
-
-        // Function to update profile preview
-        function updateProfilePreview(imageDataURL) {
-            // If it's a default profile preview, replace it with an image
-            if (profilePreview.classList.contains('default-profile-preview')) {
-                const img = document.createElement('img');
-                img.src = imageDataURL;
-                img.alt = 'Profile Picture Preview';
-                img.style.width = '100%';
-                img.style.height = '100%';
-                img.style.objectFit = 'cover';
-                
-                profilePreview.parentNode.replaceChild(img, profilePreview);
-                profilePreview = img;
-            } else {
-                // If it's already an image, just update the src
-                profilePreview.src = imageDataURL;
-            }
-            
-            // Also update the sidebar profile picture
-            const sidebarProfilePic = document.getElementById('sidebarProfilePic');
-            if (sidebarProfilePic) {
-                sidebarProfilePic.src = imageDataURL;
-            }
-        }
-
-        // Function to handle file selection
-        function handleFileSelection(file) {
-            fileUploadStatus.className = 'file-upload-status';
-            fileUploadStatus.textContent = '';
-            
-            // Validate file
-            if (!validateFile(file)) {
-                modalSave.disabled = true;
-                return;
-            }
-            
-            // Show file info
-            fileUploadStatus.className = 'file-upload-status success';
-            fileUploadStatus.innerHTML = `<i class="fas fa-check"></i> Selected: ${file.name} (${formatFileSize(file.size)})`;
-            
-            // Enable save button
-            modalSave.disabled = false;
-            
-            // Update the file upload area to show preview
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                fileUploadArea.innerHTML = `
+                reader.onload = function (e) {
+                    fileUploadArea.innerHTML = `
                     <div class="file-upload-icon">
                         <i class="fas fa-check-circle" style="color: #4CAF50;"></i>
                     </div>
@@ -1887,49 +1991,49 @@
                         <span>Change File</span>
                     </button>
                 `;
-                
-                // Add event listener to the new change file button
-                document.getElementById('changeFileBtn').addEventListener('click', function() {
-                    modalFileInput.click();
-                });
-            };
-            reader.readAsDataURL(file);
-        }
 
-        // File validation function
-        function validateFile(file) {
-            // Check file size (15MB limit)
-            if (file.size > 15 * 1024 * 1024) {
-                fileUploadStatus.className = 'file-upload-status error';
-                fileUploadStatus.innerHTML = '<i class="fas fa-exclamation-triangle"></i> File too large (max 15MB)';
-                showNotification('File Too Large', 'Image file too large ( > 15MB )', 'error', 3000);
-                modalFileInput.value = '';
-                return false;
+                    // Add event listener to the new change file button
+                    document.getElementById('changeFileBtn').addEventListener('click', function () {
+                        modalFileInput.click();
+                    });
+                };
+                reader.readAsDataURL(file);
             }
-            
-            // Check file type
-            const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
-            if (!allowedTypes.includes(file.type)) {
-                fileUploadStatus.className = 'file-upload-status error';
-                fileUploadStatus.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Invalid file type (use JPG, PNG, GIF)';
-                showNotification('Invalid File Type', 'Please upload a valid image file (JPG, PNG, GIF)', 'error', 3000);
-                modalFileInput.value = '';
-                return false;
-            }
-            
-            return true;
-        }
 
-        // Function to reset modal to initial state
-        function resetModal() {
-            selectedFile = null;
-            modalFileInput.value = '';
-            modalSave.disabled = true;
-            fileUploadStatus.className = 'file-upload-status';
-            fileUploadStatus.textContent = '';
-            
-            // Reset file upload area
-            fileUploadArea.innerHTML = `
+            // File validation function
+            function validateFile(file) {
+                // Check file size (15MB limit)
+                if (file.size > 15 * 1024 * 1024) {
+                    fileUploadStatus.className = 'file-upload-status error';
+                    fileUploadStatus.innerHTML = '<i class="fas fa-exclamation-triangle"></i> File too large (max 15MB)';
+                    showNotification('File Too Large', 'Image file too large ( > 15MB )', 'error', 3000);
+                    modalFileInput.value = '';
+                    return false;
+                }
+
+                // Check file type
+                const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
+                if (!allowedTypes.includes(file.type)) {
+                    fileUploadStatus.className = 'file-upload-status error';
+                    fileUploadStatus.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Invalid file type (use JPG, PNG, GIF)';
+                    showNotification('Invalid File Type', 'Please upload a valid image file (JPG, PNG, GIF)', 'error', 3000);
+                    modalFileInput.value = '';
+                    return false;
+                }
+
+                return true;
+            }
+
+            // Function to reset modal to initial state
+            function resetModal() {
+                selectedFile = null;
+                modalFileInput.value = '';
+                modalSave.disabled = true;
+                fileUploadStatus.className = 'file-upload-status';
+                fileUploadStatus.textContent = '';
+
+                // Reset file upload area
+                fileUploadArea.innerHTML = `
                 <div class="file-upload-icon">
                     <i class="fas fa-cloud-upload-alt"></i>
                 </div>
@@ -1943,123 +2047,123 @@
                 </button>
                 <div class="file-upload-info">Drag & drop your image here or click to browse</div>
             `;
-            
-            // Reattach event listener to the new button
-            document.getElementById('fileUploadBtn').addEventListener('click', function() {
-                modalFileInput.click();
+
+                // Reattach event listener to the new button
+                document.getElementById('fileUploadBtn').addEventListener('click', function () {
+                    modalFileInput.click();
+                });
+            }
+
+            // Helper function to format file size
+            function formatFileSize(bytes) {
+                if (bytes === 0) return '0 Bytes';
+                const k = 1024;
+                const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+                const i = Math.floor(Math.log(bytes) / Math.log(k));
+                return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+            }
+
+            // Add real-time validation for GPA fields
+            const gpaInputs = document.querySelectorAll('input[type="number"][step="0.01"]');
+            gpaInputs.forEach(input => {
+                input.addEventListener('blur', function () {
+                    const value = parseFloat(this.value);
+                    // Only validate if there's a value
+                    if (this.value && (value < 0 || value > 4.0)) {
+                        this.style.borderColor = '#f44336';
+                        this.style.boxShadow = '0 0 0 3px rgba(244, 67, 54, 0.1)';
+                        showNotification('Invalid GPA', 'GPA must be between 0.00 and 4.00', 'warning', 3000);
+                    } else {
+                        this.style.borderColor = '#e2e8f0';
+                        this.style.boxShadow = 'none';
+                    }
+                });
             });
-        }
 
-        // Helper function to format file size
-        function formatFileSize(bytes) {
-            if (bytes === 0) return '0 Bytes';
-            const k = 1024;
-            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-            const i = Math.floor(Math.log(bytes) / Math.log(k));
-            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
-        }
+            // Add semester validation
+            const semesterInput = document.getElementById('MenteeSemester');
+            if (semesterInput) {
+                semesterInput.addEventListener('blur', function () {
+                    const value = parseInt(this.value);
+                    if (value < 1 || value > 8) {
+                        this.style.borderColor = '#f44336';
+                        this.style.boxShadow = '0 0 0 3px rgba(244, 67, 54, 0.1)';
+                        showNotification('Invalid Semester', 'Semester must be between 1 and 8', 'warning', 3000);
+                    } else {
+                        this.style.borderColor = '#e2e8f0';
+                        this.style.boxShadow = 'none';
+                    }
+                });
+            }
 
-        // Add real-time validation for GPA fields
-        const gpaInputs = document.querySelectorAll('input[type="number"][step="0.01"]');
-        gpaInputs.forEach(input => {
-            input.addEventListener('blur', function() {
-                const value = parseFloat(this.value);
-                // Only validate if there's a value
-                if (this.value && (value < 0 || value > 4.0)) {
-                    this.style.borderColor = '#f44336';
-                    this.style.boxShadow = '0 0 0 3px rgba(244, 67, 54, 0.1)';
-                    showNotification('Invalid GPA', 'GPA must be between 0.00 and 4.00', 'warning', 3000);
-                } else {
-                    this.style.borderColor = '#e2e8f0';
-                    this.style.boxShadow = 'none';
-                }
+            // Add input validation styling
+            const inputs = document.querySelectorAll('input, select, textarea');
+
+            inputs.forEach(input => {
+                // Add focus effect
+                input.addEventListener('focus', function () {
+                    this.style.borderColor = '#1a3a8f';
+                    this.style.boxShadow = '0 0 0 3px rgba(26, 58, 143, 0.1)';
+                });
+
+                // Remove focus effect
+                input.addEventListener('blur', function () {
+                    if (this.checkValidity()) {
+                        this.style.borderColor = '#e2e8f0';
+                        this.style.boxShadow = 'none';
+                    }
+                });
+
+                // Real-time validation
+                input.addEventListener('input', function () {
+                    if (this.checkValidity()) {
+                        this.style.borderColor = '#4CAF50';
+                        this.style.boxShadow = '0 0 0 3px rgba(76, 175, 80, 0.1)';
+                    } else {
+                        this.style.borderColor = '#f44336';
+                        this.style.boxShadow = '0 0 0 3px rgba(244, 67, 54, 0.1)';
+                    }
+                });
             });
         });
 
-        // Add semester validation
-        const semesterInput = document.getElementById('MenteeSemester');
-        if (semesterInput) {
-            semesterInput.addEventListener('blur', function() {
-                const value = parseInt(this.value);
-                if (value < 1 || value > 8) {
-                    this.style.borderColor = '#f44336';
-                    this.style.boxShadow = '0 0 0 3px rgba(244, 67, 54, 0.1)';
-                    showNotification('Invalid Semester', 'Semester must be between 1 and 8', 'warning', 3000);
-                } else {
-                    this.style.borderColor = '#e2e8f0';
-                    this.style.boxShadow = 'none';
-                }
+        // Tab functionality
+        function initTabs() {
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const tabId = button.getAttribute('data-tab');
+
+                    // Remove active class from all buttons and contents
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+
+                    // Add active class to clicked button and corresponding content
+                    button.classList.add('active');
+                    document.getElementById(`${tabId}-tab`).classList.add('active');
+                });
             });
         }
 
-        // Add input validation styling
-        const inputs = document.querySelectorAll('input, select, textarea');
-        
-        inputs.forEach(input => {
-            // Add focus effect
-            input.addEventListener('focus', function() {
-                this.style.borderColor = '#1a3a8f';
-                this.style.boxShadow = '0 0 0 3px rgba(26, 58, 143, 0.1)';
-            });
-            
-            // Remove focus effect
-            input.addEventListener('blur', function() {
-                if (this.checkValidity()) {
-                    this.style.borderColor = '#e2e8f0';
-                    this.style.boxShadow = 'none';
-                }
-            });
-            
-            // Real-time validation
-            input.addEventListener('input', function() {
-                if (this.checkValidity()) {
-                    this.style.borderColor = '#4CAF50';
-                    this.style.boxShadow = '0 0 0 3px rgba(76, 175, 80, 0.1)';
-                } else {
-                    this.style.borderColor = '#f44336';
-                    this.style.boxShadow = '0 0 0 3px rgba(244, 67, 54, 0.1)';
-                }
-            });
-        });
-    });
+        // Function to show popup notification
+        function showNotification(title, message, type = 'success', duration = 5000) {
+            const container = document.getElementById('notificationContainer');
 
-    // Tab functionality
-    function initTabs() {
-        const tabButtons = document.querySelectorAll('.tab-button');
-        const tabContents = document.querySelectorAll('.tab-content');
-        
-        tabButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const tabId = button.getAttribute('data-tab');
-                
-                // Remove active class from all buttons and contents
-                tabButtons.forEach(btn => btn.classList.remove('active'));
-                tabContents.forEach(content => content.classList.remove('active'));
-                
-                // Add active class to clicked button and corresponding content
-                button.classList.add('active');
-                document.getElementById(`${tabId}-tab`).classList.add('active');
-            });
-        });
-    }
+            // Create notification element
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
 
-    // Function to show popup notification
-    function showNotification(title, message, type = 'success', duration = 5000) {
-        const container = document.getElementById('notificationContainer');
-        
-        // Create notification element
-        const notification = document.createElement('div');
-        notification.className = `notification ${type}`;
-        
-        // Map message types to icons
-        const icons = {
-            'success': 'fas fa-check',
-            'error': 'fas fa-exclamation-circle',
-            'warning': 'fas fa-exclamation-triangle',
-            'info': 'fas fa-info-circle'
-        };
-        
-        notification.innerHTML = `
+            // Map message types to icons
+            const icons = {
+                'success': 'fas fa-check',
+                'error': 'fas fa-exclamation-circle',
+                'warning': 'fas fa-exclamation-triangle',
+                'info': 'fas fa-info-circle'
+            };
+
+            notification.innerHTML = `
             <div class="notification-icon">
                 <i class="${icons[type] || icons.info}"></i>
             </div>
@@ -2074,41 +2178,41 @@
                 <div class="notification-progress-bar"></div>
             </div>
         `;
-        
-        container.appendChild(notification);
-        
-        // Animate in
-        setTimeout(() => {
-            notification.classList.add('show');
-        }, 100);
-        
-        // Auto remove after duration
-        setTimeout(() => {
-            notification.classList.add('hide');
-            setTimeout(() => {
-                if (notification.parentElement) {
-                    notification.remove();
-                }
-            }, 300);
-        }, duration);
-    }
 
-    // Function to process Django messages and convert to popup notifications
-    function processDjangoMessages() {
-        const messagesContainer = document.querySelector('.messages');
-        if (!messagesContainer) return;
-        
-        const messages = messagesContainer.querySelectorAll('.success, .error');
-        
-        messages.forEach(messageEl => {
+            container.appendChild(notification);
+
+            // Animate in
+            setTimeout(() => {
+                notification.classList.add('show');
+            }, 100);
+
+            // Auto remove after duration
+            setTimeout(() => {
+                notification.classList.add('hide');
+                setTimeout(() => {
+                    if (notification.parentElement) {
+                        notification.remove();
+                    }
+                }, 300);
+            }, duration);
+        }
+
+        // Function to process Django messages and convert to popup notifications
+        function processDjangoMessages() {
+            const messagesContainer = document.querySelector('.messages');
+            if (!messagesContainer) return;
+
+            const messages = messagesContainer.querySelectorAll('.success, .error');
+
+            messages.forEach(messageEl => {
                 const isError = messageEl.classList.contains('error');
                 const type = isError ? 'error' : 'success';
                 const title = isError ? 'Error' : 'Success';
                 const message = messageEl.textContent.trim();
-                
+
                 // Show as popup notification
                 showNotification(title, message, type);
-                
+
                 // Remove the original message after a short delay
                 setTimeout(() => {
                     messageEl.style.opacity = '0';
@@ -2118,158 +2222,145 @@
                     }, 300);
                 }, 1000);
             });
-    }
+        }
 
-    // Enhanced form validation - Only validates required fields
-    function validateForm() {
-        const form = document.getElementById('profileForm');
-        const requiredFields = form.querySelectorAll('[required]');
-        let isValid = true;
-        let firstErrorField = null;
-        
-        requiredFields.forEach(field => {
-            // Skip readonly fields even if they have required attribute
-            if (field.classList.contains('readonly-field')) {
-                return;
-            }
-            
-            if (!field.value.trim()) {
-                field.style.borderColor = '#f44336';
-                field.style.boxShadow = '0 0 0 3px rgba(244, 67, 54, 0.1)';
-                isValid = false;
-                
-                // Store first error field for scrolling
-                if (!firstErrorField) {
-                    firstErrorField = field;
+        // Form validation - All fields are optional, just validate GPA range if provided
+        function validateForm() {
+            let isValid = true;
+            let firstErrorField = null;
+
+            // Only validate GPA fields for range (0-4) if they have values
+            const gpaInputs = document.querySelectorAll('input[type="number"][step="0.01"]');
+            gpaInputs.forEach(input => {
+                if (input.value) {
+                    const value = parseFloat(input.value);
+                    if (value < 0 || value > 4.0) {
+                        input.style.borderColor = '#f44336';
+                        input.style.boxShadow = '0 0 0 3px rgba(244, 67, 54, 0.1)';
+                        isValid = false;
+                        if (!firstErrorField) firstErrorField = input;
+                        showNotification('Invalid GPA', 'GPA must be between 0.00 and 4.00', 'warning', 3000);
+                    } else {
+                        input.style.borderColor = '#e2e8f0';
+                        input.style.boxShadow = 'none';
+                    }
                 }
-            } else {
-                field.style.borderColor = '#e2e8f0';
-                field.style.boxShadow = 'none';
+            });
+
+            // Scroll to first error field if any
+            if (firstErrorField) {
+                firstErrorField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                firstErrorField.focus();
             }
-        });
-        
-        // Additional validation for specific fields
-        const semesterInput = document.getElementById('MenteeSemester');
-        if (semesterInput && semesterInput.value) {
-            const semester = parseInt(semesterInput.value);
-            if (semester < 1 || semester > 8) {
-                semesterInput.style.borderColor = '#f44336';
-                semesterInput.style.boxShadow = '0 0 0 3px rgba(244, 67, 54, 0.1)';
-                isValid = false;
-                if (!firstErrorField) firstErrorField = semesterInput;
+
+            return isValid;
+        }
+
+        // Optional: Function to manually show notifications (for other actions)
+        function showSuccess(message, title = 'Success') {
+            showNotification(title, message, 'success');
+        }
+
+        function showError(message, title = 'Error') {
+            showNotification(title, message, 'error');
+        }
+
+        function showWarning(message, title = 'Warning') {
+            showNotification(title, message, 'warning');
+        }
+
+        function showInfo(message, title = 'Information') {
+            showNotification(title, message, 'info');
+        }
+    </script>
+
+    <!-- Scroll Indicator (Auto-Injected) -->
+    <style>
+        @keyframes scroll-bounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(10px);
             }
         }
-        
-        // Validate GPA fields (only if they have values)
-        const gpaInputs = document.querySelectorAll('input[type="number"][step="0.01"]');
-        gpaInputs.forEach(input => {
-            if (input.value) {
-                const value = parseFloat(input.value);
-                if (value < 0 || value > 4.0) {
-                    input.style.borderColor = '#f44336';
-                    input.style.boxShadow = '0 0 0 3px rgba(244, 67, 54, 0.1)';
-                    isValid = false;
-                    if (!firstErrorField) firstErrorField = input;
+
+        @keyframes scroll-fade-in {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .scroll-indicator-container {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #9ca3af;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            display: none;
+        }
+
+        .scroll-indicator-container.visible {
+            display: block;
+            opacity: 1;
+            animation: scroll-fade-in 1s ease forwards;
+        }
+
+        .scroll-indicator-icon {
+            width: 1.5rem;
+            height: 2.5rem;
+            border: 2px solid currentColor;
+            border-radius: 9999px;
+            display: flex;
+            justify-content: center;
+            padding-top: 0.5rem;
+            box-sizing: border-box;
+            margin: 0 auto;
+        }
+
+        .scroll-indicator-dot {
+            width: 0.25rem;
+            height: 0.5rem;
+            background-color: currentColor;
+            border-radius: 9999px;
+            animation: scroll-bounce 2s infinite;
+            animation-delay: 1.5s;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var indicator = document.createElement('div');
+            indicator.className = 'scroll-indicator-container';
+            indicator.innerHTML = '<div class="scroll-indicator-icon"><div class="scroll-indicator-dot"></div></div>';
+            document.body.appendChild(indicator);
+
+            function checkScroll() {
+                var hasScroll = document.documentElement.scrollHeight > window.innerHeight;
+                if (hasScroll && window.scrollY < 100) {
+                    indicator.classList.add('visible');
+                } else {
+                    indicator.classList.remove('visible');
                 }
             }
+
+            window.addEventListener('scroll', checkScroll);
+            window.addEventListener('resize', checkScroll);
+            // Initial check
+            setTimeout(checkScroll, 500);
         });
-        
-        // Scroll to first error field
-        if (firstErrorField) {
-            firstErrorField.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            firstErrorField.focus();
-        }
-        
-        return isValid;
-    }
-
-    // Optional: Function to manually show notifications (for other actions)
-    function showSuccess(message, title = 'Success') {
-        showNotification(title, message, 'success');
-    }
-
-    function showError(message, title = 'Error') {
-        showNotification(title, message, 'error');
-    }
-
-    function showWarning(message, title = 'Warning') {
-        showNotification(title, message, 'warning');
-    }
-
-    function showInfo(message, title = 'Information') {
-        showNotification(title, message, 'info');
-    }
-</script>
-
-<!-- Scroll Indicator (Auto-Injected) -->
-<style>
-    @keyframes scroll-bounce {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(10px); }
-    }
-    @keyframes scroll-fade-in {
-        from { opacity: 0; }
-        to { opacity: 1; }
-    }
-    .scroll-indicator-container {
-        position: fixed;
-        bottom: 2rem;
-        left: 50%;
-        transform: translateX(-50%);
-        color: #9ca3af;
-        pointer-events: none;
-        z-index: 9999;
-        opacity: 0;
-        transition: opacity 0.5s ease;
-        display: none;
-    }
-    .scroll-indicator-container.visible {
-        display: block;
-        opacity: 1;
-        animation: scroll-fade-in 1s ease forwards;
-    }
-    .scroll-indicator-icon {
-        width: 1.5rem;
-        height: 2.5rem;
-        border: 2px solid currentColor;
-        border-radius: 9999px;
-        display: flex;
-        justify-content: center;
-        padding-top: 0.5rem;
-        box-sizing: border-box;
-        margin: 0 auto;
-    }
-    .scroll-indicator-dot {
-        width: 0.25rem;
-        height: 0.5rem;
-        background-color: currentColor;
-        border-radius: 9999px;
-        animation: scroll-bounce 2s infinite;
-        animation-delay: 1.5s;
-    }
-</style>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var indicator = document.createElement('div');
-        indicator.className = 'scroll-indicator-container';
-        indicator.innerHTML = '<div class="scroll-indicator-icon"><div class="scroll-indicator-dot"></div></div>';
-        document.body.appendChild(indicator);
-
-        function checkScroll() {
-            var hasScroll = document.documentElement.scrollHeight > window.innerHeight;
-            if (hasScroll && window.scrollY < 100) {
-                indicator.classList.add('visible');
-            } else {
-                indicator.classList.remove('visible');
-            }
-        }
-
-        window.addEventListener('scroll', checkScroll);
-        window.addEventListener('resize', checkScroll);
-        // Initial check
-        setTimeout(checkScroll, 500);
-    });
-</script>
+    </script>
 
 </body>
+
 </html>
