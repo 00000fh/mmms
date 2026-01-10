@@ -1,9 +1,11 @@
+@ -1,1194 +1,1216 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Mentoring Session - Mentor | MMS</title>
+    <title>Create Activity | MMS</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -99,24 +101,6 @@
             justify-content: center;
             font-size: 26px;
             border: 3px solid rgba(255, 255, 255, 0.2);
-            overflow: hidden;
-            position: relative;
-        }
-
-        .user-avatar img {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-
-        .user-avatar i {
-            color: rgba(255, 255, 255, 0.8);
-            position: relative;
-            z-index: 1;
         }
 
         .user-name {
@@ -218,7 +202,8 @@
             margin-left: 260px;
             min-height: 100vh;
             background: #f5f7fa;
-            padding: 20px;
+            /* reduce left padding so content sits closer to the sidebar */
+            padding: 20px 20px 20px 12px;
         }
 
         /* Updated Content Header with Profile Button */
@@ -233,17 +218,6 @@
             align-items: center;
             flex-wrap: wrap;
             gap: 12px;
-        }
-
-        .header-left {
-            flex: 1;
-            min-width: 300px;
-        }
-
-        .header-right {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
         }
 
         .content-header h1 {
@@ -286,40 +260,23 @@
         }
 
         .profile-avatar {
-            width: 18px;
+            width: 40px;
             height: 18px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 10px;
         }
 
-        /* Form Container - Consistent with create_activity */
+        /* Form Container - Consistent spacing */
         .form-container {
             background: white;
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
             margin-bottom: 20px;
-        }
-
-        .section-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: #2d3748;
-            margin-bottom: 20px;
-            padding-bottom: 12px;
-            border-bottom: 2px solid #1a3a8f;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        /* Form Styles - Consistent with create_activity */
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
         }
 
         .form-group {
@@ -331,186 +288,108 @@
             margin-bottom: 8px;
             font-weight: 600;
             color: #2d3748;
-            font-size: 13px;
+            font-size: 14px;
         }
 
-        .form-group label .required {
-            color: #d32f2f;
-            margin-left: 2px;
-        }
-
-        .form-control {
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
             width: 100%;
-            padding: 12px 16px;
+            padding: 12px;
             border: 2px solid #e2e8f0;
             border-radius: 8px;
-            font-size: 13px;
+            font-size: 14px;
             transition: all 0.3s ease;
             background: #f8f9ff;
         }
 
-        .form-control:focus {
-            border-color: #1a3a8f;
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
             outline: none;
+            border-color: #1a3a8f;
             box-shadow: 0 0 0 3px rgba(26, 58, 143, 0.1);
             background: white;
         }
 
-        .form-select {
-            appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23718096' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 16px center;
-            background-size: 12px;
-        }
-
-        textarea.form-control {
-            min-height: 100px;
+        .form-group textarea {
+            height: 120px;
             resize: vertical;
         }
 
-        .help-text {
-            font-size: 12px;
-            color: #718096;
-            margin-top: 6px;
-            line-height: 1.4;
-        }
-
-        /* Simple Horizontal Time Layout - Consistent with create_activity */
-        .time-horizontal {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .time-field-horizontal {
-            flex: 1;
-        }
-
-        .time-field-horizontal .form-control {
-            width: 100%;
-        }
-
-        .time-helper {
-            font-size: 11px;
-            color: #718096;
-            text-align: center;
-            margin-top: 4px;
-        }
-
-        .time-dash {
-            color: #718096;
-            font-weight: 600;
-            padding: 0 4px;
-            margin-top: 14px;
-        }
-
-        /* Attendee Selection */
-        .attendee-selection {
-            border: 2px solid #e2e8f0;
-            border-radius: 10px;
-            padding: 16px;
-            background: #f8f9ff;
-        }
-
-        .select-all {
-            background: #e3f2fd;
-            padding: 10px 12px;
-            border-radius: 6px;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            border: 1px solid #bbdefb;
-        }
-
-        .select-all input[type="checkbox"] {
-            width: 16px;
-            height: 16px;
-            accent-color: #1a3a8f;
-        }
-
-        .select-all label {
-            margin: 0;
-            font-weight: 600;
-            color: #2d3748;
+        .btn {
+            padding: 10px 16px;
+            border: none;
+            border-radius: 8px;
             cursor: pointer;
-        }
-
-        .selected-count {
-            background: #1a3a8f;
-            color: white;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-left: auto;
-        }
-
-        .attendee-checkboxes {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 10px;
-            max-height: 200px;
-            overflow-y: auto;
-            padding: 12px;
-            background: white;
-            border: 1px solid #e2e8f0;
-            border-radius: 6px;
-        }
-
-        .attendee-checkbox-item {
-            display: flex;
+            text-decoration: none;
+            display: inline-flex;
             align-items: center;
             gap: 8px;
-            padding: 8px;
-            background: #f8f9ff;
-            border-radius: 6px;
-            border: 1px solid #e2e8f0;
+            font-size: 14px;
+            font-weight: 600;
             transition: all 0.3s ease;
         }
 
-        .attendee-checkbox-item:hover {
-            background: white;
-            border-color: #1a3a8f;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        .btn-primary {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
+            color: white;
         }
 
-        .attendee-checkbox-item input[type="checkbox"] {
-            width: 16px;
-            height: 16px;
-            accent-color: #1a3a8f;
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
         }
 
-        .attendee-checkbox-item label {
-            margin: 0;
-            font-weight: 500;
-            color: #2d3748;
-            cursor: pointer;
-            flex: 1;
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
         }
 
-        .attendee-details {
-            color: #718096;
-            font-size: 12px;
-            font-weight: 500;
-            margin-top: 2px;
+        .btn-secondary:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
         }
 
-        .auto-included-badge {
-            background: #e8f5e9;
-            color: #2e7d32;
-            padding: 2px 8px;
-            border-radius: 12px;
-            font-size: 11px;
-            font-weight: 600;
-            margin-left: 8px;
-            display: inline-flex;
+        .messages {
+            margin-bottom: 20px;
+        }
+
+        .error {
+            background: #ffebee;
+            color: #c62828;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            border: 1px solid #feb2b2;
+            display: flex;
             align-items: center;
-            gap: 4px;
+            gap: 10px;
         }
 
-        /* Checkbox Group */
+        .success {
+            background: #e8f5e8;
+            color: #2e7d32;
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            border: 1px solid #c8e6c9;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .required::after {
+            content: " *";
+            color: #d32f2f;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
         .checkbox-group {
             display: flex;
             align-items: center;
@@ -534,164 +413,166 @@
             cursor: pointer;
         }
 
-        /* Form Actions - Consistent with create_activity */
-        .form-actions {
-            display: flex;
-            gap: 12px;
-            margin-top: 24px;
-            padding-top: 20px;
-            border-top: 2px solid #e2e8f0;
+        /* ID Preview and Auto-generate */
+        .id-preview-container {
+            background: #f8f9ff;
+            padding: 12px;
+            border-radius: 8px;
+            border: 2px solid #e2e8f0;
+            margin-top: 8px;
         }
 
-        /* Buttons - Consistent with create_activity */
-        .btn {
-            padding: 10px 18px;
+        .id-preview {
+            background: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 1px solid #e2e8f0;
+            font-family: monospace;
+            font-weight: bold;
+            color: #1a3a8f;
+            margin-right: 12px;
+        }
+
+        .auto-generate {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .auto-generate-btn {
+            background: #2e7d32;
+            color: white;
             border: none;
-            border-radius: 8px;
+            padding: 6px 12px;
+            border-radius: 6px;
             cursor: pointer;
-            text-decoration: none;
-            display: inline-flex;
+            font-size: 12px;
+            font-weight: 600;
+            display: flex;
             align-items: center;
             gap: 6px;
-            font-size: 13px;
-            font-weight: 600;
             transition: all 0.3s ease;
         }
 
-        .btn-primary {
-            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
-            color: white;
+        .auto-generate-btn:hover {
+            background: #1b5e20;
+            transform: translateY(-1px);
         }
 
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
-        }
-
-        .btn-secondary {
-            background: #718096;
-            color: white;
-        }
-
-        .btn-secondary:hover {
-            background: #4a5568;
-            transform: translateY(-2px);
-        }
-
-        .btn-success {
-            background: linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%);
-            color: white;
-        }
-
-        .btn-success:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(46, 125, 50, 0.3);
-        }
-
-        /* Validation States - Consistent with create_activity */
-        .form-control.error {
-            border-color: #d32f2f;
-            background: #fff5f5;
-        }
-
-        .form-control.success {
-            border-color: #2e7d32;
-            background: #f0fff4;
-        }
-
-        /* Toast Notification Styles - Consistent with create_activity */
-        .toast-container {
-            position: fixed;
-            bottom: 24px;
-            right: 24px;
-            z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            max-width: 400px;
-        }
-
-        .toast {
-            background: white;
-            border-radius: 8px;
+        /* Multiple Mentor Selection */
+        .mentor-selection {
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
             padding: 16px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            background: #f8f9ff;
+        }
+
+        .select-all {
+            background: #e3f2fd;
+            padding: 10px 12px;
+            border-radius: 6px;
+            margin-bottom: 12px;
             display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            transform: translateX(100%);
-            opacity: 0;
+            align-items: center;
+            gap: 10px;
+            border: 1px solid #bbdefb;
+        }
+
+        .select-all input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            accent-color: #1a3a8f;
+        }
+
+        .selected-count {
+            background: #1a3a8f;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: auto;
+        }
+
+        .mentor-checkboxes {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 10px;
+            max-height: 200px;
+            overflow-y: auto;
+            padding: 12px;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+        }
+
+        .mentor-checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px;
+            background: #f8f9ff;
+            border-radius: 6px;
+            border: 1px solid #e2e8f0;
             transition: all 0.3s ease;
-            border-left: 4px solid;
         }
 
-        .toast.show {
-            transform: translateX(0);
-            opacity: 1;
+        .mentor-checkbox-item:hover {
+            background: white;
+            border-color: #1a3a8f;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
 
-        .toast-success {
-            border-left-color: #38a169;
+        .mentor-checkbox-item input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            accent-color: #1a3a8f;
         }
 
-        .toast-error {
-            border-left-color: #e53e3e;
-        }
-
-        .toast-icon {
-            font-size: 18px;
-            flex-shrink: 0;
-            margin-top: 2px;
-        }
-
-        .toast-success .toast-icon {
-            color: #38a169;
-        }
-
-        .toast-error .toast-icon {
-            color: #e53e3e;
-        }
-
-        .toast-content {
+        .mentor-checkbox-item label {
+            margin: 0;
+            font-weight: 500;
+            color: #2d3748;
+            cursor: pointer;
             flex: 1;
         }
 
-        .toast-title {
-            font-weight: 600;
-            font-size: 14px;
-            margin-bottom: 4px;
-            color: #2d3748;
-        }
-
-        .toast-message {
-            font-size: 13px;
-            color: #4a5568;
-            line-height: 1.4;
-        }
-
-        .toast-close {
-            background: none;
-            border: none;
-            font-size: 14px;
+        .mentor-department {
             color: #718096;
-            cursor: pointer;
-            padding: 0;
-            width: 20px;
-            height: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .form-actions {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 4px;
-            transition: all 0.2s ease;
-            flex-shrink: 0;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
         }
 
-        .toast-close:hover {
-            background: #f7fafc;
-            color: #2d3748;
+        /* Time Input Styling */
+        .time-inputs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
         }
 
-        /* Responsive Design - Consistent with create_activity */
+        .time-input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .time-input-group label {
+            font-size: 13px;
+            color: #718096;
+            font-weight: 500;
+        }
+
+        /* Responsive Design - Consistent with homepage */
         @media (max-width: 1024px) {
             .sidebar {
                 width: 240px;
@@ -717,73 +598,40 @@
             .content-header {
                 flex-direction: column;
                 text-align: center;
-            }
-
-            .header-right {
-                justify-content: center;
-                width: 100%;
+                padding: 16px;
             }
 
             .form-row {
                 grid-template-columns: 1fr;
-                gap: 0;
+            }
+
+            .mentor-checkboxes {
+                grid-template-columns: 1fr;
             }
 
             .form-actions {
                 flex-direction: column;
             }
 
-            .form-actions .btn {
-                width: 100%;
-                justify-content: center;
-            }
-
-            .time-horizontal {
+            .auto-generate {
                 flex-direction: column;
-                gap: 12px;
+                align-items: flex-start;
+                gap: 8px;
             }
 
-            .time-dash {
-                margin-top: 0;
-                transform: rotate(90deg);
-            }
-
-            .attendee-checkboxes {
+            .time-inputs {
                 grid-template-columns: 1fr;
             }
 
-            /* Toast adjustments for mobile */
-            .toast-container {
-                bottom: 16px;
-                right: 16px;
-                left: 16px;
-                max-width: none;
+            .form-container {
+                padding: 16px;
             }
         }
-
-        @media (max-width: 480px) {
-            .header-right {
-                flex-direction: column;
-                width: 100%;
-            }
-
-            .btn {
-                width: 100%;
-                justify-content: center;
-            }
-        }
-
-        /* Unified Button System - Enforce Consistency */
-        .btn,
-        .btn-primary,
-        .btn-secondary,
-        .btn-danger,
-        .btn-success,
-        .filter-btn,
-        .action-btn {
+            /* Unified Button System - Enforce Consistency */
+        .btn, .btn-primary, .btn-secondary, .btn-danger, .btn-success, .filter-btn, .action-btn {
             padding: 0 20px !important;
-            height: 42px !important;
-            line-height: 42px !important;
+            height: 42px !important; /* Fixed height for consistency */
+            line-height: 42px !important; /* Vertical centering */
             border: none !important;
             border-radius: 8px !important;
             cursor: pointer;
@@ -791,16 +639,16 @@
             display: inline-flex !important;
             align-items: center !important;
             justify-content: center !important;
-            gap: 8px !important;
+            gap: 8px !important; /* Standard icon spacing */
             font-size: 14px !important;
             font-weight: 600 !important;
             transition: all 0.3s ease !important;
             box-sizing: border-box !important;
-            white-space: nowrap !important;
+            white-space: nowrap !important; /* Prevent wrapping */
         }
 
-        .btn-success,
-        .btn-primary {
+        /* Specific Button Variants */
+        .btn-success, .btn-primary {
             background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
             color: white !important;
         }
@@ -809,20 +657,21 @@
             background: #718096 !important;
             color: white !important;
         }
-
+        
         .btn-danger {
             background: #e53e3e !important;
             color: white !important;
         }
 
+        /* Filter Buttons - adjustment for border if needed, or standardizing */
         .filter-btn {
             background: white !important;
             color: #1a3a8f !important;
             border: 2px solid #1a3a8f !important;
-            padding: 0 18px !important;
-            line-height: 38px !important;
+            padding: 0 18px !important; /* 20px - 2px border */
+            line-height: 38px !important; /* 42px - 4px border */
         }
-
+        
         .filter-btn.active {
             background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
             color: white !important;
@@ -831,72 +680,37 @@
             line-height: 42px !important;
         }
 
-        .btn:hover,
-        .filter-btn:hover {
+        /* Hover States */
+        .btn:hover, .filter-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
-
-        .btn-success:hover,
-        .btn-primary:hover,
-        .filter-btn.active:hover {
+        
+        .btn-success:hover, .btn-primary:hover, .filter-btn.active:hover {
             box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
         }
-
+        
         .btn-secondary:hover {
             background: #4a5568 !important;
         }
-
+        
         .btn-danger:hover {
             background: #c53030 !important;
             box-shadow: 0 5px 15px rgba(229, 62, 62, 0.3);
         }
-
-        .btn:disabled,
-        .filter-btn:disabled {
+        
+        /* Disabled State */
+        .btn:disabled, .filter-btn:disabled {
             opacity: 0.6;
             cursor: not-allowed;
             transform: none !important;
             box-shadow: none !important;
         }
 
-        .btn i,
-        .filter-btn i {
+        /* Icon Reset */
+        .btn i, .filter-btn i {
             margin: 0 !important;
             font-size: 1.1em;
-        }
-
-        /* Messages Container */
-        .messages-container {
-            margin-bottom: 20px;
-        }
-
-        .alert {
-            padding: 16px;
-            border-radius: 8px;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            border-left: 4px solid;
-        }
-
-        .alert-error {
-            background: #fff5f5;
-            color: #c53030;
-            border-left-color: #c53030;
-        }
-
-        .alert-success {
-            background: #f0fff4;
-            color: #2f855a;
-            border-left-color: #38a169;
-        }
-
-        .alert-icon {
-            font-size: 18px;
-            flex-shrink: 0;
-            margin-top: 2px;
         }
     </style>
 
@@ -916,9 +730,95 @@
         html {
             -ms-overflow-style: none;
         }
+            /* Unified Button System - Enforce Consistency */
+        .btn, .btn-primary, .btn-secondary, .btn-danger, .btn-success, .filter-btn, .action-btn {
+            padding: 0 20px !important;
+            height: 42px !important; /* Fixed height for consistency */
+            line-height: 42px !important; /* Vertical centering */
+            border: none !important;
+            border-radius: 8px !important;
+            cursor: pointer;
+            text-decoration: none !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 8px !important; /* Standard icon spacing */
+            font-size: 14px !important;
+            font-weight: 600 !important;
+            transition: all 0.3s ease !important;
+            box-sizing: border-box !important;
+            white-space: nowrap !important; /* Prevent wrapping */
+        }
+
+        /* Specific Button Variants */
+        .btn-success, .btn-primary {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
+            color: white !important;
+        }
+
+        .btn-secondary {
+            background: #718096 !important;
+            color: white !important;
+        }
+        
+        .btn-danger {
+            background: #e53e3e !important;
+            color: white !important;
+        }
+
+        /* Filter Buttons - adjustment for border if needed, or standardizing */
+        .filter-btn {
+            background: white !important;
+            color: #1a3a8f !important;
+            border: 2px solid #1a3a8f !important;
+            padding: 0 18px !important; /* 20px - 2px border */
+            line-height: 38px !important; /* 42px - 4px border */
+        }
+        
+        .filter-btn.active {
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
+            color: white !important;
+            border-color: transparent !important;
+            padding: 0 20px !important;
+            line-height: 42px !important;
+        }
+
+        /* Hover States */
+        .btn:hover, .filter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-success:hover, .btn-primary:hover, .filter-btn.active:hover {
+            box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
+        }
+        
+        .btn-secondary:hover {
+            background: #4a5568 !important;
+        }
+        
+        .btn-danger:hover {
+            background: #c53030 !important;
+            box-shadow: 0 5px 15px rgba(229, 62, 62, 0.3);
+        }
+        
+        /* Disabled State */
+        .btn:disabled, .filter-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        /* Icon Reset */
+        .btn i, .filter-btn i {
+            margin: 0 !important;
+            font-size: 1.1em;
+        }
     </style>
 
 </head>
+
 <body>
     <!-- Sidebar -->
     <div class="sidebar">
@@ -931,40 +831,41 @@
 
         <div class="user-info">
             <div class="user-avatar">
-                {% if mentor.profile_picture %}
-                    <img src="{{ mentor.profile_picture.url }}" alt="Profile Picture" id="sidebarProfilePic">
-                    <i class="fas fa-user-tie" id="sidebarProfileIcon" style="display: none;"></i>
-                {% else %}
-                    <i class="fas fa-user-tie" id="sidebarProfileIcon"></i>
-                {% endif %}
+                <i class="fas fa-user-shield"></i>
             </div>
-            <div class="user-name">{{ mentor.MentorName }}</div>
-            <div class="user-role">Mentor</div>
+            <div class="user-name">Head of Mentor Mentee</div>
+            <div class="user-role">Administrator</div>
         </div>
 
         <ul class="nav-menu">
             <li class="nav-item">
-                <a href="{% url 'mentor_homepage' %}" class="nav-link">
+                <a href="{% url 'head_homepage' %}" class="nav-link">
                     <i class="fas fa-home"></i>
                     <span class="nav-text">Dashboard</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{% url 'view_assigned_mentees' %}" class="nav-link">
+                <a href="{% url 'manage_mentees' %}" class="nav-link">
                     <i class="fas fa-user-graduate"></i>
-                    <span class="nav-text">My Mentees</span>
+                    <span class="nav-text">Mentee Records</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{% url 'mentoring_schedule' %}" class="nav-link active">
+                <a href="{% url 'manage_mentors' %}" class="nav-link">
+                    <i class="fas fa-user-tie"></i>
+                    <span class="nav-text">Mentor Records</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'mentor_assignments' %}" class="nav-link">
+                    <i class="fas fa-users"></i>
+                    <span class="nav-text">Mentor Assignments</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'mentor_mentee_activities' %}" class="nav-link active">
                     <i class="fas fa-calendar-alt"></i>
-                    <span class="nav-text">Schedule</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="{% url 'activity_report' %}" class="nav-link">
-                    <i class="fas fa-chart-bar"></i>
-                    <span class="nav-text">Reports</span>
+                    <span class="nav-text">Activities</span>
                 </a>
             </li>
         </ul>
@@ -984,377 +885,224 @@
     <div class="main-content">
         <!-- Content Header with Profile Button -->
         <div class="content-header">
-            <div class="header-left">
-                <h1>
-                    <i class="fas fa-calendar-plus"></i>
-                    Create New Mentoring Session
-                </h1>
-                <p>Schedule a new mentoring session with your assigned mentees</p>
+            <div>
+                <h1>Create New Activity</h1>
+                <p>Add a new activity to the mentor-mentee system</p>
             </div>
-            <div class="header-right">
-                <a href="{% url 'mentoring_schedule' %}" class="btn btn-secondary">
-                    <i class="fas fa-arrow-left"></i>
-                    Back to Schedule
-                </a>
-                <div class="profile-section">
-                    <a href="{% url 'mentor_update_profile' %}" class="profile-btn">
-                        <div class="profile-avatar">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <span>Profile</span>
-                    </a>
-                </div>
+            <div class="profile-section">
+                
             </div>
         </div>
 
-        <!-- Messages Container -->
-        <div class="messages-container">
+        <!-- Messages -->
+        <div class="messages">
             {% if messages %}
-                {% for message in messages %}
-                    <div class="alert alert-{% if message.tags == 'error' %}error{% else %}success{% endif %}">
-                        <div class="alert-icon">
-                            <i class="fas fa-{% if message.tags == 'error' %}exclamation-circle{% else %}check-circle{% endif %}"></i>
-                        </div>
-                        <div class="alert-content">
-                            {{ message }}
-                        </div>
-                    </div>
-                {% endfor %}
+            {% for message in messages %}
+            <div class="{% if message.tags == 'error' %}error{% else %}success{% endif %}">
+                <i
+                    class="fas {% if message.tags == 'error' %}fa-exclamation-circle{% else %}fa-check-circle{% endif %}"></i>
+                {{ message }}
+            </div>
+            {% endfor %}
             {% endif %}
         </div>
 
         <!-- Form Container -->
         <div class="form-container">
-            <form method="POST" id="sessionForm">
+            <form method="POST">
                 {% csrf_token %}
-                
-                <!-- Session Type Section -->
-                <div class="section-title">
-                    <i class="fas fa-users"></i>
-                    Session Type
-                </div>
 
+                <!-- Basic Information -->
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="session_type">
-                            Session Type <span class="required">*</span>
-                        </label>
-                        <select id="session_type" name="session_type" class="form-control form-select" required onchange="toggleAttendees()">
-                            <option value="">Select session type</option>
-                            <option value="individual">Individual Session</option>
-                            <option value="group">Group Session</option>
+                        <label for="ActivityID" class="required">Activity ID</label>
+                        <input type="text" id="ActivityID" name="ActivityID" required placeholder="e.g., A00001"
+                            value="{{ form.ActivityID.value|default:'' }}" pattern="A\d{5}"
+                            title="Activity ID must be in format A followed by 5 digits (e.g., A00001)">
+                        <div class="id-preview-container">
+                            <div class="auto-generate">
+                                <span style="font-weight: 500; color: #4a5568;">Preview:</span>
+                                <span id="idPreview" class="id-preview">A00001</span>
+                                <button type="button" class="auto-generate-btn" onclick="generateActivityId()">
+                                    <i class="fas fa-magic"></i>
+                                    Auto Generate
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ActivityName" class="required">Activity Name</label>
+                        <input type="text" id="ActivityName" name="ActivityName" required
+                            placeholder="Enter activity name" value="{{ form.ActivityName.value|default:'' }}">
+                    </div>
+                </div>
+
+                <!-- Activity Details -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="ActivityType" class="required">Activity Type</label>
+                        <select id="ActivityType" name="ActivityType" required>
+                            <option value="">Select Activity Type</option>
+                            <option value="mentoring" {% if form.ActivityType.value == 'mentoring' %}selected{% endif %}>
+                                Mentoring Session</option>
+                            <option value="workshop" {% if form.ActivityType.value == 'workshop' %}selected{% endif %}>
+                                Workshop</option>
+                            <option value="seminar" {% if form.ActivityType.value == 'seminar' %}selected{% endif %}>
+                                Seminar</option>
+                            <option value="meeting" {% if form.ActivityType.value == 'meeting' %}selected{% endif %}>
+                                Meeting</option>
+                            <option value="other" {% if form.ActivityType.value == 'other' %}selected{% endif %}>Other
+                            </option>
                         </select>
-                        <div class="help-text">
-                            Choose between one-on-one or group mentoring session
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Location" class="required">Location</label>
+                        <input type="text" id="Location" name="Location" required placeholder="Enter location"
+                            value="{{ form.Location.value|default:'' }}">
+                    </div>
+                </div>
+
+                <!-- Date and Time -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="Date" class="required">Date</label>
+                        <input type="date" id="Date" name="Date" required value="{{ form.Date.value|default:'' }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="required">Time Schedule</label>
+                        <div class="time-inputs">
+                            <div class="time-input-group">
+                                <label for="StartTime">Start Time</label>
+                                <input type="time" id="StartTime" name="StartTime" required
+                                    value="{{ form.StartTime.value|default:'' }}">
+                            </div>
+                            <div class="time-input-group">
+                                <label for="EndTime">End Time</label>
+                                <input type="time" id="EndTime" name="EndTime" required
+                                    value="{{ form.EndTime.value|default:'' }}">
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Individual Session Section -->
-                <div class="form-group" id="individual_mentee" style="display: none;">
-                    <label for="mentee">
-                        Select Mentee <span class="required">*</span>
-                    </label>
-                    <select id="mentee" name="mentee" class="form-control form-select">
-                        <option value="">Select a mentee</option>
-                        {% for mentee in assigned_mentees %}
-                        <option value="{{ mentee.MenteeID }}">
-                            {{ mentee.MenteeName }} ({{ mentee.MenteeID }}) - {{ mentee.MenteeCourse }} Sem {{ mentee.MenteeSemester }}
-                        </option>
-                        {% endfor %}
-                    </select>
-                    <div class="help-text">
-                        Choose one mentee for individual session
+                <!-- Description -->
+                <div class="form-group">
+                    <label for="Description">Activity Description</label>
+                    <textarea id="Description" name="Description"
+                        placeholder="Enter activity description, objectives, and any special instructions">{{ form.Description.value|default:'' }}</textarea>
+                </div>
+
+                <!-- Mentoring Session Checkbox -->
+                <div class="form-group">
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="IsMentoringSession" name="IsMentoringSession" {% if form.IsMentoringSession.value %}checked{% endif %}>
+                        <label for="IsMentoringSession">This is a mentoring session</label>
                     </div>
                 </div>
 
-                <!-- Group Session Section -->
-                <div class="form-group" id="group_attendees" style="display: none;">
-                    <label>
-                        Select Attendees <span class="required">*</span>
-                    </label>
-                    <div class="help-text">
-                        Select mentees to include in the group session
-                    </div>
-                    <div class="attendee-selection">
+                <!-- Multiple Mentor Selection -->
+                <div class="form-group">
+                    <label>Assign to Mentors</label>
+                    <div class="mentor-selection">
                         <div class="select-all">
-                            <input type="checkbox" id="selectAllMentees">
-                            <label for="selectAllMentees">Select All Mentees</label>
+                            <input type="checkbox" id="selectAllMentors">
+                            <label for="selectAllMentors" style="font-weight: 600;">Select All Mentors</label>
                             <span id="selectedCount" class="selected-count">0 selected</span>
                         </div>
-                        <div class="attendee-checkboxes" id="attendeeCheckboxes">
-                            {% for mentee in assigned_mentees %}
-                            <div class="attendee-checkbox-item">
-                                <input type="checkbox" id="mentee_{{ mentee.MenteeID }}" name="attendees"
-                                       value="{{ mentee.MenteeID }}">
-                                <label for="mentee_{{ mentee.MenteeID }}">
-                                    <strong>{{ mentee.MenteeName }}</strong>
-                                    <div class="attendee-details">
-                                        {{ mentee.MenteeID }} - {{ mentee.MenteeCourse }} Sem {{ mentee.MenteeSemester }}
-                                    </div>
+                        <div class="mentor-checkboxes" id="mentorCheckboxes">
+                            {% for mentor in mentors %}
+                            <div class="mentor-checkbox-item">
+                                <input type="checkbox" id="mentor_{{ mentor.MentorID }}" name="mentors"
+                                    value="{{ mentor.MentorID }}" {% if mentor.MentorID in selected_mentors %}checked{% endif %}>
+                                <label for="mentor_{{ mentor.MentorID }}">
+                                    {{ mentor.MentorName }}
+                                    <div class="mentor-department">{{ mentor.MentorDepartment }}</div>
                                 </label>
                             </div>
                             {% empty %}
                             <div style="color: #718096; text-align: center; padding: 20px; grid-column: 1 / -1;">
-                                <i class="fas fa-user-graduate" style="font-size: 24px; margin-bottom: 10px; display: block;"></i>
-                                No mentees assigned to you yet. Please contact administration.
+                                <i class="fas fa-user-tie"
+                                    style="font-size: 24px; margin-bottom: 10px; display: block;"></i>
+                                No mentors available
                             </div>
                             {% endfor %}
                         </div>
                     </div>
                 </div>
 
-                <!-- Session Details Section -->
-                <div class="section-title" style="margin-top: 30px;">
-                    <i class="fas fa-info-circle"></i>
-                    Session Details
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="session_topic">
-                            Session Topic <span class="required">*</span>
-                        </label>
-                        <input type="text" id="session_topic" name="session_topic" 
-                               class="form-control" required 
-                               placeholder="e.g., Academic Planning, Career Guidance, Study Skills">
-                        <div class="help-text">
-                            Brief title describing the session content
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="session_location">
-                            Location <span class="required">*</span>
-                        </label>
-                        <input type="text" id="session_location" name="session_location" 
-                               class="form-control" required 
-                               value="Mentor Office"
-                               placeholder="e.g., Room 101, Online Meeting, Library Study Room">
-                        <div class="help-text">
-                            Where the session will take place
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="session_description">
-                        Session Description
-                    </label>
-                    <textarea id="session_description" name="session_description" 
-                              class="form-control" 
-                              placeholder="Brief description of what will be covered in this session"></textarea>
-                    <div class="help-text">
-                        Optional: Provide details about the session agenda
-                    </div>
-                </div>
-
-                <!-- Schedule Section -->
-                <div class="section-title" style="margin-top: 30px;">
-                    <i class="fas fa-clock"></i>
-                    Schedule
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="session_date">
-                            Date <span class="required">*</span>
-                        </label>
-                        <input type="date" id="session_date" name="session_date" 
-                               class="form-control" required 
-                               min="{{ today|date:'Y-m-d' }}">
-                        <div class="help-text">
-                            Select the session date
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label>
-                            Time Schedule <span class="required">*</span>
-                        </label>
-                        <div class="time-horizontal">
-                            <div class="time-field-horizontal">
-                                <input type="time" id="session_start_time" name="session_start_time" 
-                                       class="form-control" required 
-                                       placeholder="HH:MM">
-                                <div class="time-helper">Start</div>
-                            </div>
-                            <div class="time-dash">-</div>
-                            <div class="time-field-horizontal">
-                                <input type="time" id="session_end_time" name="session_end_time" 
-                                       class="form-control" required 
-                                       placeholder="HH:MM">
-                                <div class="time-helper">End</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Additional Information Section -->
-                <div class="section-title" style="margin-top: 30px;">
-                    <i class="fas fa-sticky-note"></i>
-                    Additional Information
-                </div>
-
-                <div class="form-group">
-                    <label for="session_notes">
-                        Additional Notes (Optional)
-                    </label>
-                    <textarea id="session_notes" name="session_notes" 
-                              class="form-control" 
-                              placeholder="Any special instructions, preparation needed, or materials required"></textarea>
-                    <div class="help-text">
-                        Optional: Additional information for mentees
-                    </div>
-                </div>
-
                 <!-- Form Actions -->
                 <div class="form-actions">
-                    <button type="submit" class="btn btn-success">
-                        <i class="fas fa-calendar-plus"></i>
-                        Create Session
-                    </button>
-                    <a href="{% url 'mentoring_schedule' %}" class="btn btn-secondary">
+                    <a href="{% url 'mentor_mentee_activities' %}" class="btn btn-secondary">
                         <i class="fas fa-times"></i>
                         Cancel
                     </a>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-plus-circle"></i>
+                        Create Activity
+                    </button>
                 </div>
             </form>
         </div>
     </div>
 
-    <!-- Toast Container -->
-    <div class="toast-container" id="toastContainer"></div>
-
     <script>
-        // Toast notification system
-        function showToast(title, message, type = 'success') {
-            const toastContainer = document.getElementById('toastContainer');
-            const toastId = 'toast-' + Date.now();
-
-            const toast = document.createElement('div');
-            toast.className = `toast toast-${type}`;
-            toast.id = toastId;
-
-            toast.innerHTML = `
-                <div class="toast-icon">
-                    <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
-                </div>
-                <div class="toast-content">
-                    <div class="toast-title">${title}</div>
-                    <div class="toast-message">${message}</div>
-                </div>
-                <button class="toast-close" onclick="closeToast('${toastId}')">
-                    <i class="fas fa-times"></i>
-                </button>
-            `;
-
-            toastContainer.appendChild(toast);
-
-            // Show toast with animation
-            setTimeout(() => {
-                toast.classList.add('show');
-            }, 10);
-
-            // Auto remove after 5 seconds
-            setTimeout(() => {
-                closeToast(toastId);
-            }, 5000);
-        }
-
-        function closeToast(toastId) {
-            const toast = document.getElementById(toastId);
-            if (toast) {
-                toast.classList.remove('show');
-                setTimeout(() => {
-                    if (toast.parentNode) {
-                        toast.parentNode.removeChild(toast);
-                    }
-                }, 300);
-            }
-        }
-
-        // Toggle attendees based on session type
-        function toggleAttendees() {
-            const sessionType = document.getElementById('session_type').value;
-            const individualDiv = document.getElementById('individual_mentee');
-            const groupDiv = document.getElementById('group_attendees');
-            
-            if (sessionType === 'individual') {
-                individualDiv.style.display = 'block';
-                groupDiv.style.display = 'none';
-                // Make individual mentee required
-                document.getElementById('mentee').required = true;
-                // Reset and disable group checkboxes
-                resetGroupSelection();
-            } else if (sessionType === 'group') {
-                individualDiv.style.display = 'none';
-                groupDiv.style.display = 'block';
-                // Remove required from individual mentee
-                document.getElementById('mentee').required = false;
-                // Select all mentees by default for group session
-                autoSelectAllMentees();
-            } else {
-                individualDiv.style.display = 'none';
-                groupDiv.style.display = 'none';
-                document.getElementById('mentee').required = false;
-                resetGroupSelection();
-            }
-        }
-
-        // Reset group selection
-        function resetGroupSelection() {
-            const checkboxes = document.querySelectorAll('#attendeeCheckboxes input[type="checkbox"]');
-            checkboxes.forEach(checkbox => {
-                checkbox.checked = false;
-                checkbox.disabled = false;
+        // Function to get the next available Activity ID
+        function getNextActivityId() {
+            return new Promise((resolve) => {
+                let nextId = 'A00001';
+                const storedId = localStorage.getItem('lastActivityId');
+                if (storedId) {
+                    const lastNumber = parseInt(storedId.substring(1));
+                    nextId = 'A' + (lastNumber + 1).toString().padStart(5, '0');
+                }
+                resolve(nextId);
             });
-            updateSelectedCount();
         }
 
-        // Auto-select all mentees for group session
-        function autoSelectAllMentees() {
-            const checkboxes = document.querySelectorAll('#attendeeCheckboxes input[type="checkbox"]');
-            checkboxes.forEach(checkbox => {
-                checkbox.checked = true;
-                checkbox.disabled = false; // Keep enabled so user can deselect if needed
+        // Generate Activity ID
+        function generateActivityId() {
+            getNextActivityId().then(nextId => {
+                document.getElementById('ActivityID').value = nextId;
+                document.getElementById('idPreview').textContent = nextId;
+                localStorage.setItem('lastActivityId', nextId);
             });
-            updateSelectedCount();
-            
-            // Update Select All checkbox
-            const selectAll = document.getElementById('selectAllMentees');
-            selectAll.checked = true;
-            selectAll.indeterminate = false;
         }
 
-        // Update selected count
+        // Update preview when Activity ID is manually entered
+        document.getElementById('ActivityID').addEventListener('input', function () {
+            document.getElementById('idPreview').textContent = this.value || 'A00001';
+        });
+
+        // Mentor selection functionality
         function updateSelectedCount() {
-            const checkboxes = document.querySelectorAll('#attendeeCheckboxes input[type="checkbox"]:checked');
+            const checkboxes = document.querySelectorAll('input[name="mentors"]:checked');
             const count = checkboxes.length;
             document.getElementById('selectedCount').textContent = count + ' selected';
         }
 
-        // Setup mentee selection
-        function setupMenteeSelection() {
-            const selectAll = document.getElementById('selectAllMentees');
-            const menteeCheckboxes = document.querySelectorAll('#attendeeCheckboxes input[type="checkbox"]');
+        function setupMentorSelection() {
+            const selectAll = document.getElementById('selectAllMentors');
+            const mentorCheckboxes = document.querySelectorAll('input[name="mentors"]');
 
             // Select All functionality
             selectAll.addEventListener('change', function () {
-                menteeCheckboxes.forEach(checkbox => {
+                mentorCheckboxes.forEach(checkbox => {
                     checkbox.checked = this.checked;
                 });
                 updateSelectedCount();
             });
 
             // Individual checkbox functionality
-            menteeCheckboxes.forEach(checkbox => {
+            mentorCheckboxes.forEach(checkbox => {
                 checkbox.addEventListener('change', function () {
                     updateSelectedCount();
 
                     // Update Select All checkbox state
-                    const allChecked = document.querySelectorAll('#attendeeCheckboxes input[type="checkbox"]:checked').length === menteeCheckboxes.length;
-                    const someChecked = document.querySelectorAll('#attendeeCheckboxes input[type="checkbox"]:checked').length > 0;
+                    const allChecked = document.querySelectorAll('input[name="mentors"]:checked').length === mentorCheckboxes.length;
+                    const someChecked = document.querySelectorAll('input[name="mentors"]:checked').length > 0;
 
                     selectAll.checked = allChecked;
                     selectAll.indeterminate = someChecked && !allChecked;
@@ -1365,237 +1113,106 @@
             updateSelectedCount();
         }
 
-        // Form validation
-        function validateForm() {
-            let isValid = true;
-            const errors = [];
-
-            // Validate session type
-            const sessionType = document.getElementById('session_type').value;
-            if (!sessionType) {
-                isValid = false;
-                errors.push('Please select a session type');
-                document.getElementById('session_type').classList.add('error');
-            } else {
-                document.getElementById('session_type').classList.remove('error');
-            }
-
-            // Validate individual session
-            if (sessionType === 'individual') {
-                const mentee = document.getElementById('mentee').value;
-                if (!mentee) {
-                    isValid = false;
-                    errors.push('Please select a mentee for individual session');
-                    document.getElementById('mentee').classList.add('error');
-                } else {
-                    document.getElementById('mentee').classList.remove('error');
-                }
-            }
-
-            // Validate group session
-            if (sessionType === 'group') {
-                const selectedMentees = document.querySelectorAll('#attendeeCheckboxes input[type="checkbox"]:checked').length;
-                if (selectedMentees === 0) {
-                    isValid = false;
-                    errors.push('Please select at least one mentee for group session');
-                    document.getElementById('group_attendees').classList.add('error');
-                } else {
-                    document.getElementById('group_attendees').classList.remove('error');
-                }
-            }
-
-            // Validate required fields
-            const requiredFields = document.querySelectorAll('#sessionForm [required]');
-            requiredFields.forEach(field => {
-                if (!field.value.trim()) {
-                    isValid = false;
-                    field.classList.add('error');
-                } else {
-                    field.classList.remove('error');
-                }
-            });
-
-            // Validate date (must be today or future)
-            const dateInput = document.getElementById('session_date');
-            if (dateInput.value) {
-                const selectedDate = new Date(dateInput.value);
-                const today = new Date();
-                today.setHours(0, 0, 0, 0);
-                
-                if (selectedDate < today) {
-                    isValid = false;
-                    errors.push('Date cannot be in the past');
-                    dateInput.classList.add('error');
-                } else {
-                    dateInput.classList.remove('error');
-                }
-            }
-
-            // Validate time (end time must be after start time)
-            const startTimeInput = document.getElementById('session_start_time');
-            const endTimeInput = document.getElementById('session_end_time');
-            if (startTimeInput.value && endTimeInput.value) {
-                if (startTimeInput.value >= endTimeInput.value) {
-                    isValid = false;
-                    errors.push('End time must be after start time');
-                    startTimeInput.classList.add('error');
-                    endTimeInput.classList.add('error');
-                } else {
-                    startTimeInput.classList.remove('error');
-                    endTimeInput.classList.remove('error');
-                }
-            }
-
-            return { isValid, errors };
-        }
-
         document.addEventListener('DOMContentLoaded', function () {
             // Set minimum date to today
             const today = new Date().toISOString().split('T')[0];
-            document.getElementById('session_date').min = today;
+            document.getElementById('Date').min = today;
 
-            // Set default time to next hour
-            const now = new Date();
-            const nextHour = new Date(now.getTime() + 60 * 60 * 1000);
-            const defaultTime = nextHour.getHours().toString().padStart(2, '0') + ':00';
-            
-            document.getElementById('session_start_time').value = defaultTime;
-            
-            // Set end time to 1 hour after start time
-            const endTime = new Date(nextHour.getTime() + 60 * 60 * 1000);
-            document.getElementById('session_end_time').value = endTime.getHours().toString().padStart(2, '0') + ':00';
+            // Auto-generate Activity ID on page load
+            generateActivityId();
 
-            // Setup mentee selection
-            setupMenteeSelection();
+            // Setup mentor selection
+            setupMentorSelection();
 
             // Add active state to current page in navigation
             const currentPage = window.location.pathname;
             document.querySelectorAll('.nav-link').forEach(link => {
-                if (link.getAttribute('href') === '{% url 'mentoring_schedule' %}') {
-                    link.classList.add('active');
-                } else {
-                    link.classList.remove('active');
-                }
-            });
-
-            // Form submission validation
-            const form = document.getElementById('sessionForm');
-            form.addEventListener('submit', function (e) {
-                const validation = validateForm();
-                
-                if (!validation.isValid) {
-                    e.preventDefault();
-                    
-                    let errorMessage = 'Please correct the following errors:';
-                    validation.errors.forEach(error => {
-                        errorMessage += `\n• ${error}`;
-                    });
-
-                    if (validation.errors.length === 0) {
-                        errorMessage = 'Please fill in all required fields correctly.';
-                    }
-
-                    showToast('Validation Error', errorMessage, 'error');
-                }
-            });
-
-            // Real-time validation for time inputs
-            document.getElementById('session_start_time').addEventListener('change', function() {
-                const endTimeInput = document.getElementById('session_end_time');
-                if (endTimeInput.value && endTimeInput.value <= this.value) {
-                    showToast('Time Error', 'End time must be after start time', 'error');
-                    endTimeInput.value = '';
-                }
-                endTimeInput.min = this.value;
-            });
-
-            // Show toast notifications for Django messages
-            {% if messages %}
-            {% for message in messages %}
-            showToast(
-                '{{ message.tags|title }}',
-                '{{ message }}',
-                '{{ message.tags }}' === 'error' ? 'error' : 'success'
-            );
-            {% endfor %}
-            {% endif %}
-        });
-    </script>
-
-    <!-- Scroll Indicator (Auto-Injected) -->
-    <style>
-        @keyframes scroll-bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(10px); }
-        }
-
-        @keyframes scroll-fade-in {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        .scroll-indicator-container {
-            position: fixed;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            color: #9ca3af;
-            pointer-events: none;
-            z-index: 9999;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            display: none;
-        }
-
-        .scroll-indicator-container.visible {
-            display: block;
-            opacity: 1;
-            animation: scroll-fade-in 1s ease forwards;
-        }
-
-        .scroll-indicator-icon {
-            width: 1.5rem;
-            height: 2.5rem;
-            border: 2px solid currentColor;
-            border-radius: 9999px;
-            display: flex;
-            justify-content: center;
-            padding-top: 0.5rem;
-            box-sizing: border-box;
-            margin: 0 auto;
-        }
-
-        .scroll-indicator-dot {
-            width: 0.25rem;
-            height: 0.5rem;
-            background-color: currentColor;
-            border-radius: 9999px;
-            animation: scroll-bounce 2s infinite;
-            animation-delay: 1.5s;
-        }
-    </style>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var indicator = document.createElement('div');
-            indicator.className = 'scroll-indicator-container';
-            indicator.innerHTML = '<div class="scroll-indicator-icon"><div class="scroll-indicator-dot"></div></div>';
-            document.body.appendChild(indicator);
-
-            function checkScroll() {
-                var hasScroll = document.documentElement.scrollHeight > window.innerHeight;
-                if (hasScroll && window.scrollY < 100) {
-                    indicator.classList.add('visible');
-                } else {
-                    indicator.classList.remove('visible');
-                }
+                if (link.getAttribute('href') === '{% url 'mentor_mentee_activities' %}') {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
             }
+        });
 
-            window.addEventListener('scroll', checkScroll);
-            window.addEventListener('resize', checkScroll);
-            // Initial check
-            setTimeout(checkScroll, 500);
+        // Profile button functionality
+        document.querySelector('.profile-btn').addEventListener('click', function () {
+            alert('Profile page would open here!');
+            // In a real application, this would navigate to the profile page
+            // window.location.href = '/profile/';
+        });
         });
     </script>
+
+<!-- Scroll Indicator (Auto-Injected) -->
+<style>
+    @keyframes scroll-bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(10px); }
+    }
+    @keyframes scroll-fade-in {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    .scroll-indicator-container {
+        position: fixed;
+        bottom: 2rem;
+        left: 50%;
+        transform: translateX(-50%);
+        color: #9ca3af;
+        pointer-events: none;
+        z-index: 9999;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+        display: none;
+    }
+    .scroll-indicator-container.visible {
+        display: block;
+        opacity: 1;
+        animation: scroll-fade-in 1s ease forwards;
+    }
+    .scroll-indicator-icon {
+        width: 1.5rem;
+        height: 2.5rem;
+        border: 2px solid currentColor;
+        border-radius: 9999px;
+        display: flex;
+        justify-content: center;
+        padding-top: 0.5rem;
+        box-sizing: border-box;
+        margin: 0 auto;
+    }
+    .scroll-indicator-dot {
+        width: 0.25rem;
+        height: 0.5rem;
+        background-color: currentColor;
+        border-radius: 9999px;
+        animation: scroll-bounce 2s infinite;
+        animation-delay: 1.5s;
+    }
+</style>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var indicator = document.createElement('div');
+        indicator.className = 'scroll-indicator-container';
+        indicator.innerHTML = '<div class="scroll-indicator-icon"><div class="scroll-indicator-dot"></div></div>';
+        document.body.appendChild(indicator);
+
+        function checkScroll() {
+            var hasScroll = document.documentElement.scrollHeight > window.innerHeight;
+            if (hasScroll && window.scrollY < 100) {
+                indicator.classList.add('visible');
+            } else {
+                indicator.classList.remove('visible');
+            }
+        }
+
+        window.addEventListener('scroll', checkScroll);
+        window.addEventListener('resize', checkScroll);
+        // Initial check
+        setTimeout(checkScroll, 500);
+    });
+</script>
 
 </body>
+
 </html>

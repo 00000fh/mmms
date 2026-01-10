@@ -287,21 +287,17 @@
 
         /* Schedule Sections - Consistent spacing */
         .schedule-section {
-            background: white;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            margin-bottom: 24px;
+            margin-bottom: 40px;
         }
 
         .section-title {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 16px;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 24px;
             color: #2d3748;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
 
         .section-title i {
@@ -326,6 +322,218 @@
         .status-completed { 
             background: #e3f2fd; 
             color: #1565c0; 
+        }
+
+        /* Activity Cards Grid Layout */
+        .activities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 24px;
+            animation: fadeInGrid 0.6s ease-out;
+        }
+
+        @keyframes fadeInGrid {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Activity Card Styles */
+        .activity-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+            position: relative;
+            overflow: hidden;
+            border: 2px solid transparent;
+        }
+
+        .activity-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #1a3a8f, #0d1b4e);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .activity-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 24px rgba(26, 58, 143, 0.15);
+            border-color: rgba(26, 58, 143, 0.1);
+        }
+
+        .activity-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        /* Card Header */
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+            gap: 12px;
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #2d3748;
+            flex: 1;
+            line-height: 1.4;
+        }
+
+        .card-badge {
+            flex-shrink: 0;
+        }
+
+        .card-description {
+            font-size: 13px;
+            color: #718096;
+            margin-bottom: 16px;
+            line-height: 1.5;
+        }
+
+        /* Card Details */
+        .card-details {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+        }
+
+        .detail-icon {
+            color: #1a3a8f;
+            width: 18px;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .detail-label {
+            color: #718096;
+            font-weight: 500;
+            min-width: 70px;
+        }
+
+        .detail-value {
+            color: #2d3748;
+            font-weight: 600;
+        }
+
+        /* Card Footer */
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .mentor-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+        }
+
+        .mentor-avatar {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 60px 30px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            animation: slideUp 0.5s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .empty-state-icon {
+            font-size: 48px;
+            color: #cbd5e0;
+            margin-bottom: 16px;
+        }
+
+        .empty-state h3 {
+            font-size: 18px;
+            color: #4a5568;
+            margin-bottom: 10px;
+        }
+
+        .empty-state p {
+            font-size: 14px;
+            color: #718096;
+        }
+
+        /* Stagger animation for cards */
+        @keyframes cardSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .activity-card {
+            animation: cardSlideIn 0.5s ease-out forwards;
+        }
+
+        .activity-card:nth-child(1) { animation-delay: 0.1s; }
+        .activity-card:nth-child(2) { animation-delay: 0.2s; }
+        .activity-card:nth-child(3) { animation-delay: 0.3s; }
+        .activity-card:nth-child(4) { animation-delay: 0.4s; }
+        .activity-card:nth-child(5) { animation-delay: 0.5s; }
+        .activity-card:nth-child(n+6) { animation-delay: 0.6s; }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .activities-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         /* Table Styles */
@@ -659,60 +867,67 @@
             </h2>
             
             {% if upcoming_activities %}
-            <div class="table-container">
-                <table class="activity-table">
-                    <thead>
-                        <tr>
-                            <th>Activity Name</th>
-                            <th>Type</th>
-                            <th>Date</th>
-                            <th>Time</th>
-                            <th>Location</th>
-                            <th>Mentor</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for activity in upcoming_activities %}
-                        <tr>
-                            <td>
-                                <strong>{{ activity.ActivityName }}</strong>
-                                {% if activity.Description %}
-                                <div style="font-size: 12px; color: #718096; margin-top: 5px;">
-                                    {{ activity.Description|truncatewords:10 }}
-                                </div>
-                                {% endif %}
-                            </td>
-                            <td>
-                                <span class="activity-type-badge type-{{ activity.ActivityType|lower }}">
-                                    <i class="fas fa-{% if activity.ActivityType == 'mentoring' %}handshake{% elif activity.ActivityType == 'workshop' %}tools{% elif activity.ActivityType == 'seminar' %}chalkboard-teacher{% elif activity.ActivityType == 'meeting' %}users{% else %}calendar{% endif %}"></i>
-                                    {{ activity.get_ActivityType_display }}
-                                    {% if activity.IsMentoringSession %}(Mentoring){% endif %}
-                                </span>
-                            </td>
-                            <td>{{ activity.Date }}</td>
-                            <td>{{ activity.StartTime }} - {{ activity.EndTime }}</td>
-                            <td>{{ activity.Location }}</td>
-                            <td>
-                                {% if activity.IsMentoringSession and activity.PrimaryMentor %}
-                                {{ activity.PrimaryMentor.MentorName }}
-                                {% else %}
-                                <span style="color: #718096;">-</span>
-                                {% endif %}
-                            </td>
-                            <td>
-                                <span class="session-status status-upcoming-badge">
-                                    <i class="fas fa-clock"></i> UPCOMING
-                                </span>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+            <div class="activities-grid">
+                {% for activity in upcoming_activities %}
+                <div class="activity-card">
+                    <div class="card-header">
+                        <div class="card-title">{{ activity.ActivityName }}</div>
+                        <div class="card-badge">
+                            <span class="activity-type-badge type-{{ activity.ActivityType|lower }}">
+                                <i class="fas fa-{% if activity.ActivityType == 'mentoring' %}handshake{% elif activity.ActivityType == 'workshop' %}tools{% elif activity.ActivityType == 'seminar' %}chalkboard-teacher{% elif activity.ActivityType == 'meeting' %}users{% else %}calendar{% endif %}"></i>
+                                {{ activity.get_ActivityType_display }}
+                            </span>
+                        </div>
+                    </div>
+                    
+                    {% if activity.Description %}
+                    <div class="card-description">
+                        {{ activity.Description|truncatewords:15 }}
+                    </div>
+                    {% endif %}
+                    
+                    <div class="card-details">
+                        <div class="detail-item">
+                            <div class="detail-icon">
+                                <i class="fas fa-calendar"></i>
+                            </div>
+                            <span class="detail-value">{{ activity.Date }}</span>
+                        </div>
+                        
+                        <div class="detail-item">
+                            <div class="detail-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <span class="detail-value">{{ activity.StartTime }} - {{ activity.EndTime }}</span>
+                        </div>
+                        
+                        <div class="detail-item">
+                            <div class="detail-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <span class="detail-value">{{ activity.Location }}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="card-footer">
+                        {% if activity.IsMentoringSession and activity.PrimaryMentor %}
+                        <div class="mentor-info">
+                            <div class="mentor-avatar">{{ activity.PrimaryMentor.MentorName|first|upper }}</div>
+                            <span style="color: #718096; font-size: 13px;">{{ activity.PrimaryMentor.MentorName }}</span>
+                        </div>
+                        {% endif %}
+                        <span class="session-status status-upcoming-badge">
+                            <i class="fas fa-rocket"></i> UPCOMING
+                        </span>
+                    </div>
+                </div>
+                {% endfor %}
             </div>
             {% else %}
-            <div class="no-activities">
-                <i class="fas fa-calendar-plus"></i>
+            <div class="empty-state">
+                <div class="empty-state-icon">
+                    <i class="fas fa-calendar-plus"></i>
+                </div>
                 <h3>No Upcoming Activities</h3>
                 <p>No upcoming activities scheduled. Check back later for updates.</p>
             </div>
@@ -730,60 +945,67 @@
             </h2>
             
             {% if completed_activities %}
-            <div class="table-container">
-                <table class="activity-table">
-                    <thead>
-                        <tr>
-                            <th>Activity Name</th>
-                            <th>Type</th>
-                            <th>Date</th>
-                            <th>Time</th>
-                            <th>Location</th>
-                            <th>Mentor</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for activity in completed_activities %}
-                        <tr>
-                            <td>
-                                <strong>{{ activity.ActivityName }}</strong>
-                                {% if activity.Description %}
-                                <div style="font-size: 12px; color: #718096; margin-top: 5px;">
-                                    {{ activity.Description|truncatewords:10 }}
-                                </div>
-                                {% endif %}
-                            </td>
-                            <td>
-                                <span class="activity-type-badge type-{{ activity.ActivityType|lower }}">
-                                    <i class="fas fa-{% if activity.ActivityType == 'mentoring' %}handshake{% elif activity.ActivityType == 'workshop' %}tools{% elif activity.ActivityType == 'seminar' %}chalkboard-teacher{% elif activity.ActivityType == 'meeting' %}users{% else %}calendar{% endif %}"></i>
-                                    {{ activity.get_ActivityType_display }}
-                                    {% if activity.IsMentoringSession %}(Mentoring){% endif %}
-                                </span>
-                            </td>
-                            <td>{{ activity.Date }}</td>
-                            <td>{{ activity.StartTime }} - {{ activity.EndTime }}</td>
-                            <td>{{ activity.Location }}</td>
-                            <td>
-                                {% if activity.IsMentoringSession and activity.PrimaryMentor %}
-                                {{ activity.PrimaryMentor.MentorName }}
-                                {% else %}
-                                <span style="color: #718096;">-</span>
-                                {% endif %}
-                            </td>
-                            <td>
-                                <span class="session-status status-completed-badge">
-                                    <i class="fas fa-check-circle"></i> COMPLETED
-                                </span>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+            <div class="activities-grid">
+                {% for activity in completed_activities %}
+                <div class="activity-card">
+                    <div class="card-header">
+                        <div class="card-title">{{ activity.ActivityName }}</div>
+                        <div class="card-badge">
+                            <span class="activity-type-badge type-{{ activity.ActivityType|lower }}">
+                                <i class="fas fa-{% if activity.ActivityType == 'mentoring' %}handshake{% elif activity.ActivityType == 'workshop' %}tools{% elif activity.ActivityType == 'seminar' %}chalkboard-teacher{% elif activity.ActivityType == 'meeting' %}users{% else %}calendar{% endif %}"></i>
+                                {{ activity.get_ActivityType_display }}
+                            </span>
+                        </div>
+                    </div>
+                    
+                    {% if activity.Description %}
+                    <div class="card-description">
+                        {{ activity.Description|truncatewords:15 }}
+                    </div>
+                    {% endif %}
+                    
+                    <div class="card-details">
+                        <div class="detail-item">
+                            <div class="detail-icon">
+                                <i class="fas fa-calendar"></i>
+                            </div>
+                            <span class="detail-value">{{ activity.Date }}</span>
+                        </div>
+                        
+                        <div class="detail-item">
+                            <div class="detail-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <span class="detail-value">{{ activity.StartTime }} - {{ activity.EndTime }}</span>
+                        </div>
+                        
+                        <div class="detail-item">
+                            <div class="detail-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <span class="detail-value">{{ activity.Location }}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="card-footer">
+                        {% if activity.IsMentoringSession and activity.PrimaryMentor %}
+                        <div class="mentor-info">
+                            <div class="mentor-avatar">{{ activity.PrimaryMentor.MentorName|first|upper }}</div>
+                            <span style="color: #718096; font-size: 13px;">{{ activity.PrimaryMentor.MentorName }}</span>
+                        </div>
+                        {% endif %}
+                        <span class="session-status status-completed-badge">
+                            <i class="fas fa-check-circle"></i> COMPLETED
+                        </span>
+                    </div>
+                </div>
+                {% endfor %}
             </div>
             {% else %}
-            <div class="no-activities">
-                <i class="fas fa-check-circle"></i>
+            <div class="empty-state">
+                <div class="empty-state-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
                 <h3>No Completed Sessions</h3>
                 <p>Your completed mentoring sessions and activities will appear here.</p>
             </div>
@@ -792,7 +1014,7 @@
     </div>
 
     <script>
-        // Add animations to table rows
+        // Add scroll animations to activity cards
         document.addEventListener('DOMContentLoaded', function() {
             const observerOptions = {
                 threshold: 0.1,
@@ -808,13 +1030,45 @@
                 });
             }, observerOptions);
 
-            // Observe all table rows for animation
-            document.querySelectorAll('.activity-table tbody tr').forEach(row => {
-                row.style.opacity = '0';
-                row.style.transform = 'translateY(20px)';
-                row.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-                observer.observe(row);
+            // Observe all activity cards for animation
+            document.querySelectorAll('.activity-card').forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(card);
             });
+
+            // Add hover ripple effect to cards
+            document.querySelectorAll('.activity-card').forEach(card => {
+                card.addEventListener('click', function(e) {
+                    const ripple = document.createElement('span');
+                    ripple.style.position = 'absolute';
+                    ripple.style.borderRadius = '50%';
+                    ripple.style.background = 'rgba(26, 58, 143, 0.6)';
+                    ripple.style.width = ripple.style.height = '20px';
+                    ripple.style.animation = 'ripple 0.6s ease-out';
+                    
+                    const rect = this.getBoundingClientRect();
+                    ripple.style.left = (e.clientX - rect.left - 10) + 'px';
+                    ripple.style.top = (e.clientY - rect.top - 10) + 'px';
+                    
+                    this.appendChild(ripple);
+                    setTimeout(() => ripple.remove(), 600);
+                });
+            });
+
+            // Add ripple animation
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes ripple {
+                    to {
+                        width: 400px;
+                        height: 400px;
+                        opacity: 0;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
 
             // Auto-refresh page every 5 minutes to get updated activities
             setTimeout(function() {

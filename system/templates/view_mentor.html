@@ -19,6 +19,7 @@
             min-height: 100vh;
             display: flex;
             color: #333;
+            overflow-x: hidden;
         }
 
         /* Sidebar Styles - Consistent with mentor homepage */
@@ -255,6 +256,33 @@
             padding: 20px;
             display: flex;
             flex-direction: column;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Background decorative elements */
+        .bg-decoration {
+            position: absolute;
+            z-index: 0;
+            opacity: 0.05;
+        }
+
+        .bg-circle-1 {
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
+            top: -150px;
+            right: -150px;
+        }
+
+        .bg-circle-2 {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
+            bottom: -100px;
+            left: -100px;
         }
 
         /* Updated Content Header with Profile Button */
@@ -267,6 +295,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: relative;
+            z-index: 1;
         }
 
         .welcome-section h1 {
@@ -324,125 +354,284 @@
             flex: 1;
             display: flex;
             flex-direction: column;
+            position: relative;
+            z-index: 1;
         }
 
-        /* New Layout - Mentor Profile */
+        /* New Layout - Mentor Profile with WOW effects */
         .mentor-layout {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 24px;
+            gap: 30px;
             margin-bottom: 24px;
             flex: 1;
         }
 
+        /* Enhanced Mentor Profile Card */
         .mentor-profile-card {
             background: white;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
             text-align: center;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            min-height: 400px;
+            min-height: 480px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 1;
         }
 
-        /* Increased Mentor Avatar Size */
+        .mentor-profile-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(26, 58, 143, 0.05) 0%, rgba(13, 27, 78, 0.05) 100%);
+            z-index: -1;
+        }
+
+        .mentor-profile-card::after {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
+            border-radius: 50%;
+            top: -100px;
+            right: -100px;
+            opacity: 0.05;
+            z-index: -1;
+        }
+
+        .mentor-profile-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        /* Glowing effect on hover */
+        .mentor-profile-card:hover .mentor-avatar,
+        .mentor-profile-card:hover .mentor-avatar-placeholder {
+            box-shadow: 0 0 25px rgba(26, 58, 143, 0.4);
+        }
+
+        /* Enhanced Mentor Avatar with glow effect */
         .mentor-avatar {
-            width: 160px;
-            height: 160px;
+            width: 180px;
+            height: 180px;
             border-radius: 50%;
             object-fit: cover;
-            margin: 0 auto 20px;
-            border: 4px solid #1a3a8f;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin: 0 auto 25px;
+            border: 6px solid white;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15), 0 0 0 4px rgba(26, 58, 143, 0.2);
+            transition: all 0.5s ease;
+            position: relative;
+            z-index: 2;
         }
 
         .mentor-avatar-placeholder {
-            width: 160px;
-            height: 160px;
+            width: 180px;
+            height: 180px;
             border-radius: 50%;
-            background: #e3f2fd;
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 20px;
-            border: 4px solid #1a3a8f;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin: 0 auto 25px;
+            border: 6px solid white;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15), 0 0 0 4px rgba(26, 58, 143, 0.2);
+            transition: all 0.5s ease;
+            position: relative;
+            z-index: 2;
         }
 
         .mentor-avatar-placeholder i {
-            font-size: 64px;
+            font-size: 70px;
             color: #1a3a8f;
+            transition: all 0.5s ease;
         }
 
+        /* Mentor info with enhanced styling */
         .mentor-name {
-            font-size: 24px;
+            font-size: 28px;
             color: #2d3748;
             margin-bottom: 8px;
-            font-weight: 600;
+            font-weight: 700;
+            background: linear-gradient(135deg, #2d3748 0%, #1a3a8f 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .mentor-department {
             color: #718096;
-            font-size: 16px;
-            margin-bottom: 16px;
+            font-size: 18px;
+            margin-bottom: 20px;
             font-weight: 500;
+            padding: 6px 18px;
+            background: rgba(26, 58, 143, 0.08);
+            border-radius: 30px;
+            display: inline-block;
         }
 
-        /* Contact Info Styles */
+        /* Add decorative elements */
+        .profile-decoration {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(26, 58, 143, 0.1) 0%, rgba(13, 27, 78, 0.1) 100%);
+            z-index: 0;
+        }
+
+        .decoration-1 {
+            top: 20px;
+            left: 20px;
+            width: 40px;
+            height: 40px;
+        }
+
+        .decoration-2 {
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+        }
+
+        /* Enhanced Contact Info Card */
         .contact-info-card {
             background: white;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
             display: flex;
             flex-direction: column;
             justify-content: center;
-            min-height: 400px;
+            min-height: 480px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        .contact-info-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(26, 58, 143, 0.05) 0%, rgba(13, 27, 78, 0.05) 100%);
+            z-index: -1;
+        }
+
+        .contact-info-card::after {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
+            border-radius: 50%;
+            bottom: -100px;
+            left: -100px;
+            opacity: 0.05;
+            z-index: -1;
+        }
+
+        .contact-info-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
         }
 
         .contact-info h3 {
-            font-size: 18px;
+            font-size: 22px;
             color: #2d3748;
-            margin-bottom: 16px;
+            margin-bottom: 25px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            font-weight: 700;
+        }
+
+        .contact-info h3 i {
+            color: #1a3a8f;
+            background: rgba(26, 58, 143, 0.1);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .contact-details {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 16px;
         }
 
+        /* Enhanced contact items with hover effects */
         .contact-item {
             display: flex;
             align-items: center;
-            gap: 12px;
-            padding: 12px;
+            gap: 16px;
+            padding: 18px;
             background: #f8f9ff;
-            border-radius: 8px;
-            transition: all 0.3s ease;
+            border-radius: 12px;
+            transition: all 0.4s ease;
+            border-left: 4px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, #1a3a8f 0%, #0d1b4e 100%);
+            transform: scaleY(0);
+            transition: transform 0.4s ease;
         }
 
         .contact-item:hover {
             background: white;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            transform: translateX(8px);
+            border-left-color: #1a3a8f;
+        }
+
+        .contact-item:hover::before {
+            transform: scaleY(1);
+        }
+
+        .contact-item:hover .contact-icon {
+            transform: scale(1.1) rotate(5deg);
         }
 
         .contact-icon {
-            width: 40px;
-            height: 40px;
+            width: 48px;
+            height: 48px;
             background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
-            border-radius: 8px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 16px;
+            font-size: 18px;
+            transition: all 0.4s ease;
+            box-shadow: 0 4px 10px rgba(26, 58, 143, 0.2);
+            flex-shrink: 0;
         }
 
         .contact-text {
@@ -450,83 +639,150 @@
         }
 
         .contact-label {
-            font-size: 12px;
+            font-size: 13px;
             color: #718096;
-            margin-bottom: 4px;
+            margin-bottom: 6px;
+            letter-spacing: 0.5px;
         }
 
         .contact-value {
-            font-size: 14px;
+            font-size: 16px;
             color: #2d3748;
-            font-weight: 500;
+            font-weight: 600;
+        }
+
+        /* Floating animation for elements */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .floating-delay-1 {
+            animation-delay: 0.5s;
+        }
+
+        .floating-delay-2 {
+            animation-delay: 1s;
+        }
+
+        .floating-delay-3 {
+            animation-delay: 1.5s;
         }
 
         /* No Mentor State - Updated to fill space */
         .no-mentor {
             background: white;
-            border-radius: 10px;
-            padding: 30px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
             text-align: center;
             margin-bottom: 24px;
             flex: 1;
             display: flex;
             flex-direction: column;
             justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .no-mentor::before {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%);
+            border-radius: 50%;
+            top: -150px;
+            right: -150px;
+            opacity: 0.05;
         }
 
         .no-mentor h2 {
-            font-size: 24px;
-            margin-bottom: 12px;
+            font-size: 28px;
+            margin-bottom: 15px;
             color: #4a5568;
+            font-weight: 700;
         }
 
         .no-mentor p {
-            font-size: 14px;
-            line-height: 1.6;
+            font-size: 16px;
+            line-height: 1.7;
             margin-bottom: 20px;
             color: #718096;
+            max-width: 600px;
         }
 
         .no-mentor-icon {
-            font-size: 64px;
+            font-size: 80px;
             color: #e2e8f0;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            animation: float 6s ease-in-out infinite;
         }
 
         .info-box {
-            margin-top: 24px;
-            padding: 20px;
+            margin-top: 30px;
+            padding: 25px;
             background: #f8fafc;
-            border-radius: 10px;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 700px;
+            position: relative;
+            z-index: 1;
+            border: 1px solid rgba(255, 255, 255, 0.8);
         }
 
         .info-box h3 {
             color: #4a5568;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            font-size: 16px;
+            gap: 12px;
+            font-size: 18px;
+            font-weight: 600;
         }
 
         .info-list {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 12px;
+            gap: 15px;
             text-align: left;
         }
 
         .info-item {
             display: flex;
             align-items: center;
-            gap: 10px;
-            font-size: 14px;
+            gap: 12px;
+            font-size: 15px;
+            padding: 10px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .info-item:hover {
+            background: rgba(255, 255, 255, 0.8);
+            transform: translateX(5px);
         }
 
         .info-item i {
             color: #4CAF50;
+            background: rgba(76, 175, 80, 0.1);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
         }
 
         /* Responsive Design - Consistent with mentor homepage */
@@ -541,6 +797,12 @@
 
             .mentor-layout {
                 grid-template-columns: 1fr;
+                gap: 24px;
+            }
+            
+            .mentor-profile-card,
+            .contact-info-card {
+                min-height: 420px;
             }
         }
 
@@ -568,25 +830,35 @@
 
             .mentor-profile-card,
             .contact-info-card {
-                min-height: 300px;
+                min-height: 380px;
+                padding: 20px;
             }
 
             /* Responsive mentor avatar size */
             .mentor-avatar {
-                width: 120px;
-                height: 120px;
+                width: 140px;
+                height: 140px;
             }
 
             .mentor-avatar-placeholder {
-                width: 120px;
-                height: 120px;
+                width: 140px;
+                height: 140px;
             }
 
             .mentor-avatar-placeholder i {
-                font-size: 48px;
+                font-size: 56px;
+            }
+            
+            .mentor-name {
+                font-size: 24px;
+            }
+            
+            .mentor-department {
+                font-size: 16px;
             }
         }
-            /* Unified Button System - Enforce Consistency */
+
+        /* Unified Button System - Enforce Consistency */
         .btn, .btn-primary, .btn-secondary, .btn-danger, .btn-success, .filter-btn, .action-btn {
             padding: 0 20px !important;
             height: 42px !important; /* Fixed height for consistency */
@@ -689,93 +961,7 @@
         html {
             -ms-overflow-style: none;
         }
-            /* Unified Button System - Enforce Consistency */
-        .btn, .btn-primary, .btn-secondary, .btn-danger, .btn-success, .filter-btn, .action-btn {
-            padding: 0 20px !important;
-            height: 42px !important; /* Fixed height for consistency */
-            line-height: 42px !important; /* Vertical centering */
-            border: none !important;
-            border-radius: 8px !important;
-            cursor: pointer;
-            text-decoration: none !important;
-            display: inline-flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            gap: 8px !important; /* Standard icon spacing */
-            font-size: 14px !important;
-            font-weight: 600 !important;
-            transition: all 0.3s ease !important;
-            box-sizing: border-box !important;
-            white-space: nowrap !important; /* Prevent wrapping */
-        }
-
-        /* Specific Button Variants */
-        .btn-success, .btn-primary {
-            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
-            color: white !important;
-        }
-
-        .btn-secondary {
-            background: #718096 !important;
-            color: white !important;
-        }
-        
-        .btn-danger {
-            background: #e53e3e !important;
-            color: white !important;
-        }
-
-        /* Filter Buttons - adjustment for border if needed, or standardizing */
-        .filter-btn {
-            background: white !important;
-            color: #1a3a8f !important;
-            border: 2px solid #1a3a8f !important;
-            padding: 0 18px !important; /* 20px - 2px border */
-            line-height: 38px !important; /* 42px - 4px border */
-        }
-        
-        .filter-btn.active {
-            background: linear-gradient(135deg, #1a3a8f 0%, #0d1b4e 100%) !important;
-            color: white !important;
-            border-color: transparent !important;
-            padding: 0 20px !important;
-            line-height: 42px !important;
-        }
-
-        /* Hover States */
-        .btn:hover, .filter-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        .btn-success:hover, .btn-primary:hover, .filter-btn.active:hover {
-            box-shadow: 0 5px 15px rgba(26, 58, 143, 0.3);
-        }
-        
-        .btn-secondary:hover {
-            background: #4a5568 !important;
-        }
-        
-        .btn-danger:hover {
-            background: #c53030 !important;
-            box-shadow: 0 5px 15px rgba(229, 62, 62, 0.3);
-        }
-        
-        /* Disabled State */
-        .btn:disabled, .filter-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none !important;
-            box-shadow: none !important;
-        }
-
-        /* Icon Reset */
-        .btn i, .filter-btn i {
-            margin: 0 !important;
-            font-size: 1.1em;
-        }
     </style>
-
 </head>
 
 <body>
@@ -837,6 +1023,10 @@
 
     <!-- Main Content -->
     <div class="main-content">
+        <!-- Background decorative elements -->
+        <div class="bg-decoration bg-circle-1"></div>
+        <div class="bg-decoration bg-circle-2"></div>
+        
         <!-- Content Header with Profile Button -->
         <div class="content-header">
             <div class="welcome-section">
@@ -861,7 +1051,11 @@
             <!-- New Layout - Mentor Profile and Contact Info -->
             <div class="mentor-layout">
                 <!-- Mentor Profile Card -->
-                <div class="mentor-profile-card">
+                <div class="mentor-profile-card floating">
+                    <!-- Decorative elements -->
+                    <div class="profile-decoration decoration-1"></div>
+                    <div class="profile-decoration decoration-2"></div>
+                    
                     <!-- FIXED: Access mentor's profile picture correctly with increased size -->
                     {% if mentee.assigned_mentor.profile_picture %}
                     <img src="{{ mentee.assigned_mentor.profile_picture.url }}" alt="Mentor Profile Picture"
@@ -874,17 +1068,22 @@
 
                     <h1 class="mentor-name">{{ mentee.assigned_mentor.MentorName }}</h1>
                     <p class="mentor-department">{{ mentee.assigned_mentor.MentorDepartment }}</p>
+                    
+                    <!-- Add a subtle badge/ribbon effect -->
+                    <div style="position: absolute; bottom: 20px; right: 20px; background: rgba(26, 58, 143, 0.1); color: #1a3a8f; padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 600;">
+                        <i class="fas fa-star" style="margin-right: 5px;"></i>Your Mentor
+                    </div>
                 </div>
 
                 <!-- Contact Info Card -->
-                <div class="contact-info-card">
+                <div class="contact-info-card floating-delay-1">
                     <div class="contact-info">
                         <h3>
                             <i class="fas fa-address-card"></i>
                             Contact Information
                         </h3>
                         <div class="contact-details">
-                            <div class="contact-item">
+                            <div class="contact-item floating-delay-1">
                                 <div class="contact-icon">
                                     <i class="fas fa-envelope"></i>
                                 </div>
@@ -893,7 +1092,7 @@
                                     <div class="contact-value">{{ mentee.assigned_mentor.MentorEmail }}</div>
                                 </div>
                             </div>
-                            <div class="contact-item">
+                            <div class="contact-item floating-delay-2">
                                 <div class="contact-icon">
                                     <i class="fas fa-phone"></i>
                                 </div>
@@ -902,7 +1101,7 @@
                                     <div class="contact-value">{{ mentee.assigned_mentor.MentorPhone }}</div>
                                 </div>
                             </div>
-                            <div class="contact-item">
+                            <div class="contact-item floating-delay-3">
                                 <div class="contact-icon">
                                     <i class="fas fa-building"></i>
                                 </div>
@@ -953,39 +1152,123 @@
     </div>
 
     <script>
-        // Simple animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
+        // Enhanced animations with Wow effects
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add floating animation to mentor profile card
+            const mentorCard = document.querySelector('.mentor-profile-card');
+            const contactCard = document.querySelector('.contact-info-card');
+            
+            // Create particles effect for the mentor card on hover
+            if (mentorCard) {
+                mentorCard.addEventListener('mouseenter', function() {
+                    createParticles(this);
+                });
+            }
+            
+            // Enhanced intersection observer for staggered animations
+            const enhancedObserverOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
+            const enhancedObserver = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        // Stagger the animation with delay based on index
+                        setTimeout(() => {
+                            entry.target.style.opacity = '1';
+                            entry.target.style.transform = 'translateY(0) scale(1)';
+                        }, index * 200);
+                    }
+                });
+            }, enhancedObserverOptions);
+
+            // Observe all cards for animation with staggered effect
+            const cards = document.querySelectorAll('.mentor-profile-card, .contact-info-card, .contact-item, .no-mentor');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px) scale(0.95)';
+                card.style.transition = 'opacity 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.1), transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.1)';
+                card.style.transitionDelay = `${index * 0.1}s`;
+                enhancedObserver.observe(card);
+            });
+
+            // Active nav link highlighting
+            const currentPage = window.location.pathname;
+            document.querySelectorAll('.nav-link').forEach(link => {
+                if (link.getAttribute('href') === currentPage ||
+                    (currentPage === '/' && link.getAttribute('href').includes('homepage'))) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
                 }
             });
-        }, observerOptions);
 
-        // Observe all cards for animation
-        document.querySelectorAll('.mentor-profile-card, .contact-info-card, .no-mentor').forEach(card => {
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(20px)';
-            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(card);
-        });
-
-        // Active nav link highlighting
-        const currentPage = window.location.pathname;
-        document.querySelectorAll('.nav-link').forEach(link => {
-            if (link.getAttribute('href') === currentPage ||
-                (currentPage === '/' && link.getAttribute('href').includes('homepage'))) {
-                link.classList.add('active');
-            } else {
-                link.classList.remove('active');
+            // Add glowing effect to mentor avatar on load
+            setTimeout(() => {
+                const mentorAvatar = document.querySelector('.mentor-avatar, .mentor-avatar-placeholder');
+                if (mentorAvatar) {
+                    mentorAvatar.style.boxShadow = '0 8px 25px rgba(26, 58, 143, 0.3), 0 0 0 4px rgba(26, 58, 143, 0.2)';
+                    
+                    // Pulsing effect
+                    setInterval(() => {
+                        mentorAvatar.style.boxShadow = '0 8px 25px rgba(26, 58, 143, 0.4), 0 0 0 4px rgba(26, 58, 143, 0.3)';
+                        setTimeout(() => {
+                            mentorAvatar.style.boxShadow = '0 8px 20px rgba(0, 0, 0, 0.15), 0 0 0 4px rgba(26, 58, 143, 0.2)';
+                        }, 800);
+                    }, 3000);
+                }
+            }, 1000);
+            
+            // Function to create particles effect
+            function createParticles(element) {
+                const rect = element.getBoundingClientRect();
+                const colors = ['#1a3a8f', '#0d1b4e', '#3b5fc9', '#6c8eff'];
+                
+                for (let i = 0; i < 8; i++) {
+                    const particle = document.createElement('div');
+                    particle.style.position = 'absolute';
+                    particle.style.width = '4px';
+                    particle.style.height = '4px';
+                    particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    particle.style.borderRadius = '50%';
+                    particle.style.left = Math.random() * rect.width + 'px';
+                    particle.style.top = Math.random() * rect.height + 'px';
+                    particle.style.zIndex = '0';
+                    particle.style.opacity = '0.7';
+                    
+                    element.appendChild(particle);
+                    
+                    // Animate particle
+                    const angle = Math.random() * Math.PI * 2;
+                    const distance = 20 + Math.random() * 30;
+                    
+                    const animation = particle.animate([
+                        { transform: 'translate(0, 0)', opacity: 0.7 },
+                        { transform: `translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px)`, opacity: 0 }
+                    ], {
+                        duration: 600 + Math.random() * 400,
+                        easing: 'cubic-bezier(0.1, 0.8, 0.2, 1)'
+                    });
+                    
+                    animation.onfinish = () => {
+                        particle.remove();
+                    };
+                }
             }
         });
+
+        // Add floating effect to decorative elements
+        function addFloatingEffects() {
+            const decorations = document.querySelectorAll('.profile-decoration');
+            decorations.forEach((dec, index) => {
+                dec.style.animation = `float ${6 + index * 2}s ease-in-out infinite`;
+                dec.style.animationDelay = `${index * 0.5}s`;
+            });
+        }
+
+        // Initialize floating effects
+        setTimeout(addFloatingEffects, 500);
     </script>
 
 <!-- Scroll Indicator (Auto-Injected) -->
