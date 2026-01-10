@@ -282,13 +282,122 @@
             font-size: 10px;
         }
 
+        /* Search Result Indicator */
+        .search-result-indicator {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 16px;
+            background: #e8f4ff;
+            border-radius: 6px;
+            margin-top: -8px;
+            margin-bottom: 16px;
+            border-left: 4px solid #1a3a8f;
+            animation: slideDown 0.3s ease;
+            font-size: 13px;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .search-result-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #1a3a8f;
+        }
+
+        .search-result-info i {
+            font-size: 12px;
+        }
+
+        .search-result-text {
+            font-weight: 500;
+        }
+
+        .search-result-count {
+            background: #1a3a8f;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .clear-search-link {
+            color: #718096;
+            text-decoration: none;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: color 0.2s ease;
+        }
+
+        .clear-search-link:hover {
+            color: #2d3748;
+        }
+
+        /* Assigned Mentees Indicator */
+        .assigned-mentees-indicator {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 16px;
+            background: #f0f9ff;
+            border-radius: 6px;
+            margin-top: -8px;
+            margin-bottom: 16px;
+            border-left: 4px solid #38a169;
+            font-size: 13px;
+        }
+
+        .assigned-mentees-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #2e7d32;
+        }
+
+        .assigned-mentees-info i {
+            font-size: 12px;
+        }
+
+        .assigned-mentees-text {
+            font-weight: 500;
+        }
+
+        .assigned-mentees-stats {
+            font-size: 12px;
+            color: #718096;
+            white-space: nowrap;
+        }
+
+        .assigned-mentees-count {
+            background: #38a169;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-right: 8px;
+        }
+
         /* UPDATED: Controls Section */
         .controls {
             background: white;
             border-radius: 10px;
             padding: 16px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-            margin-bottom: 20px;
+            margin-bottom: 8px;
             display: flex;
             flex-wrap: wrap;
             gap: 16px;
@@ -299,13 +408,20 @@
         .search-container {
             display: flex;
             align-items: center;
-            background: #f8f9ff;
-            border-radius: 6px;
+            background: white;
+            border-radius: 8px;
             padding: 0 12px;
-            border: 1px solid #e2e8f0;
+            border: 2px solid #e2e8f0;
             flex: 1;
             min-width: 300px;
             max-width: 400px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .search-container:focus-within {
+            border-color: #1a3a8f;
+            box-shadow: 0 0 0 3px rgba(26, 58, 143, 0.1);
         }
 
         .search-container i {
@@ -324,6 +440,10 @@
             width: 100%;
         }
 
+        .search-input:focus {
+            outline: none;
+        }
+
         .search-input::placeholder {
             color: #a0aec0;
         }
@@ -333,10 +453,13 @@
             border: none;
             color: #718096;
             cursor: pointer;
-            padding: 4px;
+            padding: 4px 6px;
             font-size: 12px;
             border-radius: 4px;
             transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .clear-search-btn:hover {
@@ -459,11 +582,6 @@
         .status-indicator.inactive {
             background: #e53e3e;
         }
-
-        .status-indicator.unassigned {
-            background: #d69e2e;
-        }
-
 
         /* Sort Dropdown Styles */
         .sort-filter-dropdown {
@@ -658,6 +776,32 @@
             border-radius: 50%;
         }
 
+        /* Assignment Status Badge */
+        .assigned-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        .assigned-to-me {
+            background: rgba(56, 161, 105, 0.1);
+            color: #2e7d32;
+        }
+
+        .assigned-to-others {
+            background: rgba(245, 158, 11, 0.1);
+            color: #d69e2e;
+        }
+
+        .unassigned {
+            background: rgba(226, 232, 240, 0.5);
+            color: #718096;
+        }
+
         /* Gradient Border Hover Effect */
         .clickable-row {
             cursor: pointer;
@@ -674,6 +818,55 @@
             background-color: #fafbfc;
         }
 
+        /* No Results Message */
+        .no-results {
+            text-align: center;
+            padding: 40px 20px;
+            color: #718096;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        .no-results i {
+            font-size: 48px;
+            color: #cbd5e0;
+            margin-bottom: 16px;
+        }
+
+        .no-results h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
+            color: #4a5568;
+        }
+
+        .no-results p {
+            font-size: 14px;
+            max-width: 400px;
+            margin: 0 auto 20px;
+        }
+
+        .back-to-assigned-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            background: #1a3a8f;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .back-to-assigned-btn:hover {
+            background: #0d1b4e;
+            transform: translateY(-2px);
+        }
+
         /* Dropdown Backdrops */
         .status-dropdown-backdrop,
         .sort-dropdown-backdrop {
@@ -684,6 +877,30 @@
             right: 0;
             bottom: 0;
             z-index: 99;
+        }
+
+        /* Loading Indicator */
+        .search-loading {
+            position: absolute;
+            right: 40px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: none;
+        }
+
+        .search-loading.spinner {
+            width: 16px;
+            height: 16px;
+            border: 2px solid #e2e8f0;
+            border-top-color: #1a3a8f;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
         }
 
         /* Responsive Design */
@@ -709,18 +926,23 @@
                 padding: 16px;
             }
 
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-
             .content-header {
                 flex-direction: column;
                 text-align: center;
                 padding: 16px;
+                gap: 12px;
             }
 
-            .filter-options {
-                justify-content: center;
+            .controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-container,
+            .status-filter-dropdown,
+            .sort-filter-dropdown {
+                min-width: 100%;
+                max-width: 100%;
             }
 
             .mentee-table-container {
@@ -733,9 +955,22 @@
                 font-size: 12px;
             }
 
-            /* Adjust hover effects for mobile */
-            .clickable-row:hover {
-                transform: none;
+            .search-result-indicator,
+            .assigned-mentees-indicator {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .content-header h1 {
+                font-size: 20px;
+            }
+
+            .profile-btn {
+                padding: 8px 12px;
+                font-size: 13px;
             }
         }
     </style>
@@ -838,17 +1073,18 @@
             </div>
         </div>
 
-
-
         <!-- UPDATED: Controls Section with Search, Status Filter, and Sort Dropdown -->
         <div class="controls">
             <!-- Search bar -->
             <div class="search-container">
                 <i class="fas fa-search"></i>
-                <input type="text" class="search-input" id="searchInput" placeholder="Search by ID, Name, Course..."
-                    value="{{ search_query }}" onkeyup="filterMentees()">
+                <input type="text" class="search-input" id="searchInput" placeholder="Search by ID, Name, Course, or Mentor..." 
+                       value="{{ search_query }}" autocomplete="off">
+                <div class="search-loading" id="searchLoading">
+                    <div class="spinner"></div>
+                </div>
                 {% if search_query %}
-                <button class="clear-search-btn" onclick="clearSearch()">
+                <button class="clear-search-btn" onclick="clearSearch()" title="Clear search">
                     <i class="fas fa-times"></i>
                 </button>
                 {% endif %}
@@ -864,25 +1100,22 @@
                     <i class="fas fa-chevron-down"></i>
                 </button>
                 <div class="status-dropdown-menu" id="statusDropdownMenu">
-                    <div class="status-dropdown-item active" data-status="all"
+                    <div class="status-dropdown-item {% if status_filter == 'all' or not status_filter %}active{% endif %}" data-status="all"
                         onclick="selectStatus('all', 'All Status')">
                         <span class="status-indicator all"></span>
                         All Status
-                        <i class="fas fa-check" style="margin-left: auto;"></i>
+                        {% if status_filter == 'all' or not status_filter %}<i class="fas fa-check" style="margin-left: auto;"></i>{% endif %}
                     </div>
-                    <div class="status-dropdown-item" data-status="active" onclick="selectStatus('active', 'Active')">
+                    <div class="status-dropdown-item {% if status_filter == 'active' %}active{% endif %}" data-status="active" onclick="selectStatus('active', 'Active')">
                         <span class="status-indicator active"></span>
                         Active
+                        {% if status_filter == 'active' %}<i class="fas fa-check" style="margin-left: auto;"></i>{% endif %}
                     </div>
-                    <div class="status-dropdown-item" data-status="inactive"
+                    <div class="status-dropdown-item {% if status_filter == 'inactive' %}active{% endif %}" data-status="inactive"
                         onclick="selectStatus('inactive', 'Inactive')">
                         <span class="status-indicator inactive"></span>
                         Inactive
-                    </div>
-                    <div class="status-dropdown-item" data-status="unassigned"
-                        onclick="selectStatus('unassigned', 'Unassigned')">
-                        <span class="status-indicator" style="background: #d69e2e;"></span>
-                        Unassigned
+                        {% if status_filter == 'inactive' %}<i class="fas fa-check" style="margin-left: auto;"></i>{% endif %}
                     </div>
                 </div>
             </div>
@@ -897,26 +1130,65 @@
                     <i class="fas fa-chevron-down"></i>
                 </button>
                 <div class="sort-dropdown-menu" id="sortDropdownMenu">
-                    <div class="sort-dropdown-item active" data-sort="name_asc"
+                    <div class="sort-dropdown-item {% if sort_by == 'name_asc' or not sort_by %}active{% endif %}" data-sort="name_asc"
                         onclick="selectSort('name_asc', 'Name (A-Z)')">
                         <i class="fas fa-sort-alpha-down"></i>
                         Name (A-Z)
-                        <i class="fas fa-check" style="margin-left: auto;"></i>
+                        {% if sort_by == 'name_asc' or not sort_by %}<i class="fas fa-check" style="margin-left: auto;"></i>{% endif %}
                     </div>
-                    <div class="sort-dropdown-item" data-sort="name_desc"
+                    <div class="sort-dropdown-item {% if sort_by == 'name_desc' %}active{% endif %}" data-sort="name_desc"
                         onclick="selectSort('name_desc', 'Name (Z-A)')">
                         <i class="fas fa-sort-alpha-up"></i>
                         Name (Z-A)
+                        {% if sort_by == 'name_desc' %}<i class="fas fa-check" style="margin-left: auto;"></i>{% endif %}
                     </div>
-                    <div class="sort-dropdown-item" data-sort="id_asc" onclick="selectSort('id_asc', 'ID (A-Z)')">
+                    <div class="sort-dropdown-item {% if sort_by == 'id_asc' %}active{% endif %}" data-sort="id_asc" onclick="selectSort('id_asc', 'ID (A-Z)')">
                         <i class="fas fa-sort-numeric-down"></i>
                         ID (A-Z)
+                        {% if sort_by == 'id_asc' %}<i class="fas fa-check" style="margin-left: auto;"></i>{% endif %}
+                    </div>
+                    <div class="sort-dropdown-item {% if sort_by == 'id_desc' %}active{% endif %}" data-sort="id_desc" onclick="selectSort('id_desc', 'ID (Z-A)')">
+                        <i class="fas fa-sort-numeric-up"></i>
+                        ID (Z-A)
+                        {% if sort_by == 'id_desc' %}<i class="fas fa-check" style="margin-left: auto;"></i>{% endif %}
+                    </div>
+                    <div class="sort-dropdown-item {% if sort_by == 'course_asc' %}active{% endif %}" data-sort="course_asc" onclick="selectSort('course_asc', 'Course')">
+                        <i class="fas fa-graduation-cap"></i>
+                        Course
+                        {% if sort_by == 'course_asc' %}<i class="fas fa-check" style="margin-left: auto;"></i>{% endif %}
                     </div>
                 </div>
             </div>
         </div>
 
-        {% if all_mentees %}
+        <!-- Search Result Indicator -->
+        {% if is_searching %}
+        <div class="search-result-indicator" id="searchResultIndicator">
+            <div class="search-result-info">
+                <i class="fas fa-search"></i>
+                <span class="search-result-text">Search results for "{{ search_query }}"</span>
+                <span class="search-result-count">{{ display_mentees|length }}</span>
+            </div>
+            <a href="?{% if status_filter != 'all' %}status={{ status_filter }}{% endif %}{% if sort_by != 'name_asc' %}{% if status_filter != 'all' %}&{% endif %}sort={{ sort_by }}{% endif %}" 
+               class="clear-search-link">
+                <i class="fas fa-times"></i>
+                Clear search
+            </a>
+        </div>
+        {% elif not is_searching and assigned_mentees.exists %}
+        <div class="assigned-mentees-indicator" id="assignedMenteesIndicator">
+            <div class="assigned-mentees-info">
+                <i class="fas fa-user-check"></i>
+                <span class="assigned-mentees-text">Viewing your assigned mentees</span>
+                <span class="assigned-mentees-count">{{ assigned_count }}</span>
+            </div>
+            <div class="assigned-mentees-stats">
+                Active: {{ active_mentees_count }} • Male: {{ male_mentees_count }} • Female: {{ female_mentees_count }}
+            </div>
+        </div>
+        {% endif %}
+
+        {% if display_mentees %}
         <div class="mentee-table-container">
             <table class="mentee-table" id="menteeTable">
                 <thead>
@@ -927,15 +1199,18 @@
                         <th>Course</th>
                         <th>Semester</th>
                         <th>Assigned Mentor</th>
+                        <th>Assignment</th>
                         <th>Status</th>
                     </tr>
                 </thead>
                 <tbody id="menteeTableBody">
-                    {% for mentee in all_mentees %}
-                    <tr class="mentee-row clickable-row" data-status="{{ mentee.MenteeStatus }}"
-                        data-gender="{{ mentee.MenteeGender }}" data-course="{{ mentee.MenteeCourse }}"
-                        data-mentee-id="{{ mentee.MenteeID }}" data-mentee-name="{{ mentee.MenteeName }}"
-                        data-assignment="{% if mentee.assigned_mentor == mentor %}assigned{% elif mentee.assigned_mentor %}others{% else %}unassigned{% endif %}"
+                    {% for mentee in display_mentees %}
+                    <tr class="mentee-row clickable-row" 
+                        data-status="{{ mentee.MenteeStatus }}"
+                        data-gender="{{ mentee.MenteeGender }}"
+                        data-course="{{ mentee.MenteeCourse }}"
+                        data-mentee-id="{{ mentee.MenteeID }}"
+                        data-mentee-name="{{ mentee.MenteeName }}"
                         onclick="window.location.href='{% url 'mentor_view_mentee' mentee.MenteeID %}'">
 
                         <!-- Profile Picture -->
@@ -949,17 +1224,51 @@
                             </div>
                             {% endif %}
                         </td>
+                        
                         <td><strong>{{ mentee.MenteeID }}</strong></td>
+                        
                         <td>{{ mentee.MenteeName }}</td>
+                        
                         <td>{{ mentee.get_course_full_name }}</td>
+                        
                         <td>{{ mentee.MenteeSemester }}</td>
+                        
                         <td>
                             {% if mentee.assigned_mentor %}
-                            {{ mentee.assigned_mentor.MentorName }}
+                                {% if mentee.assigned_mentor == mentor %}
+                                    <span style="color: #2e7d32; font-weight: 600;">
+                                        <i class="fas fa-user-check" style="margin-right: 5px;"></i>
+                                        {{ mentee.assigned_mentor.MentorName }}
+                                    </span>
+                                {% else %}
+                                    {{ mentee.assigned_mentor.MentorName }}
+                                {% endif %}
                             {% else %}
-                            <span style="color: #718096; font-style: italic;">Not assigned</span>
+                                <span style="color: #718096; font-style: italic;">Not assigned</span>
                             {% endif %}
                         </td>
+                        
+                        <td>
+                            {% if mentee.assigned_mentor %}
+                                {% if mentee.assigned_mentor == mentor %}
+                                    <span class="assigned-badge assigned-to-me">
+                                        <i class="fas fa-user-check"></i>
+                                        Assigned to you
+                                    </span>
+                                {% else %}
+                                    <span class="assigned-badge assigned-to-others">
+                                        <i class="fas fa-user-tag"></i>
+                                        Assigned to others
+                                    </span>
+                                {% endif %}
+                            {% else %}
+                                <span class="assigned-badge unassigned">
+                                    <i class="fas fa-user-clock"></i>
+                                    Unassigned
+                                </span>
+                            {% endif %}
+                        </td>
+                        
                         <td>
                             <span class="status-{{ mentee.MenteeStatus }}">{{ mentee.get_MenteeStatus_display }}</span>
                         </td>
@@ -969,9 +1278,19 @@
             </table>
         </div>
         {% else %}
-        <div class="no-mentees">
-            <h2>No Students Available</h2>
-            <p>There are no students registered in the system yet.</p>
+        <div class="no-results">
+            <i class="fas fa-user-graduate"></i>
+            {% if is_searching %}
+            <h3>No mentees found</h3>
+            <p>No mentees match your search for "{{ search_query }}". Try a different search term.</p>
+            <a href="?" class="back-to-assigned-btn">
+                <i class="fas fa-arrow-left"></i>
+                Back to your mentees
+            </a>
+            {% else %}
+            <h3>No mentees assigned</h3>
+            <p>You don't have any mentees assigned to you yet. Use the search to find mentees in the system.</p>
+            {% endif %}
         </div>
         {% endif %}
     </div>
@@ -981,6 +1300,116 @@
     <div class="sort-dropdown-backdrop" id="sortDropdownBackdrop" onclick="closeSortDropdown()"></div>
 
     <script>
+        // =================== Live Search Functionality ===================
+        let searchTimeout;
+        let currentSearch = '{{ search_query|default:"" }}';
+        let currentStatus = '{{ status_filter|default:"all" }}';
+        let currentSort = '{{ sort_by|default:"name_asc" }}';
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('searchInput');
+            
+            // Set initial dropdown labels
+            updateStatusLabel();
+            updateSortLabel();
+            
+            // Focus search input if it has value
+            if (searchInput && currentSearch) {
+                searchInput.focus();
+                searchInput.select();
+            }
+            
+            // Setup live search event listener
+            if (searchInput) {
+                searchInput.addEventListener('input', function(e) {
+                    handleLiveSearch(e.target.value);
+                });
+                
+                // Also handle keyup for immediate response
+                searchInput.addEventListener('keyup', function(e) {
+                    if (e.key === 'Enter') {
+                        // If user presses Enter, search immediately
+                        clearTimeout(searchTimeout);
+                        performSearch(e.target.value);
+                    }
+                });
+            }
+        });
+
+        function handleLiveSearch(searchTerm) {
+            // Clear previous timeout
+            clearTimeout(searchTimeout);
+            
+            // Show loading indicator
+            const loadingIndicator = document.getElementById('searchLoading');
+            if (loadingIndicator) {
+                loadingIndicator.style.display = 'block';
+            }
+            
+            // Set a new timeout to search after user stops typing
+            searchTimeout = setTimeout(function() {
+                performSearch(searchTerm);
+            }, 500); // 500ms delay
+        }
+
+        function performSearch(searchTerm) {
+            currentSearch = searchTerm.trim();
+            
+            // Hide loading indicator
+            const loadingIndicator = document.getElementById('searchLoading');
+            if (loadingIndicator) {
+                loadingIndicator.style.display = 'none';
+            }
+            
+            // Build URL parameters
+            const urlParams = new URLSearchParams();
+            
+            // Add search term if not empty
+            if (currentSearch) {
+                urlParams.set('search', currentSearch);
+            }
+            
+            // Add status filter if not 'all'
+            if (currentStatus !== 'all') {
+                urlParams.set('status', currentStatus);
+            }
+            
+            // Add sort if not default
+            if (currentSort !== 'name_asc') {
+                urlParams.set('sort', currentSort);
+            }
+            
+            // Redirect to the new URL
+            const newUrl = window.location.pathname + (urlParams.toString() ? '?' + urlParams.toString() : '');
+            window.location.href = newUrl;
+        }
+
+        function clearSearch() {
+            // Clear search input
+            const searchInput = document.getElementById('searchInput');
+            if (searchInput) {
+                searchInput.value = '';
+            }
+            
+            // Build URL without search parameter
+            const urlParams = new URLSearchParams();
+            
+            // Keep status filter if not 'all'
+            if (currentStatus !== 'all') {
+                urlParams.set('status', currentStatus);
+            }
+            
+            // Keep sort if not default
+            if (currentSort !== 'name_asc') {
+                urlParams.set('sort', currentSort);
+            }
+            
+            // Redirect
+            const newUrl = window.location.pathname + (urlParams.toString() ? '?' + urlParams.toString() : '');
+            window.location.href = newUrl;
+        }
+
         // =================== Status Filter Functionality ===================
         let statusDropdownOpen = false;
 
@@ -1012,11 +1441,11 @@
         }
 
         function selectStatus(status, label) {
-            document.getElementById('currentStatusLabel').innerHTML = `
-                <span class="status-indicator ${status}"></span>
-                ${label}
-            `;
-
+            currentStatus = status;
+            
+            // Update UI
+            updateStatusLabel();
+            
             const dropdownItems = document.querySelectorAll('.status-dropdown-item');
             dropdownItems.forEach(item => {
                 item.classList.remove('active');
@@ -1033,12 +1462,52 @@
             });
 
             closeStatusDropdown();
-            filterMentees();
+            
+            // Apply status filter immediately
+            applyStatusFilter(status);
+        }
+        
+        function updateStatusLabel() {
+            const statusLabelMap = {
+                'all': 'All Status',
+                'active': 'Active',
+                'inactive': 'Inactive'
+            };
+            
+            if (statusLabelMap[currentStatus]) {
+                document.getElementById('currentStatusLabel').innerHTML = `
+                    <span class="status-indicator ${currentStatus}"></span>
+                    ${statusLabelMap[currentStatus]}
+                `;
+            }
+        }
+        
+        function applyStatusFilter(status) {
+            // Build URL parameters
+            const urlParams = new URLSearchParams();
+            
+            // Add search term if exists
+            const searchInput = document.getElementById('searchInput');
+            if (searchInput && searchInput.value.trim()) {
+                urlParams.set('search', searchInput.value.trim());
+            }
+            
+            // Add status filter if not 'all'
+            if (status !== 'all') {
+                urlParams.set('status', status);
+            }
+            
+            // Add sort if not default
+            if (currentSort !== 'name_asc') {
+                urlParams.set('sort', currentSort);
+            }
+            
+            // Redirect with new parameters
+            window.location.href = window.location.pathname + '?' + urlParams.toString();
         }
 
         // =================== Sort Functionality ===================
         let sortDropdownOpen = false;
-        let currentSort = 'name_asc';
 
         function toggleSortDropdown(event) {
             const dropdownMenu = document.getElementById('sortDropdownMenu');
@@ -1068,10 +1537,11 @@
         }
 
         function selectSort(sortType, label) {
-            document.getElementById('currentSortLabel').innerHTML = `
-                <i class="fas ${getSortIcon(sortType)}"></i>
-                ${label}
-            `;
+            currentSort = sortType;
+            
+            // Update UI
+            updateSortLabel();
+            
             const dropdownItems = document.querySelectorAll('.sort-dropdown-item');
             dropdownItems.forEach(item => {
                 item.classList.remove('active');
@@ -1086,9 +1556,52 @@
                     item.appendChild(icon);
                 }
             });
+            
             closeSortDropdown();
-            currentSort = sortType;
-            applySorting();
+            
+            // Apply sort immediately
+            applySort(sortType);
+        }
+        
+        function updateSortLabel() {
+            const sortLabelMap = {
+                'name_asc': 'Name (A-Z)',
+                'name_desc': 'Name (Z-A)',
+                'id_asc': 'ID (A-Z)',
+                'id_desc': 'ID (Z-A)',
+                'course_asc': 'Course'
+            };
+            
+            if (sortLabelMap[currentSort]) {
+                document.getElementById('currentSortLabel').innerHTML = `
+                    <i class="fas ${getSortIcon(currentSort)}"></i>
+                    ${sortLabelMap[currentSort]}
+                `;
+            }
+        }
+        
+        function applySort(sortType) {
+            // Build URL parameters
+            const urlParams = new URLSearchParams();
+            
+            // Add search term if exists
+            const searchInput = document.getElementById('searchInput');
+            if (searchInput && searchInput.value.trim()) {
+                urlParams.set('search', searchInput.value.trim());
+            }
+            
+            // Add status filter if not 'all'
+            if (currentStatus !== 'all') {
+                urlParams.set('status', currentStatus);
+            }
+            
+            // Add sort if not default
+            if (sortType !== 'name_asc') {
+                urlParams.set('sort', sortType);
+            }
+            
+            // Redirect with new parameters
+            window.location.href = window.location.pathname + '?' + urlParams.toString();
         }
 
         function getSortIcon(sortType) {
@@ -1097,66 +1610,8 @@
             return 'fa-sort';
         }
 
-        // =================== Filter & Search Logic ===================
-        function filterMentees() {
-            const input = document.getElementById('searchInput');
-            const filter = input.value.toLowerCase();
-            const rows = document.getElementsByClassName('mentee-row');
-
-            // Get current status filter
-            const activeStatusItem = document.querySelector('.status-dropdown-item.active');
-            const statusFilter = activeStatusItem ? activeStatusItem.getAttribute('data-status') : 'all';
-
-            for (let i = 0; i < rows.length; i++) {
-                const row = rows[i];
-                const text = row.textContent.toLowerCase();
-                const status = row.getAttribute('data-status');
-                const assignment = row.getAttribute('data-assignment'); // If we want to filter by assignment too, but UI doesn't have it explicitly yet
-
-                let matchesSearch = text.includes(filter);
-                let matchesStatus = (statusFilter === 'all') || (status === statusFilter) || (statusFilter === 'unassigned' && assignment === 'unassigned');
-
-                if (matchesSearch && matchesStatus) {
-                    row.style.display = '';
-                } else {
-                    row.style.display = 'none';
-                }
-            }
-            applySorting();
-        }
-
-        function clearSearch() {
-            document.getElementById('searchInput').value = '';
-            filterMentees();
-        }
-
-        // =================== Sorting Logic ===================
-        function applySorting() {
-            const tbody = document.getElementById('menteeTableBody');
-            const rows = Array.from(tbody.querySelectorAll('.mentee-row'));
-
-            rows.sort((a, b) => {
-                const aName = a.getAttribute('data-mentee-name').toLowerCase();
-                const bName = b.getAttribute('data-mentee-name').toLowerCase();
-                const aId = a.getAttribute('data-mentee-id');
-                const bId = b.getAttribute('data-mentee-id');
-
-                switch (currentSort) {
-                    case 'name_asc': return aName.localeCompare(bName);
-                    case 'name_desc': return bName.localeCompare(aName);
-                    case 'id_asc': return aId.localeCompare(bId);
-                    default: return 0;
-                }
-            });
-
-            rows.forEach(row => tbody.appendChild(row));
-        }
-
         // Initialize
         document.addEventListener('DOMContentLoaded', function () {
-            // Initial sort
-            applySorting();
-
             // Close dropdowns on click outside
             document.addEventListener('click', function (event) {
                 if (!event.target.closest('.status-filter-dropdown') && statusDropdownOpen) closeStatusDropdown();

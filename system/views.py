@@ -1045,30 +1045,53 @@ def mentor_view_mentee(request, mentee_id):
 
 @login_required
 def view_assigned_mentees(request):
-    """View for mentor to see mentees with search functionality for all mentees"""
+    """View for mentor to see mentees with search functionality"""
     if request.user.role != 'mentor':
         messages.error(request, 'Access denied. Mentor role required.')
         return redirect('homepage')
     
     mentor = get_object_or_404(Mentor, user=request.user)
     
-    # Get ALL mentees initially (not just assigned ones)
+    # Get assigned mentees for this mentor
+    assigned_mentees = Mentee.objects.filter(assigned_mentor=mentor)
+    
+    # Get ALL mentees initially for stats and search capability
     all_mentees = Mentee.objects.all().select_related('assigned_mentor')
     
-    # Get assigned mentees for statistics
-    assigned_mentees = all_mentees.filter(assigned_mentor=mentor)
+    # DEFAULT: Show only assigned mentees
+    display_mentees = assigned_mentees
     
     # Handle search functionality
     search_query = request.GET.get('search', '')
-    filtered_mentees = all_mentees
+    is_searching = False
     
     if search_query:
-        filtered_mentees = all_mentees.filter(
+        is_searching = True
+        # When searching, show ALL mentees that match the search
+        display_mentees = all_mentees.filter(
             Q(MenteeID__icontains=search_query) |
             Q(MenteeName__icontains=search_query) |
             Q(MenteeCourse__icontains=search_query) |
             Q(assigned_mentor__MentorName__icontains=search_query)
         )
+    
+    # Handle status filter
+    status_filter = request.GET.get('status', 'all')
+    if status_filter != 'all':
+        display_mentees = display_mentees.filter(MenteeStatus=status_filter)
+    
+    # Handle sort
+    sort_by = request.GET.get('sort', 'name_asc')
+    if sort_by == 'name_asc':
+        display_mentees = display_mentees.order_by('MenteeName')
+    elif sort_by == 'name_desc':
+        display_mentees = display_mentees.order_by('-MenteeName')
+    elif sort_by == 'id_asc':
+        display_mentees = display_mentees.order_by('MenteeID')
+    elif sort_by == 'id_desc':
+        display_mentees = display_mentees.order_by('-MenteeID')
+    elif sort_by == 'course_asc':
+        display_mentees = display_mentees.order_by('MenteeCourse', 'MenteeName')
     
     # Calculate statistics (for assigned mentees only)
     active_mentees_count = assigned_mentees.filter(MenteeStatus='active').count()
@@ -1078,12 +1101,16 @@ def view_assigned_mentees(request):
     context = {
         'mentor': mentor,
         'assigned_mentees': assigned_mentees,  # For statistics
-        'all_mentees': filtered_mentees,       # For display in table
+        'display_mentees': display_mentees,    # For display in table
         'active_mentees_count': active_mentees_count,
         'male_mentees_count': male_mentees_count,
         'female_mentees_count': female_mentees_count,
         'search_query': search_query,
+        'status_filter': status_filter,
+        'sort_by': sort_by,
+        'is_searching': is_searching,
         'total_mentees_count': all_mentees.count(),  # Total in system
+        'assigned_count': assigned_mentees.count(),  # Count of assigned mentees
     }
     
     return render(request, 'view_mentees.html', context)
